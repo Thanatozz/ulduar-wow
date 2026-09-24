@@ -1,0 +1,671 @@
+{
+  "kind": "R1_RELEASE_EVIDENCE_REVISION",
+  "productionManifest": false,
+  "releaseCandidate": "ULDuar-V1-PREVIEW-CANDIDATE",
+  "releaseId": null,
+  "locale": "enUS",
+  "membershipInheritedUnchanged": "ULDuar_A10_RELEASE_MEMBERSHIP.json",
+  "clientTableGate": "PARTIAL",
+  "namespaceGate": "PARTIAL",
+  "artifactAuthoringGate": "BLOCKED",
+  "archives": [
+    {
+      "path": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+      "size": 1810430636,
+      "sha256": "9c605d95443172bdfd7c6936bc636684761241657935c22da25f955083809f43",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 43083,
+      "apparentPriority": 6,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/common.MPQ",
+      "size": 2881154862,
+      "sha256": "d850ffa5efd6a1ba845899a7d9f9ad27f6eea7ac606e95033506c72c86ee0236",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 83670,
+      "apparentPriority": 7,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/backup-enUS.MPQ",
+      "size": 167245856,
+      "sha256": "9f52f932db31c407a1fb043aed715ed29c20e9a6e7446db9e2fa9408c960f6a5",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 192,
+      "apparentPriority": null,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "OUT_OF_RELEASE",
+      "archiveClassification": "BACKUP",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "docs/architecture/22_MPQ_PATCH_STRATEGY.md: package allowlist excludes backups"
+      ],
+      "decision": "Exclude backup from canonical release; do not delete local file or claim native loader ignores it",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/base-enUS.MPQ",
+      "size": 29176975,
+      "sha256": "c02b13b4b85eb59b8a3557442e69b376fa5d491092ebaa2beeac979ddbd4514e",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 188,
+      "apparentPriority": 17,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/expansion-locale-enUS.MPQ",
+      "size": 17389181,
+      "sha256": "c9f27ce716b7195776929e8e3a7faeeaa15522215be47611c101dd5b1d8845c1",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 420,
+      "apparentPriority": 14,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/expansion-speech-enUS.MPQ",
+      "size": 241033297,
+      "sha256": "b9d9d13fc46251248ac9a36893ef6e275de43aadff5b89871dfeca7165d92cf5",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 1502,
+      "apparentPriority": 13,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/lichking-locale-enUS.MPQ",
+      "size": 12354378,
+      "sha256": "89b1eba015927e321683a3867be1b8a76e593c438527eb42f4934d03484f1b04",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 55,
+      "apparentPriority": 12,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/lichking-speech-enUS.MPQ",
+      "size": 354008839,
+      "sha256": "8fc28d2f26d4b00db1884577cfa82769c234a8177b3827b5fae59dc006e6705f",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 1846,
+      "apparentPriority": 11,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/locale-enUS.MPQ",
+      "size": 204291376,
+      "sha256": "45f02a3bf3964b169f397cea58113cdce5fa7bdf58d4b63f68e46255bb3bd3ea",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "YES",
+      "listedMemberCount": 11054,
+      "apparentPriority": 16,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "size": 225570171,
+      "sha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "YES",
+      "listedMemberCount": 2337,
+      "apparentPriority": 9,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 100373935,
+      "sha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "YES",
+      "listedMemberCount": 949,
+      "apparentPriority": 8,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS.MPQ",
+      "size": 296616080,
+      "sha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "YES",
+      "listedMemberCount": 5398,
+      "apparentPriority": 10,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/enUS/speech-enUS.MPQ",
+      "size": 438430439,
+      "sha256": "bfd2c4bf07213736bae28e1c8f49bf60783e12545ac555016d6f22441f7c793d",
+      "classification": "UNKNOWN",
+      "locale": "enUS",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 5106,
+      "apparentPriority": 15,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/expansion.MPQ",
+      "size": 1921219911,
+      "sha256": "34a19723d773997b31ec72a16361af8bdd8cc38d108274b9b8a96521ec2c4f4a",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 11871,
+      "apparentPriority": 5,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/lichking.MPQ",
+      "size": 2553948549,
+      "sha256": "8456e92d47f2bc71efba30fcabd4fea8c5ef0d93feef320ba51ffeeacf78de9d",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 16179,
+      "apparentPriority": 4,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/patch-2.MPQ",
+      "size": 1401729059,
+      "sha256": "c8b78bb75bcf5773e9ae99e11bdfcabc2a37aed3da947367d8af808d4d3c23c6",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 11811,
+      "apparentPriority": 2,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/patch-3.MPQ",
+      "size": 605089137,
+      "sha256": "56dbbfc8f9ce7182ca88538d75284e738020138a7ca4217d72d8168865510dd3",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 2994,
+      "apparentPriority": 1,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/patch-U.MPQ",
+      "size": 22742,
+      "sha256": "45e72ae9152f94290be0b3632c12a983a67a91edbd505b7540b74e5ac87b2497",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 16,
+      "apparentPriority": 0,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "M2 Editor/test_patch/installations receipt matching build-d2f8dda3",
+        "M2 Editor/test_patch/output/build-d2f8dda3/patch-manifest.json"
+      ],
+      "decision": "Select exact installed asset-only patch with matching receipt; no carrier DBC inferred; native precedence unproved",
+      "nativePriority": "UNRESOLVED"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/Data/patch.MPQ",
+      "size": 4004713057,
+      "sha256": "92b4a94a6c7a23c0b9fd88c47823e41792879a7ee1f70c2349a255153ca25d54",
+      "classification": "UNKNOWN",
+      "locale": "base",
+      "containsRelevantDBC": "NO",
+      "listedMemberCount": 41160,
+      "apparentPriority": 3,
+      "priorityEvidence": "Conditional editor base-overrides model; native loader precedence unproved",
+      "approvedTargetOptional": false,
+      "membership": "IN_RELEASE",
+      "archiveClassification": "IN_RELEASE",
+      "evidenceSources": [
+        "A10 user sections3,6",
+        "A9 read-only archive member/hash inventory",
+        "src/tools/map_extractor/System.cpp archive/locale lists",
+        "M2 Editor/docs/client-assets.md",
+        "A9 member dependency graph"
+      ],
+      "decision": "Select actual baseline/locale/patch package backing the named client; membership decision, not native load-order proof",
+      "nativePriority": "UNRESOLVED"
+    }
+  ],
+  "coreModule": {
+    "coreRevision": "d7ce67dc1800f092bac98aad680ece1c201b89a0",
+    "coreDirtyFingerprint": "4ebe2a2d6c2fd709c9822e0a38fb73733c36bea59cf8b455c02695320f4d3768",
+    "moduleRevision": "5f51c5e012b153b1edae00af2b0e11a9d45ba62d",
+    "moduleFingerprint": "7401078d905d4eb2879d7e79f01c7b253d8bf657958c8d6e5fbc1141590d5773"
+  },
+  "effectiveClientTables": [
+    {
+      "member": "DBFilesClient\\Spell.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 48967121,
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "present": true,
+      "tableName": "Spell",
+      "format": "WDBC",
+      "rowCount": 49839,
+      "fieldCount": 234,
+      "recordBytes": 936,
+      "minId": 1,
+      "maxId": 80864,
+      "idSetSha256": "a32ff4fb626b70f388f591bfb9dfcef4da6fab321559ec219fc2798b4fa903b0",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    },
+    {
+      "member": "DBFilesClient\\SpellRange.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 11480,
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "present": true,
+      "tableName": "SpellRange",
+      "format": "WDBC",
+      "rowCount": 64,
+      "fieldCount": 40,
+      "recordBytes": 160,
+      "minId": 1,
+      "maxId": 187,
+      "idSetSha256": "0c1f6477b9226a94565d334fa72357345d652e206cdfc8ef42763260c134bae1",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    },
+    {
+      "member": "DBFilesClient\\SpellCastTimes.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "size": 1141,
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "present": true,
+      "tableName": "SpellCastTimes",
+      "format": "WDBC",
+      "rowCount": 70,
+      "fieldCount": 4,
+      "recordBytes": 16,
+      "minId": 1,
+      "maxId": 209,
+      "idSetSha256": "f2599871cd8c6ce71f1db09afc5193264e80283199a0fa3f8590b2c51058874d",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisual.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 1203989,
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "present": true,
+      "tableName": "SpellVisual",
+      "format": "WDBC",
+      "rowCount": 9406,
+      "fieldCount": 32,
+      "recordBytes": 128,
+      "minId": 1,
+      "maxId": 16679,
+      "idSetSha256": "1d9eedd64fbf50d586e1062944d1c34e7235af58b78e0ad2cdb220bcfc798d8b",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    },
+    {
+      "member": "DBFilesClient\\SpellIcon.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 151540,
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "present": true,
+      "tableName": "SpellIcon",
+      "format": "WDBC",
+      "rowCount": 3226,
+      "fieldCount": 2,
+      "recordBytes": 8,
+      "minId": 1,
+      "maxId": 4375,
+      "idSetSha256": "3bfe1c5011bcc2da2cbbac1d18b857cf673d57d630b9c275e014ed80d68ba9f8",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    },
+    {
+      "member": "DBFilesClient\\SkillLineAbility.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 572285,
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "present": true,
+      "tableName": "SkillLineAbility",
+      "format": "WDBC",
+      "rowCount": 10219,
+      "fieldCount": 14,
+      "recordBytes": 56,
+      "minId": 69,
+      "maxId": 21980,
+      "idSetSha256": "1e1973df5dd8e7d8ab2fe1171b2bfad041ae7abb68b5598efa86b2f61768f544",
+      "effectiveEvidence": "A9 direct member/hash evidence plus R1 partial native precedence documentation",
+      "confidence": "HIGH member bytes; conditional native selection",
+      "status": "CONDITIONAL",
+      "evidenceLevel": "SOURCE_ONLY",
+      "nativeClientEvidence": "PARTIAL: build12340 applicability and unnumbered-vs-numbered locale rule not directly established",
+      "editorToolPolicy": "A9 conditional enUS base-overrides selection",
+      "membership": "IN_RELEASE",
+      "inference": "Would be effective under that order; not established for native executable",
+      "precedenceEvidence": "ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "docs/audits/ULDuar_A10_RELEASE_MEMBERSHIP.json",
+      "sha256": "bcb5add0e7eedc76b69f1d1943f151ee67c66774ad52749a8d13c88d27c0571c"
+    },
+    {
+      "path": "docs/audits/ULDuar_A10_EFFECTIVE_CLIENT_TABLES.json",
+      "sha256": "1c53793d19ed96ad4a348b904e5c7ac793fb972630b56613fe247129f89bcb8d"
+    },
+    {
+      "path": "docs/audits/ULDuar_A10_NAMESPACE_CANDIDATE_EVIDENCE.json",
+      "sha256": "92c9eae7fe8d9849c4115ff10123849c8e85239541758ef020b87de4da5f5129"
+    },
+    {
+      "path": "docs/audits/ULDuar_A9_MPQ_MEMBER_INVENTORY.json",
+      "sha256": "e491fe39c82e3897ef476e657a8817b1a6f175f74c1fa3272704c0af6ac99f7b"
+    },
+    {
+      "path": "docs/audits/ULDuar_A8_DATA_INVENTORY.json",
+      "sha256": "21ca9cfe33b731d8aa19006c0fb97a7dfa6b023228d6f1a340cde3bb1534cda3"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_PROTECTED_FILE_HASHES.json",
+      "sha256": "173d6b53a4548c66087759985d3f76da6c6e2db4a5e58c39899ecd4086fc3318"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SUPPLEMENTAL_HASHES.json",
+      "sha256": "b20f282e4fcfc1601f45164a8abaa279e37330bd22a02426f02ad4dd249bec1c"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_EFFECTIVE_CLIENT_TABLES.json",
+      "sha256": "5b9078075fbcdd03fb0e53f8a9b7669fdf6be94e22bbd6902177ecced6095ee8"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_NAMESPACE_90000_90023.json",
+      "sha256": "7d5d7d6180afcc9ceab603efcc327556a99af62f5bdd30a977a0bde6633e0078"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_TYPED_REFERENCE_REVIEW.json",
+      "sha256": "9fcbb9f7f15f34008fc08630fe963dedf30e592f3685ea9ce0ec605070227cc4"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_LITERAL_HITS.json",
+      "sha256": "0132fcf3c3232d75e8cae0c23d86b32b94ff74c84ff9986288ef3a710b58088a"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_COMPUTED_REFERENCE_SEARCH.json",
+      "sha256": "5fac44389d0ec7dd7b091549ab77b892c8f2e12d4ebd07d39b505d5ef4ca2844"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SQL_EXPRESSION_SEARCH.json",
+      "sha256": "220914fb034392f825d2018c5e9ecdacbcee20437e8adc17988cc776749f6bdf"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_HISTORY_90000_90023.json",
+      "sha256": "29aaaedbc529380f00bf571507672ef083fc32779a25e5a91287f96175175d7e"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md",
+      "sha256": "05a9b3c650c83bf3b4af3500b433e751368e824c0f801b872216270b5d52a8ea"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_INHERITED_EVIDENCE_CHECK.json",
+      "sha256": "397fc11a0f3ad2b73788c4e7c322651b5d3233e66c4246547cb87695841efa1d"
+    },
+    {
+      "path": "docs/audits/ULDuar_A10_ADDITIONAL_EVIDENCE_HASHES.json",
+      "sha256": "79784c90fcea4bad180087799b419de9383fd796db3dc1b4922cd7695bb477e9"
+    }
+  ],
+  "publicationAuthority": "No supported-publication or rollback ledger found; no attestation received",
+  "noReservation": true
+}

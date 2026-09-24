@@ -1,0 +1,23 @@
+## Interface: 30300
+## Title: Ulduar Abilities
+## Notes: Ulduar Modular Abilities - official character ability configuration.
+## Author: Ulduar WoW
+## Version: 1.5.0
+## SavedVariables: UlduarAbilitiesDB
+
+Core.lua
+Protocol.lua
+DraftBuild.lua
+AbilityTooltip.lua
+Views\UlduarTemplates.xml
+Widgets\Theme.lua
+Widgets\Node.lua
+Widgets\Connections.lua
+Widgets\ScrollList.lua
+Widgets\Tabs.lua
+AbilityList.lua
+AbilityTree.lua
+AbilityDetails.lua
+UlduarFrame.lua
+UlduarMicroButton.lua
+SpellBookIntegration.lua

@@ -1,0 +1,85 @@
+{
+  "completedUtc": "2026-09-21T16:47:10.685821+00:00",
+  "namespaceGate": "PASS_STATIC",
+  "reservationStatus": "RESERVED",
+  "protectedFilesChecked": 9724,
+  "modifiedExistingFiles": [
+    {
+      "path": "C:\\WoWProjecto\\ulduar-wow\\docs\\implementation\\ULDuar_PHASE_R1_CLOSURE.md",
+      "preSha256": "ad7b27759114be6d14ac7a7550d4f5f1be8df9f1af6b37f2cc1f4fe0bfe02071",
+      "postSha256": "e4691c5b31d6a2c77d168ccbfbcdf28b235da1bb2796f7d1d852253014e7e21c"
+    }
+  ],
+  "missing": [],
+  "removed": [],
+  "newFiles": [
+    "docs/audits/ULDuar_R1_RESERVATION_PRE_SNAPSHOT.json",
+    "docs/audits/ULDuar_R1_CLOSURE_BEFORE_RESERVATION.md",
+    "docs/audits/ULDuar_R1_MAINTAINER_HISTORY_DECLARATION.json",
+    "docs/architecture/ULDuar_ID_ALLOCATION_LEDGER.md",
+    "docs/audits/ULDuar_R1_CLOSURE_EVIDENCE_MANIFEST.json",
+    "docs/data/ulduar_id_allocations.json",
+    "docs/audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.json",
+    "docs/audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.md",
+    "docs/audits/ULDuar_R1_RESERVATION_PRESERVATION.json"
+  ],
+  "createdFileHashes": [
+    {
+      "path": "docs/audits/ULDuar_R1_RESERVATION_PRE_SNAPSHOT.json",
+      "sha256": "9ed7449802c5dea4518b1acc992003b7a2184282e5717328285ae0f4307efbdb"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_BEFORE_RESERVATION.md",
+      "sha256": "ad7b27759114be6d14ac7a7550d4f5f1be8df9f1af6b37f2cc1f4fe0bfe02071"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_MAINTAINER_HISTORY_DECLARATION.json",
+      "sha256": "f64862dac4ae577031575ea11938b49c3241dc44353b5a09f454904a73f91cf8"
+    },
+    {
+      "path": "docs/architecture/ULDuar_ID_ALLOCATION_LEDGER.md",
+      "sha256": "497f6b5bcd6d7be181f473a27c38f7cf08af1c778cb7987fc27d7113da5e07b4"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_EVIDENCE_MANIFEST.json",
+      "sha256": "4fedec09b272197bf052a3940e351cfedcaf53a826f22046ce8b136012f6ca81"
+    },
+    {
+      "path": "docs/data/ulduar_id_allocations.json",
+      "sha256": "9d626913347efd63755a8f4b96ad58d4b4e1d4b7626ae10f6bd0f2805ef77bd0"
+    },
+    {
+      "path": "docs/audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.json",
+      "sha256": "a6505f7fcf8907fb6acb968c7fa970e9376607cbcfc7eb6286ce1c7485c80f8a"
+    },
+    {
+      "path": "docs/audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.md",
+      "sha256": "2d05fe2ab7857a32cac4c9dab1e8bfe487bc6d2a9390ea757a110d7f8721505f"
+    }
+  ],
+  "documentationDiff": "--- closure-before-reservation\n+++ closure-complete\n@@ -1,35 +1,48 @@\n-# ULDuar Phase R.1 closure â€” authority gate pending\n+# ULDuar Phase R.1 closure â€” formal carrier namespace reservation\n \n-Date: 2026-09-21. Documentation/evidence review only. No reservation was made.\n+Date: 2026-09-21. Documentation/ledger phase only. Spell 90000..90023 is now formally RESERVED.\n \n ## Decision\n \n | Gate | Result |\n | --- | --- |\n-| PHASE_R1_CLOSURE_STATUS | PARTIAL |\n-| MAINTAINER_HISTORY_AUTHORITY | MISSING |\n+| PHASE_R1_CLOSURE_STATUS | COMPLETE |\n+| MAINTAINER_HISTORY_AUTHORITY | CONFIRMED |\n | V0_GATE | PASS |\n | CLIENT_TABLE_GATE | PASS_RUNTIME_EVIDENCE |\n | INSTALLED_WORLD_90000_90023 | EMPTY |\n | STATIC_NAMESPACE_CONFLICTS | 0 in the reviewed R.1 evidence |\n | COMPUTED_OWNER | NO_COMPUTED_OWNER_FOUND_STATIC |\n-| SUPPORTED_HISTORICAL_OWNER | Not attested; no claim found in the prior local screen |\n-| NAMESPACE_GATE | PARTIAL |\n-| RESERVATION_STATUS | NOT_RESERVED |\n-| LEDGER / RESERVATION_CERTIFICATE | NOT_WRITTEN / NOT_ISSUED |\n-| ARTIFACT_AUTHORING_GATE | BLOCKED |\n+| SUPPORTED_HISTORICAL_OWNER | NONE, by explicit maintainer declaration |\n+| NAMESPACE_GATE | PASS_STATIC |\n+| NAMESPACE_STATUS | NAMESPACE_RESERVED |\n+| RESERVATION_STATUS | RESERVED |\n+| RESERVATION_REVISION | R1-CARRIER-RESERVATION-001 |\n+| LEDGER / RESERVATION_CERTIFICATE | CREATED / ISSUED |\n+| ARTIFACT_AUTHORING_GATE | READY |\n | DEPLOYMENT_ADMISSION | REQUIRED |\n \n-The technical inputs satisfy the requested closure checks. The missing condition is the explicit project-maintainer\n-declaration required by section 0 of the request. Its conditional sample is not treated as a confirmed attestation.\n-The maintainer was asked to confirm the complete declaration in this conversation; no confirmation had been received\n-when this partial report was written. No production allocation entry, reservation revision or certificate is issued.\n+The maintainer explicitly confirmed the historical declaration after the technical checks were complete.\n+All conditions now pass, and the ledger contains the exact 24 independent carrier identities in one reservation\n+revision. No Spell row, SQL/DBC/MPQ artifact, runtime eligibility, entitlement or gameplay feature was created.\n \n-## Explicit authority required\n+| Transition | Before | After this closure |\n+| --- | --- | --- |\n+| PHASE_R1_STATUS | PARTIAL | COMPLETE |\n+| NAMESPACE_GATE | PARTIAL | PASS_STATIC |\n+| RESERVATION_STATUS | NOT_RESERVED | RESERVED |\n+\n+Original R.1/A.10/V.0 evidence is unchanged. The initial partial version of this closure report is preserved\n+byte-exact in [the pre-reservation report](../audits/ULDuar_R1_CLOSURE_BEFORE_RESERVATION.md).\n+\n+## Explicit maintainer authority\n \n Section 0 says: **\"If the declaration above has NOT been explicitly confirmed: DO NOT RESERVE THE IDS.\"**\n \n-The declaration still requiring explicit confirmation is:\n+The maintainer replied **\"confirmo que ninguna version asigna las ids\"** to the question confirming the complete\n+declaration for this interval. The reply and context are recorded in\n+[the history declaration](../audits/ULDuar_R1_MAINTAINER_HISTORY_DECLARATION.json).\n+The original R.1 Closure request authorizes establishing the first formal ledger. The confirmed declaration is:\n \n > Ulduar WoW has no published or currently supported release, and no supported rollback release, in which Spell IDs\n > 90000 through 90023 were assigned to a different purpose.\n@@ -39,8 +52,8 @@\n > The allocation ledger created by this phase will become the first formal Ulduar ownership authority for this\n > Spell-ID interval.\n \n-This is a project-governance fact, not another request to authorize the already requested documentation work.\n-File absence, successful V.0 tests and an empty installed-world interval cannot establish it.\n+This authority comes from the explicit maintainer response and request, not file absence, successful tests\n+or an empty installed-world interval. No broader claim about unrelated historical namespaces is made.\n \n ## Verified technical evidence\n \n@@ -56,8 +69,8 @@\n - R.1's 784 literal lines are classified as FALSE_POSITIVE, TEST_FIXTURE or OTHER_NAMESPACE; none remains an\n   actual Spell conflict or unknown literal line.\n - Computed C++/SQL reference reviews retain NO_COMPUTED_OWNER_FOUND_STATIC within their documented scope.\n-- The narrow historical inventory has 173 files and zero interval claims. Its publication/rollback authority was\n-  explicitly missing; this historical finding is retained, not silently promoted to a maintainer declaration.\n+- The narrow historical inventory has 173 files and zero interval claims. Its old missing-authority finding is\n+  retained; the new declaration independently closes supported-publication/rollback authority for this interval.\n - The inherited source/SQL/addon/config corpus matches the validated V.0 state. The CTest fix is retained.\n \n No new contradictory technical evidence was found. No alternative interval was searched. No broad architecture,\n@@ -84,37 +97,68 @@\n member inventory. No test-mutated table is adopted as a release input. No scope extension to other locales,\n builds, foreign databases, Ascension/TrinityCore packages or unsupported history is implied.\n \n-## Proposed mapping, not ownership\n+## Reserved mapping\n \n | IDs | Family | Copy indices | Status |\n | --- | --- | --- | --- |\n-| 90000..90005 | MeleeDamage | 0..5 | NOT_RESERVED |\n-| 90006..90011 | RangedProjectileDamage | 0..5 | NOT_RESERVED |\n-| 90012..90017 | MeleeHealing | 0..5 | NOT_RESERVED |\n-| 90018..90023 | RangedHealing | 0..5 | NOT_RESERVED |\n+| 90000..90005 | MeleeDamage | 0..5 | RESERVED |\n+| 90006..90011 | RangedProjectileDamage | 0..5 | RESERVED |\n+| 90012..90017 | MeleeHealing | 0..5 | RESERVED |\n+| 90018..90023 | RangedHealing | 0..5 | RESERVED |\n \n-The proposed mapping agrees with R.1. It describes 24 independent future identities, not ranks. The existing\n+The mapping agrees with R.1. It reserves 24 independent identities, not ranks. The existing\n 24-bit and sparse-index analysis remains unchanged: 90023 fits the 24-bit action identity; the client max-index\n illustration adds 9,159 positions, and the server SQL source model already reaches 100102. These facts do not\n waive ownership or admission requirements.\n \n-No ledger or success-shaped certificate was created. The compact final reservation evidence manifest and immutable\n-reservation revision remain unwritten until the authority gate closes. The technical review is expressly not\n-the reservation evidence manifest or the production ledger.\n+## Ledger, certificate and append-only authority\n+\n+The canonical [machine ledger](../data/ulduar_id_allocations.json) contains all 24 exact Spell IDs once,\n+with owner `mod-ulduar-abilities`, system AbilityForge, family/specKey, copy index, RESERVED status,\n+reservation date, release candidate, common revision/hash and null retirement release.\n+No other namespace is allocated. All entries share `R1-CARRIER-RESERVATION-001`.\n+\n+- Evidence manifest: [ULDuar_R1_CLOSURE_EVIDENCE_MANIFEST.json](../audits/ULDuar_R1_CLOSURE_EVIDENCE_MANIFEST.json).\n+  SHA-256: `4fedec09b272197bf052a3940e351cfedcaf53a826f22046ce8b136012f6ca81`.\n+- Ledger SHA-256: `9d626913347efd63755a8f4b96ad58d4b4e1d4b7626ae10f6bd0f2805ef77bd0`.\n+- Machine certificate: [ULDuar_CARRIER_NAMESPACE_RESERVATION.json](../audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.json).\n+  SHA-256: `a6505f7fcf8907fb6acb968c7fa970e9376607cbcfc7eb6286ce1c7485c80f8a`.\n+- Human certificate: [ULDuar_CARRIER_NAMESPACE_RESERVATION.md](../audits/ULDuar_CARRIER_NAMESPACE_RESERVATION.md).\n+- Operational policy: [ULDuar_ID_ALLOCATION_LEDGER.md](../architecture/ULDuar_ID_ALLOCATION_LEDGER.md).\n+\n+The compact manifest individually hashes the R.1/V.0 input reports, release selection, new declaration,\n+preservation record and policy. It excludes the downstream ledger/certificate, so there is no hash cycle.\n+Raw-log directories are not the ledger identity. No fabricated Git revision is used.\n+\n+The ledger is append-only in policy. Original allocation records remain immutable; lifecycle changes append\n+authorized events. INTRODUCED requires a supported production artifact; RETIRED_TOMBSTONE permanently retains\n+ownership. Never delete an allocation, reuse a retired identity or silently renumber an introduced identity.\n+The old A.7 namespace document remains a historical design record; the new operational policy implements its\n+ledger intent with the R.1-approved lifecycle. No competing numeric ledger existed.\n \n ## Preservation and exact next step\n \n-[The pre-write snapshot](../audits/ULDuar_R1_CLOSURE_PRE_SNAPSHOT.json) records 9,720 protected existing\n-source/data/document hashes and no inherited V.0 source-data drift. No prior report or allocation policy was edited.\n-The only writes are new closure audit/report files. In particular `src/test/CMakeLists.txt` is not reverted.\n-The post-review preservation result is recorded in `ULDuar_R1_CLOSURE_PRESERVATION.json`.\n+[The initial snapshot](../audits/ULDuar_R1_CLOSURE_PRE_SNAPSHOT.json) recorded 9,720 protected files before the\n+partial review. [The reservation snapshot](../audits/ULDuar_R1_RESERVATION_PRE_SNAPSHOT.json) then recorded\n+9,724 protected existing source/data/document hashes before reservation writes, with no baseline drift.\n+The only modified existing document is this closure report, updated from PARTIAL to COMPLETE; its old bytes\n+are archived. Original phase reports, prior audits and the historical namespace policy remain unchanged.\n+`src/test/CMakeLists.txt` retains the validated V.0 correction.\n+\n+The exact pre/post report hashes, documentation diff and new-file inventory are recorded in\n+`ULDuar_R1_RESERVATION_PRESERVATION.json`. Only new ledger/policy/certificate/audit documents and this closure\n+report were written. There are no removed files or source/data changes.\n \n Expected changes to existing CPP/LUA/SQL/DBC/MPQ/CLIENT/CONFIG files: zero. No runtime operation, compiler,\n build system, project test, server, client, live database connection or data generator was used in this phase.\n \n-NEXT_SAFE_PHASE: **R1 CLOSURE REQUIRED**. Obtain the explicit declaration above, then finish the already requested\n-manifest/ledger/certificate transaction using these checked inputs. Until then the namespace is NOT_RESERVED.\n-After any eventual reservation, deployment must still verify the intended release, build/locale, effective table\n+NEXT_SAFE_PHASE: **CARRIER ARTIFACT AUTHORING**, separately authorized and isolated. No next phase is started here.\n+ARTIFACT_AUTHORING_GATE=READY means specification, identity and input evidence are available for authoring;\n+it does not mean custom carriers are RuntimeEligible, runtime support is complete, custom-client behavior is\n+validated or deployment is authorized. The three source seams remain frozen, unimplemented proposals.\n+\n+**DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**\n+Deployment must verify the intended release, build/locale, effective table\n hashes, server/module state, ledger revision, expected SQL state and absence of conflicting foreign ownership.\n Conflicts fail closed: no overwrite, deletion, silent renumbering or automatic foreign migration.\n \n@@ -128,3 +172,7 @@\n NO MPQ WAS GENERATED OR MODIFIED.\n NO CLIENT PATCH WAS APPLIED.\n NO CARRIER SPELL ROW WAS CREATED.\n+\n+SPELL IDS 90000..90023 ARE NOW RESERVED IN THE ULDUAR ALLOCATION LEDGER.\n+THEY ARE RESERVED IDENTITIES ONLY.\n+NO SPELL ROWS HAVE BEEN CREATED.\n",
+  "sourceDataChanges": {
+    "CPP": 0,
+    "LUA": 0,
+    "SQL": 0,
+    "DBC": 0,
+    "MPQ": 0,
+    "CLIENT": 0,
+    "CONFIG": 0,
+    "CMAKE": 0
+  },
+  "v0CtestFixPreserved": true,
+  "documentationInspection": {
+    "ledgerReadable": true,
+    "exactUniqueIds": 24,
+    "allStatusesReserved": true,
+    "mappingCorrect": true,
+    "commonManifestHashCorrect": true,
+    "inputReportHashesMatch": true,
+    "certificateLedgerHashMatches": true,
+    "priorClosureArchivedByteExact": true,
+    "localLinksResolved": 16,
+    "projectTestsExecuted": 0
+  },
+  "executionScope": "Standalone text/JSON/SHA-256 inspection and documentation/ledger writes only; no build/test/project executable, database, client, DBC/MPQ operation."
+}

@@ -1,0 +1,263 @@
+{
+  "status": "PASS",
+  "toolchain": {
+    "status": "PASS",
+    "backend": "Existing M2 Editor StormLibBackend / StormLib 9.40 Unicode x64",
+    "archive": "C:\\WoWProjecto\\validation\\V0\\mpq\\V0-Toolchain-Only.mpq",
+    "archiveSha256": "c1840c7b5c940fc7310c6d2322279bfc8c9df8082ffa2f7ac1fb57a1c183c066",
+    "members": [
+      {
+        "member": "DBFilesClient\\TestValidationFile.txt",
+        "size": 73,
+        "sha256": "f63a11756c3aeb33381d1473b568c1eb872a1fb225a5e48b1a9d0ae858c2e2f8",
+        "bytesEqual": true,
+        "listed": true
+      },
+      {
+        "member": "DBFilesClient\\V0_SpellRange_Fixture.dbc",
+        "size": 11640,
+        "sha256": "9963ef19e079aa4c7f93f6d050445488fb8b846b10188effde2fc1cb14b207b8",
+        "bytesEqual": true,
+        "listed": true
+      }
+    ],
+    "canonicalClientChanged": false
+  },
+  "toolInputHashes": [
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\parser.py",
+      "sha256": "863bc6eddb3a0991c98c5589bfc6a91c2115f186a6f68f0f2659a822e63f154e"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\registry.py",
+      "sha256": "9b758b662d072067194abacc6686587e8732a6d7b50abc91390e7b30c4de8947"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\schemas.py",
+      "sha256": "5e8d6db99d908563b6869f27f4dd773d9426cef90d4c6496267f461794de968b"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\validation.py",
+      "sha256": "154abfe7e90e91ad80f594a1a56f4d402a9c5177902a14802a00829327f8e5ab"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\writer.py",
+      "sha256": "2bb23caed56edbab845ef1cebf7068326a38ae469fe409349934264616cee0d7"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\dbc\\__init__.py",
+      "sha256": "16d4f6a102319b769ca67df06641ea79c1bc94e89cde7c680c3b6f3f0de13e6d"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\blp.py",
+      "sha256": "c88dbebed3f0752663a209ba99512f7d051268470812957d43b7ac74eda143cf"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\config.py",
+      "sha256": "95b5253642ae96569e33eb5a8dc5493701268cd3154d236b7ae4535f5db937cf"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\dependencies.py",
+      "sha256": "91e1e3e36c5736b092cf8a44d1e71f70e3dc1ff1791e600c8995ff0497a9fef7"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\install.py",
+      "sha256": "c33fc48c0b684e6cc712a425099faa2378968c96640679cb9231a35b9817ef14"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\mpq.py",
+      "sha256": "442cfc7feb93cff7a39ea4d0ff8547845b6af1798bc163c50b584849b1b7d517"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\patch.py",
+      "sha256": "f080254e8947a3dc26ccd7a55231eab057a751baba1be9485095ad919fd6609a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\paths.py",
+      "sha256": "df1eb5c3c996e0fc7a2851baa6b0d3d142017c773a771402d67ea6cf03cf12cf"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\preview.py",
+      "sha256": "efb0ade9ecff8499563e27216b1f49e6434da1609d88596f716af4cab8984a0a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\resolver.py",
+      "sha256": "0a090cb5e9092bd092c5060cc1630a20c8c6636f4ab5fe22a6750600157698a8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\service.py",
+      "sha256": "69a028e0da3c7db13be5a77fd1cc6180c509ebbdf7417456a25e9fb32a3587db"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\texture_browser.py",
+      "sha256": "cb41d56ff6eaefe05c894238147055d7d2242b63bf346cc1ec903c68a782f7a0"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\client\\__init__.py",
+      "sha256": "1acc5461788a094768862f9f0bd8b8fa0970eebb6e9ccce010dd8e303019ece5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\src\\m2\\writer.py",
+      "sha256": "3ccc91df2dad55103cef53bea0f4988feb5a1474d969d10f8ae463598f757aae"
+    },
+    {
+      "path": "C:\\WoWProjecto\\M2 Editor\\vendor\\stormlib\\StormLib.dll",
+      "sha256": "93321f6f030be5d7d79eb4cbf433d6ef7e83ce20d47d8963717f207d54afbe16"
+    }
+  ],
+  "precedenceFixture": {
+    "status": "PREPARED_NOT_OBSERVED",
+    "originalClientUnchanged": true,
+    "newSpellRows": 0,
+    "ids90000Through90023Used": false,
+    "baselineProbeBackup": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.baseline.lua",
+    "archives": [
+      {
+        "archive": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS.MPQ",
+        "backup": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS.MPQ",
+        "originalSha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99",
+        "fixtureArchiveSha256": "9b7cef1627149a34065b912e01da50ae4a8a944a4f939f2b771086d6365d1c7f",
+        "spell635Name": "V0_UNNUMBERED",
+        "castTimeRow20": 1111,
+        "members": [
+          {
+            "member": "DBFilesClient\\Spell.dbc",
+            "beforeSha256": "9f0088da35c5ed0b5106cd20e422611489e435b74043e520e02221e0ce1b1af1",
+            "fixtureSha256": "09af55cea2392920a9bff68bef0afedb958ee07907401c748b3a5a22a624e6f6",
+            "reopenByteEqual": true
+          },
+          {
+            "member": "DBFilesClient\\SpellCastTimes.dbc",
+            "beforeSha256": "5177252d58dd3fbfed00ac3d6fce8c645fc99a38ea9351f13bb5f850109713ba",
+            "fixtureSha256": "18246204f8c19b961eabd6a263424fd395a5cc37d5d33ff210c8172dcbddbd3d",
+            "reopenByteEqual": true
+          }
+        ]
+      },
+      {
+        "archive": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-2.MPQ",
+        "backup": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS-2.MPQ",
+        "originalSha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4",
+        "fixtureArchiveSha256": "bdd0257114ddd44d8ad2c99dd08794c86de1b2b2744f5ad8e8f99afd5426ec35",
+        "spell635Name": "V0_TWO",
+        "castTimeRow20": 2222,
+        "members": [
+          {
+            "member": "DBFilesClient\\Spell.dbc",
+            "beforeSha256": "f787eff381fb2e307c014d4f794e1fffd32e70dc9753b851b5e3526ad247eb07",
+            "fixtureSha256": "b086b712dc108e283d298c88f042b4b031dd82812449c801ec26e793e5af1cb4",
+            "reopenByteEqual": true
+          },
+          {
+            "member": "DBFilesClient\\SpellCastTimes.dbc",
+            "beforeSha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+            "fixtureSha256": "d6aa43a70a3193d7894167b27eea5ce08990aa8f131f669b0284200ea522a9e0",
+            "reopenByteEqual": true
+          }
+        ]
+      },
+      {
+        "archive": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-3.MPQ",
+        "backup": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS-3.MPQ",
+        "originalSha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299",
+        "fixtureArchiveSha256": "292312550a552813facf3003ec83002ae6df9da73270ed6d0b1351d0d2d60974",
+        "spell635Name": "V0_THREE",
+        "castTimeRow20": null,
+        "members": [
+          {
+            "member": "DBFilesClient\\Spell.dbc",
+            "beforeSha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+            "fixtureSha256": "14cfc41e039eebf79b2572302a0f9e76f9a7f1d7b9acfe2858998d0080ab26ac",
+            "reopenByteEqual": true
+          }
+        ]
+      }
+    ]
+  },
+  "productionWrites": false,
+  "precedenceRound2": {
+    "classification": "FIXTURE_DEFECT",
+    "problem": "Round 1 changed base only and retained minimum=2500, so duration marker could not discriminate.",
+    "round1Observed": "V0_THREE / 2500 ms; Spell table precedence established, cast-time precedence inconclusive",
+    "fix": "Set row20 base AND minimum to the same diagnostic value in each archive.",
+    "records": [
+      {
+        "archive": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS.MPQ",
+        "row20Before": [
+          20,
+          1111,
+          0,
+          2500
+        ],
+        "row20After": [
+          20,
+          1111,
+          0,
+          1111
+        ],
+        "memberSha256": "24b5d3281f9abd0aa8182fa11085a90dfcb74f36ead3b3d7d4608c196cd2f131",
+        "byteEquality": true
+      },
+      {
+        "archive": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-2.MPQ",
+        "row20Before": [
+          20,
+          2222,
+          0,
+          2500
+        ],
+        "row20After": [
+          20,
+          2222,
+          0,
+          2222
+        ],
+        "memberSha256": "2c5b06e70f45bf0866855de4137910f5c073df5f15c76c4a4fd57f1b67aac9fb",
+        "byteEquality": true
+      }
+    ]
+  },
+  "nativePrecedenceStatus": "PROVEN_BY_EXPERIMENT",
+  "nativePrecedenceResult": {
+    "status": "PROVEN_BY_EXPERIMENT",
+    "clientTableGate": "PASS_RUNTIME_EVIDENCE",
+    "build": "12340",
+    "locale": "enUS",
+    "observed": {
+      "spell635Name": "V0_THREE",
+      "castTimeMs": 2222,
+      "protocolReady": true,
+      "luaErrors": 0
+    },
+    "evidenceSources": [
+      "user report",
+      "saved variables"
+    ],
+    "probe": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.round2.lua",
+    "probeSha256": "7d7b7619ceac2827ad3444d8b9a75207893a2bb383ccefbf738464a672a5d27a",
+    "scope": "Selected 18-archive enUS diagnostic package only. Two instrumented table observations; other four selections use observed ordering plus the member inventory.",
+    "round1": "V0_THREE / 2500ms; fixture minimum retained 2500. Cast-time observation inconclusive.",
+    "round2": "Matched base/minimum markers; V0_THREE / 2222ms.",
+    "restoredArchives": [
+      {
+        "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS.MPQ",
+        "fixtureSha256": "b5af120e7c90fd05be139076375b319a158484ff924ac4b1cde082d594b04cb2",
+        "restoredSha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99",
+        "canonicalStillEqual": true
+      },
+      {
+        "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-2.MPQ",
+        "fixtureSha256": "6c5a7689fc847f570bf88d28b6bed4663f0e028c699602fa099996804021aeb8",
+        "restoredSha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4",
+        "canonicalStillEqual": true
+      },
+      {
+        "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-3.MPQ",
+        "fixtureSha256": "292312550a552813facf3003ec83002ae6df9da73270ed6d0b1351d0d2d60974",
+        "restoredSha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299",
+        "canonicalStillEqual": true
+      }
+    ],
+    "recordedUtc": "2026-09-21T05:24:31.778762+00:00"
+  }
+}

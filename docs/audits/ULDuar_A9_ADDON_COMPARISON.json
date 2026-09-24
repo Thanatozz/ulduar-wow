@@ -1,0 +1,128 @@
+[
+  {
+    "path": "ASSETS.md",
+    "sourceSha256": "f84c30c48214631b627a0138af5d2a9c322b5000978e189063131122f8bdea31",
+    "installedSha256": "f84c30c48214631b627a0138af5d2a9c322b5000978e189063131122f8bdea31",
+    "equal": true
+  },
+  {
+    "path": "AbilityDetails.lua",
+    "sourceSha256": "a092c79425626280a950758567833025d7d023419d4957c4b65dbf2397162d20",
+    "installedSha256": "a092c79425626280a950758567833025d7d023419d4957c4b65dbf2397162d20",
+    "equal": true
+  },
+  {
+    "path": "AbilityList.lua",
+    "sourceSha256": "0315871d9b7379ae7d3f9a4814326b0917d0eff5fa737ea0fcb23f81fdd6d046",
+    "installedSha256": "0315871d9b7379ae7d3f9a4814326b0917d0eff5fa737ea0fcb23f81fdd6d046",
+    "equal": true
+  },
+  {
+    "path": "AbilityTooltip.lua",
+    "sourceSha256": "01efc09a64a534dae029c85c82bb8cc102acc1b493feecf357b8a63a8944a579",
+    "installedSha256": "01efc09a64a534dae029c85c82bb8cc102acc1b493feecf357b8a63a8944a579",
+    "equal": true
+  },
+  {
+    "path": "AbilityTree.lua",
+    "sourceSha256": "9727a92b35be84390d896f97e4dbe256127a5553e3db0c293aed34c955987e97",
+    "installedSha256": "9727a92b35be84390d896f97e4dbe256127a5553e3db0c293aed34c955987e97",
+    "equal": true
+  },
+  {
+    "path": "Core.lua",
+    "sourceSha256": "244a81ce17b013182fad8259c2ff82db71af76b706f385d5212be6dffe4856a9",
+    "installedSha256": "244a81ce17b013182fad8259c2ff82db71af76b706f385d5212be6dffe4856a9",
+    "equal": true
+  },
+  {
+    "path": "DESIGN.md",
+    "sourceSha256": "6ece646b85f2cfc933ad6430b968e5397ab2872ff8877f04704948dc2edd031d",
+    "installedSha256": "6ece646b85f2cfc933ad6430b968e5397ab2872ff8877f04704948dc2edd031d",
+    "equal": true
+  },
+  {
+    "path": "DraftBuild.lua",
+    "sourceSha256": "509397dbe7704ccdcec231e7cbd8cc882b5f3cfadf73852edeb1fb75f9cad29b",
+    "installedSha256": "509397dbe7704ccdcec231e7cbd8cc882b5f3cfadf73852edeb1fb75f9cad29b",
+    "equal": true
+  },
+  {
+    "path": "PROTOCOL.md",
+    "sourceSha256": "927327e78d023512ac53cb04faf28e6d2db8919ee692f780ea9a901e17bc71ee",
+    "installedSha256": "927327e78d023512ac53cb04faf28e6d2db8919ee692f780ea9a901e17bc71ee",
+    "equal": true
+  },
+  {
+    "path": "Protocol.lua",
+    "sourceSha256": "f6c0dbe785499eab93ce28ef84ab590ede236651688cc7806d6a8ef956dbfb36",
+    "installedSha256": "f6c0dbe785499eab93ce28ef84ab590ede236651688cc7806d6a8ef956dbfb36",
+    "equal": true
+  },
+  {
+    "path": "README.md",
+    "sourceSha256": "4c07c299a6c3f7c85ba2a6bc0b7767dcc6afc2e89dde56124115980c946efb7a",
+    "installedSha256": "4c07c299a6c3f7c85ba2a6bc0b7767dcc6afc2e89dde56124115980c946efb7a",
+    "equal": true
+  },
+  {
+    "path": "SpellBookIntegration.lua",
+    "sourceSha256": "8e23f812845dd1c634343132a24b4c3d1d4f06310c374590611b4562e2c5b780",
+    "installedSha256": "8e23f812845dd1c634343132a24b4c3d1d4f06310c374590611b4562e2c5b780",
+    "equal": true
+  },
+  {
+    "path": "UlduarAbilities.toc",
+    "sourceSha256": "e5953ec5a1dc0dbb47b5ae8bd148f568c3e6af0dcacd4a185a0225b6fd860b3c",
+    "installedSha256": "e5953ec5a1dc0dbb47b5ae8bd148f568c3e6af0dcacd4a185a0225b6fd860b3c",
+    "equal": true
+  },
+  {
+    "path": "UlduarFrame.lua",
+    "sourceSha256": "ff20abd3c478463a41f1627f77ed729347fb2bc59169cc4298236a65540a8222",
+    "installedSha256": "ff20abd3c478463a41f1627f77ed729347fb2bc59169cc4298236a65540a8222",
+    "equal": true
+  },
+  {
+    "path": "UlduarMicroButton.lua",
+    "sourceSha256": "b6f23728a4f5d9bd8b125fe9fe6d287a3d7d017abbdb937299c420ad7d001006",
+    "installedSha256": "b6f23728a4f5d9bd8b125fe9fe6d287a3d7d017abbdb937299c420ad7d001006",
+    "equal": true
+  },
+  {
+    "path": "Views/UlduarTemplates.xml",
+    "sourceSha256": "6035ad41160d01497b21436789de4140cfc4db4c9d7c065af30466c4593f911d",
+    "installedSha256": "6035ad41160d01497b21436789de4140cfc4db4c9d7c065af30466c4593f911d",
+    "equal": true
+  },
+  {
+    "path": "Widgets/Connections.lua",
+    "sourceSha256": "32cea50af4aec3e9080f77abc5e4e1f4617e81223639c9c2e50b920105a44542",
+    "installedSha256": "32cea50af4aec3e9080f77abc5e4e1f4617e81223639c9c2e50b920105a44542",
+    "equal": true
+  },
+  {
+    "path": "Widgets/Node.lua",
+    "sourceSha256": "442aee74e3ab866750e8360482b199a02aeb3d7ed9feb0dd19669d77dfd5bdc2",
+    "installedSha256": "442aee74e3ab866750e8360482b199a02aeb3d7ed9feb0dd19669d77dfd5bdc2",
+    "equal": true
+  },
+  {
+    "path": "Widgets/ScrollList.lua",
+    "sourceSha256": "9179f0a44845fe687d0cc409cefe7a79e79daa42607d72aa479749f0f2b38716",
+    "installedSha256": "9179f0a44845fe687d0cc409cefe7a79e79daa42607d72aa479749f0f2b38716",
+    "equal": true
+  },
+  {
+    "path": "Widgets/Tabs.lua",
+    "sourceSha256": "a4af3732056826b3a5b876ea9032df64d2b7361e39898366cfa4c7dd4e483131",
+    "installedSha256": "a4af3732056826b3a5b876ea9032df64d2b7361e39898366cfa4c7dd4e483131",
+    "equal": true
+  },
+  {
+    "path": "Widgets/Theme.lua",
+    "sourceSha256": "b7cced4e238e6f1d0024d8fcf8a2022f1c20c7c7ad13b7dde4606395993cdb3d",
+    "installedSha256": "b7cced4e238e6f1d0024d8fcf8a2022f1c20c7c7ad13b7dde4606395993cdb3d",
+    "equal": true
+  }
+]

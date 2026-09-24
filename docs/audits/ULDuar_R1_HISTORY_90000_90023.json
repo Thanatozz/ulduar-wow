@@ -1,0 +1,1391 @@
+{
+  "files": [
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/arcane-shot-elements-registry/element-map.json",
+      "size": 2774,
+      "sha256": "3c90c36dcdd7ab2297ed81b637fc38bcce409a8344e8aae290893eb84b969d4a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/arcane-shot-elements-registry/registry.json",
+      "size": 5436,
+      "sha256": "c00ad85137ac8315d1b64b3ec9450f59b106d393766c21b18b9892c4d5425cac",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase9-frost-registry/registry.json",
+      "size": 3370,
+      "sha256": "baaff5a6aa9a6f3c8fbd5f128f9e3ef0200b69504066d31b517cd84c2bf1728a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase9-frost-registry/validation.json",
+      "size": 7580,
+      "sha256": "49684c46cecd3546040d027359a57013c14d3db9a6a152b12f9a82ee44850870",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/Frost Workspace Demo.json",
+      "size": 42655,
+      "sha256": "7db3e4d9d65729a5e0d9d47e8fe1eb63d74515296c2fad998a1aa5cb86752f14",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/backups/save-cycle_79b0b907ca291508/save-cycle_20260911_141113_912622_141e18861b764eb6a1c64ea2a44c43cf.json",
+      "size": 287,
+      "sha256": "8428fd5e1fb714656ab4a232e45faea0e516c820ad427c94ebf6f1af15001fee",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/backups/save-cycle_79b0b907ca291508/save-cycle_20260911_141114_031146_e07ff0ac0a50480390b6845a164e01a5.json",
+      "size": 302,
+      "sha256": "76efc519ea2e675fd7a618cc71c5898224e22ffa2d54fd726fd3f68eff3f8f1f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/0a1dd06a94d6f493c23d14db42cc2c9fa4408a9f3571272b76a6e864f7d51dc1.json",
+      "size": 406,
+      "sha256": "0050351f9e6d815e0ac94af15c9dd8afb28e7a0eded57da93d12a47189ff08ef",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/19e680d214be1e27f1c7250cbf4b6ffecef3e4380ba6a623c8707f39b18ec9f8.json",
+      "size": 393,
+      "sha256": "43caf851a7fdacad3acaf15c250d630ba32455e4169c799fb00fc0d92679af90",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/207a9c3f26d9b6bc8dff541af3da7e00ac8e4acd27be5b1c20cfa80ef68328e1.json",
+      "size": 424,
+      "sha256": "207029d2172a3d0cd2dc1847b4f365c042f6c505a9235a164e73e885b4c81347",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/28851e8490e4c93101238df7c57c6395bbe4f2445730e22417ae44d9a18c8fc6.json",
+      "size": 410,
+      "sha256": "e17a544b5f4ce13d0e118343edebbe1e5e9be110c6d0d11780c36e2b3c6e241e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/3245b32794efc3c9632ffae81ec08c2e930a41b0e438aa875940df78997890d9.json",
+      "size": 406,
+      "sha256": "3274021b35f6ab255303ea15f3d0ffa39582c7aca072f25534be143858fb86c4",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/364f01a57476cde9199cbb7cd10154632c8b5fa4823cad99409709cf38c1da8e.json",
+      "size": 413,
+      "sha256": "57ae44ad0a0b06bd88c040da325e814401f5606aa1233a83b9f04c2de90ca8f8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/39f6a801f47ee5e888fcb84e1bcdf9784cd34417a4df4a7d5cb1115f085fd51f.json",
+      "size": 413,
+      "sha256": "8ee93de8f7f6fa5e50e1cbd5c7334ed4a9421b3c49fb013de04aa04fdc9b94e2",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/3bce7af875025f004dfa074fab497d8022c2555432e521cdebe1617cc9ce7202.json",
+      "size": 430,
+      "sha256": "9de1bcf713513f51205c7df4f9ea2ac590941c4a193c3ba6e7e35dcc085f36dc",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/3cee760e9edfa10ca95ab030553aeb8c2bfc4d833093bb3724bdeade2f9c73c8.json",
+      "size": 414,
+      "sha256": "12f37bda78a136c00132ea9b20fe9b02a370cb9f0be32500651a2b9895286f6c",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/411c18a33c0af6cf7354aa4f633f4c8211faf4045b40fc010bf5b3327416cefc.json",
+      "size": 413,
+      "sha256": "22ba19cc226dbaf79aa0804fc17d113139b17a8d9de4e2616bf646de1bccd04b",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/413597f4371d847160475c25073d7f6dbd27f7435f6efd28412aa2471f2a3059.json",
+      "size": 394,
+      "sha256": "d0fdbc120de7fa83d026d34d1bdb2c2aa18a844fc1df82bb444720d0cdf2ad14",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/46576917c801d5075bc4a7eec33ef590731f2d3880ade25095ae34ecf40767d1.json",
+      "size": 401,
+      "sha256": "485199656617df5dbd7da6cd94557d1440d2bfca693b60046cdab3de4a6fdead",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/48e0ec42bdf729dd0095c572bb182309c1b5b127f4991d61a60b322aec0d1034.json",
+      "size": 415,
+      "sha256": "ed6e39af6f01ecf0e940db043b2ec34335d0d0421a6b2bedc48efaa636bc8806",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/4af4bfd486fca9eaebfd989ff23443f837e713808caf252a28d1946730b5a448.json",
+      "size": 415,
+      "sha256": "c6e1ab227b6054af6a87e3782c825befcbd7443e0d0584538cc5bb0fefa1c88c",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/51fe71098a3b5dcd2fce07f2e049d8647d90ed9b4aaa214c6d95b4d4afc7a18d.json",
+      "size": 423,
+      "sha256": "1c70c364ea6d182eb6e36d1e0ec65c3d75e6385a7cdf75cc7773c102610c04cf",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/5ed3b75e37c2b875f10588b923e5f907201088ce56cdfd7b6ecfd8004c52ff30.json",
+      "size": 414,
+      "sha256": "0f4af1dd52b21cbe6eae9dadd5e5d181364b2602f173fcf71924a5265859ce63",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/646af46fbbfffd56fc2725e239e89b4e4d4f2430802b53b9c9a85016b7e3c06b.json",
+      "size": 413,
+      "sha256": "135afcea810a68da49ea52d4d2821187726007e81250afcb9ed0bcc10370fbb4",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/6fd3418e342446ec2cecefd457c07a05bbf4bc7c844480873cc2b669f9bcb233.json",
+      "size": 390,
+      "sha256": "fa7ece5f598a79e0d8777c6d26db17c3c2d437a68a235a5cd1eec195613b18b1",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/781abae4381b80e95afa78a0ed6751d55a4b75e1330d010d60fb1d9cc3e69b85.json",
+      "size": 410,
+      "sha256": "4384ae4b0dba850e765fcfe4cd00f3c5f6443c74cd3ec7e45a88ab3ee547bdd8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/7a13e11cd36317ad50d0554b5ede3d2489ef737ea9677d5c4bc25f6853262469.json",
+      "size": 421,
+      "sha256": "3dfb3d74321d5a59c9bf722ffa40960e4688f75d632a67a2cab3a9d383a82170",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/7fc6ce6ffcc8180619dd1d457c6be8c437e840f53b2c45e77a05a1bc2cd48ce4.json",
+      "size": 424,
+      "sha256": "afe071de01f9a284bdb74e02cce7fbd08bcfd006c2163fd1a39ad2ae7909e6aa",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/95eb1c7edcfad5beb81c308a3ec7c89c6b2a82983c0e9d5a0b6fd65cb9cf11ea.json",
+      "size": 418,
+      "sha256": "182c19d208d6a26b46be3969db6786f6d701f1717ab32c3c7904ffd6ff2e58c5",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/a3872596c934a12564cc588c0867f5ae408ee714026d402d77d41ca7e7abd329.json",
+      "size": 414,
+      "sha256": "3b85c083e59999a4c646446f996666efab69b490b50f9a88579411951831f840",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/a68919356ba8893da0b8b4bf0048579cd07f119ea3fe2a19bc3c9575e423640f.json",
+      "size": 413,
+      "sha256": "1a9039ca5c6767076a31776aa854a6fb6ffe5f567d8c8562dfa45102389e5ec7",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/a68eb66dab44d14387e5fab030528c60299c799417ba2a082fe258b57a64493d.json",
+      "size": 397,
+      "sha256": "9258e3075d2f4a6bbda753e6a360a7a399e0887a2ad9be62bbebf8ff39ff3ab8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/a85eae731dad10d2ae1fe2cf317162c2f51e16b8a3f967a33a4dd4698f5091d3.json",
+      "size": 424,
+      "sha256": "3ee6dd8adb8fe429e308745c3466fd10f8b04c4fe4a3245ee7149016dec0e1f9",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/b3edc294fde04f6b9de2e6a85cea499d9ebbd42f566a92197a279a986f926b0e.json",
+      "size": 425,
+      "sha256": "54d734104fb34b311db83887cb925fd14012e2c44283d50908245655761d2e59",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/b8786df37be8902278c963b4e260a691df305e20b78df419871132b2bd3d46fe.json",
+      "size": 414,
+      "sha256": "3d427e77b9d2eb5a48ac57802b46d1ac2d451471e6affc57b02f2cef1b7173ed",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/bd29f21d48fa916054d0d36ce825fcfcde1b8a4b5bfadcc0d3f96d7603f4e83a.json",
+      "size": 420,
+      "sha256": "1ee5a9205e699037db23d3a8ea4adfba531a8876a97e36dc3b3d358dd1719b8a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/d39ea186aed43b9d92fbffe44eb6fe978b426bee751e3828d569670d1198a47c.json",
+      "size": 417,
+      "sha256": "4016b28b4a11d76a543fafb86f0cb864f3812b86224e48f318f1ac822dcb0c8e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/d7711582a4d8ef9132ea7e1003f7ffcfea5b605e0b42b3702ca804e4c62e1dac.json",
+      "size": 430,
+      "sha256": "407edba4e04aae2f361cff9c10720e679924d869e8b9a838a5a02a71d9723fdb",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/d903c74dce83e728224b10f03cf9c90e2ea85afe31bc64c6c316b5a1fc7d2f7f.json",
+      "size": 414,
+      "sha256": "30f0db1f10142defb66c516390963cc63845e7d42d13aae93205b3f839ef8126",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/d9ffc9046fd5396ed8390aba3d102b2f85f250c66ec748d0efe8fa4070d99730.json",
+      "size": 414,
+      "sha256": "fdd8d22410a69b301d5e345d33f1caa4f10bf91c7d8e15dce7b323e07be48b88",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/e03557fb5b497f29c3917bc58f5510c0c0ef2b36311a2d0f8495cdac29c262c9.json",
+      "size": 414,
+      "sha256": "cc0ddc70f97a1079b8bdb6a930674cb60c9491d3147292aeb3c5303ed5a7ea5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/e823fa894856d3f46e8ed2342ff2cadedc4775c24114c0feaa0d8b6aa5c539d1.json",
+      "size": 414,
+      "sha256": "e588624ddf4c1762a6358c906439182585b196fe18d3a9b15bbf6df9e190a481",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/eaa58b56d388ab4732ef6cb1cb5fe0be7cefb3e6d19e6ae7ce5d02a0a919d954.json",
+      "size": 413,
+      "sha256": "a864df95ebfb38c29a297d245971e83fee087f9ef85119c05e3a253cfa6d8af9",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/f90a86f849515a1d5ee6af3b5624946faafe3bff29e4baa774b33892b5db19d6.json",
+      "size": 389,
+      "sha256": "71222f18215c9b6a080b7bfc1e97a518c68f5b685df46d049b8e23cd421aedfc",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/fc458da61ef4d0116a88fc299a9cc1f0a8a385c976b2c1f7f13487ad677488d3.json",
+      "size": 413,
+      "sha256": "656d5c1b2f1cd492a07f9d39147e3b203db88831d455a1f69d99384839dd822e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/cache/f3101b3ac08a41164fd03aea68ab51bc1fafcdbadf20780dc4df6c8145d70484/fef13e576e847f1ede1d1a9c58ca662bed300b241d14f7433eded46e7e5292c1.json",
+      "size": 413,
+      "sha256": "82ee53ba505abf3c7ff2c5ee54759a858517a397b8362fc3a4c2ed3e3141e6ca",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/originals-after.json",
+      "size": 2499,
+      "sha256": "94ca77a811c079588572ce9742544093d2b71d956ef86d60d4806450fffb9807",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/originals-before.json",
+      "size": 2499,
+      "sha256": "94ca77a811c079588572ce9742544093d2b71d956ef86d60d4806450fffb9807",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/presets/1e9a3ee85cb2539552489126d8b631a023a052b8803de800ed921ee986fab020/Frost Workspace Demo.json",
+      "size": 42655,
+      "sha256": "7db3e4d9d65729a5e0d9d47e8fe1eb63d74515296c2fad998a1aa5cb86752f14",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/presets/1e9a3ee85cb2539552489126d8b631a023a052b8803de800ed921ee986fab020/Original.json",
+      "size": 4685,
+      "sha256": "d174b640e13f3c74e2d51eda8149fc975e7475b214f3ccb651697abe3b8c8055",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/test_patch/output/validation/patch-manifest.json",
+      "size": 4192,
+      "sha256": "a4084126c9068de3e96822bf62f1bb9ab1f9fde4dc9791560291837f40021d8f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase95-validation/validation.json",
+      "size": 62747,
+      "sha256": "e4ce26450885b77b91d6a8eae2ddf7c14de5359cab744da0d4bda857729da69b",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/19e680d214be1e27f1c7250cbf4b6ffecef3e4380ba6a623c8707f39b18ec9f8.json",
+      "size": 393,
+      "sha256": "a788a8ceb77747b6130c5c8053ba501520c1b972c37e6ebf978473896c18ae5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/411c18a33c0af6cf7354aa4f633f4c8211faf4045b40fc010bf5b3327416cefc.json",
+      "size": 413,
+      "sha256": "3c46aefb408fb28e7ab6938ff047ff6f4d8e62237ca4ecb6f72bb650dac4b7de",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/413597f4371d847160475c25073d7f6dbd27f7435f6efd28412aa2471f2a3059.json",
+      "size": 394,
+      "sha256": "93448b2ee4769cd2e5420b2721b8c23bc1f1ba33447fe84f141d51d71ab2387e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/6fd3418e342446ec2cecefd457c07a05bbf4bc7c844480873cc2b669f9bcb233.json",
+      "size": 390,
+      "sha256": "ad5488f2c1504766fe3e88fdbecc31a48123e852330a66c5a16371264a51bce6",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/a68eb66dab44d14387e5fab030528c60299c799417ba2a082fe258b57a64493d.json",
+      "size": 397,
+      "sha256": "15c02cf27a72f7d52aa962632c06dcaac18652f226d1412466f3cb4c6007921f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-ui-review/cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/f90a86f849515a1d5ee6af3b5624946faafe3bff29e4baa774b33892b5db19d6.json",
+      "size": 389,
+      "sha256": "1b0481c85c57ce9bdf9cfb9b58b73870309bed31a77b497cd81b5c7c1ee2c443",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/19e680d214be1e27f1c7250cbf4b6ffecef3e4380ba6a623c8707f39b18ec9f8.json",
+      "size": 393,
+      "sha256": "a788a8ceb77747b6130c5c8053ba501520c1b972c37e6ebf978473896c18ae5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/411c18a33c0af6cf7354aa4f633f4c8211faf4045b40fc010bf5b3327416cefc.json",
+      "size": 413,
+      "sha256": "3c46aefb408fb28e7ab6938ff047ff6f4d8e62237ca4ecb6f72bb650dac4b7de",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/413597f4371d847160475c25073d7f6dbd27f7435f6efd28412aa2471f2a3059.json",
+      "size": 394,
+      "sha256": "93448b2ee4769cd2e5420b2721b8c23bc1f1ba33447fe84f141d51d71ab2387e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/6fd3418e342446ec2cecefd457c07a05bbf4bc7c844480873cc2b669f9bcb233.json",
+      "size": 390,
+      "sha256": "ad5488f2c1504766fe3e88fdbecc31a48123e852330a66c5a16371264a51bce6",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/a68eb66dab44d14387e5fab030528c60299c799417ba2a082fe258b57a64493d.json",
+      "size": 397,
+      "sha256": "15c02cf27a72f7d52aa962632c06dcaac18652f226d1412466f3cb4c6007921f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/client-cache/cf577837b42c747b0f3f2b61bfd1611f02265ec798828af591a15eab5cbc4181/f90a86f849515a1d5ee6af3b5624946faafe3bff29e4baa774b33892b5db19d6.json",
+      "size": 389,
+      "sha256": "1b0481c85c57ce9bdf9cfb9b58b73870309bed31a77b497cd81b5c7c1ee2c443",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/originals-after.json",
+      "size": 2499,
+      "sha256": "acc9c73766596f70754da6dabf3ff4ca731d2c51fbeebc16d7fef59808526213",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/originals-before.json",
+      "size": 2499,
+      "sha256": "acc9c73766596f70754da6dabf3ff4ca731d2c51fbeebc16d7fef59808526213",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/preview_cache/session-zj5a69l2/generation-o618u66k/manifest.json",
+      "size": 2616,
+      "sha256": "c054ef39ce2347bd5ef72ea145aa26375635201f09cb2f37ea539008e6725667",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase96-validation/validation.json",
+      "size": 72594,
+      "sha256": "265ad1cbe82d54c7877ff1ff378b09561794f462de60fe658b8153ec95641398",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/binary-blend-cases.json",
+      "size": 2621,
+      "sha256": "5836f9fc0843663b92e87f4e4693c7248774c2ca638e92b7545d7c39e22ff10e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/blend-0.json",
+      "size": 5569,
+      "sha256": "977d9557a628ac2b484f851536946a9cdec216b191904ccf46f29e74fe10f033",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/blend-1.json",
+      "size": 5569,
+      "sha256": "12ea3556faa7f4cf6cf1ada8ae705cb09d80263a5159625594d190eafbb87ecb",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/blend-2.json",
+      "size": 5569,
+      "sha256": "abbf08392c8a090c76d9108f64316cec8d96035f4343d6ee4eb6a57793296858",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/blend-3.json",
+      "size": 5569,
+      "sha256": "27fb7280e25650305195fffbb33c7cbd41bd519e450ebefd019785438430b1d8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/blend-4.json",
+      "size": 5569,
+      "sha256": "759fe9b2be1317a349932715cb512500807370deba5fd46982af2cd3863777d2",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/enum-assets-0/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/enum-assets-1/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/enum-assets-2/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/enum-assets-3/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-enums/enum-assets-4/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/blend-0.json",
+      "size": 5569,
+      "sha256": "b113e59fec2c49c3af532e0d43c8e49720fe543e1d5bb51539ede681b5547493",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/blend-1.json",
+      "size": 5569,
+      "sha256": "f19f2241236d8b2562cd9577352a7dacfaef010c9668a38d8fd8c5fc249d0c6f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/blend-2.json",
+      "size": 5569,
+      "sha256": "d3e589e6936dbca60caa6985da6cecd0ba247950d7ecd6b812500dda3b822cc8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/blend-3.json",
+      "size": 5569,
+      "sha256": "0202686344280356b82e28858ed100cd5efb8c99adbec8b4d23298aab2f9becc",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/blend-4.json",
+      "size": 5569,
+      "sha256": "b7a78986b13c1aad34b9f9b43d2ba02adf4c9b25b2af9f3f1e82d6fe668f8cd1",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/enum-assets-0/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/enum-assets-1/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/enum-assets-2/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/enum-assets-3/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/enum-assets-4/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/original.json",
+      "size": 5570,
+      "sha256": "c75fde323bd0ec63dcee0a157209e14e777821b9aa58664ed6cc855b3108989f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/particle-0.json",
+      "size": 5566,
+      "sha256": "dd22b858cf6b5fcc95a8c40c9f5320d88eeb8aecd27c0a7d181d35579456cc7a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/particle-1.json",
+      "size": 5567,
+      "sha256": "faa2bd5d8a9211cdd399c631898b953997ef157467153b719614114fb36b783c",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/particle-2.json",
+      "size": 5567,
+      "sha256": "481c0209bd22e477d98b3cc7847d10bc3960868c6bddef419e8a4d98d3aa5900",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/particle-3.json",
+      "size": 5567,
+      "sha256": "53bce6dad73a6044ab21b50af80003e9fe68402bd43379bc1225979059ef9562",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/particle-4.json",
+      "size": 5567,
+      "sha256": "754d9f20cd1309e93858d55efa7696288dc7abe984877f6560c6b3967f48d63e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/ribbon-0.json",
+      "size": 5565,
+      "sha256": "b0ccad32aa21874b511ef5dd42485a431cf4d35d07ecb2f6329d351c64079c82",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/ribbon-1.json",
+      "size": 5565,
+      "sha256": "14d5bcc769e3b952f78c5cf20df7b23e45b3c6316a9eb740c4869cff38546ff3",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu-final/stationary.json",
+      "size": 5544,
+      "sha256": "a5f293420c4b48922119d0af036bd2a0441a4dbd993fc1c1b81b64afe1ce1f18",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/original.json",
+      "size": 5564,
+      "sha256": "04caac43cdfc402ffd5b34f102b27e97f5ab9b4ae3d6f37b112f36f066d3d605",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/particle-0.json",
+      "size": 5560,
+      "sha256": "7c3c3be083f3ba8ee921ff4c5a66426d7bc363f262c6170fbbaaf3608c470313",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/particle-1.json",
+      "size": 5561,
+      "sha256": "22bf0b6a146d44ef1ecde12b9de8e1ac1a5af4941c0dbcf2c26235468d5380c4",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/particle-2.json",
+      "size": 5561,
+      "sha256": "5131e7d45f8ac3c438201583d2d4ac514adee68d1d56e705210e4c1b3b9723e2",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/particle-3.json",
+      "size": 5561,
+      "sha256": "bc6f152038ede5444ccc87a618b829920aaa73fdb62ad09884b0630f7ce92388",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/particle-4.json",
+      "size": 5561,
+      "sha256": "6e415c74f976d12760a20dd8d1e592577518975cabd79488e984a74d57d97ec0",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/ribbon-0.json",
+      "size": 5559,
+      "sha256": "75b2c73afbac08d1648133ee4f40adbb7dbf1ac4e9d9c689b9f51027b3706316",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/ribbon-1.json",
+      "size": 5559,
+      "sha256": "9758775e239c6ae65c66a88ef3ecdc826229bcb697f08c22f8e866ab596aec93",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/gpu/stationary.json",
+      "size": 5538,
+      "sha256": "4bfb56855de57f24109abea64fa2c0c2aebd184f8fee4f550e1737bdbaf5cbc7",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/original-first.json",
+      "size": 1391,
+      "sha256": "ee170e9e16bcb67a6c64b16f5d9f156bfb0b3a11153f6af12d7966a490cadd7d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/original-flight.json",
+      "size": 5426,
+      "sha256": "a3f6c6467f1cbb28c7f82a121fd78f80be4720b8e087c88db996949ff6fcc216",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/original-ribbons.json",
+      "size": 5328,
+      "sha256": "4078306e83f105b3efffb6d99403e6fc0f23ec70b5749cc5378bac028172b580",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/original/staging.json",
+      "size": 1956,
+      "sha256": "5fe9c346d3e56ff992fa5189a226ca4645a8619e5542cb158b92777171d9ab5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/protected-after.json",
+      "size": 2755,
+      "sha256": "ac6faa5304b5cc53aeea7b59f85624f0fbc1fb4d7713f2bb7beeb9f6a7d7e880",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/protected-before.json",
+      "size": 2755,
+      "sha256": "ac6faa5304b5cc53aeea7b59f85624f0fbc1fb4d7713f2bb7beeb9f6a7d7e880",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/protected-final.json",
+      "size": 2755,
+      "sha256": "ac6faa5304b5cc53aeea7b59f85624f0fbc1fb4d7713f2bb7beeb9f6a7d7e880",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-client-palette.json",
+      "size": 4815,
+      "sha256": "89e79cc62dd68e51edf08cadd829d9b239ba712ee675170c25287f5483e77fc0",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-0/Shadow-v3.json",
+      "size": 33303,
+      "sha256": "1f6d8bd7d694f0477b69f82d8a18ece45e09ab7a8d7eaa148289a8ae5daef282",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-0/render.json",
+      "size": 5629,
+      "sha256": "7e1feae4a4ae9ab6148c83a1c2d1f4c312807333dfb5fdda66dbaee1b3878b8e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-0/validation.json",
+      "size": 5184,
+      "sha256": "1ba3a16bef599de60d24bf181e66f7fb7702f2c5b7047c6c0918e01dc4908859",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-1/Shadow-v3.json",
+      "size": 33303,
+      "sha256": "d421662949cd5e89ea40bc2f32b9967f8dd6bf71a220da94e637d2362e9ccc0e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-1/render.json",
+      "size": 5638,
+      "sha256": "5ccb9f7ab5fd97398680eecbeb99a0a53961a59513b064584999b4378231e0c3",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-1/validation.json",
+      "size": 5186,
+      "sha256": "a1d9ce6e51d7976a1432eef04765846a3959bc28708dabd202cf7011f7f835ec",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-2/Shadow-v3.json",
+      "size": 33303,
+      "sha256": "33c441b548f6ad13229a4ba47cd3ae8f1a7c60562ce61ce0eb95c0f927bc4576",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-2/render.json",
+      "size": 5638,
+      "sha256": "7e87ffa0cdd3b155f8d9fc800d7841abb867a647765e4f437b6ba988ab79f563",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-2/validation.json",
+      "size": 5187,
+      "sha256": "a8226ebd29a8a5aac921bafb26e88d0ae2037e98b738c86c7c550caca1449a67",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-3/Shadow-v3.json",
+      "size": 33303,
+      "sha256": "40d29306c5fa4e66d715275e7a9d29fb9c826b6e57152626dd6690e2958ae68a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-3/render.json",
+      "size": 5615,
+      "sha256": "8d711ec4a4ebc3ce8fa697e970be30cc6c342c3d90d6b908b4170a7b2c83cfa8",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-3/validation.json",
+      "size": 5210,
+      "sha256": "67aaea97a86d39860a41471f9e175b88482774a701121b306ad890a670783ec4",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-4/Shadow-v3.json",
+      "size": 33303,
+      "sha256": "f0137cc73e90f6b27589fee63ea7439c53617366dddb0b178bfd87abca6ed471",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-4/render.json",
+      "size": 5615,
+      "sha256": "547a7ca148bc57346324e8b480d506af483a422831c8cd638e2d1d259e883e1b",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/particle-4/validation.json",
+      "size": 5210,
+      "sha256": "fdfd72f92964762831c9a3b3e1ae8cbc9b4c31bb939b0942340928d3237ddc05",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/shadow-trials/results.json",
+      "size": 62451,
+      "sha256": "ff78ee0b7bdab3cd55a88043af73897dc2803a1f9323d65c7755981ce80bcefc",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/output/phase97-validation/summary.json",
+      "size": 8413,
+      "sha256": "4bf63440373f647f834fb2b09c34a57de2409de38e8e7755ef0ae6eba5dac9ba",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/installations/254c07fcd554f5c29edd485359d5f72221c539c39ffc4241a0b84bbcfa5b6a86.json",
+      "size": 495,
+      "sha256": "3c3b09a455c09264cb009bb8f297eec1c2b31c4bd88ceaadcc6fffaf6e3e8db7",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-0679ae0b/patch-manifest.json",
+      "size": 24097,
+      "sha256": "3ecdbb0c0dd7840a92ba1e7d21cb9c54f11ce54b0e1fe0ec871d649d16288cdd",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-170b1449/patch-manifest.json",
+      "size": 22422,
+      "sha256": "87af5e644985839c607ce9103f5db38105f9fb15509d4a5863bbe6b4b8c66e9c",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-2fde576c/patch-manifest.json",
+      "size": 15941,
+      "sha256": "9442a66fb76de3fe12452aaf5ed443dbd6bb3874a0b80d17371af863189e411e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-522185bf/patch-manifest.json",
+      "size": 25222,
+      "sha256": "619ce5cda43c59cf8a525c5015ebaaa7fb02afedff34f67e8e97aa7845b2387f",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-53ab8e62/patch-manifest.json",
+      "size": 34272,
+      "sha256": "06d77c8896ab322facdb764714031cd44be66122c91adad64234df46ceb8f79e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-8a51fd80/patch-manifest.json",
+      "size": 11915,
+      "sha256": "6ed984d3f9cce8472b033a47814b1e970781c16462a2733e9832cda081772853",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-c68be946/patch-manifest.json",
+      "size": 6002,
+      "sha256": "d37960bed592c0cf5473327c946f9325722af4f39fc1fb8a3826bf041129cd5d",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/build-d2f8dda3/patch-manifest.json",
+      "size": 34784,
+      "sha256": "bc753636735df94a2c73bb2504b310bad1f2b2d5aeef02492130c00eb8f07bf3",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/phase7-frost/client-assets.json",
+      "size": 4716,
+      "sha256": "9351cb308c2e278d66126890536e69e364a02ae11fe0905e710e6c8c1fcea74e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/phase7-frost/patch-manifest.json",
+      "size": 6110,
+      "sha256": "85001a085b6dded6f1c65fdd63690b16aea033540189def87b6c5adf3a8b965e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/phase8-frost/patch-manifest.json",
+      "size": 6787,
+      "sha256": "fcef16b3fe1042cbb92eb6c256d6b1657802b3aa6c6de32310663f40d7ae882a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/test_patch/output/phase8-frost/texture-validation.json",
+      "size": 6324,
+      "sha256": "0d01c00a110e24048a85e6a41bdf68ff96ccabe7f880a29fbd563e8f5384c485",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/ASSETS.md",
+      "size": 4909,
+      "sha256": "0456d351b8eeed2fcaa7ea6b29024ecccd42437dbb2a727fc23ae66ac20ba7ca",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityDetails.lua",
+      "size": 4275,
+      "sha256": "2207fc8b4f3829e8649c91f856a9fe27503ce75da9fe6ef6df2fc9b765e56fa1",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityList.lua",
+      "size": 2739,
+      "sha256": "88a874ee6f5b93830b18bd08024a3322e1c71af2af751bd1df681fd61a6ecb1a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityTooltip.lua",
+      "size": 13491,
+      "sha256": "01efc09a64a534dae029c85c82bb8cc102acc1b493feecf357b8a63a8944a579",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityTree.lua",
+      "size": 8206,
+      "sha256": "fbfbc04a578213bd301a6c52b29437f22bfb90a1a274eef916a3c3c2313afcf3",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Core.lua",
+      "size": 3673,
+      "sha256": "244a81ce17b013182fad8259c2ff82db71af76b706f385d5212be6dffe4856a9",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/DraftBuild.lua",
+      "size": 9136,
+      "sha256": "509397dbe7704ccdcec231e7cbd8cc882b5f3cfadf73852edeb1fb75f9cad29b",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/PROTOCOL.md",
+      "size": 7381,
+      "sha256": "927327e78d023512ac53cb04faf28e6d2db8919ee692f780ea9a901e17bc71ee",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Protocol.lua",
+      "size": 8802,
+      "sha256": "f6c0dbe785499eab93ce28ef84ab590ede236651688cc7806d6a8ef956dbfb36",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/README.md",
+      "size": 9284,
+      "sha256": "4d8cf33e90aff7346104f0cbc751ec0f7971c2baeed56df81a61838f5305c27e",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/SpellBookIntegration.lua",
+      "size": 3130,
+      "sha256": "8e23f812845dd1c634343132a24b4c3d1d4f06310c374590611b4562e2c5b780",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/UlduarFrame.lua",
+      "size": 7415,
+      "sha256": "f024a7ed3702148a17fd1f0605afb4fe14e58363065952c85650e7c470be9e2a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/UlduarMicroButton.lua",
+      "size": 4381,
+      "sha256": "b6f23728a4f5d9bd8b125fe9fe6d287a3d7d017abbdb937299c420ad7d001006",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Connections.lua",
+      "size": 357,
+      "sha256": "32cea50af4aec3e9080f77abc5e4e1f4617e81223639c9c2e50b920105a44542",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Node.lua",
+      "size": 2901,
+      "sha256": "ba6ae863bb3e8a581a85d83add65a6a02f99df335716f81529c15758e491e01a",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/ScrollList.lua",
+      "size": 500,
+      "sha256": "9179f0a44845fe687d0cc409cefe7a79e79daa42607d72aa479749f0f2b38716",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Tabs.lua",
+      "size": 1563,
+      "sha256": "47e56cb360705c7a11366e77bfcac806eb42bd2755ac8161ff132516b783445b",
+      "hits": [],
+      "historyClass": "EXPERIMENT_UNKNOWN",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/Definitions.json",
+      "size": 1503,
+      "sha256": "2729c0592938b31334cda50a6d8bd8fd69de590e2f65fea648b693f91efc657e",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyDeathKnight.json",
+      "size": 2049,
+      "sha256": "6547c780ba846f5bac51ca22e74687f10ef046db9b935d797e50d0c4e8a8c9d4",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyDruid.json",
+      "size": 2360,
+      "sha256": "4e07f3f61f6a57d2ef9d008f6997788f1d16ef2110f22bfba92f5ad5ad731196",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyHunter.json",
+      "size": 2567,
+      "sha256": "88f158a6270438f3809c5c623577e97c00077e96512ff2f5e033aedb1a2f076f",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyMage.json",
+      "size": 2093,
+      "sha256": "3366fbd1e058289dd639d994364a2671446ab700631acf642f2d5703860ad9fa",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyPaladin.json",
+      "size": 2430,
+      "sha256": "79d16780c1dce41c7cd953106ca88f71ceb0e6a8fd8e7e88cab315be291436dd",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyPriest.json",
+      "size": 2288,
+      "sha256": "87aabc6cb1c584dc5825fb0d616d43e56b8db9c636734fb10a91da30a3adf219",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyRogue.json",
+      "size": 1929,
+      "sha256": "fbdc634a215a59cb344e1875698a7443dd2170110597f94480dbc9cc6aea1bef",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyShaman.json",
+      "size": 2422,
+      "sha256": "c482c70dd750b0133f58d2b955df42664d9b6b43d981c8dfb3a926c74ffbdc36",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyWarlock.json",
+      "size": 2150,
+      "sha256": "07db6251da2fa1d9d5df647755f4b9b88ce1932fd7f1f8f91ce80c67fe46d4af",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyWarrior.json",
+      "size": 1837,
+      "sha256": "afe912223e42489f69aa0db6be63a4973585e3026d447e05d605a9b0b3274659",
+      "hits": [],
+      "historyClass": "REFERENCE_ONLY",
+      "ownershipResult": "No interval claim found"
+    }
+  ],
+  "supportedPublicationLedger": "NOT_FOUND",
+  "maintainerHistoryStatement": "NOT_RECEIVED",
+  "scope": "Known local editor registries/receipts and old addon; absence is not publication attestation"
+}

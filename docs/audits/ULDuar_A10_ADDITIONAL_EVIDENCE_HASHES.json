@@ -1,0 +1,46 @@
+{
+  "capturedUtc": "2026-09-20T03:48:06.072319+00:00",
+  "capture": "Additional local references discovered during read-only review; not retroactively an initial baseline",
+  "files": [
+    {
+      "path": "C:/WoWProjecto/M2 Editor/docs/client-assets.md",
+      "size": 10777,
+      "sha256": "905f9fe8f9531c7cdecd9e70b1de7bc1e85ae48682981f0206a22ed0e8d4e8e1"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/docs/phase7-validation.md",
+      "size": 4642,
+      "sha256": "52622480e428c93b30b621b9b7541479f03997d640cace6ebddc709816931b8c"
+    },
+    {
+      "path": "C:/WoWProjecto/M2 Editor/docs/phase9-validation.md",
+      "size": 4361,
+      "sha256": "26486c800318ce6f453eb2f948db2661bd946a6d26a477d64801b89ad08feebe"
+    },
+    {
+      "path": "C:/WoWProjecto/references/mod-classless-wildcard/client-patch/install.py",
+      "size": 44300,
+      "sha256": "3f326075e08a3bebe6ac5aaf55493c1f32a3e0cca388ad3c6fee68654da58d09"
+    },
+    {
+      "path": "C:/WoWProjecto/references/mod-classless-wildcard/client-patch/lib/clientfs.py",
+      "size": 5788,
+      "sha256": "b9a2bae7a44df71fbdc26f6915befd7690a1f964048d8694e5bf3e38a7187470"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/ASSETS.md",
+      "size": 4909,
+      "sha256": "0456d351b8eeed2fcaa7ea6b29024ecccd42437dbb2a727fc23ae66ac20ba7ca"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/PROTOCOL.md",
+      "size": 7381,
+      "sha256": "927327e78d023512ac53cb04faf28e6d2db8919ee692f780ea9a901e17bc71ee"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/README.md",
+      "size": 9284,
+      "sha256": "4d8cf33e90aff7346104f0cbc751ec0f7971c2baeed56df81a61838f5305c27e"
+    }
+  ]
+}

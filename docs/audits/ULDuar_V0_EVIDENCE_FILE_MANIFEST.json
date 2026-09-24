@@ -1,0 +1,496 @@
+{
+  "recordedUtc": "2026-09-21T05:27:07.642665+00:00",
+  "files": [
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\Auth.log",
+      "bytes": 2829,
+      "sha256": "a53aa86048560f636ac8292a42e30e547571b605f2e4586fdc57b4bcc23025f6"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\authserver-console.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\build-crt-fix.log",
+      "bytes": 5569,
+      "sha256": "658d6b44589d542d9a0293a57e937651d6372052dff128cdf14ccf46d14c7e32"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\build.log",
+      "bytes": 155516,
+      "sha256": "eba04aee3d44afd720f25685ffec717a9f8eecf3b21537b029c121dbd6ae7a84"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-baseline-focused.png",
+      "bytes": 1405313,
+      "sha256": "90ec251b402342109823df8a0e439edab9cab102bcd0899c5cfb68ac94670916"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-character-created.png",
+      "bytes": 1282053,
+      "sha256": "bac287956ecf6f946d028603f395a58e1cfcd8c698abc5e7917391efe293be17"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-create.png",
+      "bytes": 1178734,
+      "sha256": "f57eab7e4862fd0909605b00840de35bce5346bf44f7a4f875d82ce6ae2480fa"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-created-final.png",
+      "bytes": 882891,
+      "sha256": "b9d8b7a771a6d5b92c40a75888c8a111ad79557c5f543a3681e32490705c7b1a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-login-result.png",
+      "bytes": 857698,
+      "sha256": "646cc5be66ac75277f03ac9888f48c6c5a0596a99cd574950ebd3c352faec5b8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-resized.png",
+      "bytes": 885586,
+      "sha256": "b31c47eed93e1f387ec74ac474f12f6f6f165686f29bdf750e28d92092faa36e"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\client-window-observation.png",
+      "bytes": 250343,
+      "sha256": "1d611c78f5b8a9c6167fda14bacc74a0a689774dd24e0f8acc84df10f0cdf9da"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\codestyle-cpp.log",
+      "bytes": 484,
+      "sha256": "747406f5b41e2826ab6699793b8b7c637870b76c2835f061e64ebabcefb9e7cc"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\codestyle-sql.log",
+      "bytes": 543,
+      "sha256": "37efb5588bf893dc4909dbb68122e7a56e190a87fd41ae94daa171e92ec610b4"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\configure-crt-fix.log",
+      "bytes": 5454,
+      "sha256": "c643a7d0055b59e75aea73ab1151f425fde0af30a0022d9d1058f0bb5a751104"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\configure-ctest-fix.log",
+      "bytes": 5257,
+      "sha256": "c0743ccbc4fd8a48b03cb36c6701420fbf5d9f5bc80285f0a96cb0b8fb3c8436"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\configure.log",
+      "bytes": 7264,
+      "sha256": "bf5814f934b96bff876504905a5c8c22d62df84ddb0712c5d96e8a78e1ca56a0"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\ctest-forge.log",
+      "bytes": 200,
+      "sha256": "81b2e5abc1c7e7140bcfa76ff200b063b5674d72fbc280d4571ef45c2e17c17d"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\ctest-full.log",
+      "bytes": 200,
+      "sha256": "0615dbaf7c4ee93c9e0184f43a3035d84a5aba5fdc841b7d543b0dec79ab38f5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\ctest-inventory.log",
+      "bytes": 607,
+      "sha256": "1c7fdb54548f5c70f632e4e212981310518801bb2fc7bf3936c82853ae5b1f6e"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\Errors.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\mysql-initialize.log",
+      "bytes": 745,
+      "sha256": "04c2935d7a8d511315544df61f2f27067aeb4e76cd634f6e56cec51650a7bc0d"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\mysql-server.log",
+      "bytes": 1964,
+      "sha256": "e554ab587301cdd9b226cd35795854dd9e550b0c55139d01d6ebe18888c13bbf"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\Server.log",
+      "bytes": 27796,
+      "sha256": "977dbd64262df21136c9136b221257ff5e453126a3d382af5faaf850b4f55974"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\tests-list.log",
+      "bytes": 2380,
+      "sha256": "459396c0b10feeaa2ac86c4c61ce58614dd58cc1cc2b3bbe4f7a66ff1b4ab716"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\tests-ulduar.log",
+      "bytes": 9455,
+      "sha256": "149b32c65d63ff732bb97339b6fbe738656dc87c8bb16e1a85fb393851abab68"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\logs\\worldserver-console.log",
+      "bytes": 27153,
+      "sha256": "48c8898b94c9785921ea4338d77d23d26a64b51a81b0fae0bfc3714c9c850ef8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\tests\\authored_inventory.json",
+      "bytes": 3994,
+      "sha256": "1d22a7fa5e42595cef8f1fba91a9104385ecb7c6fc3aafbb8fb8d754dff75d80"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\tests\\ctest_forge_results.json",
+      "bytes": 16695,
+      "sha256": "b6a72ff7c1078ea403c2f2eeebd911595a800ac42795d73491031e96b95734d6"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\tests\\full_results.json",
+      "bytes": 8925608,
+      "sha256": "23f906c4eaf6131b88939389c525e2ab015b0b4bb1102a73e216661809afd506"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\tests\\ulduar_results.json",
+      "bytes": 25400,
+      "sha256": "9c9a51825d3ed60712ceda3aa4e10da121c4066b06ee29aac51bb8f31b000f2a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\addon_hashes.json",
+      "bytes": 4713,
+      "sha256": "43146c7ee4260bd1783aab60b3db4005fbb9fba4757c08ec2ee2a040be4d3ddf"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\build-crt-fix.json",
+      "bytes": 346,
+      "sha256": "1588228ca00aa80bc2451428c87456ebe5138a7091d39f11937bc631bc0b7f1f"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\build.json",
+      "bytes": 466,
+      "sha256": "6fe98f4812e6f2a32f2637cbaf5f4e6d3f0a03483bbfb9e7f46ff80b917e1846"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\build_warnings.json",
+      "bytes": 55189,
+      "sha256": "e138237aa5b6be08b4b04bc138ef9cbe71d0b9178224f66f9173b799b00818ce"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\client-process-id.txt",
+      "bytes": 6,
+      "sha256": "a8402b9a5b9994f8efe9ffebd55a0acba215c97cc31534d9c7cc2292314850da"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\client_clone.json",
+      "bytes": 3697,
+      "sha256": "772fcb4bcd8857746da4b39fe7c000c6731ba8ecf1a7b5eeb2ee4a3f0bdd7448"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\client_precedence_fixture.json",
+      "bytes": 3242,
+      "sha256": "8f7e4d5d8cc722857b02b75ca6a71feb79c212c526526f1d0f66cb4c988d79c9"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\client_precedence_fixture_round2.json",
+      "bytes": 1176,
+      "sha256": "9dd7572014cb4ff2e8b40d0f0040fc5ff3ad23b0e969d0cceb830883846d435b"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\client_precedence_result.json",
+      "bytes": 1907,
+      "sha256": "5d8b29f140133d5eb06e7045b0f5d33896fb31e2085edbf67142dae2f9958893"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\codestyle.json",
+      "bytes": 179,
+      "sha256": "519daf4f3d931a2e5abac65a3b35d13e3b895b871da6331e65e279a79ca5ef9a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\configure-crt-fix.json",
+      "bytes": 1000,
+      "sha256": "0e19a449ef0cd729d9aab03529d1bfb80f91a8dbb87faf8ecb61b5fe724aeeb5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\configure.json",
+      "bytes": 1035,
+      "sha256": "25c97186aeca96c9bfaf66bb91e6c1ab34f781c13bc4936403930b7d744a12be"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\ctest_fix_result.json",
+      "bytes": 290,
+      "sha256": "5c3bc059f02e8222b891e0a52ac87563c62fa52252fb2805a1e34010e2ca0bc5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\ctest_full.json",
+      "bytes": 247,
+      "sha256": "32233da30363331f5904b9e71fde5379ca46d46a6a9e3f8013006490929d4dad"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\database_clones.json",
+      "bytes": 1031,
+      "sha256": "a6ca3ccf1808b751e6306c998a8a533d08df78cca6a473ffcab06a1e73040fdc"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\database_clone_initial_failure.json",
+      "bytes": 240,
+      "sha256": "8b3c2564797cc4c3b45afb323d76f0620d8e45fd9193505674f74d4af93cdfe7"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\database_initial.json",
+      "bytes": 305462,
+      "sha256": "0119831b3dc2441e0746dbf4a1f4f0ba337312e9e2965b8c530f61c42e2d31d2"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\dbc_mutation.json",
+      "bytes": 403,
+      "sha256": "ade1b70eeed467de79bd454afea1786ffecc2c18485fd2b1b3bdf0f6064fae85"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\dbc_roundtrip.json",
+      "bytes": 3738,
+      "sha256": "e4512271913a9d2b2774fe9af57768a267f85a028dea80274d954f382de32bb3"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\disposable_account.json",
+      "bytes": 149,
+      "sha256": "7726c68d1f96091c2124774a331dc51507d7b50ea7016b31a32c142f8d7a9185"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\installed_world_interval.json",
+      "bytes": 1026639,
+      "sha256": "42b6c966291e6362aed258eb35343858859737f5c134f37441644811916d9bde"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\mpq_toolchain.json",
+      "bytes": 786,
+      "sha256": "f7e39a053a629316a34b993977bc77a3ef64d0cf29118c6583062ebaa8e8f6e6"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\mysql_initialize.json",
+      "bytes": 84,
+      "sha256": "cfd57f71c15c1eb04e57dc8ac11b2d8ea0452cf65ec33aa2b70ce74308ad91d7"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\mysql_shutdown.json",
+      "bytes": 87,
+      "sha256": "0084c6d3e65f6495581037a320f588627b0e7acf72dc4426ff69a57eacdeab71"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\server_dbc_baseline.json",
+      "bytes": 6256,
+      "sha256": "8c69a27ecf2f6e29b6bba9a8dab575988022c6bb1014c2abf11f03ab0662d554"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\server_processes.json",
+      "bytes": 412,
+      "sha256": "ebd802334d4ee5b5f85bf6d83bdb6cb8d26dae4fc80a95007dd257db8538fb59"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\tests-list.json",
+      "bytes": 136,
+      "sha256": "24eea85884f32f13c76fdf0c1346109a1eced454a11729c9159e9728e75fce26"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\reports\\tests-ulduar.json",
+      "bytes": 196,
+      "sha256": "5755d9b9ef9cb8443ffca53bb01f23f43d314bdee02d96376b493f3fed9fc948"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-2-Spell.dbc",
+      "bytes": 49531252,
+      "sha256": "b086b712dc108e283d298c88f042b4b031dd82812449c801ec26e793e5af1cb4"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-2-SpellCastTimes.dbc",
+      "bytes": 1141,
+      "sha256": "d6aa43a70a3193d7894167b27eea5ce08990aa8f131f669b0284200ea522a9e0"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-3-Spell.dbc",
+      "bytes": 48967130,
+      "sha256": "14cfc41e039eebf79b2572302a0f9e76f9a7f1d7b9acfe2858998d0080ab26ac"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-round2-2-SpellCastTimes.dbc",
+      "bytes": 1141,
+      "sha256": "2c5b06e70f45bf0866855de4137910f5c073df5f15c76c4a4fd57f1b67aac9fb"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-round2-SpellCastTimes.dbc",
+      "bytes": 1125,
+      "sha256": "24b5d3281f9abd0aa8182fa11085a90dfcb74f36ead3b3d7d4608c196cd2f131"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-Spell.dbc",
+      "bytes": 46699391,
+      "sha256": "09af55cea2392920a9bff68bef0afedb958ee07907401c748b3a5a22a624e6f6"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\precedence-SpellCastTimes.dbc",
+      "bytes": 1125,
+      "sha256": "18246204f8c19b961eabd6a263424fd395a5cc37d5d33ff210c8172dcbddbd3d"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SkillLineAbility.input.dbc",
+      "bytes": 572285,
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SkillLineAbility.roundtrip.dbc",
+      "bytes": 572285,
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\Spell.input.dbc",
+      "bytes": 48967121,
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\Spell.roundtrip.dbc",
+      "bytes": 48967121,
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellCastTimes.input.dbc",
+      "bytes": 1141,
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellCastTimes.roundtrip.dbc",
+      "bytes": 1141,
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellIcon.input.dbc",
+      "bytes": 151540,
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellIcon.roundtrip.dbc",
+      "bytes": 151540,
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellRange.fixture-only.dbc",
+      "bytes": 11640,
+      "sha256": "9963ef19e079aa4c7f93f6d050445488fb8b846b10188effde2fc1cb14b207b8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellRange.input.dbc",
+      "bytes": 11480,
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellRange.roundtrip.dbc",
+      "bytes": 11480,
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellVisual.input.dbc",
+      "bytes": 1203989,
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellVisual.roundtrip.dbc",
+      "bytes": 1203989,
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\mpq\\TestValidationFile.txt",
+      "bytes": 73,
+      "sha256": "f63a11756c3aeb33381d1473b568c1eb872a1fb225a5e48b1a9d0ae858c2e2f8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\mpq\\V0-Toolchain-Only.mpq",
+      "bytes": 5924,
+      "sha256": "c1840c7b5c940fc7310c6d2322279bfc8c9df8082ffa2f7ac1fb57a1c183c066"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\client_ui.py",
+      "bytes": 3314,
+      "sha256": "0a945d0b29b3a457c5d7236e4d368081bcaf934fc187cdf33935b923426f1217"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\clone_databases.py",
+      "bytes": 2637,
+      "sha256": "982a8815f4910d5331285a9876893730ec4889f71c648c9780ad8200296a16f5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\close_precedence.py",
+      "bytes": 4035,
+      "sha256": "5792e50bd9649eec0aae19254312195e4fb1ec13a288dd6ff39425452166ec87"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\collect_v0_reports.py",
+      "bytes": 6887,
+      "sha256": "19176dfb9942827a27359c9784c27e58a7416a5b8dfde78ea3ab448e6c7d1245"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\correct_precedence_fixture.py",
+      "bytes": 2498,
+      "sha256": "48bdc50a74670995a48a4de7c2c4f216416c78d592c1663554a8dd5c4cd913c2"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\database_audit.py",
+      "bytes": 2516,
+      "sha256": "7c776f2aeeb42a96686f85ffa024882955488f70cf72f6da2deea268f4eef9d0"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\finalize_v0.py",
+      "bytes": 4825,
+      "sha256": "2c50e51f380b18618d59c2a6551c86595cbaf5c0df347c810283b9451c7d3754"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\prepare_precedence.py",
+      "bytes": 4941,
+      "sha256": "0293c92b30a8303e8a6d9e502d285a97a55607e6a7db156c60529bd64e847279"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\run_servers.py",
+      "bytes": 4050,
+      "sha256": "a5655a1be151fea8ce6c9e76a07816cff43f266f629165cf58b1919699a14bbb"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\toolchain_validation.py",
+      "bytes": 5488,
+      "sha256": "96a8403585d7eec53822c3e79f23205d7ad5dd38a8176f33967e478db0ae8659"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\v0_db.py",
+      "bytes": 2054,
+      "sha256": "66b7b895c246722b7cd962d677eb0e0e0c799637f61fa8daaaa08a5ea9fdf7e6"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\verify_preservation.py",
+      "bytes": 2664,
+      "sha256": "01b8a5d8c182a7794f603a20112bddcdca92a9799a9097eceec16210039bb4e8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.baseline.lua",
+      "bytes": 1698,
+      "sha256": "18c29c259807224acf37c1d8079670e0822dd42947b59f1bae6eecdecdf8c5e5"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.round1.lua",
+      "bytes": 3037,
+      "sha256": "9e491f34923d5ee6558df038fdeeadaab43069b8526214c5ea7af575f6b2ada2"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.round2.lua",
+      "bytes": 4351,
+      "sha256": "7d7b7619ceac2827ad3444d8b9a75207893a2bb383ccefbf738464a672a5d27a"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS-2.MPQ",
+      "bytes": 225570171,
+      "sha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS-3.MPQ",
+      "bytes": 100373935,
+      "sha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\patch-enUS.MPQ",
+      "bytes": 296616080,
+      "sha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99"
+    }
+  ],
+  "note": "Content hashes of stage evidence; private database dumps and executable hashes are in dedicated audits. Passwords are not included."
+}

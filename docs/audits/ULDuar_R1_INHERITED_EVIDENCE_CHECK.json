@@ -1,0 +1,14 @@
+{
+  "comparisons": [
+    {
+      "file": "ULDuar_A10_PROTECTED_FILE_HASHES.json",
+      "checked": 10043,
+      "mismatch": []
+    },
+    {
+      "file": "ULDuar_A10_ADDITIONAL_EVIDENCE_HASHES.json",
+      "checked": 8,
+      "mismatch": []
+    }
+  ]
+}

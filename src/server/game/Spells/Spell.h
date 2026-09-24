@@ -25,6 +25,9 @@
 #include "SharedDefines.h"
 #include "SpellInfo.h"
 #include "Unit.h"
+#include <functional>
+#include <optional>
+#include <utility>
 
 class Unit;
 class Player;
@@ -159,6 +162,7 @@ public:
     void SetSrc(float x, float y, float z);
     void SetSrc(Position const& pos);
     void SetSrc(WorldObject const& wObj);
+    void SetSrc(SpellDestination const& source);
     void ModSrc(Position const& pos);
     void RemoveSrc();
 
@@ -610,8 +614,66 @@ public:
     [[nodiscard]] TriggerCastFlags GetTriggeredCastFlags() const { return _triggeredCastFlags; }
 
     [[nodiscard]] SpellSchoolMask GetSpellSchoolMask() const { return m_spellSchoolMask; }
+    [[nodiscard]] SpellSchoolMask GetSpellSchoolMaskOverride() const
+    {
+        return m_hasCustomSchoolMask ? m_spellSchoolMask : SPELL_SCHOOL_MASK_NONE;
+    }
+    // Set during SpellScript::Load, before hit selection and launch. Never changes shared SpellInfo.
+    void SetSpellSchoolMask(SpellSchoolMask schoolMask)
+    {
+        if ((m_spellState == SPELL_STATE_NULL || m_spellState == SPELL_STATE_PREPARING) &&
+            !_spellTargetsSelected && !m_hasCustomSchoolMask && schoolMask != SPELL_SCHOOL_MASK_NONE)
+        {
+            m_spellSchoolMask = schoolMask;
+            m_hasCustomSchoolMask = true;
+        }
+    }
+
+    // Opt-in delivery controls for server-authored, directly triggered payloads only.
+    // The predicate owns its context and is checked at acquisition and before hit side effects.
+    void SetTriggeredTargetValidator(std::function<bool(Unit*)> validator)
+    {
+        if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY))
+            m_triggeredTargetValidator = std::move(validator);
+    }
+
+    void SetTriggeredInstantDelivery()
+    {
+        if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) &&
+            !m_spellInfo->IsChanneled())
+            m_triggeredInstantDelivery = true;
+    }
+
+    // Opt-in resource policy for synthetic copies. Vanilla triggered shots still consume ammo.
+    void SetTriggeredIgnoreAmmo()
+    {
+        if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY))
+            m_triggeredIgnoreAmmo = true;
+    }
+
+    // Before prepare only. Changes missile presentation/travel, never caster or original caster.
+    bool SetTriggeredVisualSource(Unit const& source);
+    void SetCastTimeMultiplier(float multiplier, uint32 minimumMs)
+    {
+        if ((m_spellState == SPELL_STATE_NULL || m_spellState == SPELL_STATE_PREPARING) &&
+            !_spellTargetsSelected && !IsTriggered() && !m_spellInfo->IsChanneled() &&
+            multiplier >= 0.5f && multiplier <= 1.0f && minimumMs <= 600000u)
+        {
+            m_customCastTimeMultiplier = multiplier;
+            m_customMinimumCastTime = minimumMs;
+        }
+    }
+    // Single-target synthetic missiles share exactly one arrival time with their visual packet.
+    void SetTriggeredTravelTime(uint32 milliseconds)
+    {
+        if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) &&
+            !m_spellInfo->IsChanneled())
+            m_triggeredTravelTime = milliseconds;
+    }
 
  protected:
+    void WriteVisualCastTargets(ByteBuffer& data);
+    void SendVisualOnlySpellGo();
     bool HasGlobalCooldown() const;
     void TriggerGlobalCooldown();
     void CancelGlobalCooldown();
@@ -634,6 +696,19 @@ public:
 
     //Spell data
     SpellSchoolMask m_spellSchoolMask;                  // Spell school (can be overwrite for some spells (wand shoot for example)
+    bool m_hasCustomSchoolMask = false;
+    bool m_triggeredInstantDelivery = false;
+    bool m_triggeredIgnoreAmmo = false;
+    float m_customCastTimeMultiplier = 1.0f;
+    uint32 m_customMinimumCastTime = 0;
+    std::optional<uint32> m_triggeredTravelTime;
+    struct VisualSource
+    {
+        ObjectGuid Guid;
+        SpellDestination Location; // Snapshot, including transport offsets. No retained Unit pointer.
+    };
+    std::optional<VisualSource> m_visualSource;
+    std::function<bool(Unit*)> m_triggeredTargetValidator;
     WeaponAttackType m_attackType;                      // For weapon based attack
     int32 m_powerCost;                                  // Calculated spell cost     initialized only in Spell::prepare
     int32 m_casttime;                                   // Calculated spell cast time initialized only in Spell::prepare

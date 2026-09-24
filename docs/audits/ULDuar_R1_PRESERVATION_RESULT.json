@@ -1,0 +1,24 @@
+{
+  "completedUtc": "2026-09-20T16:58:22.050736+00:00",
+  "initialProtectedFiles": 10062,
+  "supplementalProtectedFiles": 25,
+  "checkedFiles": 10087,
+  "checkedBytes": 18408666446,
+  "changed": [],
+  "missing": [],
+  "scope": "Enumerated preservation corpus; no claim about unrelated machine activity",
+  "MODIFIED_CPP": 0,
+  "MODIFIED_LUA": 0,
+  "MODIFIED_SQL": 0,
+  "MODIFIED_DBC": 0,
+  "MODIFIED_MPQ": 0,
+  "MODIFIED_CLIENT": 0,
+  "MODIFIED_CONFIG": 0,
+  "documentationInspection": {
+    "jsonReadable": true,
+    "mainSections": 16,
+    "localLinksResolved": true,
+    "evidenceManifestHashReferencesMatch": true,
+    "projectTestsExecuted": 0
+  }
+}

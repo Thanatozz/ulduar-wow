@@ -1,0 +1,31 @@
+{
+  "comparedUtc": "2026-09-20T03:49:05.208468+00:00",
+  "initialFiles": 10043,
+  "additionalEvidenceFiles": 8,
+  "comparedFiles": 10051,
+  "comparedBytes": 18400917575,
+  "differences": [],
+  "newFiles": [
+    "docs/audits/ULDuar_A10_ADDITIONAL_EVIDENCE_HASHES.json",
+    "docs/audits/ULDuar_A10_BOUNDED_SEARCH.json",
+    "docs/audits/ULDuar_A10_EFFECTIVE_CLIENT_TABLES.json",
+    "docs/audits/ULDuar_A10_NAMESPACE_CANDIDATES.md",
+    "docs/audits/ULDuar_A10_NAMESPACE_CANDIDATE_EVIDENCE.json",
+    "docs/audits/ULDuar_A10_PRESERVATION_RESULT.json",
+    "docs/audits/ULDuar_A10_PROTECTED_FILE_HASHES.json",
+    "docs/audits/ULDuar_A10_RELEASE_MEMBERSHIP.json",
+    "docs/audits/ULDuar_A10_REMAINING_ATTRIBUTE_BITS.md",
+    "docs/audits/ULDuar_A10_SERIALIZATION_GATE.md",
+    "docs/implementation/ULDuar_PHASE_A10_RELEASE_GATE.md"
+  ],
+  "existingFilesIntentionallyChanged": 0,
+  "removedFiles": 0,
+  "scope": "Enumerated protected pre-existing files, including prior reports and selected client/source/data; uninspected workspace excluded",
+  "MODIFIED_CPP": 0,
+  "MODIFIED_LUA": 0,
+  "MODIFIED_SQL": 0,
+  "MODIFIED_DBC": 0,
+  "MODIFIED_MPQ": 0,
+  "MODIFIED_CLIENT": 0,
+  "MODIFIED_CONFIG": 0
+}

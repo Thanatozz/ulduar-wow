@@ -1,0 +1,32 @@
+{
+  "completedUtc": "2026-09-20T02:48:58.063231+00:00",
+  "initialBaselineFiles": 10001,
+  "additionalDiscoveredEvidenceFiles": 30,
+  "comparedFiles": 10031,
+  "comparedBytes": 18388694566,
+  "differences": [],
+  "newFiles": [
+    "docs/audits/ULDuar_A9_ADDITIONAL_EVIDENCE_HASHES.json",
+    "docs/audits/ULDuar_A9_ADDON_COMPARISON.json",
+    "docs/audits/ULDuar_A9_ATTRIBUTE_INVENTORY.json",
+    "docs/audits/ULDuar_A9_MPQ_MEMBER_INVENTORY.json",
+    "docs/audits/ULDuar_A9_MPQ_OVERLAY_INVENTORY.md",
+    "docs/audits/ULDuar_A9_PRESERVATION_RESULT.json",
+    "docs/audits/ULDuar_A9_PROTECTED_FILE_HASHES.json",
+    "docs/audits/ULDuar_A9_RELEASE_MANIFEST.json",
+    "docs/audits/ULDuar_A9_SOURCE_SEAM_PROPOSALS.md",
+    "docs/audits/ULDuar_A9_VISUAL_DEPENDENCIES.md",
+    "docs/audits/ULDuar_A9_VISUAL_GRAPH.json",
+    "docs/implementation/ULDuar_PHASE_A9_RELEASE_EVIDENCE.md"
+  ],
+  "existingFilesIntentionallyChanged": 0,
+  "removedFiles": 0,
+  "scope": "Enumerated protected source/data and previous reports; not a claim about uninspected workspace files",
+  "MODIFIED_CPP": 0,
+  "MODIFIED_LUA": 0,
+  "MODIFIED_SQL": 0,
+  "MODIFIED_DBC": 0,
+  "MODIFIED_MPQ": 0,
+  "MODIFIED_CLIENT": 0,
+  "MODIFIED_CONFIG": 0
+}

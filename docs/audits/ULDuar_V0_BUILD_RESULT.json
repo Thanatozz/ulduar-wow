@@ -1,0 +1,1258 @@
+{
+  "configure": "PASS",
+  "build": "PASS",
+  "moduleLinkage": "PASS",
+  "initialConfigure": {
+    "command": [
+      "cmake",
+      "-S",
+      "C:/WoWProjecto/ulduar-wow",
+      "-B",
+      "C:\\WoWProjecto\\validation\\V0\\build",
+      "-G",
+      "Visual Studio 17 2022",
+      "-A",
+      "x64",
+      "-DCMAKE_INSTALL_PREFIX=C:\\WoWProjecto\\validation\\V0\\server",
+      "-DBUILD_TESTING=ON",
+      "-DSCRIPTS=static",
+      "-DMODULES=static",
+      "-DAPPS_BUILD=all",
+      "-DTOOLS_BUILD=all",
+      "-DWITH_WARNINGS=ON",
+      "-DBOOST_ROOT=C:/local/boost_1_81_0",
+      "-DBoost_NO_BOOST_CMAKE=ON",
+      "-DMYSQL_ROOT_DIR=C:/Program Files/MySQL/MySQL Server 8.4",
+      "-DOPENSSL_ROOT_DIR=C:/Program Files/OpenSSL-Win64",
+      "-DDISABLED_AC_MODULES=mod-citybuilder;mod-ulduar-editor;mod-density-test;mod-ulduar-wave-survival",
+      "-DMODULE_MOD-CITYBUILDER=disabled",
+      "-DMODULE_MOD-ULDUAR-EDITOR=disabled",
+      "-DMODULE_MOD-DENSITY-TEST=disabled",
+      "-DMODULE_MOD-ULDUAR-WAVE-SURVIVAL=disabled"
+    ],
+    "exitCode": 0,
+    "seconds": 28.302479999999832,
+    "log": "C:\\WoWProjecto\\validation\\V0\\logs\\configure.log"
+  },
+  "initialBuild": {
+    "command": [
+      "cmake",
+      "--build",
+      "C:\\WoWProjecto\\validation\\V0\\build",
+      "--config",
+      "RelWithDebInfo",
+      "--target",
+      "authserver",
+      "worldserver",
+      "unit_tests",
+      "--parallel",
+      "2",
+      "--",
+      "/nologo",
+      "/verbosity:minimal"
+    ],
+    "compilerProcessLimit": "_CL_=/MP1, MSBuild parallel2",
+    "exitCode": 1,
+    "seconds": 1673.7872238,
+    "log": "C:\\WoWProjecto\\validation\\V0\\logs\\build.log"
+  },
+  "crtConfigureRetry": {
+    "exit": 0,
+    "seconds": 11.07523520000177,
+    "command": [
+      "cmake",
+      "-S",
+      "C:/WoWProjecto/ulduar-wow",
+      "-B",
+      "C:\\WoWProjecto\\validation\\V0\\build",
+      "-G",
+      "Visual Studio 17 2022",
+      "-A",
+      "x64",
+      "-DCMAKE_INSTALL_PREFIX=C:\\WoWProjecto\\validation\\V0\\server",
+      "-DBUILD_TESTING=ON",
+      "-DSCRIPTS=static",
+      "-DMODULES=static",
+      "-DAPPS_BUILD=all",
+      "-DTOOLS_BUILD=all",
+      "-DWITH_WARNINGS=ON",
+      "-DBOOST_ROOT=C:/local/boost_1_81_0",
+      "-DBoost_NO_BOOST_CMAKE=ON",
+      "-DMYSQL_ROOT_DIR=C:/Program Files/MySQL/MySQL Server 8.4",
+      "-DOPENSSL_ROOT_DIR=C:/Program Files/OpenSSL-Win64",
+      "-DDISABLED_AC_MODULES=mod-citybuilder;mod-ulduar-editor;mod-density-test;mod-ulduar-wave-survival",
+      "-DMODULE_MOD-CITYBUILDER=disabled",
+      "-DMODULE_MOD-ULDUAR-EDITOR=disabled",
+      "-DMODULE_MOD-DENSITY-TEST=disabled",
+      "-DMODULE_MOD-ULDUAR-WAVE-SURVIVAL=disabled",
+      "-Dgtest_force_shared_crt=ON"
+    ]
+  },
+  "successfulBuild": {
+    "exit": 0,
+    "seconds": 36.65707689999908,
+    "command": [
+      "cmake",
+      "--build",
+      "C:\\WoWProjecto\\validation\\V0\\build",
+      "--config",
+      "RelWithDebInfo",
+      "--target",
+      "authserver",
+      "worldserver",
+      "unit_tests",
+      "--parallel",
+      "2",
+      "--",
+      "/nologo",
+      "/verbosity:minimal"
+    ]
+  },
+  "cmakeVersion": "4.4.3",
+  "compiler": "MSVC 19.44.35228.0",
+  "generator": "Visual Studio 17 2022",
+  "sdk": "10.0.26100.0",
+  "architecture": "x64",
+  "configuration": "RelWithDebInfo",
+  "additionalRequiredFlags": [
+    "gtest_force_shared_crt=ON"
+  ],
+  "environment": {
+    "_CL_": "/MP1"
+  },
+  "selectedModule": "mod-ulduar-abilities",
+  "excludedModules": [
+    "mod-citybuilder",
+    "mod-ulduar-editor",
+    "mod-density-test",
+    "mod-ulduar-wave-survival"
+  ],
+  "producedBinaries": [
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\build\\bin\\RelWithDebInfo\\authserver.exe",
+      "bytes": 2777600,
+      "sha256": "5c3dde7a834699eca008a5dc5f4710ceb949a4d7fd25dd2c4bb5125bbdfd1ce8"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\build\\bin\\RelWithDebInfo\\worldserver.exe",
+      "bytes": 36734976,
+      "sha256": "cb57d74d665df25db883db2f2ff7b90c898f1ab6317adc51c91d8d593f9c0425"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\build\\bin\\RelWithDebInfo\\unit_tests.exe",
+      "bytes": 23795200,
+      "sha256": "6db8fcc1b5b908d868fb14620deb2d9d43c254a48c987386cafa4c9db3e90757"
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\build\\modules\\RelWithDebInfo\\modules.lib",
+      "bytes": 32005992,
+      "sha256": "deb849d565fb20dc84ab0587fae45cad626f6365bafca94686e4514e6a8403b9"
+    }
+  ],
+  "rawWarningLines": [
+    {
+      "log": "configure.log",
+      "line": 2,
+      "text": "CMake Warning (deprecated) at CMakeLists.txt:22 (cmake_policy):"
+    },
+    {
+      "log": "configure.log",
+      "line": 10,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-deprecated"
+    },
+    {
+      "log": "configure.log",
+      "line": 36,
+      "text": "-- MSVC: Disabled NON-SECURE warnings"
+    },
+    {
+      "log": "configure.log",
+      "line": 37,
+      "text": "-- MSVC: Disabled POSIX warnings"
+    },
+    {
+      "log": "configure.log",
+      "line": 38,
+      "text": "-- MSVC: Disabled INTMAX_MAX warnings"
+    },
+    {
+      "log": "configure.log",
+      "line": 58,
+      "text": "* Show all warnings               : Yes"
+    },
+    {
+      "log": "configure.log",
+      "line": 66,
+      "text": "CMake Warning (policy) at deps/boost/CMakeLists.txt:35 (find_package):"
+    },
+    {
+      "log": "configure.log",
+      "line": 69,
+      "text": "  set the policy and suppress this warning."
+    },
+    {
+      "log": "configure.log",
+      "line": 70,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-policy to"
+    },
+    {
+      "log": "configure.log",
+      "line": 149,
+      "text": "CMake Warning (deprecated) at CMakeLists.txt:14 (cmake_minimum_required):"
+    },
+    {
+      "log": "configure.log",
+      "line": 156,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-deprecated"
+    },
+    {
+      "log": "build.log",
+      "line": 207,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 208,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 209,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 210,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 211,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 212,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 213,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 214,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 215,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 280,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244: 'initializing': conversion from 'Descriptor' to 'int', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 281,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 282,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 283,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 284,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 287,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 288,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 289,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 290,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 291,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 292,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 293,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 294,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 295,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\authserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 474,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,85): warning C4244: 'argument': conversion from '_Ty' to 'int32', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 475,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,85): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 476,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,85): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 477,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,85): warning C4244:             _Ty=time_t [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 478,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,85): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 518,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,90): warning C4244: 'argument': conversion from '_Ty' to 'int32', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 519,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,90): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 520,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,90): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 521,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,90): warning C4244:             _Ty=time_t [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 522,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,90): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 595,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244: '=': conversion from '_Ty' to '_Ty2', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 596,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 597,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 598,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:             _Ty=time_t [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 599,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 600,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 601,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 602,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:             _Ty2=uint32 [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 603,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\unordered_map(310,72): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 626,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 627,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 628,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 629,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:             _Ty=time_t [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 630,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 631,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 632,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 633,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:             _Ty2=uint32 [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 634,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\utility(274,54): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1057,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1058,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1059,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1060,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1061,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1086,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1087,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1088,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1089,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:             _Ty=double [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1090,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\optional(82,17): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\scripts\\scripts.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1545,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1546,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1547,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1548,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1549,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1550,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1551,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1552,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1553,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1622,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244: 'initializing': conversion from 'Descriptor' to 'int', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1623,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1624,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1625,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1626,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1629,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1630,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1631,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1632,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1633,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1634,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1635,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1636,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1637,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\game\\game.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1719,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1720,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1721,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1722,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1723,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1724,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1725,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1726,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1727,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(462,64): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1796,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244: 'initializing': conversion from 'Descriptor' to 'int', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1797,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1798,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1799,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1800,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(476,61): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1803,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244: 'initializing': conversion from 'Descriptor' to '_Ty', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1804,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         with [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1805,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1806,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             Descriptor=boost::asio::detail::socket_type [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1807,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1808,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         and [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1809,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         [ [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1810,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:             _Ty=int [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1811,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(463,69): warning C4244:         ] [C:\\WoWProjecto\\validation\\V0\\build\\src\\server\\apps\\worldserver.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1846,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1847,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1848,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1851,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1852,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1853,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1865,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1866,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1867,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1873,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1874,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1875,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1877,
+      "text": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xutility(4813,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1914,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1917,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1920,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1924,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1927,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1930,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1934,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1937,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1940,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1944,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1947,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1950,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1954,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1957,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1960,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1964,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1967,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1970,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1974,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1977,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1980,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1984,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1987,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1990,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1995,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 1998,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2001,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2007,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2010,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2013,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2017,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2020,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2023,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2027,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2030,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2033,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2045,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2048,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2051,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2065,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2068,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2071,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2080,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2083,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2086,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2136,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2139,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2142,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2197,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2200,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2203,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2212,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2215,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2218,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2226,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(26,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2229,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(27,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2232,
+      "text": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\mocks\\WorldMock.h(90,9): warning C4068: unknown pragma 'GCC' [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "build.log",
+      "line": 2369,
+      "text": "LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library [C:\\WoWProjecto\\validation\\V0\\build\\src\\test\\unit_tests.vcxproj]"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 2,
+      "text": "CMake Warning (deprecated) at CMakeLists.txt:22 (cmake_policy):"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 10,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-deprecated"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 24,
+      "text": "-- MSVC: Disabled NON-SECURE warnings"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 25,
+      "text": "-- MSVC: Disabled POSIX warnings"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 26,
+      "text": "-- MSVC: Disabled INTMAX_MAX warnings"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 45,
+      "text": "* Show all warnings               : Yes"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 53,
+      "text": "CMake Warning (policy) at deps/boost/CMakeLists.txt:35 (find_package):"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 56,
+      "text": "  set the policy and suppress this warning."
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 57,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-policy to"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 123,
+      "text": "CMake Warning (deprecated) at CMakeLists.txt:14 (cmake_minimum_required):"
+    },
+    {
+      "log": "configure-crt-fix.log",
+      "line": 130,
+      "text": "This warning is for project developers.  Use -Wno-author or -Wno-deprecated"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 36,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 37,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 38,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googlemock\\gmock_main.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 40,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 41,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 42,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 53,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fprofile-arcs' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 54,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-ftest-coverage' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    },
+    {
+      "log": "build-crt-fix.log",
+      "line": 55,
+      "text": "cl : command line  warning D9002: ignoring unknown option '-fno-inline' [C:\\WoWProjecto\\validation\\V0\\build\\googletest\\googletest-build\\googletest\\gtest_main.vcxproj]"
+    }
+  ],
+  "warningClassification": [
+    {
+      "severity": "HIGH",
+      "code": "C4244",
+      "scope": "existing core NetworkThread",
+      "reason": "64-bit socket descriptor narrowed to int; no demonstrated V0 connection failure"
+    },
+    {
+      "severity": "MEDIUM",
+      "code": "C4244",
+      "scope": "existing core/scripts",
+      "reason": "numeric narrowing"
+    },
+    {
+      "severity": "LOW",
+      "code": "C4068",
+      "scope": "test mocks",
+      "reason": "GCC diagnostic pragmas ignored by MSVC"
+    },
+    {
+      "severity": "MEDIUM",
+      "code": "D9002",
+      "scope": "test coverage flags",
+      "reason": "GCC coverage flags ignored; no coverage claim"
+    },
+    {
+      "severity": "EXTERNAL",
+      "scope": "CMake policies/dependencies",
+      "reason": "CMP0153/CMP0167 and compatibility deprecations"
+    }
+  ],
+  "fixes": [
+    {
+      "problem": "LNK2038 MT/MD runtime mismatch and duplicate CRT symbols linking unit_tests",
+      "classification": "ENVIRONMENT_DEFECT",
+      "fix": "gtest_force_shared_crt=ON in validation cache",
+      "sourceChange": false,
+      "rerun": "All three targets linked"
+    },
+    {
+      "problem": "CTest used nonexistent src/test/unit_tests path for Visual Studio output",
+      "classification": "IMPLEMENTATION_DEFECT",
+      "file": "src/test/CMakeLists.txt",
+      "fix": "$<TARGET_FILE:unit_tests>",
+      "rerun": "Forge subset and full CTest suite passed"
+    }
+  ],
+  "linters": [
+    {
+      "linter": "cpp",
+      "exitCode": 0,
+      "seconds": 42.515170200000284
+    },
+    {
+      "linter": "sql",
+      "exitCode": 0,
+      "seconds": 3.0866214000016043
+    }
+  ]
+}

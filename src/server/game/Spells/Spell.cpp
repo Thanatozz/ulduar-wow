@@ -382,6 +382,12 @@ void SpellCastTargets::SetSrc(WorldObject const& wObj)
     m_targetMask |= TARGET_FLAG_SOURCE_LOCATION;
 }
 
+void SpellCastTargets::SetSrc(SpellDestination const& source)
+{
+    m_src = source;
+    m_targetMask |= TARGET_FLAG_SOURCE_LOCATION;
+}
+
 void SpellCastTargets::ModSrc(Position const& pos)
 {
     ASSERT(m_targetMask & TARGET_FLAG_SOURCE_LOCATION);
@@ -2416,11 +2422,18 @@ void Spell::AddUnitTarget(Unit* target, uint32 effectMask, bool checkIfValid /*=
 
     // Spell have speed - need calculate incoming time
     // Incoming time is zero for self casts. At least I think so.
-    if (m_spellInfo->Speed > 0.0f && m_caster != target)
+    if (!m_triggeredInstantDelivery && m_triggeredTravelTime)
+    {
+        targetInfo.timeDelay = *m_triggeredTravelTime;
+        if (m_delayMoment == 0 || m_delayMoment > targetInfo.timeDelay)
+            m_delayMoment = targetInfo.timeDelay;
+    }
+    else if (!m_triggeredInstantDelivery && m_spellInfo->Speed > 0.0f && m_caster != target)
     {
         // calculate spell incoming interval
         /// @todo: this is a hack
-        float dist = m_caster->GetDistance(target->GetPositionX(), target->GetPositionY(), target->GetPositionZ());
+        float dist = m_visualSource ? m_visualSource->Location._position.GetExactDist(target) :
+            m_caster->GetDistance(target->GetPositionX(), target->GetPositionY(), target->GetPositionZ());
 
         if (dist < 5.0f)
             dist = 5.0f;
@@ -2606,6 +2619,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
                 HandleEffects(effectUnit, nullptr, nullptr, i, SPELL_EFFECT_HANDLE_HIT_TARGET);
         return;
     }
+
+    if (m_triggeredTargetValidator && !m_triggeredTargetValidator(effectUnit))
+        return;
 
     if (effectUnit->IsAlive() != target->alive)
         return;
@@ -2825,7 +2841,7 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
         SpellNonMeleeDamage damageInfo(caster, unitTarget, m_spellInfo, m_spellSchoolMask);
 
         // Check damage immunity
-        if (unitTarget->IsImmunedToDamage(caster, m_spellInfo))
+        if (unitTarget->IsImmunedToDamage(caster, m_spellInfo, GetSpellSchoolMaskOverride()))
         {
             m_damage = 0;
 
@@ -2838,10 +2854,12 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
             if (m_caster->GetEntry() == 27893)
             {
                 if (Unit* owner = m_caster->GetOwner())
-                    owner->CalculateSpellDamageTaken(&damageInfo, m_damage, m_spellInfo, m_attackType,  target->crit);
+                    owner->CalculateSpellDamageTaken(&damageInfo, m_damage, m_spellInfo, m_attackType,
+                        target->crit, GetSpellSchoolMaskOverride());
             }
             else
-                caster->CalculateSpellDamageTaken(&damageInfo, m_damage, m_spellInfo, m_attackType,  target->crit);
+                caster->CalculateSpellDamageTaken(&damageInfo, m_damage, m_spellInfo, m_attackType,
+                    target->crit, GetSpellSchoolMaskOverride());
 
             // xinef: override miss info after absorb / block calculations
             if (missInfo == SPELL_MISS_NONE && damageInfo.damage == 0)
@@ -2996,7 +3014,9 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
         return SPELL_MISS_EVADE;
 
     // For delayed spells immunity may be applied between missile launch and hit - check immunity for that case
-    if (m_spellInfo->Speed && ((m_damage > 0 && unit->IsImmunedToDamage(m_caster, m_spellInfo)) || unit->IsImmunedToSpell(m_spellInfo, this)))
+    if (m_spellInfo->Speed && ((m_damage > 0 &&
+        unit->IsImmunedToDamage(m_caster, m_spellInfo, GetSpellSchoolMaskOverride())) ||
+        unit->IsImmunedToSpell(m_spellInfo, this)))
     {
         return SPELL_MISS_IMMUNE;
     }
@@ -3555,6 +3575,9 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     // calculate cast time (calculated after first CheckCast check to prevent charge counting for first CheckCast fail)
     m_casttime = HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) ? 0 : m_spellInfo->CalcCastTime(m_caster, this);
+    if (m_casttime > 0 && m_customCastTimeMultiplier < 1.0f)
+        m_casttime = std::min(m_casttime, std::max(int32(m_customMinimumCastTime),
+            int32(float(m_casttime) * m_customCastTimeMultiplier)));
 
     if (m_caster->IsPlayer())
         if (m_caster->ToPlayer()->GetCommandStatus(CHEAT_CASTTIME))
@@ -4005,7 +4028,8 @@ void Spell::_cast(bool skipCheck)
     }
 
     // Okay, everything is prepared. Now we need to distinguish between immediate and evented delayed spells
-    if ((m_spellInfo->Speed > 0.0f && !m_spellInfo->IsChanneled())/* xinef: we dont need this || m_spellInfo->Id == 14157*/)
+    if (!m_triggeredInstantDelivery &&
+        ((m_spellInfo->Speed > 0.0f || m_triggeredTravelTime.value_or(0)) && !m_spellInfo->IsChanneled()))
     {
         // Remove used for cast item if need (it can be already nullptr after TakeReagents call
         // in case delayed spell remove item at cast delay start
@@ -4716,8 +4740,41 @@ void Spell::SendPetCastResult(SpellCastResult result)
     player->SendDirectMessage(&data);
 }
 
+bool Spell::SetTriggeredVisualSource(Unit const& source)
+{
+    if (m_spellState != SPELL_STATE_NULL || !HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) ||
+        m_spellInfo->IsChanneled() || !m_caster->IsInWorld() || !source.IsInWorld() ||
+        m_caster->GetMap() != source.GetMap() || !m_caster->InSamePhase(&source))
+        return false;
+
+    m_visualSource = VisualSource { source.GetGUID(), SpellDestination(source) };
+    return true;
+}
+
+void Spell::WriteVisualCastTargets(ByteBuffer& data)
+{
+    if (m_visualSource)
+    {
+        // InitExplicitTargets strips source flags not required by the spell. Override only the
+        // outgoing copy: gameplay selection, facing, range and ownership keep their normal caster.
+        SpellCastTargets visualTargets = m_targets;
+        visualTargets.SetSrc(m_visualSource->Location);
+        // Channel payloads normally resolve their target from the caster's active channel.
+        // A visual emitter has no channel; preserve the explicit target in this outgoing copy.
+        if (Unit* target = ObjectAccessor::GetUnit(*m_caster, m_originalTargetGUID))
+            visualTargets.SetUnitTarget(target);
+        visualTargets.Write(data);
+    }
+    else
+        m_targets.Write(data);
+}
+
 void Spell::SendSpellStart()
 {
+    // Secondary visual casts have no cast bar. Their sole presentation is a separate GO.
+    if (m_visualSource || m_triggeredInstantDelivery)
+        return;
+
     if (!IsNeedSendToClient(false))
         return;
 
@@ -4798,9 +4855,19 @@ void Spell::SendSpellStart()
 
 void Spell::SendSpellGo()
 {
+    // Instant server payloads must not tell the client to launch the DBC missile.
+    if (m_triggeredInstantDelivery)
+        return;
+
     // not send invisible spell casting
     if (!IsNeedSendToClient(true))
         return;
+
+    if (m_visualSource)
+    {
+        SendVisualOnlySpellGo();
+        return;
+    }
 
     //LOG_DEBUG("spells.aura", "Sending SMSG_SPELL_GO id={}", m_spellInfo->Id);
 
@@ -5009,6 +5076,40 @@ void Spell::WriteAmmoToPacket(WorldPacket* data)
 
     *data << uint32(ammoDisplayID);
     *data << uint32(ammoInventoryType);
+}
+
+void Spell::SendVisualOnlySpellGo()
+{
+    // Both wire GUIDs identify the visual emitter. In particular, the second (caster-unit)
+    // GUID must not point at the player while the first points at an enemy. No Unit casts
+    // a second gameplay spell: m_caster, m_originalCaster, scripts and damage/aura logs stay intact.
+    uint32 flags = CAST_FLAG_UNKNOWN_9 | CAST_FLAG_NO_GCD | CAST_FLAG_PENDING;
+    if (m_triggeredTravelTime.value_or(0))
+        flags |= CAST_FLAG_ADJUST_MISSILE;
+    if (m_spellInfo->HasAttribute(SPELL_ATTR0_USES_RANGED_SLOT) ||
+        m_spellInfo->HasAttribute(SPELL_ATTR0_CU_NEEDS_AMMO_DATA))
+        flags |= CAST_FLAG_PROJECTILE;
+
+    WorldPacket data(SMSG_SPELL_GO, 150);
+    data << m_visualSource->Guid.WriteAsPacked();
+    data << m_visualSource->Guid.WriteAsPacked();
+    data << uint8(m_cast_count);
+    data << uint32(m_spellInfo->Id);
+    data << flags;
+    data << uint32(GameTime::GetGameTimeMS().count());
+    WriteSpellGoTargets(&data);
+    WriteVisualCastTargets(data);
+    if (flags & CAST_FLAG_ADJUST_MISSILE)
+    {
+        data << float(0.0f);
+        data << uint32(*m_triggeredTravelTime);
+    }
+    if (flags & CAST_FLAG_PROJECTILE)
+        WriteAmmoToPacket(&data);
+    if (m_targets.GetTargetMask() & TARGET_FLAG_DEST_LOCATION)
+        data << uint8(0);
+    // Same observers as the gameplay cast; this packet carries no player resource/cooldown list.
+    m_caster->SendMessageToSet(&data, true);
 }
 
 /// Writes miss and hit targets for a SMSG_SPELL_GO packet
@@ -5380,6 +5481,9 @@ void Spell::TakePower()
 
 void Spell::TakeAmmo()
 {
+    if (m_triggeredIgnoreAmmo)
+        return;
+
     if (m_attackType == RANGED_ATTACK && m_caster->IsPlayer() && !m_spellInfo->HasAttribute(SPELL_ATTR6_DO_NOT_CONSUME_RESOURCES))
     {
         Item* pItem = m_caster->ToPlayer()->GetWeaponForAttack(RANGED_ATTACK);
@@ -7114,6 +7218,17 @@ bool Spell::CanAutoCast(Unit* target)
 
 SpellCastResult Spell::CheckRange(bool strict)
 {
+    if (m_triggeredTargetValidator)
+    {
+        Unit* target = m_targets.GetUnitTarget();
+        // Channel payloads carry their target in the channel slot; InitExplicitTargets removes
+        // the ordinary unit slot when the spell does not request it. Validate the actual selector.
+        if (m_spellInfo->IsChannelCategorySpell())
+            if (WorldObject* channelTarget = m_targets.GetObjectTargetChannel(m_caster))
+                target = channelTarget->ToUnit();
+        return m_triggeredTargetValidator(target) ? SPELL_CAST_OK : SPELL_FAILED_BAD_TARGETS;
+    }
+
     // Don't check for instant cast spells
     if (!strict && m_casttime == 0)
         return SPELL_CAST_OK;
@@ -7729,6 +7844,9 @@ SpellCastResult Spell::CheckItems(uint32* param1, uint32* param2)
                     Item* pItem = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType);
                     if (!pItem || pItem->IsBroken())
                         return SPELL_FAILED_EQUIPPED_ITEM;
+
+                    if (m_triggeredIgnoreAmmo)
+                        break;
 
                     switch (pItem->GetTemplate()->SubClass)
                     {

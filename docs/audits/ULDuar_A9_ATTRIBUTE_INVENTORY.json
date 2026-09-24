@@ -1,0 +1,4541 @@
+{
+  "evidence": "SOURCE_ONLY",
+  "status": "PARTIAL",
+  "scope": "Design classifications, NOT serialized attribute words; no artifact generator",
+  "rules": "All eight words inventoried; remaining blocked bits keep artifact authoring closed. Required-clear is a semantic design choice, not runtime validation. NOT_APPLICABLE has proposed fixture bit 0. PLATFORM_NORMAL is explicit 0, never an unspecified inherited mask.",
+  "attributes": [
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_PROC_FAILURE_BURNS_CHARGE",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Proc Failure Burns Charge",
+      "sourceLine": 370,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_USES_RANGED_SLOT",
+      "bit": "0x00000002",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Treat as ranged attack DESCRIPTION Use ammo, ranged attack range modifiers, ranged haste, etc.",
+      "sourceLine": 371,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 4788,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_USES_RANGED_SLOT) || m_spellInfo->HasAttribute(SPELL_ATTR0_CU_NEEDS_AMMO_DATA))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 4880,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_USES_RANGED_SLOT) || m_spellInfo->HasAttribute(SPELL_ATTR0_CU_NEEDS_AMMO_DATA))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5089,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_USES_RANGED_SLOT) ||"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ON_NEXT_SWING_NO_DAMAGE",
+      "bit": "0x00000004",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE On next melee (type 1) DESCRIPTION Both \"on next swing\" attributes have identical handling in server & client",
+      "sourceLine": 372,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8295,
+          "text": "return m_spellInfo->HasAttribute(SPELL_ATTR0_ON_NEXT_SWING_NO_DAMAGE);"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_DO_NOT_LOG_IMMUNE_MISSES",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Replenishment (client only)",
+      "sourceLine": 373,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_IS_ABILITY",
+      "bit": "0x00000010",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Treat as ability DESCRIPTION Cannot be reflected, not affected by cast speed modifiers, etc.",
+      "sourceLine": 374,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 686,
+          "text": "m_canReflect = m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MAGIC && !m_spellInfo->HasAttribute(SPELL_ATTR0_IS_ABILITY)"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 9114,
+          "text": "m_spellInfo->DmgClass != SPELL_DAMAGE_CLASS_RANGED && !m_spellInfo->HasAttribute(SPELL_ATTR0_USES_RANGED_SLOT) && !m_spellInfo->HasAttribute(SPELL_ATTR0_IS_ABILITY))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1059,
+          "text": "return !HasAttribute(SPELL_ATTR0_IS_ABILITY)"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_IS_TRADESKILL",
+      "bit": "0x00000020",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Trade skill recipe DESCRIPTION Displayed in recipe list, not affected by cast speed modifiers",
+      "sourceLine": 375,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Chat/HyperlinkTags.cpp",
+          "line": 101,
+          "text": "return (val = sSpellMgr->GetSpellInfo(spellId)) && val->HasAttribute(SPELL_ATTR0_IS_TRADESKILL);"
+        },
+        {
+          "file": "src/server/game/Loot/LootMgr.cpp",
+          "line": 2252,
+          "text": "if (!spellInfo->HasAttribute(SPELL_ATTR0_NOT_SHAPESHIFTED) || spellInfo->HasAttribute(SPELL_ATTR0_IS_TRADESKILL))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_PASSIVE",
+      "bit": "0x00000040",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Passive spell DESCRIPTION Spell is automatically cast on self by core",
+      "sourceLine": 376,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/DataStores/DBCStores.cpp",
+          "line": 434,
+          "text": "if (spellEntry && spellEntry->Attributes & SPELL_ATTR0_PASSIVE)"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5769,
+          "text": "if (!m_caster->IsAlive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE) && !(m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD) || (IsTriggered() && !m_triggeredByAuraSpell)))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5785,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_DO_NOT_DISPLAY",
+      "bit": "0x00000080",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Hidden in UI (client only) DESCRIPTION Not visible in spellbook or aura bar (Spellbook, Aura Icon, Combat Log)",
+      "sourceLine": 377,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellMgr.cpp",
+          "line": 3257,
+          "text": "if (learnSpell->IsRanked() && !learnSpell->HasAttribute(SpellAttr0(SPELL_ATTR0_PASSIVE | SPELL_ATTR0_DO_NOT_DISPLAY)))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 1458,
+          "text": "if (!spellInfo || !spellInfo->HasAttribute(SpellAttr0(SPELL_ATTR0_PASSIVE | SPELL_ATTR0_DO_NOT_DISPLAY)))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 1477,
+          "text": "if (!spellInfo || !spellInfo->HasAttribute(SpellAttr0(SPELL_ATTR0_PASSIVE | SPELL_ATTR0_DO_NOT_DISPLAY)) || spellInfo->HasEffect(SPELL_EFFECT_LEARN_SPELL))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_DO_NOT_LOG",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Hidden in combat log (client only) DESCRIPTION Spell will not appear in combat logs",
+      "sourceLine": 378,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_HELD_ITEM_ONLY",
+      "bit": "0x00000200",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Auto-target mainhand item (client only) DESCRIPTION Client will automatically select main-hand item as cast target",
+      "sourceLine": 379,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ON_NEXT_SWING",
+      "bit": "0x00000400",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE On next melee (type 2) DESCRIPTION Both \"on next swing\" attributes have identical handling in server & client",
+      "sourceLine": 380,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_WEARER_CASTS_PROC_TRIGGER",
+      "bit": "0x00000800",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 11@Attr0",
+      "sourceLine": 381,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_SERVER_ONLY",
+      "bit": "0x00001000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 12@Attr0 DESCRIPTION not set in 3.3.5a",
+      "sourceLine": 382,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ALLOW_ITEM_SPELL_IN_PVP",
+      "bit": "0x00002000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Only usable during nighttime",
+      "sourceLine": 383,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4962,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_ALLOW_ITEM_SPELL_IN_PVP;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4969,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_ALLOW_ITEM_SPELL_IN_PVP;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 5082,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_ALLOW_ITEM_SPELL_IN_PVP;"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ONLY_INDOORS",
+      "bit": "0x00004000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Only usable indoors",
+      "sourceLine": 384,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5831,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_ONLY_INDOORS) &&"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 5889,
+          "text": "SpellAttr0 attrToRemove = isOutdoor ? SPELL_ATTR0_ONLY_INDOORS : SPELL_ATTR0_ONLY_OUTDOORS;"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 5890,
+          "text": "SpellAttr0 attrToRecalculate = isOutdoor ? SPELL_ATTR0_ONLY_OUTDOORS : SPELL_ATTR0_ONLY_INDOORS;"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ONLY_OUTDOORS",
+      "bit": "0x00008000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Only usable outdoors",
+      "sourceLine": 385,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5827,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_ONLY_OUTDOORS) &&"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 5889,
+          "text": "SpellAttr0 attrToRemove = isOutdoor ? SPELL_ATTR0_ONLY_INDOORS : SPELL_ATTR0_ONLY_OUTDOORS;"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 5890,
+          "text": "SpellAttr0 attrToRecalculate = isOutdoor ? SPELL_ATTR0_ONLY_OUTDOORS : SPELL_ATTR0_ONLY_INDOORS;"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_NOT_SHAPESHIFTED",
+      "bit": "0x00010000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Not usable while shapeshifted",
+      "sourceLine": 386,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Loot/LootMgr.cpp",
+          "line": 2252,
+          "text": "if (!spellInfo->HasAttribute(SPELL_ATTR0_NOT_SHAPESHIFTED) || spellInfo->HasAttribute(SPELL_ATTR0_IS_TRADESKILL))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1484,
+          "text": "if (HasAttribute(SPELL_ATTR0_NOT_SHAPESHIFTED)) // not while shapeshifted"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 338,
+          "text": "spellInfo->Attributes &= ~SPELL_ATTR0_NOT_SHAPESHIFTED;   // with this spell atrribute aura can be stacked several times"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ONLY_STEALTHED",
+      "bit": "0x00020000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Only usable in stealth",
+      "sourceLine": 387,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5857,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_ONLY_STEALTHED) && !(m_caster->HasStealthAura()))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_DO_NOT_SHEATH",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Don't shealthe weapons (client only)",
+      "sourceLine": 388,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4939,
+          "text": "spellInfo->Attributes &= ~(SPELL_ATTR0_IS_ABILITY | SPELL_ATTR0_DO_NOT_SHEATH);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4961,
+          "text": "spellInfo->Attributes &= ~(SPELL_ATTR0_IS_ABILITY | SPELL_ATTR0_NOT_SHAPESHIFTED | SPELL_ATTR0_DO_NOT_SHEATH);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4968,
+          "text": "spellInfo->Attributes &= ~(SPELL_ATTR0_IS_ABILITY | SPELL_ATTR0_NOT_SHAPESHIFTED | SPELL_ATTR0_DO_NOT_SHEATH);"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL",
+      "bit": "0x00080000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Scale with caster level DESCRIPTION For non-player casts, scale impact and power cost with caster's level",
+      "sourceLine": 389,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 464,
+          "text": "!basePointsPerLevel && _spellInfo->HasAttribute(SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 504,
+          "text": "if ((sSpellMgr->GetSpellInfo(_spellInfo->Effects[EffectIndex].TriggerSpell) && sSpellMgr->GetSpellInfo(_spellInfo->Effects[EffectIndex].TriggerSpell)->HasAttribute(SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL)) && _spellInfo->HasAttribute(SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2884,
+          "text": "if (HasAttribute(SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_CANCELS_AUTO_ATTACK_COMBAT",
+      "bit": "0x00100000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Stop attacking after cast DESCRIPTION After casting this, the current auto-attack will be interrupted",
+      "sourceLine": 390,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2925,
+          "text": "if (caster->IsPlayer() && m_spellInfo->HasAttribute(SPELL_ATTR0_CANCELS_AUTO_ATTACK_COMBAT) == 0 &&"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2948,
+          "text": "if ((dmgInfo.GetHitMask() & (PROC_HIT_NORMAL | PROC_HIT_CRITICAL)) && caster->IsPlayer() && m_spellInfo->HasAttribute(SPELL_ATTR0_CANCELS_AUTO_ATTACK_COMBAT) == 0 &&"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 4586,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR0_CANCELS_AUTO_ATTACK_COMBAT))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_NO_ACTIVE_DEFENSE",
+      "bit": "0x00200000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Prevent physical avoidance DESCRIPTION Spell cannot be dodged, parried or blocked",
+      "sourceLine": 391,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4923,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_NO_ACTIVE_DEFENSE;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3273,
+          "text": "if (spellProto && (spellProto->HasAttribute(SPELL_ATTR0_NO_ACTIVE_DEFENSE) || spellProto->HasAttribute(SPELL_ATTR3_ALWAYS_HIT)))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3361,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR0_NO_ACTIVE_DEFENSE))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_TRACK_TARGET_IN_CAST_PLAYER_ONLY",
+      "bit": "0x00400000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Automatically face target during cast (client only)",
+      "sourceLine": 392,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD",
+      "bit": "0x00800000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can be cast while dead DESCRIPTION Spells without this flag cannot be cast by dead units in non-triggered contexts",
+      "sourceLine": 393,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Handlers/PetHandler.cpp",
+          "line": 89,
+          "text": "if ((flag != ACT_COMMAND || spellId != COMMAND_ABANDON) && (!spell || !spell->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD)))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5769,
+          "text": "if (!m_caster->IsAlive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_PASSIVE) && !(m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD) || (IsTriggered() && !m_triggeredByAuraSpell)))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2181,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_ALLOW_CAST_WHILE_DEAD;"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ALLOW_WHILE_MOUNTED",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can be cast while mounted",
+      "sourceLine": 394,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5956,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR6_ALLOW_WHILE_RIDING_VEHICLE) && !m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_WHILE_MOUNTED)"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6124,
+          "text": "!m_spellInfo->IsPassive() && !m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_WHILE_MOUNTED))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6848,
+          "text": "!transformSpellInfo->HasAttribute(SpellAttr0(SPELL_ATTR0_ALLOW_WHILE_MOUNTED | SPELL_ATTR0_AURA_IS_DEBUFF)))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_COOLDOWN_ON_EVENT",
+      "bit": "0x02000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cooldown starts on expiry DESCRIPTION Spell is unusable while already active, and cooldown does not begin until the effects have worn off",
+      "sourceLine": 395,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1255,
+          "text": "return HasAttribute(SPELL_ATTR0_COOLDOWN_ON_EVENT) || (CategoryEntry && CategoryEntry->Flags & SPELL_CATEGORY_FLAG_COOLDOWN_STARTS_ON_EVENT);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2944,
+          "text": "if (HasAttribute(SPELL_ATTR0_COOLDOWN_ON_EVENT) || HasAttribute(SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF) || HasAttribute(SPELL_ATTR3_ONLY_PROC_ON_CASTER))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_AURA_IS_DEBUFF",
+      "bit": "0x04000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Is negative spell DESCRIPTION Forces the spell to be treated as a negative spell",
+      "sourceLine": 396,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6848,
+          "text": "!transformSpellInfo->HasAttribute(SpellAttr0(SPELL_ATTR0_ALLOW_WHILE_MOUNTED | SPELL_ATTR0_AURA_IS_DEBUFF)))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 3038,
+          "text": "if (HasAttribute(SPELL_ATTR0_AURA_IS_DEBUFF))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 3168,
+          "text": "if (HasAttribute(SPELL_ATTR0_AURA_IS_DEBUFF) && effIndex == 0)"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_ALLOW_WHILE_SITTING",
+      "bit": "0x08000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can be cast while sitting",
+      "sourceLine": 397,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3663,
+          "text": "if (!IsTriggered() && !(m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) && !(m_spellInfo->Attributes & SPELL_ATTR0_ALLOW_WHILE_SITTING) && !m_triggeredByAuraSpell && m_caster->IsSitState())"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4244,
+          "text": "spellInfo->Attributes |= SPELL_ATTR0_ALLOW_WHILE_SITTING;"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_NOT_IN_COMBAT_ONLY_PEACEFUL",
+      "bit": "0x10000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot be used in combat",
+      "sourceLine": 398,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1275,
+          "text": "return !(HasAttribute(SPELL_ATTR0_NOT_IN_COMBAT_ONLY_PEACEFUL));"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 12043,
+          "text": "if (spellInfo && spellInfo->HasAttribute(SPELL_ATTR0_NOT_IN_COMBAT_ONLY_PEACEFUL))"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_NO_IMMUNITIES",
+      "bit": "0x20000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Pierce invulnerability DESCRIPTION Allows spell to pierce invulnerability, unless the invulnerability spell also has this attribute",
+      "sourceLine": 399,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Battlegrounds/Battleground.cpp",
+          "line": 613,
+          "text": "// && (!aura->GetSpellInfo()->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES)) Xinef: condition, ALL buffs should be removed"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 687,
+          "text": "&& !m_spellInfo->HasAttribute(SPELL_ATTR1_NO_REFLECTION) && !m_spellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES)"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6847,
+          "text": "if (transformSpellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES) &&"
+        }
+      ]
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_HEARTBEAT_RESIST",
+      "bit": "0x40000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Periodic resistance checks DESCRIPTION Periodically re-rolls against resistance to potentially expire aura early",
+      "sourceLine": 400,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 0,
+      "name": "SPELL_ATTR0_NO_AURA_CANCEL",
+      "bit": "0x80000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Aura cannot be cancelled DESCRIPTION Prevents the player from voluntarily canceling a positive aura",
+      "sourceLine": 401,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Handlers/SpellHandler.cpp",
+          "line": 575,
+          "text": "// not allow remove spells with attr SPELL_ATTR0_NO_AURA_CANCEL"
+        },
+        {
+          "file": "src/server/game/Handlers/SpellHandler.cpp",
+          "line": 576,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR0_NO_AURA_CANCEL))"
+        },
+        {
+          "file": "src/server/game/Handlers/SpellHandler.cpp",
+          "line": 669,
+          "text": "// not allow remove spells with attr SPELL_ATTR0_NO_AURA_CANCEL"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_DISMISS_PET_FIRST",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Dismiss Pet on cast DESCRIPTION Without this attribute, summoning spells will fail if caster already has a pet",
+      "sourceLine": 407,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3833,
+          "text": "// Xinef: implement attribute SPELL_ATTR1_DISMISS_PET_FIRST, on spell cast current pet is dismissed and charms are removed"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3834,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET_FIRST))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6549,
+          "text": "if (!SummonProperties || m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET_FIRST))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_USE_ALL_MANA",
+      "bit": "0x00000002",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Drain all power DESCRIPTION Ignores listed power cost and drains entire pool instead",
+      "sourceLine": 408,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2815,
+          "text": "if (AttributesEx & SPELL_ATTR1_USE_ALL_MANA)"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_IS_CHANNELED",
+      "bit": "0x00000004",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Channeled (type 1) DESCRIPTION Both \"channeled\" attributes have identical handling in server & client",
+      "sourceLine": 409,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1299,
+          "text": "return (AttributesEx & (SPELL_ATTR1_IS_CHANNELED | SPELL_ATTR1_IS_SELF_CHANNELED));"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 967,
+          "text": "spellInfo->AttributesEx &= ~SPELL_ATTR1_IS_CHANNELED;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1544,
+          "text": "spellInfo->AttributesEx &= ~SPELL_ATTR1_IS_CHANNELED;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_REDIRECTION",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore redirection effects DESCRIPTION Spell will not be attracted by SPELL_MAGNET auras (Grounding Totem)",
+      "sourceLine": 410,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1060,
+          "text": "&& !HasAttribute(SPELL_ATTR1_NO_REDIRECTION)"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 552,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_NO_REDIRECTION;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1010,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_NO_REDIRECTION;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_SKILL_INCREASE",
+      "bit": "0x00000010",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No skill-up payload.",
+      "headerComment": "TITLE Unknown attribute 4@Attr1 DESCRIPTION stealth and whirlwind",
+      "sourceLine": 411,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_ALLOW_WHILE_STEALTHED",
+      "bit": "0x00000020",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Does not break stealth",
+      "sourceLine": 412,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1314,
+          "text": "return !(AttributesEx & SPELL_ATTR1_ALLOW_WHILE_STEALTHED);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 764,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_ALLOW_WHILE_STEALTHED;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_IS_SELF_CHANNELED",
+      "bit": "0x00000040",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Channeled (type 2) DESCRIPTION Both \"channeled\" attributes have identical handling in server & client",
+      "sourceLine": 413,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1299,
+          "text": "return (AttributesEx & (SPELL_ATTR1_IS_CHANNELED | SPELL_ATTR1_IS_SELF_CHANNELED));"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2790,
+          "text": "spellInfo->AttributesEx &= ~SPELL_ATTR1_IS_SELF_CHANNELED;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_REFLECTION",
+      "bit": "0x00000080",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore reflection effects DESCRIPTION Spell will pierce through Spell Reflection and similar",
+      "sourceLine": 414,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 687,
+          "text": "&& !m_spellInfo->HasAttribute(SPELL_ATTR1_NO_REFLECTION) && !m_spellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES)"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1072,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_NO_REFLECTION;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4373,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_NO_REFLECTION;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_ONLY_PEACEFUL_TARGETS",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Target cannot be in combat",
+      "sourceLine": 415,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1677,
+          "text": "if (AttributesEx & SPELL_ATTR1_ONLY_PEACEFUL_TARGETS && (unitTarget->IsInCombat() || unitTarget->IsPetInCombat()))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_INITIATE_COMBAT",
+      "bit": "0x00000200",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Enables Auto-Attack (client only) DESCRIPTION Caster will begin auto-attacking the target on cast",
+      "sourceLine": 416,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6192,
+          "text": "if (m_spellInfo->Effects[i].IsTargetingArea() || m_spellInfo->HasAttribute(SPELL_ATTR1_INITIATE_COMBAT))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_THREAT",
+      "bit": "0x00000400",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Does not generate threat DESCRIPTION Also does not cause target to engage",
+      "sourceLine": 417,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Combat/ThreatManager.cpp",
+          "line": 397,
+          "text": "if (spell->HasAttribute(SPELL_ATTR1_NO_THREAT))"
+        },
+        {
+          "file": "src/server/game/Combat/ThreatManager.cpp",
+          "line": 766,
+          "text": "if (spell && spell->HasAttribute(SPELL_ATTR1_NO_THREAT)) // shortcut, none of the calls would do anything"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2966,
+          "text": "m_caster->AtTargetAttacked(effectUnit, !(m_spellInfo->HasAttribute(SPELL_ATTR1_NO_THREAT) || m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS)));"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_AURA_UNIQUE",
+      "bit": "0x00000800",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Aura will not refresh its duration when recast",
+      "sourceLine": 418,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 988,
+          "text": "bool refresh = stackAmount >= GetStackAmount() && (m_spellInfo->StackAmount || !m_spellInfo->HasAttribute(SPELL_ATTR1_AURA_UNIQUE));"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_FAILURE_BREAKS_STEALTH",
+      "bit": "0x00001000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Pickpocket (client only)",
+      "sourceLine": 419,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_TOGGLE_FAR_SIGHT",
+      "bit": "0x00002000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Farsight aura (client only)",
+      "sourceLine": 420,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_TRACK_TARGET_IN_CHANNEL",
+      "bit": "0x00004000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Track target while channeling DESCRIPTION While channeling, adjust facing to face target",
+      "sourceLine": 421,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3441,
+          "text": "else if (!m_caster->IsPlayer() && m_spellInfo->HasAttribute(SPELL_ATTR1_TRACK_TARGET_IN_CHANNEL))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4941,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_TRACK_TARGET_IN_CHANNEL;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 1139,
+          "text": "if (caster && !caster->IsPlayer() && m_spellInfo->IsChanneled() && m_spellInfo->HasAttribute(SPELL_ATTR1_TRACK_TARGET_IN_CHANNEL))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_IMMUNITY_PURGES_EFFECT",
+      "bit": "0x00008000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Immunity cancels preapplied auras DESCRIPTION For immunity spells, cancel all auras that this spell would make you immune to when the spell is applied",
+      "sourceLine": 422,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7025,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR1_IMMUNITY_PURGES_EFFECT))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1374,
+          "text": "if (HasAttribute(SPELL_ATTR1_IMMUNITY_PURGES_EFFECT) && CanSpellProvideImmunityAgainstAura(auraSpellInfo))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2514,
+          "text": "if (apply && HasAttribute(SPELL_ATTR1_IMMUNITY_PURGES_EFFECT))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS",
+      "bit": "0x00010000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Immunity to Hostile & Friendly Effects DESCRIPTION Immunity applied by this aura will also be checked for friendly spells (school immunity only) - used by Cyclone for example to cause friendly spells and healing over time to be immune",
+      "sourceLine": 423,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7113,
+          "text": "if (auraInfo->GetSchoolMask() & school_immune && !auraInfo->HasAttribute(SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2527,
+          "text": "if (!HasAttribute(SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1270,
+          "text": "spellInfo->AttributesEx &= ~SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_AUTOCAST_AI",
+      "bit": "0x00020000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Cannot be autocast by pet DESCRIPTION (AI)",
+      "sourceLine": 424,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1148,
+          "text": "if (HasAttribute(SPELL_ATTR1_NO_AUTOCAST_AI))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_PREVENTS_ANIM",
+      "bit": "0x00040000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE NYI, auras apply UNIT_FLAG_PREVENT_EMOTES_FROM_CHAT_TEXT",
+      "sourceLine": 425,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_EXCLUDE_CASTER",
+      "bit": "0x00080000",
+      "status": "REQUIRED_SET",
+      "policy": "Damage 1; Healing REQUIRED_CLEAR (0)",
+      "reason": "Enemy damage cannot target self; explicit self healing allowed.",
+      "headerComment": "TITLE Cannot be self-cast",
+      "sourceLine": 426,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1664,
+          "text": "if (AttributesEx & SPELL_ATTR1_EXCLUDE_CASTER && caster == target)"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 878,
+          "text": "spellInfo->AttributesEx &= ~SPELL_ATTR1_EXCLUDE_CASTER;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2944,
+          "text": "spellInfo->AttributesEx |= SPELL_ATTR1_EXCLUDE_CASTER;"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_FINISHING_MOVE_DAMAGE",
+      "bit": "0x00100000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Requires combo points (type 1)",
+      "sourceLine": 427,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1309,
+          "text": "return (AttributesEx & (SPELL_ATTR1_FINISHING_MOVE_DAMAGE | SPELL_ATTR1_FINISHING_MOVE_DURATION));"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_THREAT_ONLY_ON_MISS",
+      "bit": "0x00200000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 21@Attr1",
+      "sourceLine": 428,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_FINISHING_MOVE_DURATION",
+      "bit": "0x00400000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Requires combo points (type 2)",
+      "sourceLine": 429,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1309,
+          "text": "return (AttributesEx & (SPELL_ATTR1_FINISHING_MOVE_DAMAGE | SPELL_ATTR1_FINISHING_MOVE_DURATION));"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_IGNORE_OWNERS_DEATH",
+      "bit": "0x00800000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No owned persistent aura.",
+      "headerComment": "TITLE Unknwon attribute 23@Attr1",
+      "sourceLine": 430,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_SPECIAL_SKILLUP",
+      "bit": "0x01000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Fishing (client only)",
+      "sourceLine": 431,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_AURA_STAYS_AFTER_COMBAT",
+      "bit": "0x02000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Aura stays after combat DESCRIPTION Aura will not be removed when the unit leaves combat",
+      "sourceLine": 432,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3662,
+          "text": "&& !spell->HasAttribute(SPELL_ATTR0_CU_IGNORE_EVADE) && !spell->HasAttribute(SPELL_ATTR1_AURA_STAYS_AFTER_COMBAT))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3741,
+          "text": "!spellInfo->HasAttribute(SPELL_ATTR0_CU_IGNORE_EVADE) && !spellInfo->HasAttribute(SPELL_ATTR1_AURA_STAYS_AFTER_COMBAT))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5752,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR0_CU_IGNORE_EVADE) || spellInfo->HasAttribute(SPELL_ATTR1_AURA_STAYS_AFTER_COMBAT) || spellInfo->HasAura(SPELL_AURA_CONTROL_VEHICLE)"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_REQUIRE_ALL_TARGETS",
+      "bit": "0x04000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 26@Attr1 DESCRIPTION Related to [target=focus] and [target=mouseover] macros?",
+      "sourceLine": 433,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_DISCOUNT_POWER_ON_MISS",
+      "bit": "0x08000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 27@Attr1 DESCRIPTION Melee spell?",
+      "sourceLine": 434,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NO_AURA_ICON",
+      "bit": "0x10000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Hide in aura bar (client only)",
+      "sourceLine": 435,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/ArenaSpectator/ArenaSpectator.cpp",
+          "line": 285,
+          "text": "if (aura->GetSpellInfo()->SpellIconID == 1 || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR1_NO_AURA_ICON))"
+        },
+        {
+          "file": "src/server/game/Entities/Pet/Pet.cpp",
+          "line": 1709,
+          "text": "if (aura->GetSpellInfo()->HasAttribute(SPELL_ATTR1_NO_AURA_ICON))"
+        }
+      ]
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_NAME_IN_CHANNEL_BAR",
+      "bit": "0x20000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Show spell name during channel (client only)",
+      "sourceLine": 436,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_COMBO_ON_BLOCK",
+      "bit": "0x40000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Enable at dodge DESCRIPTION (Mainline: Dispel All Stacks)",
+      "sourceLine": 437,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 1,
+      "name": "SPELL_ATTR1_CAST_WHEN_LEARNED",
+      "bit": "0x80000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 31@Attr1",
+      "sourceLine": 438,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ALLOW_DEAD_TARGET",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can target dead players or corpses",
+      "sourceLine": 444,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2112,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_DEAD_TARGET))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1270,
+          "text": "return AttributesEx2 & SPELL_ATTR2_ALLOW_DEAD_TARGET || Targets & (TARGET_FLAG_CORPSE_ALLY | TARGET_FLAG_CORPSE_ENEMY | TARGET_FLAG_UNIT_DEAD);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2199,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_ALLOW_DEAD_TARGET;"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_SHAPESHIFT_UI",
+      "bit": "0x00000002",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No shapeshift effect/bar.",
+      "headerComment": "TITLE Unknown attribute 1@Attr2 DESCRIPTION vanish, shadowform, Ghost Wolf and other",
+      "sourceLine": 445,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_IGNORE_LINE_OF_SIGHT",
+      "bit": "0x00000004",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore Line of Sight",
+      "sourceLine": 446,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Conditions/DisableMgr.cpp",
+          "line": 168,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_IGNORE_LINE_OF_SIGHT;"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6014,
+          "text": "if ((!m_caster->IsTotem() || !m_spellInfo->IsPositive()) && !m_spellInfo->HasAttribute(SPELL_ATTR2_IGNORE_LINE_OF_SIGHT) &&"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6051,
+          "text": "if ((!m_caster->IsTotem() || !m_spellInfo->IsPositive()) && !m_spellInfo->HasAttribute(SPELL_ATTR2_IGNORE_LINE_OF_SIGHT) &&"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No aura-rank scaling exemption.",
+      "headerComment": "TITLE Ignore aura scaling",
+      "sourceLine": 447,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7647,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7727,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2944,
+          "text": "if (HasAttribute(SPELL_ATTR0_COOLDOWN_ON_EVENT) || HasAttribute(SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF) || HasAttribute(SPELL_ATTR3_ONLY_PROC_ON_CASTER))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_USE_SHAPESHIFT_BAR",
+      "bit": "0x00000010",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Show in stance bar (client only)",
+      "sourceLine": 448,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_AUTO_REPEAT",
+      "bit": "0x00000020",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ranged auto-attack spell",
+      "sourceLine": 449,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 611,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR2_AUTO_REPEAT))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2276,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR2_AUTO_REPEAT))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2290,
+          "text": "&& m_spellInfo->HasAttribute(SPELL_ATTR2_AUTO_REPEAT)) // Wands auto attack"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_CANNOT_CAST_ON_TAPPED",
+      "bit": "0x00000040",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot target others' tapped units DESCRIPTION Can only target untapped units, or those tapped by caster",
+      "sourceLine": 450,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1700,
+          "text": "if (AttributesEx2 & SPELL_ATTR2_CANNOT_CAST_ON_TAPPED)"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_DO_NOT_REPORT_SPELL_FAILURE",
+      "bit": "0x00000080",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Retain ordinary client failure reporting.",
+      "headerComment": "TITLE Unknown attribute 7@Attr2",
+      "sourceLine": 451,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_INCLUDE_IN_ADVANCED_COMBAT_LOG",
+      "bit": "0x00000100",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 8@Attr2 DESCRIPTION not set in 3.3.5a",
+      "sourceLine": 452,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ALWAYS_CAST_AS_UNIT",
+      "bit": "0x00000200",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 9@Attr2",
+      "sourceLine": 453,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_SPECIAL_TAMING_FLAG",
+      "bit": "0x00000400",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No tame effect.",
+      "headerComment": "TITLE Unknown attribute 10@Attr2 DESCRIPTION Related to taming?",
+      "sourceLine": 454,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_TARGET_PER_SECOND_COST",
+      "bit": "0x00000800",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Health Funnel",
+      "sourceLine": 455,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4942,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_NO_TARGET_PER_SECOND_COST;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6585,
+          "text": "if (target != caster && GetSpellInfo()->HasAttribute(SPELL_ATTR2_NO_TARGET_PER_SECOND_COST) && (!caster || !caster->IsAlive()))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6688,
+          "text": "if (target != caster && GetSpellInfo()->HasAttribute(SPELL_ATTR2_NO_TARGET_PER_SECOND_COST))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_CHAIN_FROM_CASTER",
+      "bit": "0x00001000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Chain from caster DESCRIPTION Cleave, Heart Strike, Maul, Sunder Armor, Swipe",
+      "sourceLine": 456,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2196,
+          "text": "WorldObject* chainSource = m_spellInfo->HasAttribute(SPELL_ATTR2_CHAIN_FROM_CASTER) ? m_caster : target;"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2245,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR2_CHAIN_FROM_CASTER))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ENCHANT_OWN_ITEM_ONLY",
+      "bit": "0x00002000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Enchant persists when entering arena",
+      "sourceLine": 457,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellMgr.cpp",
+          "line": 2517,
+          "text": "if (!spellInfo->HasAttribute(SPELL_ATTR2_ENCHANT_OWN_ITEM_ONLY)/* || !spellInfo->HasAttribute(SPELL_ATTR0_NOT_SHAPESHIFTED)*/)"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ALLOW_WHILE_INVISIBLE",
+      "bit": "0x00004000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 14@Attr2",
+      "sourceLine": 458,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_DO_NOT_CONSUME_IF_GAINED_DURING_CAST",
+      "bit": "0x00008000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 15@Attr2 DESCRIPTION not set in 3.3.5a",
+      "sourceLine": 459,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_ACTIVE_PETS",
+      "bit": "0x00010000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Tame Beast",
+      "sourceLine": 460,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_DO_NOT_RESET_COMBAT_TIMERS",
+      "bit": "0x00020000",
+      "status": "REQUIRED_SET",
+      "policy": "Contact 1; ranged REQUIRED_CLEAR (0)",
+      "reason": "Keep A.8 contact non-reset policy; choose normal platform cast-time swing behavior for ranged.",
+      "headerComment": "TITLE Don't reset swing timer DESCRIPTION Does not reset melee/ranged autoattack timer on cast",
+      "sourceLine": 461,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3978,
+          "text": "bool resetAttackTimers = IsAutoActionResetSpell() && !m_spellInfo->HasAttribute(SPELL_ATTR2_DO_NOT_RESET_COMBAT_TIMERS);"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 593,
+          "text": "if (spell->GetSpellInfo()->HasAttribute(SPELL_ATTR2_DO_NOT_RESET_COMBAT_TIMERS))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 4307,
+          "text": "if (!isAutoshoot || !m_currentSpells[CURRENT_GENERIC_SPELL]->m_spellInfo->HasAttribute(SPELL_ATTR2_DO_NOT_RESET_COMBAT_TIMERS))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_JUMP_WHILE_CAST_PENDING",
+      "bit": "0x00040000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No dead-pet requirement.",
+      "headerComment": "TITLE Requires dead pet",
+      "sourceLine": 462,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ALLOW_WHILE_NOT_SHAPESHIFTED",
+      "bit": "0x00080000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Also allow outside shapeshift (caster form) DESCRIPTION Even if Stances are nonzero, allow spell to be cast outside of shapeshift (though not in a different shapeshift)",
+      "sourceLine": 463,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1492,
+          "text": "if (!(AttributesEx2 & SPELL_ATTR2_ALLOW_WHILE_NOT_SHAPESHIFTED) && Stances != 0)"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 1045,
+          "text": "return (GetCasterGUID() == target->GetGUID() && m_spellInfo->Stances && !m_spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_WHILE_NOT_SHAPESHIFTED) && !m_spellInfo->HasAttribute(SPELL_ATTR0_NOT_SHAPESHIFTED));"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 3409,
+          "text": "(!form && spellInfo->HasAttribute(SPELL_ATTR2_ALLOW_WHILE_NOT_SHAPESHIFTED)));"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_INITIATE_COMBAT_POST_CAST",
+      "bit": "0x00100000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE (Enables Auto-Attack)",
+      "sourceLine": 464,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_FAIL_ON_ALL_TARGETS_IMMUNE",
+      "bit": "0x00200000",
+      "status": "BLOCKED_RUNTIME",
+      "policy": "No final bit value",
+      "reason": "Server usage exists; listed source locations expose interactions requiring narrower policy review/observation. No bit value approved.",
+      "headerComment": "TITLE Damage reduction ability DESCRIPTION Causes BG flags to be dropped if combined with ATTR1_DISPEL_AURAS_ON_IMMUNITY",
+      "sourceLine": 465,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 4027,
+          "text": "&& GetSpellInfo()->HasAttribute(SPELL_ATTR2_FAIL_ON_ALL_TARGETS_IMMUNE))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_INITIAL_THREAD",
+      "bit": "0x00400000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 22@Attr2 DESCRIPTION Ambush, Backstab, Cheap Shot, Death Grip, Garrote, Judgements, Mutilate, Pounce, Ravage, Shiv, Shred",
+      "sourceLine": 466,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_PROC_COOLDOWN_ON_FAILURE",
+      "bit": "0x00800000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Proc Cooldown On Failure",
+      "sourceLine": 467,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 12909,
+          "text": "if (aurApp->GetBase()->GetSpellInfo()->HasAttribute(SPELL_ATTR2_PROC_COOLDOWN_ON_FAILURE))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ITEM_CAST_WITH_OWNER_SKILL",
+      "bit": "0x01000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No item cast.",
+      "headerComment": "TITLE Unknown attribute 24@Attr2",
+      "sourceLine": 468,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_DONT_BLOCK_MANA_REGEN",
+      "bit": "0x02000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Do not opt out of native Mana regeneration behavior.",
+      "headerComment": "TITLE Unknown attribute 25@Attr2",
+      "sourceLine": 469,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NO_SCHOOL_IMMUNITIES",
+      "bit": "0x04000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Pierce aura application immunities DESCRIPTION Allow aura to be applied despite target being immune to new aura applications",
+      "sourceLine": 470,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2601,
+          "text": "if (!auraSpellInfo->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2648,
+          "text": "!auraSpellInfo->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2699,
+          "text": "if (aurEff->GetSpellInfo()->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES) || !(aurEff->GetSpellInfo()->SchoolMask & miscValue))"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_IGNORE_WEAPONSKILL",
+      "bit": "0x08000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No weapon-skill exception; MAGIC defense is explicit elsewhere.",
+      "headerComment": "TITLE Unknown attribute 27@Attr2",
+      "sourceLine": 471,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_NOT_AN_ACTION",
+      "bit": "0x10000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 28@Attr2",
+      "sourceLine": 472,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_CANT_CRIT",
+      "bit": "0x20000000",
+      "status": "REQUIRED_SET",
+      "policy": "MeleeDamage 1; other three REQUIRED_CLEAR (0)",
+      "reason": "A.8 exact diagnostic defense policy.",
+      "headerComment": "TITLE Cannot critically strike",
+      "sourceLine": 473,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2999,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_CANT_CRIT;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 3124,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_CANT_CRIT;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 3719,
+          "text": "spellInfo->AttributesEx2 |= SPELL_ATTR2_CANT_CRIT;"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_ACTIVE_THREAT",
+      "bit": "0x40000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Allow triggered spell to trigger (type 1) DESCRIPTION Without this attribute, any triggered spell will be unable to trigger other auras' procs",
+      "sourceLine": 474,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2327,
+          "text": "(m_spellInfo->HasAttribute(SPELL_ATTR2_ACTIVE_THREAT) ||"
+        }
+      ]
+    },
+    {
+      "word": 2,
+      "name": "SPELL_ATTR2_RETAIN_ITEM_CAST",
+      "bit": "0x80000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Food buff (client only)",
+      "sourceLine": 475,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_PVP_ENABLING",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No extra PvP flag request; ordinary harmful-action PvP handling remains.",
+      "headerComment": "TITLE Unknown attribute 0@Attr3",
+      "sourceLine": 481,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_PROC_EQUIP_REQUIREMENT",
+      "bit": "0x00000002",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE 1 Ignores subclass mask check when checking proc",
+      "sourceLine": 482,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 2227,
+          "text": "if (!GetSpellInfo()->HasAttribute(SPELL_ATTR3_NO_PROC_EQUIP_REQUIREMENT))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_CASTING_BAR_TEXT",
+      "bit": "0x00000004",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Require visible/actionable cast presentation; tab population remains BLOCKED_CLIENT.",
+      "headerComment": "TITLE Unknown attribute 2@Attr3",
+      "sourceLine": 483,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_COMPLETELY_BLOCKED",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Blockable spell",
+      "sourceLine": 484,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 890,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_COMPLETELY_BLOCKED;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3358,
+          "text": "bool canBlock = spellInfo->HasAttribute(SPELL_ATTR3_COMPLETELY_BLOCKED) && !spellInfo->HasAttribute(SPELL_ATTR0_CU_DIRECT_DAMAGE);"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_RES_TIMER",
+      "bit": "0x00000010",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Ignore resurrection timer",
+      "sourceLine": 485,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5350,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_NO_RES_TIMER))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_DURABILITY_LOSS",
+      "bit": "0x00000020",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No durability exception.",
+      "headerComment": "TITLE Unknown attribute 5@Attr3",
+      "sourceLine": 486,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_AVOIDANCE",
+      "bit": "0x00000040",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No generic avoidance exemption.",
+      "headerComment": "TITLE Unknown attribute 6@Attr3",
+      "sourceLine": 487,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_DOT_STACKING_RULE",
+      "bit": "0x00000080",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Stack separately for each caster",
+      "sourceLine": 488,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 282,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_DOT_STACKING_RULE;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 352,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_DOT_STACKING_RULE;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 940,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_DOT_STACKING_RULE;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ONLY_ON_PLAYER",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can only target players",
+      "sourceLine": 489,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2114,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_ONLY_ON_PLAYER))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1782,
+          "text": "if (HasAttribute(SPELL_ATTR3_ONLY_ON_PLAYER))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1517,
+          "text": "spellInfo->AttributesEx3 &= ~SPELL_ATTR3_ONLY_ON_PLAYER; // Obvious fail, it targets gameobject..."
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NOT_A_PROC",
+      "bit": "0x00000200",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Allow triggered spell to trigger (type 2) DESCRIPTION Without this attribute, any triggered spell will be unable to trigger other auras' procs",
+      "sourceLine": 490,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2328,
+          "text": "m_spellInfo->HasAttribute(SPELL_ATTR3_NOT_A_PROC)))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 2157,
+          "text": "if (spell->IsTriggered() && !spell->GetSpellInfo()->HasAttribute(SPELL_ATTR3_NOT_A_PROC))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_REQUIRES_MAIN_HAND_WEAPON",
+      "bit": "0x00000400",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Require main hand weapon",
+      "sourceLine": 491,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7936,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_REQUIRES_MAIN_HAND_WEAPON))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ONLY_BATTLEGROUNDS",
+      "bit": "0x00000800",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can only be cast in battleground",
+      "sourceLine": 492,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6097,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_ONLY_BATTLEGROUNDS) &&  m_caster->IsPlayer())"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ONLY_ON_GHOSTS",
+      "bit": "0x00001000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can only target ghost players",
+      "sourceLine": 493,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2116,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_ONLY_ON_GHOSTS))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1265,
+          "text": "return AttributesEx3 & SPELL_ATTR3_ONLY_ON_GHOSTS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1686,
+          "text": "// only spells with SPELL_ATTR3_ONLY_ON_GHOSTS can target ghosts"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_HIDE_CHANNEL_BAR",
+      "bit": "0x00002000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Do not display channel bar (client only)",
+      "sourceLine": 494,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_HIDE_IN_RAID_FILTER",
+      "bit": "0x00004000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Honorless Target",
+      "sourceLine": 495,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NORMAL_RANGED_ATTACK",
+      "bit": "0x00008000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 15@Attr3 DESCRIPTION Auto Shoot, Shoot, Throw - ranged normal attack attribute?",
+      "sourceLine": 496,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_SUPPRESS_CASTER_PROCS",
+      "bit": "0x00010000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot trigger procs",
+      "sourceLine": 497,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2666,
+          "text": "bool canEffectTrigger = !m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_CASTER_PROCS) && unitTarget->CanProc() && (CanExecuteTriggersOnHit(mask) || missInfo == SPELL_MISS_IMMUNE2);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 574,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_SUPPRESS_CASTER_PROCS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 588,
+          "text": "spellInfo->AttributesEx3 &= ~SPELL_ATTR3_SUPPRESS_CASTER_PROCS;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_SUPPRESS_TARGET_PROCS",
+      "bit": "0x00020000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE No initial aggro",
+      "sourceLine": 498,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Combat/ThreatManager.cpp",
+          "line": 399,
+          "text": "if (!_owner->IsEngaged() && spell->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2966,
+          "text": "m_caster->AtTargetAttacked(effectUnit, !(m_spellInfo->HasAttribute(SPELL_ATTR1_NO_THREAT) || m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS)));"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3098,
+          "text": "if (m_originalCaster && unit->IsInCombat() && !m_spellInfo->HasAttribute(SPELL_ATTR3_SUPPRESS_TARGET_PROCS) && !m_triggeredByAuraSpell)"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ALWAYS_HIT",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore hit result DESCRIPTION Spell cannot miss, or be dodged/parried/blocked",
+      "sourceLine": 499,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 57,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_ALWAYS_HIT;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 656,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_ALWAYS_HIT;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1566,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_ALWAYS_HIT;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_INSTANT_TARGET_PROCS",
+      "bit": "0x00080000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot trigger spells during aura proc",
+      "sourceLine": 500,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 12988,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR3_INSTANT_TARGET_PROCS))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 12993,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR3_INSTANT_TARGET_PROCS))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ALLOW_AURA_WHILE_DEAD",
+      "bit": "0x00100000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Persists through death",
+      "sourceLine": 501,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1260,
+          "text": "return AttributesEx3 & SPELL_ATTR3_ALLOW_AURA_WHILE_DEAD;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1446,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_ALLOW_AURA_WHILE_DEAD;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1732,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_ALLOW_AURA_WHILE_DEAD;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ONLY_PROC_OUTDOORS",
+      "bit": "0x00200000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 21@Attr3 DESCRIPTION Not set in 3.3.5a",
+      "sourceLine": 502,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_CASTING_CANCELS_AUTOREPEAT",
+      "bit": "0x00400000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 22@Attr3 DESCRIPTION Not set in 3.3.5a",
+      "sourceLine": 503,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NO_DAMAGE_HISTORY",
+      "bit": "0x00800000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No damage-history exemption.",
+      "headerComment": "TITLE Unknown attribute 23@Attr3",
+      "sourceLine": 504,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_REQUIRES_OFF_HAND_WEAPON",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Requires offhand weapon",
+      "sourceLine": 505,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 601,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_REQUIRES_OFF_HAND_WEAPON))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7950,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR3_REQUIRES_OFF_HAND_WEAPON))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2869,
+          "text": "if (AttributesEx3 & SPELL_ATTR3_REQUIRES_OFF_HAND_WEAPON)"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_TREAT_AS_PERIODIC",
+      "bit": "0x02000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Treat as periodic effect",
+      "sourceLine": 506,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 1296,
+          "text": "if (damagetype != NODAMAGE && damage && (!spellProto || !(spellProto->HasAttribute(SPELL_ATTR3_TREAT_AS_PERIODIC) || spellProto->HasAttribute(SPELL_ATTR7_DONT_CAUSE_SPELL_PUSHBACK))))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_CAN_PROC_FROM_PROCS",
+      "bit": "0x04000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can trigger from triggered spells",
+      "sourceLine": 507,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 185,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_CAN_PROC_FROM_PROCS; // Entries were not updated after spell effect change, we have to do that manually"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4943,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_CAN_PROC_FROM_PROCS;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 2152,
+          "text": "if (!GetSpellInfo()->HasAttribute(SPELL_ATTR3_CAN_PROC_FROM_PROCS) &&"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_ONLY_PROC_ON_CASTER",
+      "bit": "0x08000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Drain Soul",
+      "sourceLine": 508,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2944,
+          "text": "if (HasAttribute(SPELL_ATTR0_COOLDOWN_ON_EVENT) || HasAttribute(SPELL_ATTR2_ALLOW_LOW_LEVEL_BUFF) || HasAttribute(SPELL_ATTR3_ONLY_PROC_ON_CASTER))"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_IGNORE_CASTER_AND_TARGET_RESTRICTIONS",
+      "bit": "0x10000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 28@Attr3",
+      "sourceLine": 509,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4930,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_IGNORE_CASTER_AND_TARGET_RESTRICTIONS;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_IGNORE_CASTER_MODIFIERS",
+      "bit": "0x20000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Damage dealt is unaffected by modifiers",
+      "sourceLine": 510,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1350,
+          "text": "return !(AttributesEx3 & SPELL_ATTR3_IGNORE_CASTER_MODIFIERS);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 391,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_IGNORE_CASTER_MODIFIERS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 609,
+          "text": "spellInfo->AttributesEx3 |= SPELL_ATTR3_IGNORE_CASTER_MODIFIERS;"
+        }
+      ]
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_DO_NOT_DISPLAY_RANGE",
+      "bit": "0x40000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Do not show range in tooltip (client only)",
+      "sourceLine": 511,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 3,
+      "name": "SPELL_ATTR3_NOT_ON_AOE_IMMUNE",
+      "bit": "0x80000000",
+      "status": "BLOCKED_RUNTIME",
+      "policy": "No final bit value",
+      "reason": "Server usage exists; listed source locations expose interactions requiring narrower policy review/observation. No bit value approved.",
+      "headerComment": "TITLE Unknown attribute 31@Attr3",
+      "sourceLine": 512,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1680,
+          "text": "if (HasAttribute(SPELL_ATTR3_NOT_ON_AOE_IMMUNE))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NO_CAST_LOG",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot be resisted",
+      "sourceLine": 518,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1567,
+          "text": "spellInfo->AttributesEx4 &= ~SPELL_ATTR4_NO_CAST_LOG;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1614,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_NO_CAST_LOG;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1923,
+          "text": "spellInfo->AttributesEx4 &= ~SPELL_ATTR4_NO_CAST_LOG;"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_CLASS_TRIGGER_ONLY_ON_TARGET",
+      "bit": "0x00000002",
+      "status": "BLOCKED_RUNTIME",
+      "policy": "No final bit value",
+      "reason": "Server usage exists; listed source locations expose interactions requiring narrower policy review/observation. No bit value approved.",
+      "headerComment": "TITLE Only proc on self-cast",
+      "sourceLine": 519,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8987,
+          "text": "bool only_on_caster = (triggeredByAura && triggeredByAura->HasAttribute(SPELL_ATTR4_CLASS_TRIGGER_ONLY_ON_TARGET));"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8988,
+          "text": "// If triggeredByAura has SPELL_ATTR4_CLASS_TRIGGER_ONLY_ON_TARGET then it can only proc on a casted spell with TARGET_UNIT_CASTER"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_AURA_EXPIRES_OFFLINE",
+      "bit": "0x00000004",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Buff expires while offline DESCRIPTION Debuffs (except Resurrection Sickness) will automatically do this",
+      "sourceLine": 520,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4069,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_AURA_EXPIRES_OFFLINE;"
+        },
+        {
+          "file": "src/server/game/Entities/Pet/Pet.cpp",
+          "line": 1650,
+          "text": "if (remaintime != -1 && (!spellInfo->IsPositive() || spellInfo->HasAttribute(SPELL_ATTR4_AURA_EXPIRES_OFFLINE)))"
+        },
+        {
+          "file": "src/server/game/Entities/Player/PlayerStorage.cpp",
+          "line": 5874,
+          "text": "if (remaintime != -1 && ((!spellInfo->IsPositive() && spellInfo->Id != 15007) || spellInfo->HasAttribute(SPELL_ATTR4_AURA_EXPIRES_OFFLINE))) // Xinef: resurrection sickness should not tick when logged off"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NO_HELPFUL_THREAT",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 3@Attr4",
+      "sourceLine": 521,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NO_HARMFUL_THREAT",
+      "bit": "0x00000010",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Treat as delayed spell DESCRIPTION This will no longer cause guards to attack on use??",
+      "sourceLine": 522,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_ALLOW_CLIENT_TARGETING",
+      "bit": "0x00000020",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 5@Attr4",
+      "sourceLine": 523,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_CANNOT_BE_STOLEN",
+      "bit": "0x00000040",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Aura cannot be stolen",
+      "sourceLine": 524,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 5638,
+          "text": "if (!aurApp->IsPositive() || aura->IsPassive() || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR4_CANNOT_BE_STOLEN))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1143,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_CANNOT_BE_STOLEN;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2332,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_CANNOT_BE_STOLEN;"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_ALLOW_CAST_WHILE_CASTING",
+      "bit": "0x00000080",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can be cast while casting DESCRIPTION Ignores already in-progress cast and still casts",
+      "sourceLine": 525,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 642,
+          "text": "if (info->HasAttribute(SPELL_ATTR4_ALLOW_CAST_WHILE_CASTING))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1859,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_ALLOW_CAST_WHILE_CASTING;"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_IGNORE_DAMAGE_TAKEN_MODIFIERS",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Deals fixed damage",
+      "sourceLine": 526,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4212,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_IGNORE_DAMAGE_TAKEN_MODIFIERS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 5160,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_IGNORE_DAMAGE_TAKEN_MODIFIERS;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6371,
+          "text": "if (!GetSpellInfo()->HasAttribute(SPELL_ATTR4_IGNORE_DAMAGE_TAKEN_MODIFIERS))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_COMBAT_FEEDBACK_WHEN_USABLE",
+      "bit": "0x00000200",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Spell is initially disabled (client only)",
+      "sourceLine": 527,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_WEAPON_SPEED_COST_SCALING",
+      "bit": "0x00000400",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Attack speed modifies cost DESCRIPTION Adds 10 to power cost for each 1s of weapon speed",
+      "sourceLine": 528,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 2861,
+          "text": "if (AttributesEx4 & SPELL_ATTR4_WEAPON_SPEED_COST_SCALING)"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NO_PARTIAL_IMMUNITY",
+      "bit": "0x00000800",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Do not opt into partial-immunity exception.",
+      "headerComment": "TITLE Unknown attribute 11@Attr4",
+      "sourceLine": 529,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 935,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR4_NO_PARTIAL_IMMUNITY))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_AURA_IS_BUFF",
+      "bit": "0x00001000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura payload.",
+      "headerComment": "TITLE Unknown attribute 12@Attr4",
+      "sourceLine": 530,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_DO_NOT_LOG_CASTER",
+      "bit": "0x00002000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Keep caster logging presentation.",
+      "headerComment": "TITLE Unknown attribute 13@Attr4",
+      "sourceLine": 531,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS",
+      "bit": "0x00004000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Damage does not break auras",
+      "sourceLine": 532,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1070,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 1037,
+          "text": "if (!spellProto->HasAttribute(SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS))"
+        },
+        {
+          "file": "src/server/game/AI/CoreAI/PetAI.cpp",
+          "line": 727,
+          "text": "if (target->HasBreakableByDamageCrowdControlAura() && (!spellInfo || !spellInfo->HasAttribute(SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS)))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NOT_IN_SPELLBOOK",
+      "bit": "0x00008000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Require visible/actionable cast presentation; tab population remains BLOCKED_CLIENT.",
+      "headerComment": "TITLE Unknown attribute 15@Attr4",
+      "sourceLine": 533,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_NOT_IN_ARENA_OR_RATED_BATTLEGROUND",
+      "bit": "0x00010000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Not usable in arena DESCRIPTION Makes spell unusable despite CD <= 10min",
+      "sourceLine": 534,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6103,
+          "text": "// - with SPELL_ATTR4_NOT_IN_ARENA_OR_RATED_BATTLEGROUND flag"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6104,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR4_NOT_IN_ARENA_OR_RATED_BATTLEGROUND) ||"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4385,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_NOT_IN_ARENA_OR_RATED_BATTLEGROUND;"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_IGNORE_DEFAULT_ARENA_RESTRICTIONS",
+      "bit": "0x00020000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Usable in arena DESCRIPTION Makes spell usable despite CD > 10min",
+      "sourceLine": 535,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6102,
+          "text": "// - with greater than 10 min CD without SPELL_ATTR4_IGNORE_DEFAULT_ARENA_RESTRICTIONS flag"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6105,
+          "text": "(m_spellInfo->GetRecoveryTime() >= 10 * MINUTE * IN_MILLISECONDS && !m_spellInfo->HasAttribute(SPELL_ATTR4_IGNORE_DEFAULT_ARENA_RESTRICTIONS)))"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 3716,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR4_IGNORE_DEFAULT_ARENA_RESTRICTIONS))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_BOUNCY_CHAIN_MISSILES",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Chain area targets DESCRIPTION [NYI] Hits area targets over time instead of all at once",
+      "sourceLine": 536,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2187,
+          "text": "bool isBouncingFar = (m_spellInfo->HasAttribute(SPELL_ATTR4_BOUNCY_CHAIN_MISSILES)"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_ALLOW_PROC_WHILE_SITTING",
+      "bit": "0x00080000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 19@Attr4 DESCRIPTION proc dalayed, after damage or don't proc on absorb?",
+      "sourceLine": 537,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_AURA_NEVER_BOUNCES",
+      "bit": "0x00100000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Allow self-cast to override stronger aura (client only)",
+      "sourceLine": 538,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_ALLOW_ENETRING_ARENA",
+      "bit": "0x00200000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Keep when entering arena",
+      "sourceLine": 539,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 682,
+          "text": "spellInfo->AttributesEx4 |= SPELL_ATTR4_ALLOW_ENETRING_ARENA;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5648,
+          "text": "return (!aura->GetSpellInfo()->HasAttribute(SPELL_ATTR4_ALLOW_ENETRING_ARENA)                          // don't remove stances, shadowform, pally/hunter auras"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_PROC_SUPPRESS_SWING_ANIM",
+      "bit": "0x00400000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 22@Attr4 DESCRIPTION Seal of Command (42058,57770) and Gymer's Smash 55426",
+      "sourceLine": 540,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_SUPPRESS_WEAPON_PROCS",
+      "bit": "0x00800000",
+      "status": "REQUIRED_SET",
+      "policy": "1 for all four",
+      "reason": "No weapon payload; this flag alone is not suppression of all native spell proc listeners.",
+      "headerComment": "TITLE Cannot trigger item spells",
+      "sourceLine": 541,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2926,
+          "text": "m_spellInfo->HasAttribute(SPELL_ATTR4_SUPPRESS_WEAPON_PROCS) == 0 && (m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MELEE || m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_RANGED))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2949,
+          "text": "m_spellInfo->HasAttribute(SPELL_ATTR4_SUPPRESS_WEAPON_PROCS) == 0 && (m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MELEE || m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_RANGED))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_AUTO_RANGED_COMBAT",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 24@Attr4 DESCRIPTION Shoot-type spell?",
+      "sourceLine": 542,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_OWNER_POWER_SCALING",
+      "bit": "0x02000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Pet Scaling aura",
+      "sourceLine": 543,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10152,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR4_OWNER_POWER_SCALING))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_ONLY_FLYING_AREAS",
+      "bit": "0x04000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Only in Outland/Northrend",
+      "sourceLine": 544,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1531,
+          "text": "if (HasAttribute(SPELL_ATTR4_ONLY_FLYING_AREAS) && (area_id || zone_id))"
+        }
+      ]
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_FORCE_DISPLAY_CASTBAR",
+      "bit": "0x08000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "Header describes crit inheritance from triggering aura; custom root is not triggered by an aura. Do not infer casting UI from the enum name.",
+      "headerComment": "TITLE Inherit critical chance from triggering aura",
+      "sourceLine": 545,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_IGNORE_COMBAT_TIMERS",
+      "bit": "0x10000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 28@Attr4 DESCRIPTION Aimed Shot",
+      "sourceLine": 546,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_AURA_BOUNCE_FAILS_SPELL",
+      "bit": "0x20000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 29@Attr4",
+      "sourceLine": 547,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_OBSOLETE",
+      "bit": "0x40000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 30@Attr4",
+      "sourceLine": 548,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 4,
+      "name": "SPELL_ATTR4_USE_FACING_FROM_SPELL",
+      "bit": "0x80000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "Proposed 0, not final",
+      "reason": "Header itself says unknown; no semantic server consumer found. Cannot prove client facing/animation meaning.",
+      "headerComment": "TITLE Unknown attribute 31@Attr4 DESCRIPTION Polymorph (chicken) 228 and Sonic Boom (38052,38488)",
+      "sourceLine": 549,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALLOW_ACTION_DURING_CHANNEL",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can be channeled while moving/casting",
+      "sourceLine": 555,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1304,
+          "text": "return IsChanneled() && HasAttribute(SPELL_ATTR5_ALLOW_ACTION_DURING_CHANNEL);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2746,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_ALLOW_ACTION_DURING_CHANNEL;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4175,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_ALLOW_ACTION_DURING_CHANNEL;"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NO_REAGENT_COST_WITH_AURA",
+      "bit": "0x00000002",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE No reagents during arena preparation",
+      "sourceLine": 556,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 12852,
+          "text": "// don't take reagents for spells with SPELL_ATTR5_NO_REAGENT_COST_WITH_AURA"
+        },
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 12853,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR5_NO_REAGENT_COST_WITH_AURA) && HasUnitFlag(UNIT_FLAG_PREPARATION))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_REMOVE_ENTERING_ARENA",
+      "bit": "0x00000004",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Remove when entering arena DESCRIPTION Force this aura to be removed on entering arena, regardless of other properties",
+      "sourceLine": 557,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5651,
+          "text": "aura->GetSpellInfo()->HasAttribute(SPELL_ATTR5_REMOVE_ENTERING_ARENA);                             // special marker, always remove"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALLOW_WHILE_STUNNED",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Usable while stunned",
+      "sourceLine": 558,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7042,
+          "text": "bool usableInStun = m_spellInfo->HasAttribute(SPELL_ATTR5_ALLOW_WHILE_STUNNED);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1579,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_ALLOW_WHILE_STUNNED;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 2291,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_ALLOW_WHILE_STUNNED;"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_TRIGGERS_CHANNELING",
+      "bit": "0x00000010",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No channel.",
+      "headerComment": "TITLE Unknown attribute 4@Attr5",
+      "sourceLine": 559,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_LIMIT_N",
+      "bit": "0x00000020",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Single-target aura DESCRIPTION Remove previous application to another unit if applied",
+      "sourceLine": 560,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1396,
+          "text": "if (AttributesEx5 & SPELL_ATTR5_LIMIT_N)"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 5130,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_LIMIT_N;"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_IGNORE_AREA_EFFECT_PVP_CHECK",
+      "bit": "0x00000040",
+      "status": "BLOCKED_RUNTIME",
+      "policy": "No final bit value",
+      "reason": "Server usage exists; listed source locations expose interactions requiring narrower policy review/observation. No bit value approved.",
+      "headerComment": "TITLE Unknown attribute 6@Attr5",
+      "sourceLine": 561,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10895,
+          "text": "if (!IsPvP() && bySpell && bySpell->IsAffectingArea() && !bySpell->HasAttribute(SPELL_ATTR5_IGNORE_AREA_EFFECT_PVP_CHECK))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NOT_ON_PLAYER",
+      "bit": "0x00000080",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot target players",
+      "sourceLine": 562,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2118,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1777,
+          "text": "if (HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER))"
+        },
+        {
+          "file": "src/server/game/AI/CoreAI/UnitAI.cpp",
+          "line": 203,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NOT_ON_PLAYER_CONTROLLED_NPC",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Cannot target player controlled units but can target players",
+      "sourceLine": 563,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1785,
+          "text": "if (HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER_CONTROLLED_NPC) && unitTarget->IsControlledByPlayer())"
+        },
+        {
+          "file": "src/server/game/AI/CoreAI/UnitAI.cpp",
+          "line": 211,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER_CONTROLLED_NPC) && target->IsControlledByPlayer())"
+        },
+        {
+          "file": "src/server/game/AI/CoreAI/UnitAI.cpp",
+          "line": 246,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR5_NOT_ON_PLAYER_CONTROLLED_NPC) && target->IsControlledByPlayer())"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_EXTRA_INITIAL_PERIOD",
+      "bit": "0x00000200",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Immediately do periodic tick on apply",
+      "sourceLine": 564,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 399,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_EXTRA_INITIAL_PERIOD;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 659,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR5_EXTRA_INITIAL_PERIOD))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 677,
+          "text": "if (!GetSpellInfo()->HasAttribute(SPELL_ATTR5_EXTRA_INITIAL_PERIOD))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_DO_NOT_DISPLAY_DURATION",
+      "bit": "0x00000400",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Do not send aura duration to client",
+      "sourceLine": 565,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1947,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_DO_NOT_DISPLAY_DURATION;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4500,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_DO_NOT_DISPLAY_DURATION;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 202,
+          "text": "if (aura->GetMaxDuration() > 0 && !aura->GetSpellInfo()->HasAttribute(SPELL_ATTR5_DO_NOT_DISPLAY_DURATION))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_IMPLIED_TARGETING",
+      "bit": "0x00000800",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Auto-target target of target (client only)",
+      "sourceLine": 566,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_MELEE_CHAIN_TARGETING",
+      "bit": "0x00001000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "Single point target, no chain.",
+      "headerComment": "TITLE Unknown attribute 12@Attr5 DESCRIPTION Cleave related?",
+      "sourceLine": 567,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_SPELL_HASTE_AFFECTS_PERIODIC",
+      "bit": "0x00002000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Duration scales with Haste Rating",
+      "sourceLine": 568,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 3220,
+          "text": "if (m_originalCaster->HasAuraTypeWithAffectMask(SPELL_AURA_PERIODIC_HASTE, aurSpellInfo) || m_spellInfo->HasAttribute(SPELL_ATTR5_SPELL_HASTE_AFFECTS_PERIODIC))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 4137,
+          "text": "if (m_caster->HasAuraTypeWithAffectMask(SPELL_AURA_PERIODIC_HASTE, m_spellInfo) || m_spellInfo->HasAttribute(SPELL_ATTR5_SPELL_HASTE_AFFECTS_PERIODIC))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 650,
+          "text": "if (caster->HasAuraTypeWithAffectMask(SPELL_AURA_PERIODIC_HASTE, m_spellInfo) || m_spellInfo->HasAttribute(SPELL_ATTR5_SPELL_HASTE_AFFECTS_PERIODIC))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NOT_AVALIABLE_WHILE_CHARMED",
+      "bit": "0x00004000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No additional carrier-specific charm restriction; ordinary control rules remain.",
+      "headerComment": "TITLE Charmed units cannot cast this spell",
+      "sourceLine": 569,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_TREAT_AS_AREA_EFFECT",
+      "bit": "0x00008000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "Single point effect, no area.",
+      "headerComment": "TITLE Unknown attribute 15@Attr5 DESCRIPTION Related to multi-target spells?",
+      "sourceLine": 570,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6376,
+          "text": "GetSpellInfo()->HasAttribute(SPELL_ATTR5_TREAT_AS_AREA_EFFECT) ||"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_AURA_AFFECTS_NOT_JUST_REQ_EQUIPPED_ITEM",
+      "bit": "0x00010000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE DESCRIPTION this allows spells with EquippedItemClass to affect spells from other items if the required item is equipped",
+      "sourceLine": 571,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 8488,
+          "text": "!aurEff->GetSpellInfo()->HasAttribute(SPELL_ATTR5_AURA_AFFECTS_NOT_JUST_REQ_EQUIPPED_ITEM) && aurEff->GetMiscValue() == SPELL_SCHOOL_MASK_NORMAL)"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 8500,
+          "text": "else if (!aurEff->GetSpellInfo()->HasAttribute(SPELL_ATTR5_AURA_AFFECTS_NOT_JUST_REQ_EQUIPPED_ITEM) && (aurEff->GetSpellInfo()->EquippedItemSubClassMask == 0))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10281,
+          "text": "else if (!aurEff->GetSpellInfo()->HasAttribute(SPELL_ATTR5_AURA_AFFECTS_NOT_JUST_REQ_EQUIPPED_ITEM) && (aurEff->GetSpellInfo()->EquippedItemSubClassMask == 0))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALLOW_WHILE_FLEEING",
+      "bit": "0x00020000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Usable while feared",
+      "sourceLine": 572,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7087,
+          "text": "else if (unitflag & UNIT_FLAG_FLEEING && !m_spellInfo->HasAttribute(SPELL_ATTR5_ALLOW_WHILE_FLEEING))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7145,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR5_ALLOW_WHILE_FLEEING))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALLOW_WHILE_CONFUSED",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Usable while confused",
+      "sourceLine": 573,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7085,
+          "text": "else if (unitflag & UNIT_FLAG_CONFUSED && !m_spellInfo->HasAttribute(SPELL_ATTR5_ALLOW_WHILE_CONFUSED))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7141,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR5_ALLOW_WHILE_CONFUSED))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_AI_DOESNT_FACE_TARGET",
+      "bit": "0x00080000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Do not opt into AI facing exception.",
+      "headerComment": "TITLE Do not auto-turn while casting",
+      "sourceLine": 574,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Creature/Creature.cpp",
+          "line": 3578,
+          "text": "if (focusSpell->GetSpellInfo()->HasAttribute(SPELL_ATTR5_AI_DOESNT_FACE_TARGET))"
+        },
+        {
+          "file": "src/server/game/Entities/Creature/Creature.cpp",
+          "line": 3608,
+          "text": "if (focusSpell->GetSpellInfo()->HasAttribute(SPELL_ATTR5_AI_DOESNT_FACE_TARGET))"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_DO_NOT_ATTEMPT_A_PET_RESUMMON_WHEN_DISMOUNTING",
+      "bit": "0x00100000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 20@Attr5",
+      "sourceLine": 575,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_IGNORE_TARGET_REQUIREMENTS",
+      "bit": "0x00200000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 21@Attr5",
+      "sourceLine": 576,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NOT_ON_TRIVIAL",
+      "bit": "0x00400000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 22@Attr5",
+      "sourceLine": 577,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NO_PARTIAL_RESISTS",
+      "bit": "0x00800000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 23@Attr5",
+      "sourceLine": 578,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_IGNORE_CASTER_REQUIREMENETS",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 24@Attr5",
+      "sourceLine": 579,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALWAYS_LINE_OF_SIGHT",
+      "bit": "0x02000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 25@Attr5",
+      "sourceLine": 580,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALWAYS_AOE_LINE_OF_SIGHT",
+      "bit": "0x04000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore line of sight checks",
+      "sourceLine": 581,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6015,
+          "text": "!m_spellInfo->HasAttribute(SPELL_ATTR5_ALWAYS_AOE_LINE_OF_SIGHT) && !(m_spellFlags & SPELL_FLAG_REDIRECTED))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 6052,
+          "text": "!m_spellInfo->HasAttribute(SPELL_ATTR5_ALWAYS_AOE_LINE_OF_SIGHT))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 696,
+          "text": "spellInfo->AttributesEx5 |= SPELL_ATTR5_ALWAYS_AOE_LINE_OF_SIGHT;"
+        }
+      ]
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NO_CASTER_AURA_ICON",
+      "bit": "0x08000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Don't show aura if self-cast (client only)",
+      "sourceLine": 582,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_NO_TARGET_AURA_ICON",
+      "bit": "0x10000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Don't show aura unless self-cast (client only)",
+      "sourceLine": 583,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_AURA_UNIQUE_PER_CASTER",
+      "bit": "0x20000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 29@Attr5",
+      "sourceLine": 584,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ALWAYS_SHOW_GROUND_TEXTURE",
+      "bit": "0x40000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No ground destination/area.",
+      "headerComment": "TITLE Unknown attribute 30@Attr5",
+      "sourceLine": 585,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 5,
+      "name": "SPELL_ATTR5_ADD_MELEE_HIT_RATING",
+      "bit": "0x80000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 31@Attr5 DESCRIPTION Forces nearby enemies to attack caster?",
+      "sourceLine": 586,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NO_COOLDOWN_ON_TOOLTIP",
+      "bit": "0x00000001",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Show cooldown state honestly; client presentation flag clear.",
+      "headerComment": "TITLE Don't display cooldown (client only)",
+      "sourceLine": 592,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DO_NOT_RESET_COOLDOWN_IN_ARENA",
+      "bit": "0x00000002",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Only usable in arena",
+      "sourceLine": 593,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NOT_AN_ATTACK",
+      "bit": "0x00000004",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore all preventing caster auras",
+      "sourceLine": 594,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 7016,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR6_NOT_AN_ATTACK))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_CAN_ASSIST_IMMUNE_PC",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Keep ordinary immunity assistance restrictions.",
+      "headerComment": "TITLE Ignore immunity flags when assisting",
+      "sourceLine": 595,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10946,
+          "text": "if (!bySpell || !bySpell->HasAttribute(SPELL_ATTR6_CAN_ASSIST_IMMUNE_PC))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10997,
+          "text": "&& (!bySpell || !bySpell->HasAttribute(SPELL_ATTR6_CAN_ASSIST_IMMUNE_PC))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_IGNORE_FOR_MOD_TIME_RATE",
+      "bit": "0x00000010",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 4@Attr6",
+      "sourceLine": 596,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DO_NOT_CONSUME_RESOURCES",
+      "bit": "0x00000020",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Do not opt out of ordinary proc-charge consumption; name is not a substitute for cost policy.",
+      "headerComment": "TITLE Don't consume proc charges",
+      "sourceLine": 597,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5487,
+          "text": "if (m_attackType == RANGED_ATTACK && m_caster->IsPlayer() && !m_spellInfo->HasAttribute(SPELL_ATTR6_DO_NOT_CONSUME_RESOURCES))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuras.cpp",
+          "line": 2120,
+          "text": "if (IsUsingCharges() && (!eventInfo.GetSpellInfo() || !eventInfo.GetSpellInfo()->HasAttribute(SPELL_ATTR6_DO_NOT_CONSUME_RESOURCES)))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_FLOATING_COMBAT_TEXT_ON_CAST",
+      "bit": "0x00000040",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura-start event to replace.",
+      "headerComment": "TITLE Generate spell_cast event instead of aura_start (client only)",
+      "sourceLine": 598,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_AURA_IS_WEAPON_PROC",
+      "bit": "0x00000080",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 7@Attr6",
+      "sourceLine": 599,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DO_NOT_CHAIN_TO_CROWD_CONTROLLED_TARGETS",
+      "bit": "0x00000100",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No native chain; future semantic propagation separate.",
+      "headerComment": "TITLE Do not implicitly target in CC DESCRIPTION Implicit targeting (chaining and area targeting) will not impact crowd controlled targets",
+      "sourceLine": 600,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1793,
+          "text": "if (implicit && AttributesEx6 & SPELL_ATTR6_DO_NOT_CHAIN_TO_CROWD_CONTROLLED_TARGETS && unitTarget->HasUnitState(UNIT_STATE_CONTROLLED))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_ALLOW_ON_CHARMED_TARGETS",
+      "bit": "0x00000200",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 9@Attr6",
+      "sourceLine": 601,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NO_AURA_LOG",
+      "bit": "0x00000400",
+      "status": "BLOCKED_RUNTIME",
+      "policy": "No final bit value",
+      "reason": "Server usage exists; listed source locations expose interactions requiring narrower policy review/observation. No bit value approved.",
+      "headerComment": "TITLE Can target possessed friends DESCRIPTION [NYI]",
+      "sourceLine": 602,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1800,
+          "text": "//if (!(AttributesEx6 & SPELL_ATTR6_NO_AURA_LOG)"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NOT_IN_RAID_INSTANCES",
+      "bit": "0x00000800",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Normal world/encounter availability.",
+      "headerComment": "TITLE Unusable in raid instances",
+      "sourceLine": 603,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1546,
+          "text": "if (HasAttribute(SPELL_ATTR6_NOT_IN_RAID_INSTANCES))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_ALLOW_WHILE_RIDING_VEHICLE",
+      "bit": "0x00001000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "No vehicle casting exception.",
+      "headerComment": "TITLE Castable while caster is on vehicle",
+      "sourceLine": 604,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5956,
+          "text": "if (!m_spellInfo->HasAttribute(SPELL_ATTR6_ALLOW_WHILE_RIDING_VEHICLE) && !m_spellInfo->HasAttribute(SPELL_ATTR0_ALLOW_WHILE_MOUNTED)"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 5069,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_ALLOW_WHILE_RIDING_VEHICLE;"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_IGNORE_PHASE_SHIFT",
+      "bit": "0x00002000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Do not bypass target visibility/phase checks.",
+      "headerComment": "TITLE Can target invisible units",
+      "sourceLine": 605,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 4067,
+          "text": "if (si->HasAttribute(SPELL_ATTR6_IGNORE_PHASE_SHIFT) && (*iter)->IsCreature())"
+        },
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 4829,
+          "text": "if (si->HasAttribute(SPELL_ATTR6_IGNORE_PHASE_SHIFT) && (*iter)->IsCreature())"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1668,
+          "text": "if (!(AttributesEx6 & SPELL_ATTR6_IGNORE_PHASE_SHIFT) && !caster->CanSeeOrDetect(target, implicit))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_AI_PRIMARY_RANGED_ATTACK",
+      "bit": "0x00004000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 14@Attr6",
+      "sourceLine": 606,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NO_PUSHBACK",
+      "bit": "0x00008000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Retain native cast-time pushback for ranged; instant contact has no pushback interval.",
+      "headerComment": "TITLE Not affected by pushback DESCRIPTION Casts/Channels will not affected by pushback",
+      "sourceLine": 607,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8004,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR6_NO_PUSHBACK))"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8046,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR6_NO_PUSHBACK))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4688,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_NO_PUSHBACK;"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NO_JUMP_PATHING",
+      "bit": "0x00010000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No jump or movement effect.",
+      "headerComment": "TITLE Unknown attribute 16@Attr6",
+      "sourceLine": 608,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_ALLOW_EQUIP_WHILE_CASTING",
+      "bit": "0x00020000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 17@Attr6 DESCRIPTION Mount related?",
+      "sourceLine": 609,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_ORIGINATE_FROM_CONTROLLER",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Spell is cast by charmer DESCRIPTION Client will prevent casting if not possessed, charmer will be caster for all intents and purposes",
+      "sourceLine": 610,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 579,
+          "text": "m_caster((info->HasAttribute(SPELL_ATTR6_ORIGINATE_FROM_CONTROLLER) && caster->GetCharmerOrOwner()) ? caster->GetCharmerOrOwner() : caster)"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DELAY_COMBAT_TIMER_DURING_CAST",
+      "bit": "0x00080000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 19@Attr6 DESCRIPTION only 47488, 50782",
+      "sourceLine": 611,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_AURA_ICON_ONLY_FOR_CASTER",
+      "bit": "0x00100000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Only visible to caster (client only) (LIMIT 10)",
+      "sourceLine": 612,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_SHOW_MECHANIC_AS_COMBAT_TEXT",
+      "bit": "0x00200000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No mechanic payload.",
+      "headerComment": "TITLE Client UI target effects (client only)",
+      "sourceLine": 613,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_ABSORB_CANNOT_BE_IGNORED",
+      "bit": "0x00400000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No absorb aura payload.",
+      "headerComment": "TITLE Unknown attribute 22@Attr6 DESCRIPTION only 72054",
+      "sourceLine": 614,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_TAPS_IMMEDIATELY",
+      "bit": "0x00800000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 23@Attr6",
+      "sourceLine": 615,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_CAN_TARGET_UNTARGETABLE",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Can target untargetable units",
+      "sourceLine": 616,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1797,
+          "text": "//if (!(AttributesEx6 & SPELL_ATTR6_CAN_TARGET_UNTARGETABLE) && target->HasUnitFlag(UNIT_FLAG_NOT_SELECTABLE))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 3204,
+          "text": "spellInfo->AttributesEx6 |= (SPELL_ATTR6_IGNORE_PHASE_SHIFT | SPELL_ATTR6_CAN_TARGET_UNTARGETABLE);"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 10806,
+          "text": "if ((!bySpell || !bySpell->HasAttribute(SPELL_ATTR6_CAN_TARGET_UNTARGETABLE))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DOESNT_RESET_SWING_TIMER_IF_INSTANT",
+      "bit": "0x02000000",
+      "status": "REQUIRED_SET",
+      "policy": "Contact 1; ranged REQUIRED_CLEAR (0)",
+      "reason": "Explicit contact instant policy; ranged uses normal cast-time behavior.",
+      "headerComment": "TITLE Do not reset swing timer if cast time is instant",
+      "sourceLine": 617,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8311,
+          "text": "if (!m_casttime && m_spellInfo->HasAttribute(SPELL_ATTR6_DOESNT_RESET_SWING_TIMER_IF_INSTANT))"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_VEHICLE_IMMUNITY_CATEGORY",
+      "bit": "0x04000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 26@Attr6 DESCRIPTION Player castable buff?",
+      "sourceLine": 618,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_IGNORE_HEALTH_MODIFIERS",
+      "bit": "0x08000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Limit applicable %healing modifiers DESCRIPTION This prevents certain healing modifiers from applying - see implementation if you really care about details",
+      "sourceLine": 619,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 9541,
+          "text": "if (spellProto->HasAttribute(SPELL_ATTR6_IGNORE_HEALTH_MODIFIERS))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 9854,
+          "text": "if ((spellProto->HasAttribute(SPELL_ATTR6_IGNORE_HEALTH_MODIFIERS) || spellProto->HasAttribute(SPELL_ATTR0_CU_NO_POSITIVE_TAKEN_BONUS)) && TakenTotalMod > 1.0f)"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DO_NOT_SELECT_TARGET_WITH_INITIATES_COMBAT",
+      "bit": "0x10000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 28@Attr6 DESCRIPTION Death grip?",
+      "sourceLine": 620,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_IGNORE_CASTER_DAMAGE_MODIFIERS",
+      "bit": "0x20000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Limit applicable %damage modifiers DESCRIPTION This prevents certain damage modifiers from applying - see implementation if you really care about details",
+      "sourceLine": 621,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1643,
+          "text": "if (!(AttributesEx6 & SPELL_ATTR6_IGNORE_CASTER_DAMAGE_MODIFIERS))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 903,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_IGNORE_CASTER_DAMAGE_MODIFIERS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4213,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_IGNORE_CASTER_DAMAGE_MODIFIERS;"
+        }
+      ]
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_DISABLE_TIED_EFFECT_POINTS",
+      "bit": "0x40000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "One independent effect, no tied effect amounts.",
+      "headerComment": "TITLE Unknown attribute 30@Attr6",
+      "sourceLine": 622,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 6,
+      "name": "SPELL_ATTR6_NO_CATEGORY_COOLDOWN_MODS",
+      "bit": "0x80000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Ignore cooldown modifiers for category cooldown",
+      "sourceLine": 623,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 1180,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_NO_CATEGORY_COOLDOWN_MODS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4663,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_NO_CATEGORY_COOLDOWN_MODS;"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 5323,
+          "text": "spellInfo->AttributesEx6 |= SPELL_ATTR6_NO_CATEGORY_COOLDOWN_MODS;"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_ALLOW_SPELL_REFLECTION",
+      "bit": "0x00000001",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 0@Attr7 DESCRIPTION Shaman's new spells (Call of the ...), Feign Death.",
+      "sourceLine": 629,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_TARGET_DURATION_MOD",
+      "bit": "0x00000002",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Ignore duration modifiers",
+      "sourceLine": 630,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 11656,
+          "text": "if (spellProto->HasAttribute(SPELL_ATTR7_NO_TARGET_DURATION_MOD))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DISABLE_AURA_WHILE_DEAD",
+      "bit": "0x00000004",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Reactivate at resurrect (client only)",
+      "sourceLine": 631,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 969,
+          "text": "spellInfo->AttributesEx7 |= SPELL_ATTR7_DISABLE_AURA_WHILE_DEAD;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5662,
+          "text": "if ((!aura->IsPassive() || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR7_DISABLE_AURA_WHILE_DEAD)) && !aura->IsDeathPersistent())"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5671,
+          "text": "if ((!aura->IsPassive() || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR7_DISABLE_AURA_WHILE_DEAD)) && !aura->IsDeathPersistent())"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DEBUG_SPELL",
+      "bit": "0x00000008",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Is cheat spell DESCRIPTION Cannot cast if caster doesn't have UnitFlag2 & UNIT_FLAG2_ALLOW_CHEAT_SPELLS",
+      "sourceLine": 632,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 5809,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR7_DEBUG_SPELL) && !m_caster->HasUnitFlag2(UNIT_FLAG2_ALLOW_CHEAT_SPELLS))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_TREAT_AS_RAID_BUFF",
+      "bit": "0x00000010",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 4@Attr7 DESCRIPTION Soulstone related?",
+      "sourceLine": 633,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_CAN_BE_MULTI_CAST",
+      "bit": "0x00000020",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Summons player-owned totem",
+      "sourceLine": 634,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 6264,
+          "text": "if (!spellInfo->HasAttribute(SPELL_ATTR7_CAN_BE_MULTI_CAST))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DONT_CAUSE_SPELL_PUSHBACK",
+      "bit": "0x00000040",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Damage dealt by this does not cause spell pushback",
+      "sourceLine": 635,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 582,
+          "text": "spellInfo->AttributesEx7 |= SPELL_ATTR7_DONT_CAUSE_SPELL_PUSHBACK;"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 1296,
+          "text": "if (damagetype != NODAMAGE && damage && (!spellProto || !(spellProto->HasAttribute(SPELL_ATTR3_TREAT_AS_PERIODIC) || spellProto->HasAttribute(SPELL_ATTR7_DONT_CAUSE_SPELL_PUSHBACK))))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_PREPARE_FOR_VEHICLE_CONTROL_END",
+      "bit": "0x00000080",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No vehicle-control effect.",
+      "headerComment": "TITLE Unknown attribute 7@Attr7 DESCRIPTION 66218 (Launch) spell.",
+      "sourceLine": 636,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_HORDE_SPECIFIC_SPELL",
+      "bit": "0x00000100",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Horde only",
+      "sourceLine": 637,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_ALLIANCE_SPECIFIC_SPELL",
+      "bit": "0x00000200",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Alliance only",
+      "sourceLine": 638,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DISPEL_REMOVES_CHARGES",
+      "bit": "0x00000400",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Dispel/Spellsteal remove individual charges",
+      "sourceLine": 639,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 5644,
+          "text": "bool dispel_charges = aura->GetSpellInfo()->HasAttribute(SPELL_ATTR7_DISPEL_REMOVES_CHARGES);"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5248,
+          "text": "if (aura->GetSpellInfo()->HasAttribute(SPELL_ATTR7_DISPEL_REMOVES_CHARGES))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 5329,
+          "text": "bool stealCharge = aura->GetSpellInfo()->HasAttribute(SPELL_ATTR7_DISPEL_REMOVES_CHARGES);"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_CAN_CAUSE_INTERRUPT",
+      "bit": "0x00000800",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No interrupt effect.",
+      "headerComment": "TITLE Only interrupt non-player casting",
+      "sourceLine": 640,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2980,
+          "text": "// Check for SPELL_ATTR7_CAN_CAUSE_INTERRUPT"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 2981,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR7_CAN_CAUSE_INTERRUPT) && !effectUnit->IsPlayer())"
+        },
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 4101,
+          "text": "if (m_spellInfo->HasAttribute(SPELL_ATTR7_CAN_CAUSE_INTERRUPT))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_CAN_CAUSE_SILENCE",
+      "bit": "0x00001000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unused attribute 12@Attr7 DESCRIPTION Not set in 3.3.5a.",
+      "sourceLine": 641,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_UI_NOT_INTERRUPTIBLE",
+      "bit": "0x00002000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 13@Attr7 DESCRIPTION Not set in 3.3.5a.",
+      "sourceLine": 642,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_RECAST_ON_RESUMMON",
+      "bit": "0x00004000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Unknown attribute 14@Attr7 DESCRIPTION Only 52150 (Raise Dead - Pet) spell.",
+      "sourceLine": 643,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_RESET_SWING_TIMER_AT_SPELL_START",
+      "bit": "0x00008000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 15@Attr7 DESCRIPTION Exorcism - guaranteed crit vs families?",
+      "sourceLine": 644,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED",
+      "bit": "0x00010000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "Engine consumers concern non-active-power energize, not General tab population; fixture has no energize.",
+      "headerComment": "TITLE Can restore secondary power DESCRIPTION Only spells with this attribute can replenish a non-active power type",
+      "sourceLine": 645,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 1911,
+          "text": "&& !m_spellInfo->HasAttribute(SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellEffects.cpp",
+          "line": 2018,
+          "text": "if (unitTarget->IsPlayer() && !unitTarget->HasActivePowerType(power) && !m_spellInfo->HasAttribute(SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED))"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6823,
+          "text": "if (target->IsPlayer() && !target->HasActivePowerType(PowerType) && !m_spellInfo->HasAttribute(SPELL_ATTR7_ONLY_IN_SPELLBOOK_UNTIL_LEARNED))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DO_NOT_LOG_PVP_KILL",
+      "bit": "0x00020000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 17@Attr7 DESCRIPTION Only 27965 (Suicide) spell.",
+      "sourceLine": 646,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_ATTACK_ON_CHARGE_TO_UNIT",
+      "bit": "0x00040000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Has charge effect",
+      "sourceLine": 647,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 15887,
+          "text": "else if (spellInfo->HasAttribute(SPELL_ATTR7_ATTACK_ON_CHARGE_TO_UNIT))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_REPORT_SPELL_FAILURE_TO_UNIT_TARGET",
+      "bit": "0x00080000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No teleport effect.",
+      "headerComment": "TITLE Is zone teleport",
+      "sourceLine": 648,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_CLIENT_FAIL_WHILE_STUNNED_FLEEING_CONFUSED",
+      "bit": "0x00100000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 20@Attr7 DESCRIPTION Invulnerability related?",
+      "sourceLine": 649,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_RETAIN_COOLDOWN_THROUGH_LOAD",
+      "bit": "0x00200000",
+      "status": "PLATFORM_NORMAL",
+      "policy": "0; do not opt into unused platform capability",
+      "reason": "Local build-12340 header marks this unused; client observation still required later.",
+      "headerComment": "TITLE Unused attribute 21@Attr7 DESCRPIPTION Not set in 3.3.5a",
+      "sourceLine": 650,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_IGNORES_COLD_WEATHER_FLYING_REQUIREMENT",
+      "bit": "0x00400000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Ignore cold weather flying restriction DESCRIPTION Set for loaner mounts, allows them to be used despite lacking required flight skill",
+      "sourceLine": 651,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Player/Player.cpp",
+          "line": 13962,
+          "text": "if (v_map == MAP_NORTHREND && !bySpell->HasAttribute(SPELL_ATTR7_IGNORES_COLD_WEATHER_FLYING_REQUIREMENT))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_ATTACK_DODGE",
+      "bit": "0x00800000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Spell cannot be dodged 23@Attr7 DESCRIPTION Motivate, Mutilate, Shattering Throw",
+      "sourceLine": 652,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4970,
+          "text": "spellInfo->AttributesEx7 |= (SPELL_ATTR7_NO_ATTACK_DODGE | SPELL_ATTR7_NO_ATTACK_PARRY);"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3356,
+          "text": "bool canDodge = !spellInfo->HasAttribute(SPELL_ATTR7_NO_ATTACK_DODGE);"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_ATTACK_PARRY",
+      "bit": "0x01000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Spell cannot be parried 24@Attr7 DESCRIPTION Motivate, Mutilate, Perform Speech, Shattering Throw",
+      "sourceLine": 653,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4970,
+          "text": "spellInfo->AttributesEx7 |= (SPELL_ATTR7_NO_ATTACK_DODGE | SPELL_ATTR7_NO_ATTACK_PARRY);"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3357,
+          "text": "bool canParry = !spellInfo->HasAttribute(SPELL_ATTR7_NO_ATTACK_PARRY);"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_NO_ATTACK_MISS",
+      "bit": "0x02000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Spell cannot be missed 25@Attr7",
+      "sourceLine": 654,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 3516,
+          "text": "if (spellInfo->HasAttribute(SPELL_ATTR7_NO_ATTACK_MISS))"
+        },
+        {
+          "file": "src/server/game/Entities/Unit/Unit.cpp",
+          "line": 15300,
+          "text": "if (spellInfo && spellInfo->HasAttribute(SPELL_ATTR7_NO_ATTACK_MISS))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_TREAT_AS_NPC_AOE",
+      "bit": "0x04000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Treat as NPC AoE",
+      "sourceLine": 655,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Spells/Spell.cpp",
+          "line": 8560,
+          "text": "bool npcCaster = (m_caster && !m_caster->IsControlledByPlayer()) || GetSpellInfo()->HasAttribute(SPELL_ATTR7_TREAT_AS_NPC_AOE);"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfoCorrections.cpp",
+          "line": 4869,
+          "text": "spellInfo->AttributesEx7 |= SPELL_ATTR7_TREAT_AS_NPC_AOE;"
+        },
+        {
+          "file": "src/server/game/Spells/Auras/SpellAuraEffects.cpp",
+          "line": 6377,
+          "text": "GetSpellInfo()->HasAttribute(SPELL_ATTR7_TREAT_AS_NPC_AOE))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_BYPASS_NO_RESURRECTION_AURA",
+      "bit": "0x08000000",
+      "status": "NOT_APPLICABLE",
+      "policy": "0 for fixture",
+      "reason": "No aura/channel/pet/item/proc payload of the indicated kind; not an exemption from normal world aura effects.",
+      "headerComment": "TITLE Bypasses the prevent resurrection aura",
+      "sourceLine": 656,
+      "serverConsumerExamples": [
+        {
+          "file": "src/server/game/Handlers/SpellHandler.cpp",
+          "line": 711,
+          "text": "if (_player->HasPreventResurectionAura() && !spell->HasAttribute(SPELL_ATTR7_BYPASS_NO_RESURRECTION_AURA))"
+        },
+        {
+          "file": "src/server/game/Spells/SpellInfo.cpp",
+          "line": 1846,
+          "text": "if (unitTarget->HasPreventResurectionAura() && !HasAttribute(SPELL_ATTR7_BYPASS_NO_RESURRECTION_AURA))"
+        }
+      ]
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_DO_NOT_COUNT_FOR_PVP_SCOREBOARD",
+      "bit": "0x10000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Consolidate in raid buff frame (client only)",
+      "sourceLine": 657,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_REFLECTION_ONLY_DEFENDS",
+      "bit": "0x20000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Unknown attribute 29@Attr7 DESCRIPTION only 69028, 71237",
+      "sourceLine": 658,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_CAN_PROC_FROM_SUPPRESSED_TARGET_PROCS",
+      "bit": "0x40000000",
+      "status": "REQUIRED_CLEAR",
+      "policy": "0 for all four",
+      "reason": "Exact one-effect, explicit-unit, visible, Mana spell profile retains ordinary restrictions/world interaction; no named exception.",
+      "headerComment": "TITLE Unknown attribute 30@Attr7 DESCRIPTION Burning Determination, Divine Sacrifice, Earth Shield, Prayer of Mending",
+      "sourceLine": 659,
+      "serverConsumerExamples": []
+    },
+    {
+      "word": 7,
+      "name": "SPELL_ATTR7_ALWAYS_CAST_LOG",
+      "bit": "0x80000000",
+      "status": "BLOCKED_CLIENT",
+      "policy": "No final bit value",
+      "reason": "Engine/client meaning or applicability insufficient for complete raw-word approval; proposed off is not approval.",
+      "headerComment": "TITLE Client indicator (client only)",
+      "sourceLine": 660,
+      "serverConsumerExamples": []
+    }
+  ]
+}

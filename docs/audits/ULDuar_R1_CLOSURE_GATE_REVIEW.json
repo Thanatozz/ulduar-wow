@@ -1,0 +1,128 @@
+{
+  "kind": "R1_CLOSURE_TECHNICAL_GATE_REVIEW_NOT_RESERVATION",
+  "reviewedUtc": "2026-09-21T16:11:03.381603+00:00",
+  "maintainerHistoryAuthority": "MISSING",
+  "v0Gate": "PASS",
+  "clientTableGate": "PASS_RUNTIME_EVIDENCE",
+  "installedWorld90000Through90023": "EMPTY",
+  "staticSpellConflicts": 0,
+  "computedOwner": "NO_COMPUTED_OWNER_FOUND_STATIC",
+  "historicalLocalClaims": 0,
+  "supportedHistoricalOwner": "UNKNOWN_PENDING_MAINTAINER_DECLARATION",
+  "namespaceGate": "PARTIAL",
+  "reservationStatus": "NOT_RESERVED",
+  "artifactAuthoringGate": "BLOCKED",
+  "effectiveTables": [
+    {
+      "tableName": "Spell",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\Spell.dbc",
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "rowCount": 49839,
+      "idSetSha256": "a32ff4fb626b70f388f591bfb9dfcef4da6fab321559ec219fc2798b4fa903b0"
+    },
+    {
+      "tableName": "SpellRange",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellRange.dbc",
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "rowCount": 64,
+      "idSetSha256": "0c1f6477b9226a94565d334fa72357345d652e206cdfc8ef42763260c134bae1"
+    },
+    {
+      "tableName": "SpellCastTimes",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "member": "DBFilesClient\\SpellCastTimes.dbc",
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "rowCount": 70,
+      "idSetSha256": "f2599871cd8c6ce71f1db09afc5193264e80283199a0fa3f8590b2c51058874d"
+    },
+    {
+      "tableName": "SpellVisual",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellVisual.dbc",
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "rowCount": 9406,
+      "idSetSha256": "1d9eedd64fbf50d586e1062944d1c34e7235af58b78e0ad2cdb220bcfc798d8b"
+    },
+    {
+      "tableName": "SpellIcon",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellIcon.dbc",
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "rowCount": 3226,
+      "idSetSha256": "3bfe1c5011bcc2da2cbbac1d18b857cf673d57d630b9c275e014ed80d68ba9f8"
+    },
+    {
+      "tableName": "SkillLineAbility",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SkillLineAbility.dbc",
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "rowCount": 10219,
+      "idSetSha256": "1e1973df5dd8e7d8ab2fe1171b2bfad041ae7abb68b5598efa86b2f61768f544"
+    }
+  ],
+  "technicalEvidenceContradictions": [],
+  "sourceDataDriftSinceV0": [],
+  "evidenceInputs": [
+    {
+      "path": "docs/audits/ULDuar_R1_NAMESPACE_90000_90023.json",
+      "sha256": "7d5d7d6180afcc9ceab603efcc327556a99af62f5bdd30a977a0bde6633e0078"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_COMPUTED_REFERENCE_SEARCH.json",
+      "sha256": "5fac44389d0ec7dd7b091549ab77b892c8f2e12d4ebd07d39b505d5ef4ca2844"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SQL_EXPRESSION_SEARCH.json",
+      "sha256": "220914fb034392f825d2018c5e9ecdacbcee20437e8adc17988cc776749f6bdf"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_TYPED_REFERENCE_REVIEW.json",
+      "sha256": "9fcbb9f7f15f34008fc08630fe963dedf30e592f3685ea9ce0ec605070227cc4"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_HISTORY_90000_90023.json",
+      "sha256": "29aaaedbc529380f00bf571507672ef083fc32779a25e5a91287f96175175d7e"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_FINAL_GATE.json",
+      "sha256": "f58760a985c28b6e90ff0f69469d4f21441e7efdf3857f9e7418f3a6d33aff7a"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_CLIENT_PRECEDENCE_RESULT.json",
+      "sha256": "5d8b29f140133d5eb06e7045b0f5d33896fb31e2085edbf67142dae2f9958893"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_EFFECTIVE_CLIENT_TABLES.json",
+      "sha256": "28666ca6945772f63b6005e65800578204a85b0bceb1d6deda22309285fe0720"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_DATABASE_BASELINE.json",
+      "sha256": "86920f090b06eae54e774af7f144cf33c90dafb304cc35338161213dcc002d60"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_DBC_ROUNDTRIP.json",
+      "sha256": "f84729ed8ea2f455684cc2e1ad6d957a6ca0169cec931d6afe0db1a7631dec2c"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_FILES_CHANGED.json",
+      "sha256": "9b0e2e5b33edf3e996906896cb5276642f5e0f59c76967929c89539728d5d557"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_CLEANUP.json",
+      "sha256": "f1b660a7c95f491dd4c73c0cad7b3dfb7952b48b973ccb16b0d14e0b8758164b"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_PRE_SNAPSHOT.json",
+      "sha256": "54f4eec771a277b1b89234284789b0b53970b5bccfcc9d0c7333cfa3717f53f9"
+    }
+  ],
+  "limitations": [
+    "No new runtime/database/archive inspection; V0 evidence reused as authorized",
+    "Two tables directly instrumented in V0; other four pinned using observed ordering plus member inventory",
+    "Absent local claims do not attest publication/rollback history"
+  ],
+  "ledgerWritten": false,
+  "certificateIssued": false
+}

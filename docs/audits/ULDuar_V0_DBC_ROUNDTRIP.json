@@ -1,0 +1,264 @@
+{
+  "status": "PASS",
+  "tables": [
+    {
+      "table": "Spell",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 49839,
+      "fieldCount": 234,
+      "recordSize": 936,
+      "stringBlockSize": 2317797,
+      "inputSha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "outputSha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 49839,
+      "knownReferenceRows": {
+        "635": true,
+        "1495": true,
+        "31759": true,
+        "34232": true
+      },
+      "stringReferencesChecked": 3189696,
+      "seconds": 3.9053366000007372
+    },
+    {
+      "table": "SpellRange",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 64,
+      "fieldCount": 40,
+      "recordSize": 160,
+      "stringBlockSize": 1220,
+      "inputSha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "outputSha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 64,
+      "knownReferenceRows": {
+        "2": true,
+        "5": true
+      },
+      "stringReferencesChecked": 2048,
+      "seconds": 0.05058090000238735
+    },
+    {
+      "table": "SpellCastTimes",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 70,
+      "fieldCount": 4,
+      "recordSize": 16,
+      "stringBlockSize": 1,
+      "inputSha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "outputSha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 70,
+      "knownReferenceRows": {
+        "1": true,
+        "20": true
+      },
+      "stringReferencesChecked": 0,
+      "seconds": 0.012168699999165256
+    },
+    {
+      "table": "SpellVisual",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 9406,
+      "fieldCount": 32,
+      "recordSize": 128,
+      "stringBlockSize": 1,
+      "inputSha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "outputSha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 9406,
+      "knownReferenceRows": {
+        "342": true,
+        "7873": true,
+        "135": true,
+        "2936": true
+      },
+      "stringReferencesChecked": 0,
+      "seconds": 0.05803190000005998
+    },
+    {
+      "table": "SpellIcon",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 3226,
+      "fieldCount": 2,
+      "recordSize": 8,
+      "stringBlockSize": 125712,
+      "inputSha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "outputSha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 3226,
+      "knownReferenceRows": {
+        "257": true,
+        "237": true,
+        "682": true,
+        "70": true
+      },
+      "stringReferencesChecked": 3226,
+      "seconds": 0.03620829999999842
+    },
+    {
+      "table": "SkillLineAbility",
+      "status": "PASS",
+      "expectedHashStatus": "MATCH_EXPECTED",
+      "rowCount": 10219,
+      "fieldCount": 14,
+      "recordSize": 56,
+      "stringBlockSize": 1,
+      "inputSha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "outputSha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "semanticEqual": true,
+      "binaryEqual": true,
+      "uniqueIds": 10219,
+      "knownReferenceRows": {},
+      "stringReferencesChecked": 0,
+      "seconds": 0.060722800000803545
+    }
+  ],
+  "mutation": {
+    "status": "PASS",
+    "table": "SpellRange",
+    "testOnlyRowId": 188,
+    "canonicalReservation": false,
+    "installed": false,
+    "existingRowEdited": 1,
+    "fieldIndex": 3,
+    "newValue": 12.5,
+    "unaffectedRowsPreserved": true,
+    "sha256": "9963ef19e079aa4c7f93f6d050445488fb8b846b10188effde2fc1cb14b207b8",
+    "artifact": "C:\\WoWProjecto\\validation\\V0\\dbc\\SpellRange.fixture-only.dbc"
+  },
+  "serverBaseline": [
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\AnimationData.dbc",
+      "expected": "5c694f178114b6e55e50ac9fa1045a69ff859ddf6dbd934e0334a4cda0172a3f",
+      "observed": "5c694f178114b6e55e50ac9fa1045a69ff859ddf6dbd934e0334a4cda0172a3f",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\CameraShakes.dbc",
+      "expected": "e95249073f694c7c4e8f71dd9a7d1289265b71a8e688b1bb22db83d5afb63ee3",
+      "observed": "e95249073f694c7c4e8f71dd9a7d1289265b71a8e688b1bb22db83d5afb63ee3",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SkillLine.dbc",
+      "expected": "276824940b7a38e1639e974571e5cb1ad0a1ecbaf3d7d14ebf02ab0294edcadb",
+      "observed": "276824940b7a38e1639e974571e5cb1ad0a1ecbaf3d7d14ebf02ab0294edcadb",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SkillLineAbility.dbc",
+      "expected": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "observed": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SoundEntries.dbc",
+      "expected": "6ed8ea6fcb90fa35d0ad8f709b8c7a27b37fa917cb64215128a49afe6c4e95a5",
+      "observed": "6ed8ea6fcb90fa35d0ad8f709b8c7a27b37fa917cb64215128a49afe6c4e95a5",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SoundEntriesAdvanced.dbc",
+      "expected": "fff9c28caabb83266450d971c4d3fbe5a3292b1a25ee22d5b092dacbdabac72c",
+      "observed": "fff9c28caabb83266450d971c4d3fbe5a3292b1a25ee22d5b092dacbdabac72c",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\Spell.dbc",
+      "expected": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "observed": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellCastTimes.dbc",
+      "expected": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "observed": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellChainEffects.dbc",
+      "expected": "df76c5f9e54584c494187e7d168e64689da6c3e885b259f910566dc227929e17",
+      "observed": "df76c5f9e54584c494187e7d168e64689da6c3e885b259f910566dc227929e17",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellEffectCameraShakes.dbc",
+      "expected": "183d0b8d0e5cbd3722db535fbb33a856f21b05f21450c6f7f2e31c5e9ebd8817",
+      "observed": "183d0b8d0e5cbd3722db535fbb33a856f21b05f21450c6f7f2e31c5e9ebd8817",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellIcon.dbc",
+      "expected": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "observed": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellMissile.dbc",
+      "expected": "a049e09d4027e7b0c7992aca3a0b002d522a25b4fed11de9ef88ab22b9511495",
+      "observed": "a049e09d4027e7b0c7992aca3a0b002d522a25b4fed11de9ef88ab22b9511495",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellMissileMotion.dbc",
+      "expected": "f24c81f36de34eab396eaf4771828c88c2a3fd0ff7d2a1c90682bec14cd20e64",
+      "observed": "f24c81f36de34eab396eaf4771828c88c2a3fd0ff7d2a1c90682bec14cd20e64",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellRange.dbc",
+      "expected": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "observed": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisual.dbc",
+      "expected": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "observed": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisualEffectName.dbc",
+      "expected": "0556356171ea424666e0b42961bc5d6997a1c6c08242b2eee799bf75ba3559e8",
+      "observed": "0556356171ea424666e0b42961bc5d6997a1c6c08242b2eee799bf75ba3559e8",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisualKit.dbc",
+      "expected": "3fd35945ed732ccc88ff9bdce91be05abb94bcd030a9cb84ce08e932dc5d24a1",
+      "observed": "3fd35945ed732ccc88ff9bdce91be05abb94bcd030a9cb84ce08e932dc5d24a1",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisualKitAreaModel.dbc",
+      "expected": "b7639042e3baa591be60de145696d3cbc8a55ce13c132ed0b2d1bb6bf505c716",
+      "observed": "b7639042e3baa591be60de145696d3cbc8a55ce13c132ed0b2d1bb6bf505c716",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisualKitModelAttach.dbc",
+      "expected": "01bdac91ce21525ffa4c527b9a0d227bd0a97d93f4a9f223c0b637c1ede17a6b",
+      "observed": "01bdac91ce21525ffa4c527b9a0d227bd0a97d93f4a9f223c0b637c1ede17a6b",
+      "status": "MATCH_EXPECTED"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SpellVisualPrecastTransitions.dbc",
+      "expected": "3f81455326df9c6568ce34bb8afe81b9d66694e5b763e0909380a9f184dd98ee",
+      "observed": "3f81455326df9c6568ce34bb8afe81b9d66694e5b763e0909380a9f184dd98ee",
+      "status": "MATCH_EXPECTED"
+    }
+  ],
+  "productionWrites": false
+}

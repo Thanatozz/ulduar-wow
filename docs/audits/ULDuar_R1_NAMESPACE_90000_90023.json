@@ -1,0 +1,479 @@
+{
+  "namespace": "Spell",
+  "start": 90000,
+  "end": 90023,
+  "namespaceGate": "PARTIAL",
+  "reservationStatus": "NOT_RESERVED",
+  "clientTableGate": "PARTIAL",
+  "artifactAuthoringGate": "BLOCKED",
+  "namespaceModel": "CANONICAL_RELEASE_MANIFEST",
+  "candidateOnly": true,
+  "ids": [
+    {
+      "namespace": "Spell",
+      "id": 90000,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 0,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "TEST_FIXTURE": 2,
+        "FALSE_POSITIVE": 560,
+        "OTHER_NAMESPACE": 6
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90001,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 1,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "TEST_FIXTURE": 25,
+        "FALSE_POSITIVE": 2,
+        "OTHER_NAMESPACE": 6
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90002,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 2,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "TEST_FIXTURE": 88,
+        "FALSE_POSITIVE": 1,
+        "OTHER_NAMESPACE": 4
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90003,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 3,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "TEST_FIXTURE": 4,
+        "FALSE_POSITIVE": 4,
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90004,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 4,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "TEST_FIXTURE": 4,
+        "FALSE_POSITIVE": 6,
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90005,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeDamage",
+      "proposedCopyIndex": 5,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 3,
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90006,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 0,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 2,
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90007,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 1,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 5,
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90008,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 2,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 2,
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90009,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 3,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 3,
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90010,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 4,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 11
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90011,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedProjectileDamage",
+      "proposedCopyIndex": 5,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 1,
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90012,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 0,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1,
+        "FALSE_POSITIVE": 3
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90013,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 1,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90014,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 2,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 4,
+        "OTHER_NAMESPACE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90015,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 3,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1,
+        "FALSE_POSITIVE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90016,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 4,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 2,
+        "FALSE_POSITIVE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90017,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "MeleeHealing",
+      "proposedCopyIndex": 5,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "FALSE_POSITIVE": 6,
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90018,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 0,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1,
+        "FALSE_POSITIVE": 2
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90019,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 1,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1,
+        "FALSE_POSITIVE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90020,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 2,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90021,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 3,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90022,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 4,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    },
+    {
+      "namespace": "Spell",
+      "id": 90023,
+      "decision": "NOT_RESERVED",
+      "proposedFamily": "RangedHealing",
+      "proposedCopyIndex": 5,
+      "selectedSpellRowIntersection": false,
+      "dbcTypedReferenceIntersection": false,
+      "literalConflictFound": false,
+      "literalLineClasses": {
+        "OTHER_NAMESPACE": 1
+      },
+      "computedReview": "NO_COMPUTED_OWNER_FOUND_STATIC",
+      "historicalAuthority": "NO_LOCAL_CLAIM_FOUND; supported-publication attestation unavailable"
+    }
+  ],
+  "inheritedNegativeScreens": {
+    "clientSpellRowsAllInspectedLocaleCopies": {
+      "count": 50656,
+      "candidateIntersection": [],
+      "idSetSha256": "81197e1f0c1f9ab7da79a1c3db8a9e2ac0a6cdc6e695c7064d184c578c858f75"
+    },
+    "baseSpellDbcLiteralRows": {
+      "count": 4491,
+      "candidateIntersection": [],
+      "idSetSha256": "7450ba92242d232827c0c01a4c3b4e73fd0a4479180a709c2ce1102a439a9bbc"
+    },
+    "additionalConservativeGuard_SQL_OVERRIDE": {
+      "count": 4554,
+      "candidateIntersection": [],
+      "idSetSha256": "48f7bb7718ed3e2f7c3af5334fc598fbaa32b21cb8e72f9cf7a61157b2f3d568"
+    },
+    "additionalConservativeGuard_SCRIPT_BOUND": {
+      "count": 2801,
+      "candidateIntersection": [],
+      "idSetSha256": "ca2ceed5966b9e688032cd2673428ec50b2301a2b28c8383672ef7095d2c0be3"
+    },
+    "additionalConservativeGuard_REFERENCED": {
+      "count": 19463,
+      "candidateIntersection": [],
+      "idSetSha256": "be9c6618f7b7d8349f12f58c1c2132b4980030160884416dea6b2ae667323b72"
+    }
+  },
+  "newTypedDBCReferenceScreens": [
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\SkillLineAbility.dbc",
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "table": "SkillLineAbility",
+      "rowCount": 10219,
+      "columns": {
+        "Spell": 2,
+        "SupercededBySpell": 8
+      },
+      "candidateIntersection": [],
+      "authority": "A10 selected member hash match, selection remains conditional"
+    },
+    {
+      "path": "C:\\WoWProjecto\\ulduar-build\\bin\\RelWithDebInfo\\Data\\dbc\\Spell.dbc",
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "table": "Spell",
+      "rowCount": 49839,
+      "columns": {
+        "Id": 0,
+        "EffectTriggerSpell1": 116,
+        "EffectTriggerSpell2": 117,
+        "EffectTriggerSpell3": 118
+      },
+      "candidateIntersection": [],
+      "authority": "A10 selected member hash match, selection remains conditional"
+    }
+  ],
+  "literalClassificationCounts": {
+    "TEST_FIXTURE": 121,
+    "FALSE_POSITIVE": 609,
+    "OTHER_NAMESPACE": 54
+  },
+  "computedResult": "NO_COMPUTED_OWNER_FOUND_STATIC",
+  "historicalEvidence": "ULDuar_R1_HISTORY_90000_90023.json",
+  "actionButton24BitCheck": {
+    "highest": 90023,
+    "exclusiveLimit": 16777216,
+    "fits": true
+  },
+  "sparseIndexImpact": {
+    "clientSpellOldMaximum": 80864,
+    "candidateMaximum": 90023,
+    "additionalIndexEntries": 9159,
+    "serverSourceModelMaximum": 100102,
+    "serverAdditionalIndexEntries": 0,
+    "caveat": "Pointer array illustration only: 36,636 bytes at4 or73,272 at8 bytes; actual client storage implementation unproven; server source model not observed DB"
+  },
+  "limitations": [
+    "No maintainer-backed supported release/rollback history for this interval received",
+    "Effective six-table selection remains CONDITIONAL",
+    "Static searches are scoped, not proof about unselected data or arbitrary symbolic expressions"
+  ],
+  "deploymentAdmission": "REQUIRED; FAIL CLOSED on conflicting or unknown ownership",
+  "ledgerWritten": false,
+  "certificateIssued": false
+}

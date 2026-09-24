@@ -1,0 +1,86 @@
+{
+  "newFiles": [
+    {
+      "path": "docs/audits/ULDuar_R1_CLIENT_PRECEDENCE_EVIDENCE.md",
+      "sha256": "05a9b3c650c83bf3b4af3500b433e751368e824c0f801b872216270b5d52a8ea",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_COMPUTED_REFERENCE_SEARCH.json",
+      "sha256": "5fac44389d0ec7dd7b091549ab77b892c8f2e12d4ebd07d39b505d5ef4ca2844",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_EFFECTIVE_CLIENT_TABLES.json",
+      "sha256": "5b9078075fbcdd03fb0e53f8a9b7669fdf6be94e22bbd6902177ecced6095ee8",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_HISTORY_90000_90023.json",
+      "sha256": "29aaaedbc529380f00bf571507672ef083fc32779a25e5a91287f96175175d7e",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_INHERITED_EVIDENCE_CHECK.json",
+      "sha256": "397fc11a0f3ad2b73788c4e7c322651b5d3233e66c4246547cb87695841efa1d",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_LITERAL_HITS.json",
+      "sha256": "0132fcf3c3232d75e8cae0c23d86b32b94ff74c84ff9986288ef3a710b58088a",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_NAMESPACE_90000_90023.json",
+      "sha256": "7d5d7d6180afcc9ceab603efcc327556a99af62f5bdd30a977a0bde6633e0078",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_PRESERVATION_RESULT.json",
+      "sha256": "55ddeb68993d53ca3d02ba0ea5273a6de99f02a8bca05ac89eb17f81e0f8a535",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_PROTECTED_FILE_HASHES.json",
+      "sha256": "173d6b53a4548c66087759985d3f76da6c6e2db4a5e58c39899ecd4086fc3318",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_RELEASE_EVIDENCE_MANIFEST.json",
+      "sha256": "23e0024044a8ef89526c59218212abbcea5436c7517123205f8e6a0472107aa7",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SQL_EXPRESSION_SEARCH.json",
+      "sha256": "220914fb034392f825d2018c5e9ecdacbcee20437e8adc17988cc776749f6bdf",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SUPPLEMENTAL_HASHES.json",
+      "sha256": "b20f282e4fcfc1601f45164a8abaa279e37330bd22a02426f02ad4dd249bec1c",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_TYPED_REFERENCE_REVIEW.json",
+      "sha256": "9fcbb9f7f15f34008fc08630fe963dedf30e592f3685ea9ce0ec605070227cc4",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/implementation/ULDuar_PHASE_R1_NAMESPACE_RESERVATION.md",
+      "sha256": "b3d0402a526c15ba78b33cef93fe76aedd849626bb8c14a49270b7ed9e115a71",
+      "status": "NEW_DOCUMENT_OR_AUDIT"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_FILES_CHANGED.json",
+      "sha256": null,
+      "status": "NEW_DOCUMENT_OR_AUDIT",
+      "note": "Self hash omitted to avoid recursive digest"
+    }
+  ],
+  "count": 15,
+  "existingFilesIntentionallyChanged": [],
+  "removedFiles": [],
+  "sourceDataChanges": 0,
+  "ledgerWritten": false,
+  "certificateIssued": false
+}

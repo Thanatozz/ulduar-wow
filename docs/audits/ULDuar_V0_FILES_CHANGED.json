@@ -1,0 +1,56 @@
+{
+  "checkedUtc": "2026-09-21T04:55:20.777956+00:00",
+  "protectedFilesChecked": 10074,
+  "modifiedExistingFiles": [
+    {
+      "path": "C:\\WoWProjecto\\ulduar-wow\\src\\test\\CMakeLists.txt",
+      "preSha256": "92b8d379d81b673ebf8a0bf9659819edab0d38e0c7cdb352ab84abfa65fa2023",
+      "postSha256": "b977878e38523acfa90e2402944693eca53c0e7be15a82d7203987c502378bd6",
+      "reason": "CTest executable location fix"
+    }
+  ],
+  "missingExistingFiles": [],
+  "toolSourceChanges": [],
+  "originalBuildMetadataChanges": [],
+  "expectedSourceChangeOnly": "src/test/CMakeLists.txt",
+  "originalClientDataChanges": [],
+  "coreHead": "d7ce67dc1800f092bac98aad680ece1c201b89a0",
+  "moduleHead": "5f51c5e012b153b1edae00af2b0e11a9d45ba62d",
+  "gitStatus": " M src/server/game/Entities/Unit/Unit.cpp\n M src/server/game/Entities/Unit/Unit.h\n M src/server/game/Spells/Spell.cpp\n M src/server/game/Spells/Spell.h\n M src/server/game/Spells/SpellEffects.cpp\n M src/test/CMakeLists.txt\n?? client/\n?? data/sql/updates/pending_db_characters/ulduar_abilities_004_characters_modifiers.sql\n?? data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql\n?? docs/\n",
+  "diffSummary": "diff --git a/src/test/CMakeLists.txt b/src/test/CMakeLists.txt\nindex 6781d4347..4bb0d9198 100644\n--- a/src/test/CMakeLists.txt\n+++ b/src/test/CMakeLists.txt\n@@ -56,5 +56,5 @@ add_test(\n         NAME\n         unit\n         COMMAND\n-        ${CMAKE_BINARY_DIR}/src/test/unit_tests\n+        $<TARGET_FILE:unit_tests>\n )\n",
+  "newReportFiles": [
+    "docs\\audits\\ULDuar_V0_BUILD_RESULT.json",
+    "docs\\audits\\ULDuar_V0_CLEANUP.json",
+    "docs\\audits\\ULDuar_V0_CLIENT_BASELINE.json",
+    "docs\\audits\\ULDuar_V0_CLIENT_BASELINE.md",
+    "docs\\audits\\ULDuar_V0_CLIENT_PRECEDENCE_RESULT.json",
+    "docs\\audits\\ULDuar_V0_CLIENT_PRECEDENCE_TEST.md",
+    "docs\\audits\\ULDuar_V0_DATABASE_BASELINE.json",
+    "docs\\audits\\ULDuar_V0_DBC_ROUNDTRIP.json",
+    "docs\\audits\\ULDuar_V0_EFFECTIVE_CLIENT_TABLES.json",
+    "docs\\audits\\ULDuar_V0_EVIDENCE_FILE_MANIFEST.json",
+    "docs\\audits\\ULDuar_V0_FILES_CHANGED.json",
+    "docs\\audits\\ULDuar_V0_FINAL_GATE.json",
+    "docs\\audits\\ULDuar_V0_MPQ_VALIDATION.json",
+    "docs\\audits\\ULDuar_V0_PRE_VALIDATION_SNAPSHOT.json",
+    "docs\\audits\\ULDuar_V0_SERVER_STARTUP.md",
+    "docs\\audits\\ULDuar_V0_TEST_RESULTS.json",
+    "docs\\implementation\\ULDuar_PHASE_V0_FULL_VALIDATION.md"
+  ],
+  "stagingRoot": "C:\\WoWProjecto\\validation\\V0",
+  "stagingArtifacts": "Isolated build, logs, database dumps/clones, DBC/MPQ fixtures, physical client clone, probe and helper scripts.",
+  "finalCmakeSha256": "b977878e38523acfa90e2402944693eca53c0e7be15a82d7203987c502378bd6",
+  "finalArchiveRestorationAudit": "ULDuar_V0_CLIENT_PRECEDENCE_RESULT.json",
+  "cleanupAudit": "ULDuar_V0_CLEANUP.json",
+  "countsOfChangesToPreexistingFiles": {
+    "cpp": 0,
+    "lua": 0,
+    "sql": 0,
+    "dbc": 0,
+    "mpq": 0,
+    "client": 0,
+    "config": 0,
+    "cmake": 1
+  },
+  "newReportFilesCount": 17
+}

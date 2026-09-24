@@ -1,0 +1,67 @@
+{
+  "evidenceLevel": "SOURCE_ONLY",
+  "comparisonUtc": "2026-09-19T20:53:56.966839+00:00",
+  "initialProtectedFiles": 9724,
+  "protectedIncludingAdditionalExternalEvidence": 9992,
+  "byteIdentical": 9992,
+  "changedExistingFiles": [],
+  "removedFiles": [],
+  "modifiedSource": 0,
+  "modifiedSQL": 0,
+  "modifiedDBC": 0,
+  "modifiedClient": 0,
+  "modifiedMPQ": 0,
+  "writes": "Only new documentation and read-only audit inventories under docs/",
+  "newDocumentationFiles": [
+    "docs/audits/ULDuar_A8_DATA_INVENTORY.json",
+    "docs/audits/ULDuar_A8_EXTERNAL_INVENTORY.json",
+    "docs/audits/ULDuar_A8_PRESERVATION_RESULT.json",
+    "docs/audits/ULDuar_A8_PROTECTED_FILE_HASHES.json",
+    "docs/audits/ULDuar_A8_SPEC_MATRIX.json",
+    "docs/audits/ULDuar_CARRIER_NAMESPACE_INVENTORY.md",
+    "docs/audits/ULDuar_CARRIER_REFERENCE_ROWS.md",
+    "docs/audits/ULDuar_CARRIER_SPEC_COMPLETION_MATRIX.md",
+    "docs/implementation/ULDuar_PHASE_A8_EFFECTIVE_DATA_REVIEW.md"
+  ],
+  "additionalClientMetadataFiles": [
+    {
+      "path": "C:/WoWProjecto/Client/Wow.exe",
+      "size": 7704216,
+      "sha256": "aa63a5750d60ef16746c686b3d5e26876d98953eab08b1c026cd0faf78e88cb8",
+      "format": "PE",
+      "table": null,
+      "rowCount": null,
+      "minId": null,
+      "maxId": null,
+      "sparseOccupancy": "NOT_APPLICABLE",
+      "apparentSource": "Client directory",
+      "classification": "UNKNOWN",
+      "metadataReadOnlyFileVersion": "3, 3, 5, 12340",
+      "note": "Version resource read without executing client; no release authority inferred"
+    },
+    {
+      "path": "C:/WoWProjecto/Client/WTF/Config.wtf",
+      "size": 746,
+      "sha256": "1a669014e7177ceab0e5ebc7d49b56864eb014a07465a9edea761634af893701",
+      "format": "WTF_TEXT",
+      "table": null,
+      "rowCount": null,
+      "minId": null,
+      "maxId": null,
+      "sparseOccupancy": "NOT_APPLICABLE",
+      "apparentSource": "Client/WTF",
+      "classification": "UNKNOWN",
+      "observedLocale": "enUS",
+      "note": "Only locale inspected; no secret or account settings copied"
+    }
+  ],
+  "initialBaselineFilesByteIdentical": 9724,
+  "documentConsistencyInspection": {
+    "mainSections": 24,
+    "matrixFieldsPerFamily": 51,
+    "totalMatrixRows": 204,
+    "missingLocalLinks": 0,
+    "sourceTestsExecuted": 0,
+    "checks": "Read-only Markdown/JSON structure inspection; no project tests or linters executed"
+  }
+}

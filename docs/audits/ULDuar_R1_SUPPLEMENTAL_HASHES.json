@@ -1,0 +1,130 @@
+{
+  "capture": "Before further semantic review; bytes hashed during read-only discovery",
+  "files": [
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityDetails.lua",
+      "size": 4275,
+      "sha256": "2207fc8b4f3829e8649c91f856a9fe27503ce75da9fe6ef6df2fc9b765e56fa1"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityList.lua",
+      "size": 2739,
+      "sha256": "88a874ee6f5b93830b18bd08024a3322e1c71af2af751bd1df681fd61a6ecb1a"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityTooltip.lua",
+      "size": 13491,
+      "sha256": "01efc09a64a534dae029c85c82bb8cc102acc1b493feecf357b8a63a8944a579"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/AbilityTree.lua",
+      "size": 8206,
+      "sha256": "fbfbc04a578213bd301a6c52b29437f22bfb90a1a274eef916a3c3c2313afcf3"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Core.lua",
+      "size": 3673,
+      "sha256": "244a81ce17b013182fad8259c2ff82db71af76b706f385d5212be6dffe4856a9"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/DraftBuild.lua",
+      "size": 9136,
+      "sha256": "509397dbe7704ccdcec231e7cbd8cc882b5f3cfadf73852edeb1fb75f9cad29b"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Protocol.lua",
+      "size": 8802,
+      "sha256": "f6c0dbe785499eab93ce28ef84ab590ede236651688cc7806d6a8ef956dbfb36"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/SpellBookIntegration.lua",
+      "size": 3130,
+      "sha256": "8e23f812845dd1c634343132a24b4c3d1d4f06310c374590611b4562e2c5b780"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/UlduarFrame.lua",
+      "size": 7415,
+      "sha256": "f024a7ed3702148a17fd1f0605afb4fe14e58363065952c85650e7c470be9e2a"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/UlduarMicroButton.lua",
+      "size": 4381,
+      "sha256": "b6f23728a4f5d9bd8b125fe9fe6d287a3d7d017abbdb937299c420ad7d001006"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Connections.lua",
+      "size": 357,
+      "sha256": "32cea50af4aec3e9080f77abc5e4e1f4617e81223639c9c2e50b920105a44542"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Node.lua",
+      "size": 2901,
+      "sha256": "ba6ae863bb3e8a581a85d83add65a6a02f99df335716f81529c15758e491e01a"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/ScrollList.lua",
+      "size": 500,
+      "sha256": "9179f0a44845fe687d0cc409cefe7a79e79daa42607d72aa479749f0f2b38716"
+    },
+    {
+      "path": "C:/WoWProjecto/UlduarAbilities-old/Widgets/Tabs.lua",
+      "size": 1563,
+      "sha256": "47e56cb360705c7a11366e77bfcac806eb42bd2755ac8161ff132516b783445b"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/Definitions.json",
+      "size": 1503,
+      "sha256": "2729c0592938b31334cda50a6d8bd8fd69de590e2f65fea648b693f91efc657e"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyDeathKnight.json",
+      "size": 2049,
+      "sha256": "6547c780ba846f5bac51ca22e74687f10ef046db9b935d797e50d0c4e8a8c9d4"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyDruid.json",
+      "size": 2360,
+      "sha256": "4e07f3f61f6a57d2ef9d008f6997788f1d16ef2110f22bfba92f5ad5ad731196"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyHunter.json",
+      "size": 2567,
+      "sha256": "88f158a6270438f3809c5c623577e97c00077e96512ff2f5e033aedb1a2f076f"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyMage.json",
+      "size": 2093,
+      "sha256": "3366fbd1e058289dd639d994364a2671446ab700631acf642f2d5703860ad9fa"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyPaladin.json",
+      "size": 2430,
+      "sha256": "79d16780c1dce41c7cd953106ca88f71ceb0e6a8fd8e7e88cab315be291436dd"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyPriest.json",
+      "size": 2288,
+      "sha256": "87aabc6cb1c584dc5825fb0d616d43e56b8db9c636734fb10a91da30a3adf219"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyRogue.json",
+      "size": 1929,
+      "sha256": "fbdc634a215a59cb344e1875698a7443dd2170110597f94480dbc9cc6aea1bef"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyShaman.json",
+      "size": 2422,
+      "sha256": "c482c70dd750b0133f58d2b955df42664d9b6b43d981c8dfb3a926c74ffbdc36"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyWarlock.json",
+      "size": 2150,
+      "sha256": "07db6251da2fa1d9d5df647755f4b9b88ce1932fd7f1f8f91ce80c67fe46d4af"
+    },
+    {
+      "path": "C:/WoWProjecto/WoW Spell Editor/SpellFamilies/FamilyWarrior.json",
+      "size": 1837,
+      "sha256": "afe912223e42489f69aa0db6be63a4973585e3026d447e05d605a9b0b3274659"
+    }
+  ]
+}

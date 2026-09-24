@@ -1,0 +1,2202 @@
+{
+  "evidence": "SOURCE_ONLY",
+  "scope": "Conditional editor-model package graph; no files extracted or project code executed",
+  "conditionalOrder": [
+    "C:/WoWProjecto/Client/Data/patch-U.MPQ",
+    "C:/WoWProjecto/Client/Data/patch-3.MPQ",
+    "C:/WoWProjecto/Client/Data/patch-2.MPQ",
+    "C:/WoWProjecto/Client/Data/patch.MPQ",
+    "C:/WoWProjecto/Client/Data/lichking.MPQ",
+    "C:/WoWProjecto/Client/Data/expansion.MPQ",
+    "C:/WoWProjecto/Client/Data/common-2.MPQ",
+    "C:/WoWProjecto/Client/Data/common.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/patch-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/lichking-speech-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/lichking-locale-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/expansion-speech-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/expansion-locale-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/speech-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/locale-enUS.MPQ",
+    "C:/WoWProjecto/Client/Data/enUS/base-enUS.MPQ"
+  ],
+  "tables": [
+    {
+      "member": "DBFilesClient\\Spell.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 48967121,
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "present": true,
+      "tableName": "Spell",
+      "format": "WDBC",
+      "rowCount": 49839,
+      "fieldCount": 234,
+      "recordBytes": 936,
+      "minId": 1,
+      "maxId": 80864,
+      "idSetSha256": "a32ff4fb626b70f388f591bfb9dfcef4da6fab321559ec219fc2798b4fa903b0",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellRange.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 11480,
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "present": true,
+      "tableName": "SpellRange",
+      "format": "WDBC",
+      "rowCount": 64,
+      "fieldCount": 40,
+      "recordBytes": 160,
+      "minId": 1,
+      "maxId": 187,
+      "idSetSha256": "0c1f6477b9226a94565d334fa72357345d652e206cdfc8ef42763260c134bae1",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellCastTimes.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "size": 1141,
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "present": true,
+      "tableName": "SpellCastTimes",
+      "format": "WDBC",
+      "rowCount": 70,
+      "fieldCount": 4,
+      "recordBytes": 16,
+      "minId": 1,
+      "maxId": 209,
+      "idSetSha256": "f2599871cd8c6ce71f1db09afc5193264e80283199a0fa3f8590b2c51058874d",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisual.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 1203989,
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "present": true,
+      "tableName": "SpellVisual",
+      "format": "WDBC",
+      "rowCount": 9406,
+      "fieldCount": 32,
+      "recordBytes": 128,
+      "minId": 1,
+      "maxId": 16679,
+      "idSetSha256": "1d9eedd64fbf50d586e1062944d1c34e7235af58b78e0ad2cdb220bcfc798d8b",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellIcon.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 151540,
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "present": true,
+      "tableName": "SpellIcon",
+      "format": "WDBC",
+      "rowCount": 3226,
+      "fieldCount": 2,
+      "recordBytes": 8,
+      "minId": 1,
+      "maxId": 4375,
+      "idSetSha256": "3bfe1c5011bcc2da2cbbac1d18b857cf673d57d630b9c275e014ed80d68ba9f8",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SkillLineAbility.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 572285,
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "present": true,
+      "tableName": "SkillLineAbility",
+      "format": "WDBC",
+      "rowCount": 10219,
+      "fieldCount": 14,
+      "recordBytes": 56,
+      "minId": 69,
+      "maxId": 21980,
+      "idSetSha256": "1e1973df5dd8e7d8ab2fe1171b2bfad041ae7abb68b5598efa86b2f61768f544",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SkillLine.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 38771,
+      "sha256": "276824940b7a38e1639e974571e5cb1ad0a1ecbaf3d7d14ebf02ab0294edcadb",
+      "present": true,
+      "tableName": "SkillLine",
+      "format": "WDBC",
+      "rowCount": 150,
+      "fieldCount": 56,
+      "recordBytes": 224,
+      "minId": 6,
+      "maxId": 788,
+      "idSetSha256": "0181a5d868db069795d7a4533eca9ec610e7c753f049e26516c1a1657364977b",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisualKit.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 1316797,
+      "sha256": "3fd35945ed732ccc88ff9bdce91be05abb94bcd030a9cb84ce08e932dc5d24a1",
+      "present": true,
+      "tableName": "SpellVisualKit",
+      "format": "WDBC",
+      "rowCount": 8663,
+      "fieldCount": 38,
+      "recordBytes": 152,
+      "minId": 1,
+      "maxId": 15542,
+      "idSetSha256": "241dd6ff5bb1cf99d01187c1f0808ea8b7c0a437c29af7e26d99bd13ad7d6b72",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisualEffectName.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 259675,
+      "sha256": "0556356171ea424666e0b42961bc5d6997a1c6c08242b2eee799bf75ba3559e8",
+      "present": true,
+      "tableName": "SpellVisualEffectName",
+      "format": "WDBC",
+      "rowCount": 3965,
+      "fieldCount": 7,
+      "recordBytes": 28,
+      "minId": 1,
+      "maxId": 7087,
+      "idSetSha256": "f6ed5e6369e294d526b444fea4e4086bf11addd0ec7f0acdcae00b435b0dc331",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisualKitModelAttach.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 23661,
+      "sha256": "01bdac91ce21525ffa4c527b9a0d227bd0a97d93f4a9f223c0b637c1ede17a6b",
+      "present": true,
+      "tableName": "SpellVisualKitModelAttach",
+      "format": "WDBC",
+      "rowCount": 591,
+      "fieldCount": 10,
+      "recordBytes": 40,
+      "minId": 141,
+      "maxId": 4696,
+      "idSetSha256": "40abefc45808638ff20c173dcdec93852fd61e96351c4452931f2a2aa106107e",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellVisualPrecastTransitions.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/locale-enUS.MPQ",
+      "size": 115,
+      "sha256": "3f81455326df9c6568ce34bb8afe81b9d66694e5b763e0909380a9f184dd98ee",
+      "present": true,
+      "tableName": "SpellVisualPrecastTransitions",
+      "format": "WDBC",
+      "rowCount": 3,
+      "fieldCount": 3,
+      "recordBytes": 12,
+      "minId": 1,
+      "maxId": 3,
+      "idSetSha256": "4636993d3e1da4e9d6b8f87b79e8f7c6d018580d52661950eabc3845c5897a4d",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellMissile.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 6321,
+      "sha256": "a049e09d4027e7b0c7992aca3a0b002d522a25b4fed11de9ef88ab22b9511495",
+      "present": true,
+      "tableName": "SpellMissile",
+      "format": "WDBC",
+      "rowCount": 105,
+      "fieldCount": 15,
+      "recordBytes": 60,
+      "minId": 61,
+      "maxId": 2706,
+      "idSetSha256": "d7afea5077fe01eb4a2db17726152eb4567b1e528819407f1763d158738dcd0b",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SpellMissileMotion.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 61609,
+      "sha256": "f24c81f36de34eab396eaf4771828c88c2a3fd0ff7d2a1c90682bec14cd20e64",
+      "present": true,
+      "tableName": "SpellMissileMotion",
+      "format": "WDBC",
+      "rowCount": 204,
+      "fieldCount": 5,
+      "recordBytes": 20,
+      "minId": 13,
+      "maxId": 2853,
+      "idSetSha256": "224b56458f82ce4ded0aa1de99e4a8bcf7bcd05ef887d1e05afa0681357b2b41",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\SoundEntries.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 2405359,
+      "sha256": "6ed8ea6fcb90fa35d0ad8f709b8c7a27b37fa917cb64215128a49afe6c4e95a5",
+      "present": true,
+      "tableName": "SoundEntries",
+      "format": "WDBC",
+      "rowCount": 12941,
+      "fieldCount": 30,
+      "recordBytes": 120,
+      "minId": 3,
+      "maxId": 18019,
+      "idSetSha256": "da1020d0ac46baad7476990185b1df1a5538df0e45b2e7c3ed90b4acb7e87cbb",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    },
+    {
+      "member": "DBFilesClient\\AnimationData.dbc",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "size": 22578,
+      "sha256": "5c694f178114b6e55e50ac9fa1045a69ff859ddf6dbd934e0334a4cda0172a3f",
+      "present": true,
+      "tableName": "AnimationData",
+      "format": "WDBC",
+      "rowCount": 506,
+      "fieldCount": 8,
+      "recordBytes": 32,
+      "minId": 0,
+      "maxId": 505,
+      "idSetSha256": "1acc02cda14fe314094ce45707d7e7c6454b881672c612ee95c16cc47ba15078",
+      "effectiveEvidence": "CONDITIONAL_EDITOR_MODEL_SELECTION_ONLY",
+      "confidence": "Membership/hash HIGH; native effective selection UNPROVEN"
+    }
+  ],
+  "families": {
+    "MeleeDamage": {
+      "visualId": 342,
+      "visualRow": [
+        342,
+        0,
+        506,
+        11065,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4294967295,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "kits": [
+        {
+          "id": 506,
+          "row": [
+            506,
+            4294967295,
+            57,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            3091,
+            0,
+            8,
+            4294967295,
+            4294967295,
+            4294967295,
+            1265636115,
+            0,
+            0,
+            0,
+            1101004800,
+            0,
+            0,
+            0,
+            1142292480,
+            0,
+            0,
+            0,
+            1120403456,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 11065,
+          "row": [
+            11065,
+            4294967295,
+            4294967295,
+            0,
+            416,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            13339,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "id": 416,
+          "row": [
+            416,
+            19746,
+            19767,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "spells\\fanofknives_impact.mdx"
+        }
+      ],
+      "sounds": [
+        {
+          "id": 3091,
+          "row": [
+            3091,
+            1,
+            143603,
+            143629,
+            143660,
+            143691,
+            143722,
+            143753,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            143784,
+            1061997773,
+            0,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 13339,
+          "row": [
+            13339,
+            1,
+            560515,
+            560532,
+            560553,
+            560574,
+            560595,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            41,
+            1061997773,
+            0,
+            1090519040,
+            1110704128,
+            0,
+            0
+          ]
+        }
+      ],
+      "animations": [
+        {
+          "id": 57,
+          "row": [
+            57,
+            558,
+            32,
+            288,
+            3,
+            17,
+            57,
+            0
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "member": "spells\\fanofknives_impact.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "spells\\fanofknives_impact.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 5216,
+          "sha256": "a13d7e7daf0ca1f9f3ee716948ad934ad822878abf674bd4a96672a25493b06c",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "SPELLS\\ALPHACLOUD.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "de3a4fefb4263085fbdd3fe3e4abb0bb6216b242d9c2fdd5ff3ec9b428175794",
+          "present": true
+        },
+        {
+          "member": "SPELLS\\FIRE_ANIM02_GREY1.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/patch-2.MPQ",
+          "size": 175972,
+          "sha256": "12ab9f62c88bc1c8b525e64ac103131da54135fc02acb9aead290a27cb3dd676",
+          "present": true
+        },
+        {
+          "member": "SPELLS\\BLOODRED_ALPHASPLAT01.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 23044,
+          "sha256": "660fdada1346d36b21e749ab805424766e7fa2efb886e76cbaba9b35f507c22c",
+          "present": true
+        },
+        {
+          "member": "spells\\fanofknives_impact00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 48,
+          "sha256": "9072ee77b5418d95da7f7aab3c7c05f57e5f5771b8792f133c18014d98b612bc",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\WarriorSwings\\SwingWeaponSpecialWarriorA.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 28060,
+          "sha256": "7403c9bf256ef5a3619eb0772c355b883e1724867da9186895b39a62078102ac",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\WarriorSwings\\SwingWeaponSpecialWarriorC.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 26816,
+          "sha256": "6210e82b02ca22f02d49f6740295e525d2273892a80c253b66b8d9423f47a7ff",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\WarriorSwings\\SwingWeaponSpecialWarriorB.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 27366,
+          "sha256": "a052bd034ffd7fb2583f49d4d9be32852028fbcb0076b5acd06651a3377ff5c0",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\WarriorSwings\\SwingWeaponSpecialWarriorD.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 29968,
+          "sha256": "920833d46ded981d31b58ffed313fee5301c0b8fbc5a193774e87180ba82770c",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\WarriorSwings\\SwingWeaponSpecialWarriorE.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 39384,
+          "sha256": "46549a9c5ba51c51d29cb968be847ba5abdf9ab308797ca69fad2f0ad6242f13",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Warrior_Revenge1.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 52614,
+          "sha256": "ca0c588c225207d7d1c8adf75abdce3a412c81e0afc8d48fddcee236e0d9cb31",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Warrior_Revenge2.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 51136,
+          "sha256": "803bf054fd3cfae89927360851b58f5d707d71a817ce232482d1e5a7fda3607d",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Warrior_Revenge3.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 73418,
+          "sha256": "9d1ca1fa5cc82d889cfff82d96848fec03d970224f884d909482b0430ffa4c6b",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Warrior_Revenge4.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 43132,
+          "sha256": "aa3cd47557dbcfd50ca7851d4176044e54502e739c9f6795826497beea80ba74",
+          "present": true
+        }
+      ],
+      "unresolved": [
+        "Native client overlay not proven",
+        "Supported release membership not approved",
+        "Full model child/animation/particle dependency parser not part of this bounded audit",
+        "Character procedure fields [8, 4294967295, 4294967295, 4294967295] require client interpretation"
+      ],
+      "modelAttachRows": [],
+      "missileMotionRow": null,
+      "missileMotionZero": true,
+      "status": "VISUAL_CLOSURE_PARTIAL"
+    },
+    "RangedProjectileDamage": {
+      "visualId": 7873,
+      "visualRow": [
+        7873,
+        184,
+        119,
+        121,
+        0,
+        0,
+        0,
+        1,
+        224,
+        0,
+        1,
+        3012,
+        0,
+        1,
+        0,
+        0,
+        4294967295,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "kits": [
+        {
+          "id": 119,
+          "row": [
+            119,
+            4294967295,
+            53,
+            0,
+            0,
+            0,
+            135,
+            135,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2562,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 121,
+          "row": [
+            121,
+            4294967295,
+            9,
+            0,
+            129,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1270,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 184,
+          "row": [
+            184,
+            4294967295,
+            51,
+            0,
+            0,
+            0,
+            135,
+            135,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            740,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "id": 129,
+          "row": [
+            129,
+            6493,
+            6517,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_ImpactDD_Low_Chest.mdx"
+        },
+        {
+          "id": 135,
+          "row": [
+            135,
+            6721,
+            6743,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Precast_Low_Hand.mdx"
+        },
+        {
+          "id": 224,
+          "row": [
+            224,
+            11372,
+            11389,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Missile_Low.mdx"
+        }
+      ],
+      "sounds": [
+        {
+          "id": 740,
+          "row": [
+            740,
+            1,
+            24392,
+            24409,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            41,
+            1061997773,
+            512,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 1270,
+          "row": [
+            1270,
+            1,
+            45983,
+            45999,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            46019,
+            1061997773,
+            0,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 2562,
+          "row": [
+            2562,
+            1,
+            115461,
+            115471,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            57859,
+            1061997773,
+            0,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 3012,
+          "row": [
+            3012,
+            1,
+            142650,
+            142666,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            142629,
+            1061997773,
+            512,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        }
+      ],
+      "animations": [
+        {
+          "id": 9,
+          "row": [
+            9,
+            54,
+            0,
+            296,
+            7,
+            8,
+            9,
+            0
+          ]
+        },
+        {
+          "id": 51,
+          "row": [
+            51,
+            468,
+            4,
+            256,
+            2,
+            52,
+            51,
+            0
+          ]
+        },
+        {
+          "id": 53,
+          "row": [
+            53,
+            502,
+            4,
+            264,
+            2,
+            54,
+            53,
+            0
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "member": "Spells\\Holy_ImpactDD_Low_Chest.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_ImpactDD_Low_Chest.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 16256,
+          "sha256": "d5dd3611de87eed70074c3bdf0f619ee6b9a96e179e3ab4b3518a68d449d2054",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\GlowStar_Yellow.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 6660,
+          "sha256": "37b59beb820abfd5a7427051ba776a4f875952a2c39ddd8b8179ad2e55998ecc",
+          "present": true
+        },
+        {
+          "member": "Spells\\RibbonBlur1beA_Gold.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 6652,
+          "sha256": "e49b64fada7d5ae3d78183a8caca7fd85ea21692c58e9e68bc239dbfacf1482f",
+          "present": true
+        },
+        {
+          "member": "Spells\\StarFlashYellowA.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 12108,
+          "sha256": "131172299b200f86a61f03d5c935128bc6a6d5bbc15f3bef79483b64c7886683",
+          "present": true
+        },
+        {
+          "member": "Spells\\StarFlashYellow.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 12108,
+          "sha256": "d924ccefba180fdf7dab267aac8ed584370c5aeab1558fb77010c940c9c5dec9",
+          "present": true
+        },
+        {
+          "member": "Spells\\Dust1_A.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 12108,
+          "sha256": "6ab3d96809b40e4f3d0463518cf29606335735db51203bdd0136791c89a77063",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_ImpactDD_Low_Chest00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 48,
+          "sha256": "9072ee77b5418d95da7f7aab3c7c05f57e5f5771b8792f133c18014d98b612bc",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 5376,
+          "sha256": "6f57961014b445aae655160696ca687fa5c4c8d31fe13c4933b454f8a5dd46f2",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\Yellow_Glow3a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 1868,
+          "sha256": "535fac82aed7e8e59d68f7e0bd6a5ab2656741bf4c9b7ca881bc8bc6869b464e",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2c.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "0b4bf9380465eff93ff99d713b67c1d90372bf98f419935da41f6c9622fc519a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2b.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "c7b300c18ca1cca804fed3d744ce62ac318ce6fb24d113b4fc9c8747ba4674e1",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 272,
+          "sha256": "233ea99e2902728f2bed84df486116323fbf11b4aaedcef31f73c4750c37ab4e",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Missile_Low.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Missile_Low.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 5632,
+          "sha256": "5cf71e29c1bd5488ee01a310dbe0c0df4cf44cd13be45b85c72ea22a4b0ae772",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "SPELLS\\STARFLASHYELLOWA.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 12108,
+          "sha256": "131172299b200f86a61f03d5c935128bc6a6d5bbc15f3bef79483b64c7886683",
+          "present": true
+        },
+        {
+          "member": "SPELLS\\RIBBONBLUR1BEA_GOLD.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 6652,
+          "sha256": "e49b64fada7d5ae3d78183a8caca7fd85ea21692c58e9e68bc239dbfacf1482f",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Missile_Low00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 48,
+          "sha256": "9072ee77b5418d95da7f7aab3c7c05f57e5f5771b8792f133c18014d98b612bc",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\PreCastHolyMagicLow.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 220556,
+          "sha256": "33b1572b80fd3958be4c3577ca63c95ed7d087b976ce34ad4234f0a16967a4b9",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\DirectDamage\\HolyImpactDDLow.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 81112,
+          "sha256": "beb8cbb779b4dc4563692bc1e8d39616dc0b8afbe59a3bf23dd67ae2f5d1f423",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Cast\\HolyCast.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 38392,
+          "sha256": "c7db5ac6818f48886105cdac972c16bfceb013991415d117fbff55109c53d0e1",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Missile\\HolyMissileLoop.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 218506,
+          "sha256": "45891ced62422cd5ca7ed56b0073425b2a85f0999fd2165e96f768597c8f0550",
+          "present": true
+        }
+      ],
+      "unresolved": [
+        "Native client overlay not proven",
+        "Supported release membership not approved",
+        "Full model child/animation/particle dependency parser not part of this bounded audit"
+      ],
+      "modelAttachRows": [],
+      "missileMotionRow": null,
+      "missileMotionZero": true,
+      "status": "VISUAL_CLOSURE_PARTIAL"
+    },
+    "MeleeHealing": {
+      "visualId": 135,
+      "visualRow": [
+        135,
+        99,
+        270,
+        232,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4294967295,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "kits": [
+        {
+          "id": 99,
+          "row": [
+            99,
+            4294967295,
+            52,
+            0,
+            0,
+            0,
+            130,
+            130,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            740,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 232,
+          "row": [
+            232,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            249,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1432,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 270,
+          "row": [
+            270,
+            4294967295,
+            54,
+            0,
+            0,
+            0,
+            135,
+            135,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "id": 130,
+          "row": [
+            130,
+            6552,
+            6574,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Precast_Med_Hand.mdx"
+        },
+        {
+          "id": 135,
+          "row": [
+            135,
+            6721,
+            6743,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Precast_Low_Hand.mdx"
+        },
+        {
+          "id": 249,
+          "row": [
+            249,
+            12648,
+            12662,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Heal_Low_Base.mdx"
+        }
+      ],
+      "sounds": [
+        {
+          "id": 740,
+          "row": [
+            740,
+            1,
+            24392,
+            24409,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            41,
+            1061997773,
+            512,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 1432,
+          "row": [
+            1432,
+            1,
+            55498,
+            34336,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            41,
+            1061997773,
+            0,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        }
+      ],
+      "animations": [
+        {
+          "id": 52,
+          "row": [
+            52,
+            487,
+            4,
+            264,
+            3,
+            31,
+            52,
+            0
+          ]
+        },
+        {
+          "id": 54,
+          "row": [
+            54,
+            520,
+            4,
+            264,
+            3,
+            33,
+            54,
+            0
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 7376,
+          "sha256": "3001a24bb669487eeec2bd1e2a63d953bb61e7988cfcffd47ce2c88c7f969a57",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\Yellow_Glow3a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 1868,
+          "sha256": "535fac82aed7e8e59d68f7e0bd6a5ab2656741bf4c9b7ca881bc8bc6869b464e",
+          "present": true
+        },
+        {
+          "member": "World\\Generic\\Gnome\\ActiveDoodads\\GnomeMachine\\Yellow_Star_Dim.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 3916,
+          "sha256": "73dac8e31e897381d872e070c659787dfa36b0ca98ef7e74d96f10491c4a7d7a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2c.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "0b4bf9380465eff93ff99d713b67c1d90372bf98f419935da41f6c9622fc519a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2b.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "c7b300c18ca1cca804fed3d744ce62ac318ce6fb24d113b4fc9c8747ba4674e1",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 320,
+          "sha256": "39a083c52f016202cd203626a686d3127069a5e4a3c47f6d501a08e012f98a6b",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 5376,
+          "sha256": "6f57961014b445aae655160696ca687fa5c4c8d31fe13c4933b454f8a5dd46f2",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\Yellow_Glow3a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 1868,
+          "sha256": "535fac82aed7e8e59d68f7e0bd6a5ab2656741bf4c9b7ca881bc8bc6869b464e",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2c.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "0b4bf9380465eff93ff99d713b67c1d90372bf98f419935da41f6c9622fc519a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2b.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "c7b300c18ca1cca804fed3d744ce62ac318ce6fb24d113b4fc9c8747ba4674e1",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 272,
+          "sha256": "233ea99e2902728f2bed84df486116323fbf11b4aaedcef31f73c4750c37ab4e",
+          "present": true
+        },
+        {
+          "member": "Spells\\Heal_Low_Base.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Heal_Low_Base.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 6704,
+          "sha256": "0daec2f15bcfe69fd916495fee825750d469874dbcb0dd8a1fcc01a8cc4176ff",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "SPELLS\\RIBBONBLUR1BD_GOLD_SIDE.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 3916,
+          "sha256": "48a0b8cbd5e407d0a382d89263e78a3a82721b04fb61ddcfb6a30237412449bb",
+          "present": true
+        },
+        {
+          "member": "SPELLS\\STAR5A.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 3916,
+          "sha256": "af8b9a0098956c5acf1829f343ad2823d6dd841783d0ccd8685e91c6288f56f6",
+          "present": true
+        },
+        {
+          "member": "WORLD\\GENERIC\\GNOME\\ACTIVEDOODADS\\GNOMEMACHINE\\YELLOW_STAR_DIM.BLP",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 3916,
+          "sha256": "73dac8e31e897381d872e070c659787dfa36b0ca98ef7e74d96f10491c4a7d7a",
+          "present": true
+        },
+        {
+          "member": "Spells\\Heal_Low_Base00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 48,
+          "sha256": "9072ee77b5418d95da7f7aab3c7c05f57e5f5771b8792f133c18014d98b612bc",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\PreCastHolyMagicLow.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 220556,
+          "sha256": "33b1572b80fd3958be4c3577ca63c95ed7d087b976ce34ad4234f0a16967a4b9",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\Heal_Low_Base.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 87966,
+          "sha256": "3e5116d4bf914f90c94c1bdd9503c30e81e1b0ec9e154e4af71acce38d690862",
+          "present": true
+        }
+      ],
+      "unresolved": [
+        "Native client overlay not proven",
+        "Supported release membership not approved",
+        "Full model child/animation/particle dependency parser not part of this bounded audit"
+      ],
+      "modelAttachRows": [],
+      "missileMotionRow": null,
+      "missileMotionZero": true,
+      "status": "VISUAL_CLOSURE_PARTIAL"
+    },
+    "RangedHealing": {
+      "visualId": 2936,
+      "visualRow": [
+        2936,
+        99,
+        270,
+        154,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4294967295,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "kits": [
+        {
+          "id": 99,
+          "row": [
+            99,
+            4294967295,
+            52,
+            0,
+            0,
+            0,
+            130,
+            130,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            740,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 154,
+          "row": [
+            154,
+            4294967295,
+            4294967295,
+            244,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1430,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 270,
+          "row": [
+            270,
+            4294967295,
+            54,
+            0,
+            0,
+            0,
+            135,
+            135,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4294967295,
+            4294967295,
+            4294967295,
+            4294967295,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "id": 130,
+          "row": [
+            130,
+            6552,
+            6574,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Precast_Med_Hand.mdx"
+        },
+        {
+          "id": 135,
+          "row": [
+            135,
+            6721,
+            6743,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\Holy_Precast_Low_Hand.mdx"
+        },
+        {
+          "id": 244,
+          "row": [
+            244,
+            12394,
+            12413,
+            1065353216,
+            1065353216,
+            1008981770,
+            1120403456
+          ],
+          "modelPath": "Spells\\HolyLight_Low_Head.mdx"
+        }
+      ],
+      "sounds": [
+        {
+          "id": 740,
+          "row": [
+            740,
+            1,
+            24392,
+            24409,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            41,
+            1061997773,
+            512,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        },
+        {
+          "id": 1430,
+          "row": [
+            1430,
+            1,
+            55419,
+            55437,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            41,
+            1060152279,
+            0,
+            1090519040,
+            1110704128,
+            2,
+            0
+          ]
+        }
+      ],
+      "animations": [
+        {
+          "id": 52,
+          "row": [
+            52,
+            487,
+            4,
+            264,
+            3,
+            31,
+            52,
+            0
+          ]
+        },
+        {
+          "id": 54,
+          "row": [
+            54,
+            520,
+            4,
+            264,
+            3,
+            33,
+            54,
+            0
+          ]
+        }
+      ],
+      "assets": [
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 7376,
+          "sha256": "3001a24bb669487eeec2bd1e2a63d953bb61e7988cfcffd47ce2c88c7f969a57",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\Yellow_Glow3a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 1868,
+          "sha256": "535fac82aed7e8e59d68f7e0bd6a5ab2656741bf4c9b7ca881bc8bc6869b464e",
+          "present": true
+        },
+        {
+          "member": "World\\Generic\\Gnome\\ActiveDoodads\\GnomeMachine\\Yellow_Star_Dim.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 3916,
+          "sha256": "73dac8e31e897381d872e070c659787dfa36b0ca98ef7e74d96f10491c4a7d7a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2c.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "0b4bf9380465eff93ff99d713b67c1d90372bf98f419935da41f6c9622fc519a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2b.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "c7b300c18ca1cca804fed3d744ce62ac318ce6fb24d113b4fc9c8747ba4674e1",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Med_Hand00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 320,
+          "sha256": "39a083c52f016202cd203626a686d3127069a5e4a3c47f6d501a08e012f98a6b",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 5376,
+          "sha256": "6f57961014b445aae655160696ca687fa5c4c8d31fe13c4933b454f8a5dd46f2",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\Yellow_Glow3a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 1868,
+          "sha256": "535fac82aed7e8e59d68f7e0bd6a5ab2656741bf4c9b7ca881bc8bc6869b464e",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2c.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "0b4bf9380465eff93ff99d713b67c1d90372bf98f419935da41f6c9622fc519a",
+          "present": true
+        },
+        {
+          "member": "Spells\\GenericGlow2b.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 23044,
+          "sha256": "c7b300c18ca1cca804fed3d744ce62ac318ce6fb24d113b4fc9c8747ba4674e1",
+          "present": true
+        },
+        {
+          "member": "Spells\\Holy_Precast_Low_Hand00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 272,
+          "sha256": "233ea99e2902728f2bed84df486116323fbf11b4aaedcef31f73c4750c37ab4e",
+          "present": true
+        },
+        {
+          "member": "Spells\\HolyLight_Low_Head.mdx",
+          "archive": null,
+          "size": null,
+          "sha256": null,
+          "present": false
+        },
+        {
+          "member": "Spells\\HolyLight_Low_Head.m2",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 21552,
+          "sha256": "36677fc43b9c35a9d0710fe66ce2f15234e66cf5abe54964d75a8f3024e8dffc",
+          "present": true,
+          "note": "Explicit alternative .m2 probe; not proof of client extension normalization"
+        },
+        {
+          "member": "Spells\\GenericGlow64.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 6660,
+          "sha256": "c598742dc8332bb37f016d9d68fdd0ad872ec91dce85c1ddb1580d76f6926843",
+          "present": true
+        },
+        {
+          "member": "Spells\\star5a.blp",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 3916,
+          "sha256": "af8b9a0098956c5acf1829f343ad2823d6dd841783d0ccd8685e91c6288f56f6",
+          "present": true
+        },
+        {
+          "member": "Spells\\StarFlashYellow.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 12108,
+          "sha256": "d924ccefba180fdf7dab267aac8ed584370c5aeab1558fb77010c940c9c5dec9",
+          "present": true
+        },
+        {
+          "member": "Spells\\Clouds8x8Fade.blp",
+          "archive": "C:/WoWProjecto/Client/Data/patch.MPQ",
+          "size": 88580,
+          "sha256": "b3b24ef2b458683abd0377190ee140dcbdab0a6b99d8f835c1df007a795537cc",
+          "present": true
+        },
+        {
+          "member": "Spells\\HolyLight_Low_Head00.skin",
+          "archive": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+          "size": 560,
+          "sha256": "984b2811054df7cff9ed5d94554d58eb4b956138ee3addd5a9b4c8e49c1ec140",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\PreCastHolyMagicLow.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 220556,
+          "sha256": "33b1572b80fd3958be4c3577ca63c95ed7d087b976ce34ad4234f0a16967a4b9",
+          "present": true
+        },
+        {
+          "member": "Sound\\Spells\\HolyLight_Low_Head.wav",
+          "archive": "C:/WoWProjecto/Client/Data/common.MPQ",
+          "size": 132344,
+          "sha256": "1b623b18cb755661af16dda6fb71e5f946f71c55eb289899ab5927f87ac93253",
+          "present": true
+        }
+      ],
+      "unresolved": [
+        "Native client overlay not proven",
+        "Supported release membership not approved",
+        "Full model child/animation/particle dependency parser not part of this bounded audit"
+      ],
+      "modelAttachRows": [],
+      "missileMotionRow": null,
+      "missileMotionZero": true,
+      "status": "VISUAL_CLOSURE_PARTIAL"
+    }
+  },
+  "frameXml": [
+    {
+      "member": "Interface\\FrameXML\\SpellBookFrame.lua",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "size": 20407,
+      "sha256": "8bfc33573a6a8e9e859506e9945be8079b8fde07385f556d92f35b5f5042512b",
+      "present": true,
+      "sourceExcerpts": [
+        {
+          "line": 103,
+          "text": "local numSkillLineTabs = GetNumSpellTabs();"
+        },
+        {
+          "line": 109,
+          "text": "name, texture = GetSpellTabInfo(i);"
+        },
+        {
+          "line": 362,
+          "text": "local spellName, subSpellName = GetSpellName(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 363,
+          "text": "if ( spellName and not IsPassiveSpell(id, SpellBookFrame.bookType) ) then"
+        },
+        {
+          "line": 382,
+          "text": "PickupSpell(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 397,
+          "text": "PickupSpell(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 447,
+          "text": "local texture = GetSpellTexture(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 495,
+          "text": "local spellName, subSpellName = GetSpellName(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 496,
+          "text": "local isPassive = IsPassiveSpell(id, SpellBookFrame.bookType);"
+        },
+        {
+          "line": 657,
+          "text": "local name, texture, offset, numSpells, highestRankOffset, highestRankNumSpells = GetSpellTabInfo(skillLine);"
+        }
+      ]
+    },
+    {
+      "member": "Interface\\FrameXML\\ActionButton.lua",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "size": 15358,
+      "sha256": "8a16fcc5915f6db601ca27c8901051d01b24bb7d1adcbc8d10d1ce3cfa63a0dd",
+      "present": true,
+      "sourceExcerpts": []
+    }
+  ],
+  "conditionalOrderReview": "Literal order reconciled against config.py locale_names reverse priority; all recorded member hashes/sources unchanged"
+}

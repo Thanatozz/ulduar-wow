@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "kind": "RESERVATION_EVIDENCE_MANIFEST",
+  "reservationRevision": "R1-CARRIER-RESERVATION-001",
+  "createdUtc": "2026-09-21T16:44:22.695474+00:00",
+  "productionCarrierManifest": false,
+  "namespace": "Spell",
+  "interval": {
+    "start": 90000,
+    "end": 90023,
+    "count": 24
+  },
+  "release": {
+    "releaseCandidate": "ULDuar-V1-PREVIEW-CANDIDATE",
+    "releaseId": null,
+    "clientBuild": "12340",
+    "clientVersion": "3.3.5a",
+    "locale": "enUS",
+    "selectedModules": [
+      "mod-ulduar-abilities"
+    ],
+    "coreRevision": "d7ce67dc1800f092bac98aad680ece1c201b89a0",
+    "moduleRevision": "5f51c5e012b153b1edae00af2b0e11a9d45ba62d",
+    "inheritedCoreDirtyFingerprint": "4ebe2a2d6c2fd709c9822e0a38fb73733c36bea59cf8b455c02695320f4d3768",
+    "moduleFingerprint": "7401078d905d4eb2879d7e79f01c7b253d8bf657958c8d6e5fbc1141590d5773",
+    "v0CtestFixSha256": "b977878e38523acfa90e2402944693eca53c0e7be15a82d7203987c502378bd6",
+    "workingTreeEvidence": "ULDuar_V0_PRE_VALIDATION_SNAPSHOT.json + ULDuar_V0_FILES_CHANGED.json + ULDuar_R1_RESERVATION_PRE_SNAPSHOT.json",
+    "archives": [
+      {
+        "path": "C:/WoWProjecto/Client/Data/common-2.MPQ",
+        "size": 1810430636,
+        "sha256": "9c605d95443172bdfd7c6936bc636684761241657935c22da25f955083809f43",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/common.MPQ",
+        "size": 2881154862,
+        "sha256": "d850ffa5efd6a1ba845899a7d9f9ad27f6eea7ac606e95033506c72c86ee0236",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/base-enUS.MPQ",
+        "size": 29176975,
+        "sha256": "c02b13b4b85eb59b8a3557442e69b376fa5d491092ebaa2beeac979ddbd4514e",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/expansion-locale-enUS.MPQ",
+        "size": 17389181,
+        "sha256": "c9f27ce716b7195776929e8e3a7faeeaa15522215be47611c101dd5b1d8845c1",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/expansion-speech-enUS.MPQ",
+        "size": 241033297,
+        "sha256": "b9d9d13fc46251248ac9a36893ef6e275de43aadff5b89871dfeca7165d92cf5",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/lichking-locale-enUS.MPQ",
+        "size": 12354378,
+        "sha256": "89b1eba015927e321683a3867be1b8a76e593c438527eb42f4934d03484f1b04",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/lichking-speech-enUS.MPQ",
+        "size": 354008839,
+        "sha256": "8fc28d2f26d4b00db1884577cfa82769c234a8177b3827b5fae59dc006e6705f",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/locale-enUS.MPQ",
+        "size": 204291376,
+        "sha256": "45f02a3bf3964b169f397cea58113cdce5fa7bdf58d4b63f68e46255bb3bd3ea",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+        "size": 225570171,
+        "sha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+        "size": 100373935,
+        "sha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/patch-enUS.MPQ",
+        "size": 296616080,
+        "sha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/enUS/speech-enUS.MPQ",
+        "size": 438430439,
+        "sha256": "bfd2c4bf07213736bae28e1c8f49bf60783e12545ac555016d6f22441f7c793d",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/expansion.MPQ",
+        "size": 1921219911,
+        "sha256": "34a19723d773997b31ec72a16361af8bdd8cc38d108274b9b8a96521ec2c4f4a",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/lichking.MPQ",
+        "size": 2553948549,
+        "sha256": "8456e92d47f2bc71efba30fcabd4fea8c5ef0d93feef320ba51ffeeacf78de9d",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/patch-2.MPQ",
+        "size": 1401729059,
+        "sha256": "c8b78bb75bcf5773e9ae99e11bdfcabc2a37aed3da947367d8af808d4d3c23c6",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/patch-3.MPQ",
+        "size": 605089137,
+        "sha256": "56dbbfc8f9ce7182ca88538d75284e738020138a7ca4217d72d8168865510dd3",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/patch-U.MPQ",
+        "size": 22742,
+        "sha256": "45e72ae9152f94290be0b3632c12a983a67a91edbd505b7540b74e5ac87b2497",
+        "membership": "IN_RELEASE"
+      },
+      {
+        "path": "C:/WoWProjecto/Client/Data/patch.MPQ",
+        "size": 4004713057,
+        "sha256": "92b4a94a6c7a23c0b9fd88c47823e41792879a7ee1f70c2349a255153ca25d54",
+        "membership": "IN_RELEASE"
+      }
+    ],
+    "excludedArchive": "backup-enUS.MPQ"
+  },
+  "gateDecision": {
+    "maintainerHistoryAuthority": "CONFIRMED",
+    "v0Gate": "PASS",
+    "clientTableGate": "PASS_RUNTIME_EVIDENCE",
+    "installedWorldInterval": "EMPTY",
+    "staticSpellConflicts": 0,
+    "computedOwner": "NO_COMPUTED_OWNER_FOUND_STATIC",
+    "supportedHistoricalOwner": "NONE_BY_EXPLICIT_MAINTAINER_DECLARATION",
+    "namespaceGate": "PASS_STATIC"
+  },
+  "inputs": [
+    {
+      "path": "docs/implementation/ULDuar_PHASE_R1_NAMESPACE_RESERVATION.md",
+      "sha256": "b3d0402a526c15ba78b33cef93fe76aedd849626bb8c14a49270b7ed9e115a71"
+    },
+    {
+      "path": "docs/implementation/ULDuar_PHASE_A10_RELEASE_GATE.md",
+      "sha256": "8bbe1a7e228b1c8fda9d07353b002d30a22a90e2e712feea78fd9916cc744f18"
+    },
+    {
+      "path": "docs/implementation/ULDuar_PHASE_V0_FULL_VALIDATION.md",
+      "sha256": "a53805e6dc4401ff05fd94ae59c9f67aabdfe8ce73b3dc03575fb3a1d59db22f"
+    },
+    {
+      "path": "docs/architecture/ULDuar_CUSTOM_ID_NAMESPACE.md",
+      "sha256": "68eee31b2f84376c38547e2afdee46857dd3703aaa96228b90554bd97ca60122"
+    },
+    {
+      "path": "docs/architecture/ULDuar_ID_ALLOCATION_LEDGER.md",
+      "sha256": "497f6b5bcd6d7be181f473a27c38f7cf08af1c778cb7987fc27d7113da5e07b4"
+    },
+    {
+      "path": "docs/audits/ULDuar_A10_RELEASE_MEMBERSHIP.json",
+      "sha256": "bcb5add0e7eedc76b69f1d1943f151ee67c66774ad52749a8d13c88d27c0571c"
+    },
+    {
+      "path": "docs/audits/ULDuar_A10_SERIALIZATION_GATE.md",
+      "sha256": "5d7a65ccf2ecc8fa85cbb25599ca68c3b311c508d9ba5dc01f67f6224692f526"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_NAMESPACE_90000_90023.json",
+      "sha256": "7d5d7d6180afcc9ceab603efcc327556a99af62f5bdd30a977a0bde6633e0078"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_TYPED_REFERENCE_REVIEW.json",
+      "sha256": "9fcbb9f7f15f34008fc08630fe963dedf30e592f3685ea9ce0ec605070227cc4"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_COMPUTED_REFERENCE_SEARCH.json",
+      "sha256": "5fac44389d0ec7dd7b091549ab77b892c8f2e12d4ebd07d39b505d5ef4ca2844"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_SQL_EXPRESSION_SEARCH.json",
+      "sha256": "220914fb034392f825d2018c5e9ecdacbcee20437e8adc17988cc776749f6bdf"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_HISTORY_90000_90023.json",
+      "sha256": "29aaaedbc529380f00bf571507672ef083fc32779a25e5a91287f96175175d7e"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_RELEASE_EVIDENCE_MANIFEST.json",
+      "sha256": "23e0024044a8ef89526c59218212abbcea5436c7517123205f8e6a0472107aa7"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_FINAL_GATE.json",
+      "sha256": "f58760a985c28b6e90ff0f69469d4f21441e7efdf3857f9e7418f3a6d33aff7a"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_CLIENT_PRECEDENCE_RESULT.json",
+      "sha256": "5d8b29f140133d5eb06e7045b0f5d33896fb31e2085edbf67142dae2f9958893"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_EFFECTIVE_CLIENT_TABLES.json",
+      "sha256": "28666ca6945772f63b6005e65800578204a85b0bceb1d6deda22309285fe0720"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_DATABASE_BASELINE.json",
+      "sha256": "86920f090b06eae54e774af7f144cf33c90dafb304cc35338161213dcc002d60"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_DBC_ROUNDTRIP.json",
+      "sha256": "f84729ed8ea2f455684cc2e1ad6d957a6ca0169cec931d6afe0db1a7631dec2c"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_FILES_CHANGED.json",
+      "sha256": "9b0e2e5b33edf3e996906896cb5276642f5e0f59c76967929c89539728d5d557"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_CLEANUP.json",
+      "sha256": "f1b660a7c95f491dd4c73c0cad7b3dfb7952b48b973ccb16b0d14e0b8758164b"
+    },
+    {
+      "path": "docs/audits/ULDuar_V0_PRE_VALIDATION_SNAPSHOT.json",
+      "sha256": "a5cfdd617cbe3616926037bc0dd32890ff7ba3d257b63f2638d03483ad73bbfd"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_PRE_SNAPSHOT.json",
+      "sha256": "54f4eec771a277b1b89234284789b0b53970b5bccfcc9d0c7333cfa3717f53f9"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_PRESERVATION.json",
+      "sha256": "4565d5f678fb0fbbb9b0850a0feb7486e2e050dad774459c21f9fd649c676e94"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_GATE_REVIEW.json",
+      "sha256": "1f2e4454e9118e3eac6c4f7cdcdea57c6b36502291d77ba00a14eca2d5b26abf"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_RESERVATION_PRE_SNAPSHOT.json",
+      "sha256": "9ed7449802c5dea4518b1acc992003b7a2184282e5717328285ae0f4307efbdb"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_MAINTAINER_HISTORY_DECLARATION.json",
+      "sha256": "f64862dac4ae577031575ea11938b49c3241dc44353b5a09f454904a73f91cf8"
+    },
+    {
+      "path": "docs/audits/ULDuar_R1_CLOSURE_BEFORE_RESERVATION.md",
+      "sha256": "ad7b27759114be6d14ac7a7550d4f5f1be8df9f1af6b37f2cc1f4fe0bfe02071"
+    }
+  ],
+  "effectiveClientTables": [
+    {
+      "tableName": "Spell",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\Spell.dbc",
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "rowCount": 49839,
+      "idSetSha256": "a32ff4fb626b70f388f591bfb9dfcef4da6fab321559ec219fc2798b4fa903b0"
+    },
+    {
+      "tableName": "SpellRange",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellRange.dbc",
+      "sha256": "82d261be5e42d90f62a13642a3fd8f421fe1b0056ad8ed7dea73cdf4f8c8cb7f",
+      "rowCount": 64,
+      "idSetSha256": "0c1f6477b9226a94565d334fa72357345d652e206cdfc8ef42763260c134bae1"
+    },
+    {
+      "tableName": "SpellCastTimes",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-2.MPQ",
+      "member": "DBFilesClient\\SpellCastTimes.dbc",
+      "sha256": "919ca9b65cb144a3a9cf0ce10d2a25fcc7cdccf33c752ed376e086ff62f8ccec",
+      "rowCount": 70,
+      "idSetSha256": "f2599871cd8c6ce71f1db09afc5193264e80283199a0fa3f8590b2c51058874d"
+    },
+    {
+      "tableName": "SpellVisual",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellVisual.dbc",
+      "sha256": "966db0c9944068475b31d2584d5db88456d1ab26d0ca0658d75d048f1e00a601",
+      "rowCount": 9406,
+      "idSetSha256": "1d9eedd64fbf50d586e1062944d1c34e7235af58b78e0ad2cdb220bcfc798d8b"
+    },
+    {
+      "tableName": "SpellIcon",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SpellIcon.dbc",
+      "sha256": "2b12326641dba1554878b3f53c993e1211e50b3839ccdbeca378a23e7b3248db",
+      "rowCount": 3226,
+      "idSetSha256": "3bfe1c5011bcc2da2cbbac1d18b857cf673d57d630b9c275e014ed80d68ba9f8"
+    },
+    {
+      "tableName": "SkillLineAbility",
+      "archive": "C:/WoWProjecto/Client/Data/enUS/patch-enUS-3.MPQ",
+      "member": "DBFilesClient\\SkillLineAbility.dbc",
+      "sha256": "4154b833d6a26b9b9ce53851d56cb594f0813c0936a72ec89f933cc69abe42c3",
+      "rowCount": 10219,
+      "idSetSha256": "1e1973df5dd8e7d8ab2fe1171b2bfad041ae7abb68b5598efa86b2f61768f544"
+    }
+  ],
+  "priorEvidenceInterpretation": "Historical PARTIAL/MISSING reports remain unchanged; V0 closes client evidence and the new maintainer declaration closes historical authority.",
+  "hashPolicy": "SHA-256 of exact UTF-8 bytes including final LF; ledger/certificate are downstream and excluded from this manifest.",
+  "deploymentAdmission": "REQUIRED"
+}

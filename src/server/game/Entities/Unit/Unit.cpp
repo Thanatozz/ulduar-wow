@@ -315,7 +315,8 @@ SpellInfo const* ProcEventInfo::GetSpellInfo() const
 SpellSchoolMask ProcEventInfo::GetSchoolMask() const
 {
     if (_spell)
-        return _spell->GetSpellInfo()->GetSchoolMask();
+        return _spell->GetSpellSchoolMaskOverride() != SPELL_SCHOOL_MASK_NONE ?
+            _spell->GetSpellSchoolMaskOverride() : _spell->GetSpellInfo()->GetSchoolMask();
 
     if (_damageInfo)
         return _damageInfo->GetSchoolMask();
@@ -904,8 +905,12 @@ bool Unit::HasAuraTypeWithFamilyFlags(AuraType auraType, uint32 familyName, uint
     return false;
 }
 
-bool Unit::IsImmunedToSpell(SpellInfo const* spellInfo, uint32 effectMask, Unit const* caster /*= nullptr*/)
+bool Unit::IsImmunedToSpell(SpellInfo const* spellInfo, uint32 effectMask, Unit const* caster /*= nullptr*/,
+    SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellInfo)
+        schoolMask = spellInfo->GetSchoolMask();
+
     if (!spellInfo)
         return false;
 
@@ -940,7 +945,8 @@ bool Unit::IsImmunedToSpell(SpellInfo const* spellInfo, uint32 effectMask, Unit 
     if (hasCheckedEffect && immuneToAllEffects)
         return true;
 
-    if (!spellInfo->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES) && HasSchoolImmunityForMask(spellInfo->GetSchoolMask(), caster, spellInfo))
+    if (!spellInfo->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES) &&
+        HasSchoolImmunityForMask(schoolMask, caster, spellInfo))
         return true;
 
     return false;
@@ -1489,7 +1495,8 @@ SpellCastResult Unit::CastSpell(GameObject* go, uint32 spellId, bool triggered, 
     return CastSpell(targets, spellInfo, nullptr, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, castItem, triggeredByAura, originalCaster);
 }
 
-void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 damage, SpellInfo const* spellInfo, WeaponAttackType attackType, bool crit)
+void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 damage, SpellInfo const* spellInfo,
+    WeaponAttackType attackType, bool crit, SpellSchoolMask schoolMask)
 {
     if (damage < 0)
         return;
@@ -1497,6 +1504,9 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 dama
     Unit* victim = damageInfo->target;
     if (!victim || !victim->IsAlive())
         return;
+
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE)
+        schoolMask = spellInfo->GetSchoolMask();
 
     SpellSchoolMask damageSchoolMask = SpellSchoolMask(damageInfo->schoolMask);
     uint32 crTypeMask = victim->GetCreatureTypeMask();
@@ -1548,7 +1558,7 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 dama
                         crit_mod += victim->GetTotalAuraModifier(SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_DAMAGE);
 
                     // Increase crit damage from SPELL_AURA_MOD_CRIT_DAMAGE_BONUS
-                    crit_mod += GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_DAMAGE_BONUS, spellInfo->GetSchoolMask());
+                    crit_mod += GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_DAMAGE_BONUS, schoolMask);
                     // Increase crit damage from SPELL_AURA_MOD_CRIT_PERCENT_VERSUS
                     crit_mod += GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_PERCENT_VERSUS, crTypeMask);
 
@@ -1604,7 +1614,7 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 dama
                 if (crit)
                 {
                     damageInfo->HitInfo |= SPELL_HIT_TYPE_CRIT;
-                    damage = Unit::SpellCriticalDamageBonus(this, spellInfo, damage, victim);
+                    damage = Unit::SpellCriticalDamageBonus(this, spellInfo, damage, victim, schoolMask);
                 }
 
                 int32 resilienceReduction = damage;
@@ -3484,8 +3494,11 @@ SpellMissInfo Unit::MeleeSpellHitResult(Unit* victim, SpellInfo const* spellInfo
     return SPELL_MISS_NONE;
 }
 
-SpellMissInfo Unit::MagicSpellHitResult(Unit* victim, SpellInfo const* spellInfo)
+SpellMissInfo Unit::MagicSpellHitResult(Unit* victim, SpellInfo const* spellInfo, SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellInfo)
+        schoolMask = spellInfo->GetSchoolMask();
+
     // Can`t miss on dead target (on skinning for example)
     if (!victim->IsAlive() && !victim->IsPlayer())
         return SPELL_MISS_NONE;
@@ -3505,7 +3518,6 @@ SpellMissInfo Unit::MagicSpellHitResult(Unit* victim, SpellInfo const* spellInfo
         return SPELL_MISS_NONE;
     }
 
-    SpellSchoolMask schoolMask = spellInfo->GetSchoolMask();
     int32 thisLevel = getLevelForTarget(victim);
     if (IsCreature() && ToCreature()->IsTrigger())
         thisLevel = std::max<int32>(thisLevel, spellInfo->SpellLevel);
@@ -3598,8 +3610,9 @@ SpellMissInfo Unit::MagicSpellHitResult(Unit* victim, SpellInfo const* spellInfo
             tmp += victim->GetMaxNegativeAuraModifierByMiscValue(SPELL_AURA_MOD_DEBUFF_RESISTANCE, int32(spellInfo->Dispel)) * 100;
         }
 
-        if (spellInfo->HasAttribute(SPELL_ATTR0_CU_BINARY_SPELL) && (spellInfo->GetSchoolMask() & (SPELL_SCHOOL_MASK_NORMAL | SPELL_SCHOOL_MASK_HOLY)) == 0)
-            tmp += int32(Unit::GetEffectiveResistChance(this, spellInfo->GetSchoolMask(), victim, spellInfo) * 10000.0f);
+        if (spellInfo->HasAttribute(SPELL_ATTR0_CU_BINARY_SPELL) &&
+            (schoolMask & (SPELL_SCHOOL_MASK_NORMAL | SPELL_SCHOOL_MASK_HOLY)) == 0)
+            tmp += int32(Unit::GetEffectiveResistChance(this, schoolMask, victim, spellInfo) * 10000.0f);
     }
 
     // Roll chance
@@ -3690,6 +3703,8 @@ SpellMissInfo Unit::SpellHitResult(Unit* victim, SpellInfo const* spell, bool Ca
 SpellMissInfo Unit::SpellHitResult(Unit* victim, Spell const* spell, bool CanReflect)
 {
     SpellInfo const* spellInfo = spell->GetSpellInfo();
+    SpellSchoolMask schoolMask = spell->GetSpellSchoolMaskOverride() != SPELL_SCHOOL_MASK_NONE ?
+        spell->GetSpellSchoolMaskOverride() : spellInfo->GetSchoolMask();
 
     // Check for immune
     if (victim->IsImmunedToSpell(spellInfo, spell))
@@ -3706,14 +3721,14 @@ SpellMissInfo Unit::SpellHitResult(Unit* victim, Spell const* spell, bool CanRef
     }
 
     // Check for immune to spell effects (includes school, mechanics, state, dispel immunities)
-    if (victim->IsImmunedToSpell(spellInfo, MAX_EFFECT_MASK, this))
+    if (victim->IsImmunedToSpell(spellInfo, MAX_EFFECT_MASK, this, schoolMask))
     {
         return SPELL_MISS_IMMUNE;
     }
 
     // Damage immunity is only checked if the spell has damage effects, this immunity must not prevent aura apply
     // returns SPELL_MISS_IMMUNE in that case, for other spells, the SMSG_SPELL_GO must show hit
-    if (spellInfo->HasOnlyDamageEffects() && victim->IsImmunedToDamage(this, spellInfo))
+    if (spellInfo->HasOnlyDamageEffects() && victim->IsImmunedToDamage(this, spellInfo, schoolMask))
         return SPELL_MISS_IMMUNE;
 
     if (this == victim)
@@ -3732,7 +3747,7 @@ SpellMissInfo Unit::SpellHitResult(Unit* victim, Spell const* spell, bool CanRef
     if (CanReflect)
     {
         int32 reflectchance = victim->GetTotalAuraModifier(SPELL_AURA_REFLECT_SPELLS);
-        reflectchance += victim->GetTotalAuraModifierByMiscMask(SPELL_AURA_REFLECT_SPELLS_SCHOOL, spellInfo->GetSchoolMask());
+        reflectchance += victim->GetTotalAuraModifierByMiscMask(SPELL_AURA_REFLECT_SPELLS_SCHOOL, schoolMask);
 
         if (reflectchance > 0 && roll_chance_i(reflectchance))
         {
@@ -3768,7 +3783,7 @@ SpellMissInfo Unit::SpellHitResult(Unit* victim, Spell const* spell, bool CanRef
             [[fallthrough]];
         }
         case SPELL_DAMAGE_CLASS_MAGIC:
-            return MagicSpellHitResult(victim, spellInfo);
+            return MagicSpellHitResult(victim, spellInfo, schoolMask);
     }
 
     return SPELL_MISS_NONE;
@@ -8433,8 +8448,12 @@ void Unit::EnergizeBySpell(Unit* victim, uint32 spellID, uint32 damage, Powers p
     SendEnergizeSpellLog(victim, spellID, damage, powerType);
 }
 
-float Unit::SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, DamageEffectType damagetype)
+float Unit::SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, DamageEffectType damagetype,
+    SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellProto)
+        schoolMask = spellProto->GetSchoolMask();
+
     if (!spellProto || !victim || damagetype == DIRECT_DAMAGE)
         return 1.0f;
 
@@ -8448,20 +8467,21 @@ float Unit::SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, Da
         if (IsTotem())
         {
             if (Unit* owner = GetOwner())
-                return owner->SpellPctDamageModsDone(victim, spellProto, damagetype);
+                return owner->SpellPctDamageModsDone(victim, spellProto, damagetype, schoolMask);
         }
         // Dancing Rune Weapon...
         else if (GetEntry() == 27893)
         {
             if (Unit* owner = GetOwner())
-                return owner->SpellPctDamageModsDone(victim, spellProto, damagetype);
+                return owner->SpellPctDamageModsDone(victim, spellProto, damagetype, schoolMask);
         }
     }
 
     // Done total percent damage auras
     float DoneTotalMod = 1.0f;
 
-    DoneTotalMod *= GetTotalAuraMultiplier(SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, [spellProto, this, damagetype](AuraEffect const* aurEff)
+    DoneTotalMod *= GetTotalAuraMultiplier(SPELL_AURA_MOD_DAMAGE_PERCENT_DONE,
+        [spellProto, this, damagetype, schoolMask](AuraEffect const* aurEff)
     {
         // prevent apply mods from weapon specific case to non weapon specific spells (Example: thunder clap and two-handed weapon specialization)
         if (spellProto->EquippedItemClass == -1 && aurEff->GetSpellInfo()->EquippedItemClass != -1 &&
@@ -8473,7 +8493,7 @@ float Unit::SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, Da
         if (!spellProto->ValidateAttribute6SpellDamageMods(this, aurEff, damagetype == DOT))
             return false;
 
-        if (aurEff->GetMiscValue() & spellProto->GetSchoolMask())
+        if (aurEff->GetMiscValue() & schoolMask)
         {
             if (aurEff->GetSpellInfo()->EquippedItemClass == -1)
                 return true;
@@ -8761,8 +8781,12 @@ float Unit::SpellPctDamageModsDone(Unit* victim, SpellInfo const* spellProto, Da
     return DoneTotalMod;
 }
 
-uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uint32 pdamage, DamageEffectType damagetype, uint8 effIndex, float TotalMod, uint32 stack)
+uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uint32 pdamage,
+    DamageEffectType damagetype, uint8 effIndex, float TotalMod, uint32 stack, SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellProto)
+        schoolMask = spellProto->GetSchoolMask();
+
     if (!spellProto || !victim || damagetype == DIRECT_DAMAGE)
         return pdamage;
 
@@ -8776,7 +8800,8 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
         if (IsTotem())
         {
             if (Unit* owner = GetOwner())
-                return owner->SpellDamageBonusDone(victim, spellProto, pdamage, damagetype, effIndex, TotalMod, stack);
+                return owner->SpellDamageBonusDone(victim, spellProto, pdamage, damagetype, effIndex,
+                    TotalMod, stack, schoolMask);
         }
         // Dancing Rune Weapon...
         else if (GetEntry() == 27893)
@@ -8789,7 +8814,7 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
     // Done total percent damage auras
     float ApCoeffMod = 1.0f;
     int32 DoneTotal = 0;
-    float DoneTotalMod = TotalMod ? TotalMod : SpellPctDamageModsDone(victim, spellProto, damagetype);
+    float DoneTotalMod = TotalMod ? TotalMod : SpellPctDamageModsDone(victim, spellProto, damagetype, schoolMask);
 
     // Config : RATE_CREATURE_X_SPELLDAMAGE & Do Not Modify Pet/Guardian/Mind Controlled Damage
     if (IsCreature() && (!ToCreature()->IsPet() || !ToCreature()->IsGuardian() || !ToCreature()->IsControlledByPlayer()))
@@ -8875,7 +8900,7 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
     }
 
     // Done fixed damage bonus auras
-    DoneAdvertisedBenefit += SpellBaseDamageBonusDone(spellProto->GetSchoolMask());
+    DoneAdvertisedBenefit += SpellBaseDamageBonusDone(schoolMask);
 
     // Check for table values
     float coeff = spellProto->Effects[effIndex].BonusMultiplier;
@@ -8935,8 +8960,12 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
     return uint32(std::max(tmpDamage, 0.0f));
 }
 
-uint32 Unit::SpellDamageBonusTaken(Unit* caster, SpellInfo const* spellProto, uint32 pdamage, DamageEffectType damagetype, uint32 stack)
+uint32 Unit::SpellDamageBonusTaken(Unit* caster, SpellInfo const* spellProto, uint32 pdamage,
+    DamageEffectType damagetype, uint32 stack, SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellProto)
+        schoolMask = spellProto->GetSchoolMask();
+
     if (!spellProto || damagetype == DIRECT_DAMAGE)
         return pdamage;
 
@@ -8945,7 +8974,7 @@ uint32 Unit::SpellDamageBonusTaken(Unit* caster, SpellInfo const* spellProto, ui
 
     // from positive and negative SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN
     // multiplicative bonus, for example Dispersion + Shadowform (0.10*0.85=0.085)
-    TakenTotalMod *= GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN, spellProto->GetSchoolMask());
+    TakenTotalMod *= GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN, schoolMask);
 
     TakenTotalMod = processDummyAuras(TakenTotalMod);
 
@@ -8991,7 +9020,7 @@ uint32 Unit::SpellDamageBonusTaken(Unit* caster, SpellInfo const* spellProto, ui
         AddPct(TakenTotalMod, modifierMin);
     }
 
-    int32 TakenAdvertisedBenefit = SpellBaseDamageBonusTaken(spellProto->GetSchoolMask(), damagetype == DOT);
+    int32 TakenAdvertisedBenefit = SpellBaseDamageBonusTaken(schoolMask, damagetype == DOT);
 
     // Check for table values
     float coeff = 0;
@@ -9415,8 +9444,12 @@ float Unit::SpellTakenCritChance(Unit const* caster, SpellInfo const* spellProto
     return crit_chance;
 }
 
-uint32 Unit::SpellCriticalDamageBonus(Unit const* caster, SpellInfo const* spellProto, uint32 damage, Unit const* victim)
+uint32 Unit::SpellCriticalDamageBonus(Unit const* caster, SpellInfo const* spellProto, uint32 damage,
+    Unit const* victim, SpellSchoolMask schoolMask)
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellProto)
+        schoolMask = spellProto->GetSchoolMask();
+
     // Calculate critical bonus
     int32 crit_bonus = damage;
     float crit_mod = 0.0f;
@@ -9434,7 +9467,7 @@ uint32 Unit::SpellCriticalDamageBonus(Unit const* caster, SpellInfo const* spell
 
     if (caster)
     {
-        crit_mod += caster->GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_DAMAGE_BONUS, spellProto->GetSchoolMask());
+        crit_mod += caster->GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_DAMAGE_BONUS, schoolMask);
 
         if (victim)
             crit_mod += caster->GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_CRIT_PERCENT_VERSUS, victim->GetCreatureTypeMask());
@@ -9926,15 +9959,17 @@ bool Unit::IsImmunedToDamage(SpellSchoolMask schoolMask) const
     });
 }
 
-bool Unit::IsImmunedToDamage(Unit const* caster, SpellInfo const* spellInfo) const
+bool Unit::IsImmunedToDamage(Unit const* caster, SpellInfo const* spellInfo, SpellSchoolMask schoolMask) const
 {
+    if (schoolMask == SPELL_SCHOOL_MASK_NONE && spellInfo)
+        schoolMask = spellInfo->GetSchoolMask();
+
     if (!spellInfo)
         return false;
 
     if (spellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES) || spellInfo->HasAttribute(SPELL_ATTR2_NO_SCHOOL_IMMUNITIES))
         return false;
 
-    SpellSchoolMask schoolMask = SpellSchoolMask(spellInfo->GetSchoolMask());
     if (schoolMask == SPELL_SCHOOL_MASK_NONE)
         return false;
 

@@ -1,0 +1,79 @@
+{
+  "status": "CANDIDATE_ONLY",
+  "start": 90000,
+  "end": 90023,
+  "capacity": 24,
+  "targetRelease": "ULDuar-V1-PREVIEW-CANDIDATE",
+  "collisionEvidenceHashes": {
+    "ULDuar_A8_DATA_INVENTORY.json": "21ca9cfe33b731d8aa19006c0fb97a7dfa6b023228d6f1a340cde3bb1534cda3",
+    "ULDuar_A9_MPQ_MEMBER_INVENTORY.json": "e491fe39c82e3897ef476e657a8817b1a6f175f74c1fa3272704c0af6ac99f7b",
+    "ULDuar_A10_PROTECTED_FILE_HASHES.json": "1c5da9c2c73072fa4331c4228817c92a983c9c7b9396387fc3ed0ecebc4ffaef",
+    "ULDuar_A10_RELEASE_MEMBERSHIP.json": "bcb5add0e7eedc76b69f1d1943f151ee67c66774ad52749a8d13c88d27c0571c"
+  },
+  "typedScreens": {
+    "clientSpellRowsAllInspectedLocaleCopies": {
+      "count": 50656,
+      "candidateIntersection": [],
+      "idSetSha256": "81197e1f0c1f9ab7da79a1c3db8a9e2ac0a6cdc6e695c7064d184c578c858f75"
+    },
+    "baseSpellDbcLiteralRows": {
+      "count": 4491,
+      "candidateIntersection": [],
+      "idSetSha256": "7450ba92242d232827c0c01a4c3b4e73fd0a4479180a709c2ce1102a439a9bbc"
+    },
+    "additionalConservativeGuard_SQL_OVERRIDE": {
+      "count": 4554,
+      "candidateIntersection": [],
+      "idSetSha256": "48f7bb7718ed3e2f7c3af5334fc598fbaa32b21cb8e72f9cf7a61157b2f3d568"
+    },
+    "additionalConservativeGuard_SCRIPT_BOUND": {
+      "count": 2801,
+      "candidateIntersection": [],
+      "idSetSha256": "ca2ceed5966b9e688032cd2673428ec50b2301a2b28c8383672ef7095d2c0be3"
+    },
+    "additionalConservativeGuard_REFERENCED": {
+      "count": 19463,
+      "candidateIntersection": [],
+      "idSetSha256": "be9c6618f7b7d8349f12f58c1c2132b4980030160884416dea6b2ae667323b72"
+    }
+  },
+  "excludedHistoricalRanges": [
+    {
+      "table": "SpellVisual",
+      "start": 16680,
+      "end": 16684,
+      "policy": "conservative design tombstone"
+    },
+    {
+      "table": "SpellVisualEffectName",
+      "start": 7088,
+      "end": 7092,
+      "policy": "conservative design tombstone"
+    },
+    {
+      "table": "SpellVisual",
+      "start": 17000,
+      "policy": "reference-only row; do not reuse within visual namespace"
+    }
+  ],
+  "actionButton24BitCheck": {
+    "highest": 90023,
+    "exclusiveLimit": 16777216,
+    "fits": true
+  },
+  "sparseIndexImpact": {
+    "clientSpellOldMaximum": 80864,
+    "candidateMaximum": 90023,
+    "additionalIndexEntries": 9159,
+    "serverSourceModelMaximum": 100102,
+    "serverAdditionalIndexEntries": 0,
+    "caveat": "Pointer array illustration only: 36,636 bytes at4 or73,272 at8 bytes; actual client storage implementation unproven; server source model not observed DB"
+  },
+  "remainingBeforeReservation": [
+    "Native client precedence or explicit approved effective table package",
+    "Canonical source/module/update closure collision audit including nonliteral references",
+    "Historical Ulduar publication/rollback attestation or conservative typed tombstones for all unresolved use",
+    "Serialized namespace owner review against current ledger revision; no production ledger exists yet"
+  ],
+  "noAllocation": true
+}

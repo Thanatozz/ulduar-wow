@@ -1,0 +1,22 @@
+{
+  "checkedUtc": "2026-09-21T16:12:40.863640+00:00",
+  "protectedFilesChecked": 9720,
+  "changed": [],
+  "missing": [],
+  "newFiles": [
+    "docs/audits/ULDuar_R1_CLOSURE_PRE_SNAPSHOT.json",
+    "docs/audits/ULDuar_R1_CLOSURE_GATE_REVIEW.json",
+    "docs/audits/ULDuar_R1_CLOSURE_PRESERVATION.json",
+    "docs/implementation/ULDuar_PHASE_R1_CLOSURE.md"
+  ],
+  "CPP": 0,
+  "LUA": 0,
+  "SQL": 0,
+  "DBC": 0,
+  "MPQ": 0,
+  "CLIENT": 0,
+  "CONFIG": 0,
+  "ledgerWritten": false,
+  "certificateIssued": false,
+  "operations": "Read-only text/JSON and SHA-256 inspection, new documentation/audit writes only. No project tests run."
+}

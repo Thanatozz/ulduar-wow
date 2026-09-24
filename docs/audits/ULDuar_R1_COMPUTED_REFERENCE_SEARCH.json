@@ -1,0 +1,657 @@
+{
+  "searches": [
+    {
+      "label": "computed",
+      "pattern": "(?i)(spell_?id|SPELL_[A-Z_0-9]+)\\s*\\+\\s*[0-9a-zA-Z_]|\\b(allocate|generate)\\w*spell|spell\\w*(offset|idbase)|base\\w*spellid",
+      "hits": [
+        {
+          "path": "src/server/scripts/Spells/spell_warlock.cpp",
+          "line": 204,
+          "text": "            amount = CalculatePct<int32, float>(GetUnitOwner()->ToPlayer()->GetFloatValue(PLAYER_SPELL_CRIT_PERCENTAGE1 + static_cast<uint8>(SPELL_SCHOOL_FROST)), GetSpellInfo()->Effects[EFFECT_0].CalcValue());",
+          "constantBases": {},
+          "context": "\n    void CalculateAmount(AuraEffect const* aurEff, int32& amount, bool&  /*canBeRecalculated*/)\n    {\n        if (aurEff->GetEffIndex() == EFFECT_0)\n            amount = CalculatePct<int32, float>(GetUnitOwner()->ToPlayer()->GetFloatValue(PLAYER_SPELL_CRIT_PERCENTAGE1 + static_cast<uint8>(SPELL_SCHOOL_FROST)), GetSpellInfo()->Effects[EFFECT_0].CalcValue());\n        else\n            amount = CalculatePct<int32, float>(GetUnitOwner()->ToPlayer()->GetFloatValue(PLAYER_CRIT_PERCENTAGE), GetSpellInfo()->Effects[EFFECT_0].CalcValue());\n    }"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityManager.h",
+          "line": 71,
+          "text": "    std::map<BaseSpellId, AbilityId> _spellAbilities;",
+          "constantBases": {},
+          "context": "    AbilityConfig _config;\n    bool _databaseReady = false;\n    uint64 _nextStateRevision = 0; // Never reused on cache reload within this server process.\n    std::map<AbilityId, AbilityDefinition> _definitions;\n    std::map<BaseSpellId, AbilityId> _spellAbilities;\n    std::map<ObjectGuid, std::map<AbilityId, PlayerAbilityState>> _players;\n    // Protected by _mutex, destroyed on load/logout/delete. Not serialized into legacy state.\n    std::map<ObjectGuid, AbilityCarrierRegistry> _forgePlayers;"
+        },
+        {
+          "path": "src/server/scripts/Pet/pet_generic.cpp",
+          "line": 194,
+          "text": "                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_POSTMAN_S + i))",
+          "constantBases": {
+            "SPELL_AURA_POSTMAN_S": [
+              "67376"
+            ]
+          },
+          "context": "                    for (uint8 i = 0; i < 3; ++i)\n                    {\n                        if (player->GetTeamId(true) == TEAM_ALLIANCE)\n                        {\n                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_POSTMAN_S + i))\n                            {\n                                duration = cooldown;\n                                aura = SPELL_AURA_POSTMAN_S + i;"
+        },
+        {
+          "path": "src/server/scripts/Pet/pet_generic.cpp",
+          "line": 197,
+          "text": "                                aura = SPELL_AURA_POSTMAN_S + i;",
+          "constantBases": {
+            "SPELL_AURA_POSTMAN_S": [
+              "67376"
+            ]
+          },
+          "context": "                        {\n                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_POSTMAN_S + i))\n                            {\n                                duration = cooldown;\n                                aura = SPELL_AURA_POSTMAN_S + i;\n                                _state = argentPonyService[TEAM_ALLIANCE][i];\n                                me->ToTempSummon()->UnSummon(Milliseconds(duration));\n                                break;"
+        },
+        {
+          "path": "src/server/scripts/Pet/pet_generic.cpp",
+          "line": 205,
+          "text": "                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_BANK_G + i))",
+          "constantBases": {
+            "SPELL_AURA_BANK_G": [
+              "68849"
+            ]
+          },
+          "context": "                            }\n                        }\n                        else\n                        {\n                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_BANK_G + i))\n                            {\n                                duration = cooldown * IN_MILLISECONDS;\n                                aura = SPELL_AURA_BANK_G + i;"
+        },
+        {
+          "path": "src/server/scripts/Pet/pet_generic.cpp",
+          "line": 208,
+          "text": "                                aura = SPELL_AURA_BANK_G + i;",
+          "constantBases": {
+            "SPELL_AURA_BANK_G": [
+              "68849"
+            ]
+          },
+          "context": "                        {\n                            if (uint32 cooldown = player->GetSpellCooldownDelay(SPELL_AURA_BANK_G + i))\n                            {\n                                duration = cooldown * IN_MILLISECONDS;\n                                aura = SPELL_AURA_BANK_G + i;\n                                _state = argentPonyService[TEAM_HORDE][i];\n                                me->ToTempSummon()->UnSummon(Milliseconds(duration));\n                                break;"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 15,
+          "text": "using BaseSpellId = uint32;",
+          "constantBases": {},
+          "context": "\nnamespace UlduarAbilities\n{\nusing AbilityId = uint32;\nusing BaseSpellId = uint32;\n\nenum class AbilityTag : uint8\n{"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 96,
+          "text": "    BaseSpellId SpellId = 0;",
+          "constantBases": {},
+          "context": "\nstruct AbilityDefinition : AbilityClassification\n{\n    AbilityId Id = 0;\n    BaseSpellId SpellId = 0;\n    std::string Name;\n    std::string CommandName;\n    std::vector<AbilityTag> Tags;"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 106,
+          "text": "    BaseSpellId PayloadSpellId = 0; // Optional triggered payload rank chain (channel/proc controller).",
+          "constantBases": {},
+          "context": "    bool RuntimeEnabled = false; // Metadata never opts into gameplay implicitly.\n    uint8 ClassId = 0; // Availability restriction; 0 allows any class that knows the rank chain.\n    uint32 SkillLineId = 0;\n    std::string Specialization;\n    BaseSpellId PayloadSpellId = 0; // Optional triggered payload rank chain (channel/proc controller).\n    BaseSpellId SecondarySpellId = 0; // Optional propagation-only payload; zero reuses the cast spell.\n    bool SupportsElementConversion = true;\n    bool SupportsPotency = true;"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 107,
+          "text": "    BaseSpellId SecondarySpellId = 0; // Optional propagation-only payload; zero reuses the cast spell.",
+          "constantBases": {},
+          "context": "    uint8 ClassId = 0; // Availability restriction; 0 allows any class that knows the rank chain.\n    uint32 SkillLineId = 0;\n    std::string Specialization;\n    BaseSpellId PayloadSpellId = 0; // Optional triggered payload rank chain (channel/proc controller).\n    BaseSpellId SecondarySpellId = 0; // Optional propagation-only payload; zero reuses the cast spell.\n    bool SupportsElementConversion = true;\n    bool SupportsPotency = true;\n    uint32 Modifiers = 0;"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 275,
+          "text": "    BaseSpellId SpellId = 0;",
+          "constantBases": {},
+          "context": "\nstruct AbilityRuntimeContext : AbilityClassification\n{\n    AbilityId Id = 0;\n    BaseSpellId SpellId = 0;\n    BaseSpellId SecondarySpellId = 0;\n    AbilityElement Element = AbilityElement::Original;\n    AbilityPropagationMode PropagationMode = AbilityPropagationMode::None;"
+        },
+        {
+          "path": "modules/mod-ulduar-abilities/src/AbilityTypes.h",
+          "line": 276,
+          "text": "    BaseSpellId SecondarySpellId = 0;",
+          "constantBases": {},
+          "context": "struct AbilityRuntimeContext : AbilityClassification\n{\n    AbilityId Id = 0;\n    BaseSpellId SpellId = 0;\n    BaseSpellId SecondarySpellId = 0;\n    AbilityElement Element = AbilityElement::Original;\n    AbilityPropagationMode PropagationMode = AbilityPropagationMode::None;\n    AbilityPropagationStats PropagationStats;"
+        },
+        {
+          "path": "src/server/scripts/Events/hallows_end.cpp",
+          "line": 176,
+          "text": "            uint32 spellId = SPELL_HALLOWS_END_CANDY_1 + urand(0, 3);",
+          "constantBases": {
+            "SPELL_HALLOWS_END_CANDY_1": [
+              "24924"
+            ]
+          },
+          "context": "    void HandleDummy(SpellEffIndex /*effIndex*/)\n    {\n        if (Player* target = GetHitPlayer())\n        {\n            uint32 spellId = SPELL_HALLOWS_END_CANDY_1 + urand(0, 3);\n            GetCaster()->CastSpell(target, spellId, true);\n        }\n    }"
+        },
+        {
+          "path": "src/server/scripts/Events/hallows_end.cpp",
+          "line": 1130,
+          "text": "                cr->CastSpell(cr, SPELL_HORSEMAN_BODY_PHASE + phase, true);",
+          "constantBases": {
+            "SPELL_HORSEMAN_BODY_PHASE": [
+              "42547"
+            ]
+          },
+          "context": "                if (health)\n                    cr->SetHealth(health);\n\n                me->CastSpell(cr, SPELL_THROW_HEAD, true);\n                cr->CastSpell(cr, SPELL_HORSEMAN_BODY_PHASE + phase, true);\n                if (phase < 2)\n                    phase++;\n"
+        },
+        {
+          "path": "src/server/scripts/Events/hallows_end.cpp",
+          "line": 1325,
+          "text": "            case SPELL_HORSEMAN_BODY_PHASE+1:",
+          "constantBases": {
+            "SPELL_HORSEMAN_BODY_PHASE": [
+              "42547"
+            ]
+          },
+          "context": "                }\n            case SPELL_HORSEMAN_BODY_PHASE:\n                pct = 67;\n                break;\n            case SPELL_HORSEMAN_BODY_PHASE+1:\n                pct = 34;\n                break;\n            case SPELL_HORSEMAN_BODY_PHASE+2:"
+        },
+        {
+          "path": "src/server/scripts/Events/hallows_end.cpp",
+          "line": 1328,
+          "text": "            case SPELL_HORSEMAN_BODY_PHASE+2:",
+          "constantBases": {
+            "SPELL_HORSEMAN_BODY_PHASE": [
+              "42547"
+            ]
+          },
+          "context": "                break;\n            case SPELL_HORSEMAN_BODY_PHASE+1:\n                pct = 34;\n                break;\n            case SPELL_HORSEMAN_BODY_PHASE+2:\n                pct = 0;\n                break;\n        }"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_hunter.cpp",
+          "line": 762,
+          "text": "            uint32 spellId = SPELL_HUNTER_SNIPER_TRAINING_BUFF_R1 + GetId() - SPELL_HUNTER_SNIPER_TRAINING_R1;",
+          "constantBases": {
+            "SPELL_HUNTER_SNIPER_TRAINING_BUFF_R1": [
+              "64418"
+            ]
+          },
+          "context": "        PreventDefaultAction();\n        if (aurEff->GetAmount() <= 0)\n        {\n            Unit* target = GetTarget();\n            uint32 spellId = SPELL_HUNTER_SNIPER_TRAINING_BUFF_R1 + GetId() - SPELL_HUNTER_SNIPER_TRAINING_R1;\n            target->CastSpell(target, spellId, true, nullptr, aurEff);\n\n            if (Player* playerTarget = GetUnitOwner()->ToPlayer())"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 1592,
+          "text": "            if (!sSpellMgr->GetSpellInfo(SPELL_NETHERBLOOM_POLLEN_1 + i))",
+          "constantBases": {
+            "SPELL_NETHERBLOOM_POLLEN_1": [
+              "28703"
+            ]
+          },
+          "context": "\n    bool Validate(SpellInfo const* /*spellInfo*/) override\n    {\n        for (uint8 i = 0; i < 5; ++i)\n            if (!sSpellMgr->GetSpellInfo(SPELL_NETHERBLOOM_POLLEN_1 + i))\n                return false;\n        return true;\n    }"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 1613,
+          "text": "                if (target->HasAura(SPELL_NETHERBLOOM_POLLEN_1 + i))",
+          "constantBases": {
+            "SPELL_NETHERBLOOM_POLLEN_1": [
+              "28703"
+            ]
+          },
+          "context": "            //       receiving a debuff. However, this seems to be removed by a patch.\n\n            // don't overwrite an existing aura\n            for (uint8 i = 0; i < 5; ++i)\n                if (target->HasAura(SPELL_NETHERBLOOM_POLLEN_1 + i))\n                    return;\n\n            target->CastSpell(target, SPELL_NETHERBLOOM_POLLEN_1 + urand(0, 4), true);"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 1616,
+          "text": "            target->CastSpell(target, SPELL_NETHERBLOOM_POLLEN_1 + urand(0, 4), true);",
+          "constantBases": {
+            "SPELL_NETHERBLOOM_POLLEN_1": [
+              "28703"
+            ]
+          },
+          "context": "            for (uint8 i = 0; i < 5; ++i)\n                if (target->HasAura(SPELL_NETHERBLOOM_POLLEN_1 + i))\n                    return;\n\n            target->CastSpell(target, SPELL_NETHERBLOOM_POLLEN_1 + urand(0, 4), true);\n        }\n    }\n"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 3250,
+          "text": "                target->RemoveAurasDueToSpell(SPELL_VISUAL_SHIELD_1 + i);",
+          "constantBases": {
+            "SPELL_VISUAL_SHIELD_1": [
+              "63130"
+            ]
+          },
+          "context": "        {\n            Unit* target = GetTarget();\n\n            for (uint8 i = 0; i < GetSpellInfo()->StackAmount; ++i)\n                target->RemoveAurasDueToSpell(SPELL_VISUAL_SHIELD_1 + i);\n\n            target->CastSpell(target, SPELL_VISUAL_SHIELD_1 + GetAura()->GetStackAmount() - 1, true, nullptr, aurEff);\n        }"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 3252,
+          "text": "            target->CastSpell(target, SPELL_VISUAL_SHIELD_1 + GetAura()->GetStackAmount() - 1, true, nullptr, aurEff);",
+          "constantBases": {
+            "SPELL_VISUAL_SHIELD_1": [
+              "63130"
+            ]
+          },
+          "context": "\n            for (uint8 i = 0; i < GetSpellInfo()->StackAmount; ++i)\n                target->RemoveAurasDueToSpell(SPELL_VISUAL_SHIELD_1 + i);\n\n            target->CastSpell(target, SPELL_VISUAL_SHIELD_1 + GetAura()->GetStackAmount() - 1, true, nullptr, aurEff);\n        }\n        else\n            GetTarget()->RemoveAurasDueToSpell(GetId());"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_generic.cpp",
+          "line": 3261,
+          "text": "            GetTarget()->RemoveAurasDueToSpell(SPELL_VISUAL_SHIELD_1 + i);",
+          "constantBases": {
+            "SPELL_VISUAL_SHIELD_1": [
+              "63130"
+            ]
+          },
+          "context": "\n    void RemoveVisualShields(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)\n    {\n        for (uint8 i = 0; i < GetSpellInfo()->StackAmount; ++i)\n            GetTarget()->RemoveAurasDueToSpell(SPELL_VISUAL_SHIELD_1 + i);\n    }\n\n    void RemoveDummyFromDriver(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)"
+        },
+        {
+          "path": "src/server/scripts/Spells/spell_item.cpp",
+          "line": 2401,
+          "text": "            GetCaster()->CastSpell(GetCaster(), spellId + urand(0, 7), true);",
+          "constantBases": {},
+          "context": "            uint32 spellId = SPELL_SCROLL_OF_RECALL_FAIL_ALLIANCE_1;\n            if (GetCaster()->ToPlayer()->GetTeamId() == TEAM_HORDE)\n                spellId = SPELL_SCROLL_OF_RECALL_FAIL_HORDE_1;\n\n            GetCaster()->CastSpell(GetCaster(), spellId + urand(0, 7), true);\n\n            PreventHitDefaultEffect(effIndex);\n        }"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Mechanar/boss_pathaleon_the_calculator.cpp",
+          "line": 98,
+          "text": "                    me->CastSpell(me, SPELL_SUMMON_NETHER_WRAITH_1 + i, true);",
+          "constantBases": {
+            "SPELL_SUMMON_NETHER_WRAITH_1": [
+              "35285"
+            ]
+          },
+          "context": "        {\n            if (!_isEnraged)\n            {\n                for (uint8 i = 0; i < DUNGEON_MODE(3, 4); ++i)\n                    me->CastSpell(me, SPELL_SUMMON_NETHER_WRAITH_1 + i, true);\n\n                Talk(SAY_SUMMON);\n            }"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/SunwellPlateau/boss_muru.cpp",
+          "line": 392,
+          "text": "                GetUnitOwner()->CastSpell(GetUnitOwner(), SPELL_SUMMON_DARK_FIEND + i, true);",
+          "constantBases": {
+            "SPELL_SUMMON_DARK_FIEND": [
+              "46000"
+            ]
+          },
+          "context": "    void OnPeriodic(AuraEffect const* aurEff)\n    {\n        if (aurEff->GetTickNumber() == 2)\n            for (uint8 i = 0; i < 8; ++i)\n                GetUnitOwner()->CastSpell(GetUnitOwner(), SPELL_SUMMON_DARK_FIEND + i, true);\n    }\n\n    void Register() override"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_kaelthas.cpp",
+          "line": 434,
+          "text": "                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);",
+          "constantBases": {
+            "SPELL_NETHERBEAM1": [
+              "36089"
+            ]
+          },
+          "context": "        {\n            me->SetTarget();\n            for (uint8 i = 0; i < 2; ++i)\n                if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i], TEMPSUMMON_TIMED_DESPAWN, 60000))\n                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);\n            me->SetDisableGravity(true);\n            me->SendMovementFlagUpdate();\n            me->GetMotionMaster()->MoveTakeoff(POINT_AIR, me->GetPositionX(), me->GetPositionY(), 75.0f, 2.99, true); // AnimType Movement::ToFly does not exist for Kael"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_kaelthas.cpp",
+          "line": 448,
+          "text": "                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);",
+          "constantBases": {
+            "SPELL_NETHERBEAM1": [
+              "36089"
+            ]
+          },
+          "context": "            DoCastSelf(SPELL_KAEL_EXPLODES2, true);\n            DoCastSelf(SPELL_NETHERBEAM_AURA1, true);\n            for (uint8 i = 0; i < 2; ++i)\n                if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 2], TEMPSUMMON_TIMED_DESPAWN, 60000))\n                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);\n        }, EVENT_SCENE_4);\n        ScheduleUniqueTimedEvent(10s, [&]\n        {"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_kaelthas.cpp",
+          "line": 458,
+          "text": "                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);",
+          "constantBases": {
+            "SPELL_NETHERBEAM1": [
+              "36089"
+            ]
+          },
+          "context": "            DoCastSelf(SPELL_KAEL_EXPLODES3, true);\n            DoCastSelf(SPELL_NETHERBEAM_AURA2, true);\n            for (uint8 i = 0; i < 2; ++i)\n                if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 4], TEMPSUMMON_TIMED_DESPAWN, 60000))\n                    trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);\n        }, EVENT_SCENE_5);\n        ScheduleUniqueTimedEvent(14s, [&]\n        {"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_kaelthas.cpp",
+          "line": 1060,
+          "text": "        if (_currentSpellId < SPELL_GRAVITY_LAPSE_TELEPORT1 + 25)",
+          "constantBases": {
+            "SPELL_GRAVITY_LAPSE_TELEPORT1": [
+              "35966"
+            ]
+          },
+          "context": "\n    void HandleScriptEffect(SpellEffIndex effIndex)\n    {\n        PreventHitEffect(effIndex);\n        if (_currentSpellId < SPELL_GRAVITY_LAPSE_TELEPORT1 + 25)\n            if (Player* target = GetHitPlayer())\n            {\n                GetCaster()->CastSpell(target, _currentSpellId++, true);"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_alar.cpp",
+          "line": 441,
+          "text": "            GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_1 + i), Milliseconds(i * 40));",
+          "constantBases": {
+            "SPELL_QUILL_MISSILE_1": [
+              "34269"
+            ]
+          },
+          "context": "        PreventDefaultAction();\n\n        // 24 spells in total\n        for (uint8 i = 0; i < 21; ++i)\n            GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_1 + i), Milliseconds(i * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 0), Milliseconds(22 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 1), Milliseconds(23 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 2), Milliseconds(24 * 40));"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_alar.cpp",
+          "line": 442,
+          "text": "        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 0), Milliseconds(22 * 40));",
+          "constantBases": {
+            "SPELL_QUILL_MISSILE_2": [
+              "34314"
+            ]
+          },
+          "context": "\n        // 24 spells in total\n        for (uint8 i = 0; i < 21; ++i)\n            GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_1 + i), Milliseconds(i * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 0), Milliseconds(22 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 1), Milliseconds(23 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 2), Milliseconds(24 * 40));\n    }"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_alar.cpp",
+          "line": 443,
+          "text": "        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 1), Milliseconds(23 * 40));",
+          "constantBases": {
+            "SPELL_QUILL_MISSILE_2": [
+              "34314"
+            ]
+          },
+          "context": "        // 24 spells in total\n        for (uint8 i = 0; i < 21; ++i)\n            GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_1 + i), Milliseconds(i * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 0), Milliseconds(22 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 1), Milliseconds(23 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 2), Milliseconds(24 * 40));\n    }\n"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/Eye/boss_alar.cpp",
+          "line": 444,
+          "text": "        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 2), Milliseconds(24 * 40));",
+          "constantBases": {
+            "SPELL_QUILL_MISSILE_2": [
+              "34314"
+            ]
+          },
+          "context": "        for (uint8 i = 0; i < 21; ++i)\n            GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_1 + i), Milliseconds(i * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 0), Milliseconds(22 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 1), Milliseconds(23 * 40));\n        GetUnitOwner()->m_Events.AddEventAtOffset(new CastQuill(GetUnitOwner(), SPELL_QUILL_MISSILE_2 + 2), Milliseconds(24 * 40));\n    }\n\n    void Register() override"
+        },
+        {
+          "path": "src/server/scripts/Outland/TempestKeep/botanica/boss_warp_splinter.cpp",
+          "line": 63,
+          "text": "                DoCastAOE(SPELL_SUMMON_SAPLINGS_SUMMON + i, true);",
+          "constantBases": {
+            "SPELL_SUMMON_SAPLINGS_SUMMON": [
+              "34730"
+            ]
+          },
+          "context": "            Talk(SAY_SUMMON);\n            DoCastAOE(SPELL_SUMMON_SAPLINGS_PERIODIC, true);\n            for (uint8 i = 0; i < 6; ++i)\n            {\n                DoCastAOE(SPELL_SUMMON_SAPLINGS_SUMMON + i, true);\n            }\n            context.Repeat(40s);\n        });"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 183,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+1,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "    {\n        return ValidateSpellInfo(\n            {\n                SPELL_FORSAKEN_SKILL_SWORD,\n                SPELL_FORSAKEN_SKILL_SWORD+1,\n                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 184,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+2,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "        return ValidateSpellInfo(\n            {\n                SPELL_FORSAKEN_SKILL_SWORD,\n                SPELL_FORSAKEN_SKILL_SWORD+1,\n                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 185,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+3,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "            {\n                SPELL_FORSAKEN_SKILL_SWORD,\n                SPELL_FORSAKEN_SKILL_SWORD+1,\n                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 186,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+4,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD,\n                SPELL_FORSAKEN_SKILL_SWORD+1,\n                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 187,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+5,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+1,\n                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 188,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+6,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+2,\n                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 189,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+7,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+3,\n                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 190,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+8,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+4,\n                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 191,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+9,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+5,\n                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,\n                SPELL_FORSAKEN_SKILL_SWORD+12,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 192,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+10,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+6,\n                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,\n                SPELL_FORSAKEN_SKILL_SWORD+12,\n                SPELL_FORSAKEN_SKILL_SWORD+13,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 193,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+11,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+7,\n                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,\n                SPELL_FORSAKEN_SKILL_SWORD+12,\n                SPELL_FORSAKEN_SKILL_SWORD+13,\n                // SPELL_FORSAKEN_SKILL_SHADOW-1, // not used"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 194,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+12,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+8,\n                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,\n                SPELL_FORSAKEN_SKILL_SWORD+12,\n                SPELL_FORSAKEN_SKILL_SWORD+13,\n                // SPELL_FORSAKEN_SKILL_SHADOW-1, // not used\n                SPELL_FORSAKEN_SKILL_SHADOW,"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/ShadowfangKeep/instance_shadowfang_keep.cpp",
+          "line": 195,
+          "text": "                SPELL_FORSAKEN_SKILL_SWORD+13,",
+          "constantBases": {
+            "SPELL_FORSAKEN_SKILL_SWORD": [
+              "7038"
+            ]
+          },
+          "context": "                SPELL_FORSAKEN_SKILL_SWORD+9,\n                SPELL_FORSAKEN_SKILL_SWORD+10,\n                SPELL_FORSAKEN_SKILL_SWORD+11,\n                SPELL_FORSAKEN_SKILL_SWORD+12,\n                SPELL_FORSAKEN_SKILL_SWORD+13,\n                // SPELL_FORSAKEN_SKILL_SHADOW-1, // not used\n                SPELL_FORSAKEN_SKILL_SHADOW,\n            });"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/Scholomance/boss_kormok.cpp",
+          "line": 200,
+          "text": "            GetCaster()->CastSpell(GetCaster(), SPELL_SUMMON_BONE_MINION1 + i, true);",
+          "constantBases": {
+            "SPELL_SUMMON_BONE_MINION1": [
+              "27690"
+            ]
+          },
+          "context": "\n        // Possible spells to handle this not found.\n        for (uint32 i = 0; i < 4; ++i)\n        {\n            GetCaster()->CastSpell(GetCaster(), SPELL_SUMMON_BONE_MINION1 + i, true);\n        }\n    }\n"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/BlackrockMountain/BlackwingLair/boss_chromaggus.cpp",
+          "line": 279,
+          "text": "            caster->CastSpell(caster, SPELL_FIRE_ELEMENTAL_SHIELD + urand(0, 4), true);",
+          "constantBases": {
+            "SPELL_FIRE_ELEMENTAL_SHIELD": [
+              "22277"
+            ]
+          },
+          "context": "        {\n            for (uint32 spell = SPELL_FIRE_ELEMENTAL_SHIELD; spell <= SPELL_ARCANE_ELEMENTAL_SHIELD; ++spell)\n                caster->RemoveAurasDueToSpell(spell);\n\n            caster->CastSpell(caster, SPELL_FIRE_ELEMENTAL_SHIELD + urand(0, 4), true);\n        }\n    }\n"
+        },
+        {
+          "path": "src/server/scripts/EasternKingdoms/MagistersTerrace/boss_felblood_kaelthas.cpp",
+          "line": 235,
+          "text": "                DoCast(player, SPELL_GRAVITY_LAPSE_PLAYER + _gravityLapseCounter, true);",
+          "constantBases": {
+            "SPELL_GRAVITY_LAPSE_PLAYER": [
+              "44219"
+            ]
+          },
+          "context": "            if (player->IsGameMaster())\n                return;\n\n            if (action == ACTION_TELEPORT_PLAYERS)\n                DoCast(player, SPELL_GRAVITY_LAPSE_PLAYER + _gravityLapseCounter, true);\n            else if (action == ACTION_KNOCKUP)\n                player->CastSpell(player, SPELL_GRAVITY_LAPSE_DOT, true, nullptr, nullptr, me->GetGUID());\n            else if (action == ACTION_ALLOW_FLY)"
+        },
+        {
+          "path": "src/server/scripts/Northrend/FrozenHalls/ForgeOfSouls/boss_bronjahm.cpp",
+          "line": 263,
+          "text": "        return ValidateSpellInfo({ SPELL_SOULSTORM_VISUAL2, SPELL_SOULSTORM_VISUAL2+1, SPELL_SOULSTORM_VISUAL2+2, SPELL_SOULSTORM_VISUAL2+3 });",
+          "constantBases": {
+            "SPELL_SOULSTORM_VISUAL2": [
+              "68904"
+            ]
+          },
+          "context": "    PrepareAuraScript(spell_bronjahm_soulstorm_channel_ooc_aura);\n\n    bool Validate(SpellInfo const* /*spellInfo*/) override\n    {\n        return ValidateSpellInfo({ SPELL_SOULSTORM_VISUAL2, SPELL_SOULSTORM_VISUAL2+1, SPELL_SOULSTORM_VISUAL2+2, SPELL_SOULSTORM_VISUAL2+3 });\n    }\n\n    void HandlePeriodicTick(AuraEffect const* aurEff)"
+        },
+        {
+          "path": "src/server/scripts/Northrend/IcecrownCitadel/boss_deathbringer_saurfang.cpp",
+          "line": 424,
+          "text": "                            DoCast(me, SPELL_SUMMON_BLOOD_BEAST + i10);",
+          "constantBases": {
+            "SPELL_SUMMON_BLOOD_BEAST": [
+              "72172"
+            ]
+          },
+          "context": "                switch (eventId)\n                {\n                    case EVENT_SUMMON_BLOOD_BEAST:\n                        for (uint32 i10 = 0; i10 < 2; ++i10)\n                            DoCast(me, SPELL_SUMMON_BLOOD_BEAST + i10);\n                        if (Is25ManRaid())\n                            for (uint32 i25 = 0; i25 < 3; ++i25)\n                                DoCast(me, SPELL_SUMMON_BLOOD_BEAST_25_MAN + i25);"
+        },
+        {
+          "path": "src/server/scripts/Northrend/IcecrownCitadel/boss_deathbringer_saurfang.cpp",
+          "line": 427,
+          "text": "                                DoCast(me, SPELL_SUMMON_BLOOD_BEAST_25_MAN + i25);",
+          "constantBases": {
+            "SPELL_SUMMON_BLOOD_BEAST_25_MAN": [
+              "72356"
+            ]
+          },
+          "context": "                        for (uint32 i10 = 0; i10 < 2; ++i10)\n                            DoCast(me, SPELL_SUMMON_BLOOD_BEAST + i10);\n                        if (Is25ManRaid())\n                            for (uint32 i25 = 0; i25 < 3; ++i25)\n                                DoCast(me, SPELL_SUMMON_BLOOD_BEAST_25_MAN + i25);\n                        Talk(SAY_BLOOD_BEASTS);\n                        events.ScheduleEvent(EVENT_SUMMON_BLOOD_BEAST, 40s);\n                        if (IsHeroic())"
+        },
+        {
+          "path": "src/server/scripts/Northrend/CrusadersColiseum/TrialOfTheChampion/boss_grand_champions.cpp",
+          "line": 178,
+          "text": "                    who->RemoveAura(SPELL_SHIELD_LEVEL_1_VISUAL + i);",
+          "constantBases": {
+            "SPELL_SHIELD_LEVEL_1_VISUAL": [
+              "63130"
+            ]
+          },
+          "context": "            {\n                me->RemoveAura(SPELL_PLAYER_VEHICLE_DEFEND);\n                who->RemoveAura(SPELL_PLAYER_VEHICLE_DEFEND);\n                for (uint8 i = 0; i < 3; ++i)\n                    who->RemoveAura(SPELL_SHIELD_LEVEL_1_VISUAL + i);\n            }\n        }\n"
+        },
+        {
+          "path": "src/server/scripts/Northrend/Ulduar/Ulduar/boss_general_vezax.cpp",
+          "line": 419,
+          "text": "                else if (target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1) || target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1 + 1) || target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1 + 2))",
+          "constantBases": {
+            "SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1": [
+              "31876"
+            ]
+          },
+          "context": "                    target->ApplySpellImmune(SPELL_AURA_OF_DESPAIR_2, IMMUNITY_ID, SPELL_DRUID_CLEARCASTING, true);\n\n                if (target->HasSpell(SPELL_SHAMANISTIC_RAGE))\n                    caster->CastSpell(target, SPELL_CORRUPTED_RAGE, true);\n                else if (target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1) || target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1 + 1) || target->HasSpell(SPELL_JUDGEMENTS_OF_THE_WISDOM_RANK_1 + 2))\n                    caster->CastSpell(target, SPELL_CORRUPTED_WISDOM, true);\n            }\n    }"
+        },
+        {
+          "path": "src/server/scripts/Outland/BlackTemple/boss_illidan.cpp",
+          "line": 1717,
+          "text": "        return ValidateSpellInfo({ SPELL_CAGED_DEBUFF, SPELL_CAGED_SUMMON1, SPELL_CAGED_SUMMON1+1, SPELL_CAGED_SUMMON1+2, SPELL_CAGED_SUMMON1+3, SPELL_CAGED_SUMMON1+4, SPELL_CAGED_SUMMON1+5, SPELL_CAGED_SUMMON1+6, SPELL_CAGED_SUMMON8 });",
+          "constantBases": {
+            "SPELL_CAGED_SUMMON1": [
+              "40696"
+            ]
+          },
+          "context": "    PrepareAuraScript(spell_illidan_cage_trap_stun_aura);\n\n    bool Validate(SpellInfo const* /*spellInfo*/) override\n    {\n        return ValidateSpellInfo({ SPELL_CAGED_DEBUFF, SPELL_CAGED_SUMMON1, SPELL_CAGED_SUMMON1+1, SPELL_CAGED_SUMMON1+2, SPELL_CAGED_SUMMON1+3, SPELL_CAGED_SUMMON1+4, SPELL_CAGED_SUMMON1+5, SPELL_CAGED_SUMMON1+6, SPELL_CAGED_SUMMON8 });\n    }\n\n    void OnPeriodic(AuraEffect const*  /*aurEff*/)"
+        },
+        {
+          "path": "src/server/scripts/Outland/CoilfangReservoir/SerpentShrine/boss_morogrim_tidewalker.cpp",
+          "line": 116,
+          "text": "                for (uint32 murlocSpellId = SPELL_SUMMON_MURLOC1; murlocSpellId < SPELL_SUMMON_MURLOC1 + 11; ++murlocSpellId)",
+          "constantBases": {
+            "SPELL_SUMMON_MURLOC1": [
+              "39813"
+            ]
+          },
+          "context": "            DoCastSelf(SPELL_EARTHQUAKE);\n            scheduler.Schedule(8s, [this](TaskContext)\n            {\n                Talk(SAY_SUMMON);\n                for (uint32 murlocSpellId = SPELL_SUMMON_MURLOC1; murlocSpellId < SPELL_SUMMON_MURLOC1 + 11; ++murlocSpellId)\n                {\n                    DoCastSelf(murlocSpellId, true);\n                }"
+        }
+      ],
+      "exit": 0,
+      "errors": ""
+    },
+    {
+      "label": "hex",
+      "pattern": "(?i)\\b0x0*15f9[0-9a-f]\\b|\\b0x0*15fa[0-7]\\b",
+      "hits": [],
+      "exit": 1,
+      "errors": ""
+    }
+  ],
+  "result": "NO_COMPUTED_OWNER_FOUND_STATIC",
+  "scope": "Reviewed listed arithmetic sites, module catalog/rank lookup and core SpellInfo construction; not mathematical impossibility for arbitrary data.",
+  "findings": [
+    {
+      "source": "AbilityCarrierCatalog.cpp:GetPhaseA6CarrierCatalog",
+      "result": "Native635 plus null pending custom CarrierSpell values; no numeric allocator"
+    },
+    {
+      "source": "AbilityManager.cpp; AbilityAddonProtocol.cpp",
+      "result": "GetNextSpellInChain traverses existing rank records; instance ID allocation is a distinct namespace"
+    },
+    {
+      "source": "SpellMgr.cpp:3022; DBCStores.cpp:240,355",
+      "result": "SpellInfo allocated for loaded SpellEntry Id, sparse gaps skipped; SQL overlay uses existing supplied row IDs"
+    },
+    {
+      "source": "spell_item.cpp:2396-2401",
+      "result": "Recall failure bases60323/60328 plus0..7; no interval intersection"
+    },
+    {
+      "source": "pet_generic.cpp:190-208",
+      "result": "67376/68849 plus0..2; no interval intersection"
+    },
+    {
+      "source": "spell_generic.cpp:3223-3261",
+      "result": "63130 plus aura stack index, uint8 stack bounds remain far below90000; pollen28703 plus0..4"
+    },
+    {
+      "source": "native encounter/script arithmetic sites in search",
+      "result": "Named native bases7038..72356 and local loop/rank offsets, no candidate base or custom owner found"
+    },
+    {
+      "source": "SQL dynamic/variable references",
+      "result": "Separate SQL_EXPRESSION_SEARCH audit; database-derived values require canonical-data/admission controls, not inference from C++ absence"
+    }
+  ]
+}

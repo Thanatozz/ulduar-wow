@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "phaseStatus": "BLOCKED_BY_PAYLOAD_CONTRACT_CONFLICT",
+  "protectedExistingFiles": 32677,
+  "existingFilesChanged": [],
+  "unexpectedNewProtectedFiles": [],
+  "newRepositoryFiles": [
+    "C:\\WoWProjecto\\ulduar-wow\\docs\\audits\\ULDuar_ART1_INPUT_PREFLIGHT.json",
+    "C:\\WoWProjecto\\ulduar-wow\\docs\\implementation\\ULDuar_PHASE_ART1_CARRIER_ARTIFACTS.md",
+    "C:\\WoWProjecto\\ulduar-wow\\docs\\audits\\ULDuar_ART1_PRESERVATION.json"
+  ],
+  "preSnapshot": "C:\\WoWProjecto\\validation\\ART1\\hashes\\pre.json",
+  "preSnapshotSha256": "84ae0da753cf29cc6d52c9bc0ffd5b91ed2d7237235ef19da0b12386536d7e7b",
+  "postSnapshot": "C:\\WoWProjecto\\validation\\ART1\\hashes\\post.json",
+  "postSnapshotSha256": "f67acca028f25d4ccb97cfdec8d8cc6b0f4bed9f222664e40629e4c472780ba0",
+  "coreCppChanged": false,
+  "moduleCppChanged": false,
+  "canonicalLuaChanged": false,
+  "existingSqlChanged": false,
+  "canonicalDbcChanged": false,
+  "canonicalMpqChanged": false,
+  "canonicalClientChanged": false,
+  "canonicalServerDataChanged": false,
+  "configsChanged": false,
+  "ledgerChanged": false,
+  "generatedCarrierRows": 0,
+  "generatedDbcFiles": 0,
+  "generatedMpqFiles": 0,
+  "generatedSqlFiles": 0,
+  "liveDatabaseAccess": "NOT_PERFORMED",
+  "stagingNewFiles": [
+    "C:\\WoWProjecto\\validation\\ART1\\hashes\\pre.json",
+    "C:\\WoWProjecto\\validation\\ART1\\hashes\\post.json"
+  ],
+  "runtimeCodeExecuted": false
+}

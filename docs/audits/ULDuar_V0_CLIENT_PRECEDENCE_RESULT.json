@@ -1,0 +1,42 @@
+{
+  "status": "PROVEN_BY_EXPERIMENT",
+  "clientTableGate": "PASS_RUNTIME_EVIDENCE",
+  "build": "12340",
+  "locale": "enUS",
+  "observed": {
+    "spell635Name": "V0_THREE",
+    "castTimeMs": 2222,
+    "protocolReady": true,
+    "luaErrors": 0
+  },
+  "evidenceSources": [
+    "user report",
+    "saved variables"
+  ],
+  "probe": "C:\\WoWProjecto\\validation\\V0\\baseline\\pre-precedence\\AAA_V0Probe.round2.lua",
+  "probeSha256": "7d7b7619ceac2827ad3444d8b9a75207893a2bb383ccefbf738464a672a5d27a",
+  "scope": "Selected 18-archive enUS diagnostic package only. Two instrumented table observations; other four selections use observed ordering plus the member inventory.",
+  "round1": "V0_THREE / 2500ms; fixture minimum retained 2500. Cast-time observation inconclusive.",
+  "round2": "Matched base/minimum markers; V0_THREE / 2222ms.",
+  "restoredArchives": [
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS.MPQ",
+      "fixtureSha256": "b5af120e7c90fd05be139076375b319a158484ff924ac4b1cde082d594b04cb2",
+      "restoredSha256": "c1c06b0d0c34c331b21df7cdd25cc422a650efbd477e42b80849ba30b2e5fc99",
+      "canonicalStillEqual": true
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-2.MPQ",
+      "fixtureSha256": "6c5a7689fc847f570bf88d28b6bed4663f0e028c699602fa099996804021aeb8",
+      "restoredSha256": "ab9af8457f0d7b99a562f26b7d1651bbf68ebc37ddb249d01ac860ccc8746ff4",
+      "canonicalStillEqual": true
+    },
+    {
+      "path": "C:\\WoWProjecto\\validation\\V0\\client\\Data\\enUS\\patch-enUS-3.MPQ",
+      "fixtureSha256": "292312550a552813facf3003ec83002ae6df9da73270ed6d0b1351d0d2d60974",
+      "restoredSha256": "d61a60297af9044d926754d997cd5aa630500cd003d41983a9ccb5b324d61299",
+      "canonicalStillEqual": true
+    }
+  ],
+  "recordedUtc": "2026-09-21T05:24:31.778762+00:00"
+}
