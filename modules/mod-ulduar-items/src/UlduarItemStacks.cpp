@@ -55,7 +55,8 @@ namespace
 
         if (sState.multiplier <= 1)
         {
-            LOG_INFO("module.ulduar.items", "[UlduarItems] Item stack multiplier disabled (Ulduar.ItemStackMultiplier = {}).", sState.multiplier);
+            LOG_INFO("module.ulduar.items", "[UlduarItems] Item stack multiplier disabled "
+                "(Ulduar.ItemStackMultiplier = {}).", sState.multiplier);
             return;
         }
 
@@ -74,11 +75,13 @@ namespace
             if (decision != StackDecision::Multiplied)
                 continue;
 
-            LOG_DEBUG("module.ulduar.items", "[UlduarItems] Item {} '{}' stackable {} -> {}", proto->ItemId, proto->Name1, proto->Stackable, newStackable);
+            LOG_DEBUG("module.ulduar.items", "[UlduarItems] Item {} '{}' stackable {} -> {}", proto->ItemId,
+                proto->Name1, proto->Stackable, newStackable);
             proto->Stackable = newStackable;
         }
 
-        LOG_INFO("module.ulduar.items", "[UlduarItems] Item stack multiplier x{} applied in {} ms: multiplied={} equippable={} special-value={} instance-state={}",
+        LOG_INFO("module.ulduar.items", "[UlduarItems] Item stack multiplier x{} applied in {} ms: multiplied={} "
+            "equippable={} special-value={} instance-state={}",
             sState.multiplier, GetMSTimeDiffToNow(startMs),
             counts[size_t(StackDecision::Multiplied)], counts[size_t(StackDecision::Equippable)],
             counts[size_t(StackDecision::SpecialValue)], counts[size_t(StackDecision::InstanceState)]);
@@ -89,7 +92,11 @@ class UlduarItemStacksWorldScript : public WorldScript
 {
 public:
     UlduarItemStacksWorldScript() : WorldScript("UlduarItemStacksWorldScript",
-        { WORLDHOOK_ON_AFTER_CONFIG_LOAD, WORLDHOOK_ON_BEFORE_WORLD_INITIALIZED, WORLDHOOK_ON_BEFORE_FINALIZE_PLAYER_WORLD_SESSION }) { }
+        {
+            WORLDHOOK_ON_AFTER_CONFIG_LOAD,
+            WORLDHOOK_ON_BEFORE_WORLD_INITIALIZED,
+            WORLDHOOK_ON_BEFORE_FINALIZE_PLAYER_WORLD_SESSION
+        }) { }
 
     void OnAfterConfigLoad(bool reload) override
     {
@@ -100,7 +107,8 @@ public:
         if (reload && sState.applied)
         {
             if (multiplier != sState.appliedMultiplier)
-                LOG_WARN("module.ulduar.items", "[UlduarItems] Ulduar.ItemStackMultiplier changed to {} but x{} stays active until the worldserver restarts.",
+                LOG_WARN("module.ulduar.items", "[UlduarItems] Ulduar.ItemStackMultiplier changed to {} but x{} "
+                    "stays active until the worldserver restarts.",
                     multiplier, sState.appliedMultiplier);
             return;
         }
