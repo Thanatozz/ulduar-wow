@@ -11,6 +11,8 @@
 !/modules/CMakeLists.txt
 !/modules/*.h
 !/modules/*.cmake
+# Ulduar WoW modules versioned in this repository
+!/modules/mod-ulduar-items/
 /build*/
 /var/*
 !/var/build/.gitkeep
