@@ -52,6 +52,7 @@
 #include "World.h"
 #include "WorldPacket.h"
 #include <cmath>
+#include <limits>
 #include <G3D/g3dmath.h>
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
@@ -3542,6 +3543,7 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
     OnSpellLaunch();
 
     m_powerCost = m_CastItem ? 0 : m_spellInfo->CalcPowerCost(m_caster, m_spellSchoolMask, this);
+    ApplyCustomPowerCost();
 
     // Set combo point requirement
     if (HasTriggeredCastFlag(TRIGGERED_IGNORE_COMBO_POINTS) || m_CastItem)
@@ -3591,7 +3593,8 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     // don't allow channeled spells / spells with cast time to be casted while moving
     // (even if they are interrupted on moving, spells with almost immediate effect get to have their effect processed before movement interrupter kicks in)
-    if ((m_spellInfo->IsChanneled() || m_casttime) && m_caster->IsPlayer() && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT && !IsTriggered())
+    if ((m_spellInfo->IsChanneled() || m_casttime) && m_caster->IsPlayer() && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT && !IsTriggered() &&
+        !m_customCanCastWhileMoving)
     {
         // 1. Has casttime, 2. Or doesn't have flag to allow action during channel
         if (m_casttime || !m_spellInfo->IsActionAllowedChannel())
@@ -4440,6 +4443,7 @@ void Spell::update(uint32 difftime)
     // xinef: added preparing state (real cast, skip channels as they have other flags for this)
     if ((m_caster->IsPlayer() && m_timer != 0) &&
             m_caster->isMoving() && (m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT) && m_spellState == SPELL_STATE_PREPARING &&
+            !m_customCanCastWhileMoving &&
             (m_spellInfo->Effects[0].Effect != SPELL_EFFECT_STUCK || !m_caster->HasUnitMovementFlag(MOVEMENTFLAG_FALLING_FAR)))
     {
         // don't cancel for melee, autorepeat, triggered and instant spells
@@ -7002,6 +7006,7 @@ SpellCastResult Spell::CheckPetCast(Unit* target)
 
     // xinef: Calculate power cost here, so funciton checking power can work properly and dont return bad results
     m_powerCost = m_spellInfo->CalcPowerCost(m_caster, m_spellSchoolMask, this);
+    ApplyCustomPowerCost();
 
     // cooldown
     if (Creature const* creatureCaster = m_caster->ToCreature())
@@ -7222,6 +7227,14 @@ bool Spell::CanAutoCast(Unit* target)
     return false;                                           //target invalid
 }
 
+void Spell::ApplyCustomPowerCost()
+{
+    if (m_CastItem || (m_customPowerCostMultiplier == 1.0f && !m_customPowerCostFlat))
+        return;
+    int64 const cost = int64(float(std::max(m_powerCost, 0)) * m_customPowerCostMultiplier) + m_customPowerCostFlat;
+    m_powerCost = int32(std::min<int64>(cost, std::numeric_limits<int32>::max()));
+}
+
 SpellCastResult Spell::CheckRange(bool strict)
 {
     if (m_triggeredTargetValidator)
@@ -7261,6 +7274,10 @@ SpellCastResult Spell::CheckRange(bool strict)
 
     if (Player* modOwner = m_caster->GetSpellModOwner())
         modOwner->ApplySpellMod(m_spellInfo->Id, SPELLMOD_RANGE, max_range, this);
+
+    // Ulduar ability runtime: shift after spell mods so talents keep stacking with the override.
+    max_range = std::max(0.0f, max_range + m_customMaxRangeDelta);
+    min_range = std::max(0.0f, min_range + m_customMinRangeDelta);
 
     // xinef: dont check max_range to strictly after cast
     if (range_type != SPELL_RANGE_MELEE && !strict)

@@ -25,6 +25,7 @@
 #include "SharedDefines.h"
 #include "SpellInfo.h"
 #include "Unit.h"
+#include <cmath>
 #include <functional>
 #include <optional>
 #include <utility>
@@ -488,6 +489,7 @@ public:
     SpellCastResult CheckItems(uint32* param1 = nullptr, uint32* param2 = nullptr);
     SpellCastResult CheckSpellFocus();
     SpellCastResult CheckRange(bool strict);
+    void ApplyCustomPowerCost();
     SpellCastResult CheckPower();
     SpellCastResult CheckRuneCost(uint32 RuneCostID);
     SpellCastResult CheckCasterAuras(bool preventionOnly) const;
@@ -663,6 +665,34 @@ public:
             m_customMinimumCastTime = minimumMs;
         }
     }
+    // Ulduar ability runtime (root player casts, set before prepare): power cost scaled by
+    // `multiplier` plus `flatCost`, range limits shifted by the deltas, movement interrupt disabled.
+    bool IsCustomizable() const
+    {
+        return (m_spellState == SPELL_STATE_NULL || m_spellState == SPELL_STATE_PREPARING) && !m_timer &&
+            !_spellTargetsSelected && !IsTriggered();
+    }
+    void SetPowerCostOverride(float multiplier, uint32 flatCost)
+    {
+        if (IsCustomizable() && multiplier >= 0.0f && multiplier <= 10.0f)
+        {
+            m_customPowerCostMultiplier = multiplier;
+            m_customPowerCostFlat = flatCost;
+        }
+    }
+    void SetRangeDelta(float minDelta, float maxDelta)
+    {
+        if (IsCustomizable() && std::isfinite(minDelta) && std::isfinite(maxDelta))
+        {
+            m_customMinRangeDelta = minDelta;
+            m_customMaxRangeDelta = maxDelta;
+        }
+    }
+    void SetCanCastWhileMoving(bool allowed)
+    {
+        if (IsCustomizable() && !m_spellInfo->IsChanneled())
+            m_customCanCastWhileMoving = allowed;
+    }
     // Single-target synthetic missiles share exactly one arrival time with their visual packet.
     void SetTriggeredTravelTime(uint32 milliseconds)
     {
@@ -701,6 +731,11 @@ public:
     bool m_triggeredIgnoreAmmo = false;
     float m_customCastTimeMultiplier = 1.0f;
     uint32 m_customMinimumCastTime = 0;
+    float m_customPowerCostMultiplier = 1.0f;
+    uint32 m_customPowerCostFlat = 0;
+    float m_customMinRangeDelta = 0.0f;
+    float m_customMaxRangeDelta = 0.0f;
+    bool m_customCanCastWhileMoving = false;
     std::optional<uint32> m_triggeredTravelTime;
     struct VisualSource
     {
