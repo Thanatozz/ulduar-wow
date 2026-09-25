@@ -3575,9 +3575,15 @@ SpellCastResult Spell::prepare(SpellCastTargets const* targets, AuraEffect const
 
     // calculate cast time (calculated after first CheckCast check to prevent charge counting for first CheckCast fail)
     m_casttime = HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) ? 0 : m_spellInfo->CalcCastTime(m_caster, this);
-    if (m_casttime > 0 && m_customCastTimeMultiplier < 1.0f)
-        m_casttime = std::min(m_casttime, std::max(int32(m_customMinimumCastTime),
-            int32(float(m_casttime) * m_customCastTimeMultiplier)));
+    // Ulduar ability runtime: 0 makes the cast instant, > 1 slows it down. Legacy callers pass
+    // [0.5, 1] with a minimum, which keeps their previous result.
+    if (m_casttime > 0 && m_customCastTimeMultiplier != 1.0f)
+    {
+        int32 const scaled = int32(float(m_casttime) * m_customCastTimeMultiplier);
+        m_casttime = m_customCastTimeMultiplier < 1.0f ?
+            std::min(m_casttime, std::max(int32(m_customMinimumCastTime), scaled)) :
+            std::max(int32(m_customMinimumCastTime), scaled);
+    }
 
     if (m_caster->IsPlayer())
         if (m_caster->ToPlayer()->GetCommandStatus(CHEAT_CASTTIME))

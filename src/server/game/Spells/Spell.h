@@ -657,7 +657,7 @@ public:
     {
         if ((m_spellState == SPELL_STATE_NULL || m_spellState == SPELL_STATE_PREPARING) &&
             !_spellTargetsSelected && !IsTriggered() && !m_spellInfo->IsChanneled() &&
-            multiplier >= 0.5f && multiplier <= 1.0f && minimumMs <= 600000u)
+            multiplier >= 0.0f && multiplier <= 10.0f && minimumMs <= 600000u)
         {
             m_customCastTimeMultiplier = multiplier;
             m_customMinimumCastTime = minimumMs;
