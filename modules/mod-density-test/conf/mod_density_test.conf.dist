@@ -1,0 +1,150 @@
+#
+# mod-density-test
+#
+
+[worldserver]
+
+###################################################################################################
+# DENSITY LAYER
+#
+# Density players are moved to DensityPhaseMask. Grids needed by a density player get one
+# density-phase representation of every spawn (the "mirror") plus extra clones for combat
+# creatures. Nothing is generated at startup and nothing forces a grid to load: density work
+# only happens for grids the core already loaded around density players.
+#
+#    mod_density_test.Enable
+#        Description: Enable the density layer.
+#        Default:     1
+
+mod_density_test.Enable = 1
+
+#
+#    mod_density_test.EnabledMaps
+#    mod_density_test.DisabledMaps
+#    mod_density_test.EnabledZones
+#    mod_density_test.DisabledZones
+#        Description: Comma separated map / zone ids. An empty "Enabled" list means all maps, or
+#                     all zones of an enabled map. "Disabled" lists always win. Instanced maps are
+#                     never eligible.
+#                     Global density (NOT enabled yet) would be: EnabledMaps = "0,1,530,571",
+#                     EnabledZones = "" and capital cities in DisabledZones.
+#        Default:     EnabledMaps = "1", EnabledZones = "215" (Mulgore test area)
+
+mod_density_test.EnabledMaps = "1"
+mod_density_test.DisabledMaps = ""
+mod_density_test.EnabledZones = "215"
+mod_density_test.DisabledZones = ""
+
+#
+#    mod_density_test.Multiplier
+#        Description: Number of density-phase representations of every combat creature spawn
+#                     (hostile, or neutral with XP and loot). 5 = mirror + 4 clones.
+#                     Critters, service NPCs, guards, bosses/rares and friendly NPCs get 1.
+#        Default:     5
+
+mod_density_test.Multiplier = 5
+
+#
+#    mod_density_test.NormalPhaseMask
+#    mod_density_test.DensityPhaseMask
+#        Description: One phase bit each, not overlapping.
+#        Default:     1, 2
+
+mod_density_test.NormalPhaseMask = 1
+mod_density_test.DensityPhaseMask = 2
+
+###################################################################################################
+# LAZY GRID ACTIVATION AND WORK QUEUE
+#
+#    mod_density_test.ActivationRadius
+#        Description: Yards around each density player. Every grid touched by this square is
+#                     activated if the core has it loaded (the core loads grids within 250 yards
+#                     of players). Keep it above the continent visibility distance (100).
+#        Default:     150
+
+mod_density_test.ActivationRadius = 150
+
+#
+#    mod_density_test.UnloadDelay
+#        Description: Seconds a grid keeps its density population after the last density player
+#                     stopped needing it. Absorbs border crossings without destroy/recreate.
+#        Default:     60
+
+mod_density_test.UnloadDelay = 60
+
+#
+#    mod_density_test.ScanInterval
+#        Description: Milliseconds between grid activation scans per map. The scan only reads
+#                     density player positions; it is not tied to movement packets.
+#        Default:     1000
+
+mod_density_test.ScanInterval = 1000
+
+#
+#    mod_density_test.WorkBudgetMs
+#        Description: Wall-clock milliseconds of density work (placement + creation + cleanup)
+#                     allowed per map update. Remaining work continues on the next update.
+#        Default:     2.0
+
+mod_density_test.WorkBudgetMs = 2.0
+
+###################################################################################################
+# CLONE PLACEMENT
+#
+#    mod_density_test.CloneMinDistance
+#    mod_density_test.CloneMaxDistance
+#        Description: Ring around the spawn point where clones are placed (yards).
+#        Default:     1.5, 5.0
+
+mod_density_test.CloneMinDistance = 1.5
+mod_density_test.CloneMaxDistance = 5.0
+
+#
+#    mod_density_test.CloneMinSeparation
+#        Description: Minimum distance between clones and between a clone and the spawn point.
+#        Default:     1.0
+
+mod_density_test.CloneMinSeparation = 1.0
+
+#
+#    mod_density_test.PositionAttemptsPerClone
+#        Description: Candidate positions evaluated per wanted clone. A spawn that cannot fit
+#                     all clones keeps the ones that fit (e.g. mirror + 3 instead of mirror + 4).
+#        Default:     3
+
+mod_density_test.PositionAttemptsPerClone = 3
+
+#
+#    mod_density_test.ValidatePathing
+#        Description: Run one navmesh raycast for a candidate that passed the cheap checks
+#                     (grid loaded, zone, ground height, water, spacing, line of sight).
+#        Default:     1
+
+mod_density_test.ValidatePathing = 1
+
+###################################################################################################
+# COMBAT, LOGGING
+#
+#    mod_density_test.GroupAggro
+#        Description: When one representation of a spawn engages a target, the other idle
+#                     representations of the same spawn engage it too. Other spawns are not pulled.
+#        Default:     1
+
+mod_density_test.GroupAggro = 1
+
+#
+#    mod_density_test.StatsLogInterval
+#        Description: Seconds between aggregated statistics lines per map. 0 = only on demand
+#                     (.density stats). One summary line is always logged per grid activation.
+#        Default:     0
+
+mod_density_test.StatsLogInterval = 0
+
+#
+#    mod_density_test.Debug
+#        Description: Per-spawn and per-player trace lines. Off in normal operation.
+#        Default:     0
+
+mod_density_test.Debug = 0
+
+###################################################################################################

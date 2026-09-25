@@ -1,0 +1,35 @@
+#
+# Ulduar WoW - mod-ulduar-items
+#
+
+[worldserver]
+
+###################################################################################################
+# ITEM STACKS
+#
+#    Ulduar.ItemStackMultiplier
+#        Description: Multiplies item_template.stackable for every NON-EQUIPPABLE item
+#                     (InventoryType = 0) with a finite positive stack size:
+#                     1 -> 10, 20 -> 200, 100 -> 1000.
+#                     Applied in memory once at startup. The world database is never modified,
+#                     so restarts cannot compound the value (20 never becomes 2000).
+#                     Unchanged: equipment (incl. bags, ammo, thrown, relics), stackable -1 and
+#                     2147483647 (unlimited), and stack-1 items whose copies carry their own state
+#                     (charges, duration, lock/loot, wrapped gifts, petitions, refundable purchases,
+#                     mail letters, bind-on-pickup and quest items).
+#                     Changing it requires a worldserver restart.
+#        Default:     10
+#                     1 - (Disabled)
+
+Ulduar.ItemStackMultiplier = 10
+
+#
+#    Ulduar.ItemStackMultiplier.BumpClientCache
+#        Description: Adds the active multiplier to the client cache version so 3.3.5a clients
+#                     discard their cached item data (WDB) and see the new stack sizes.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled, clients must delete their Cache folder manually)
+
+Ulduar.ItemStackMultiplier.BumpClientCache = 1
+
+###################################################################################################
