@@ -31,7 +31,11 @@ requirements `ALL(Projectile component, deals damage, NONE(channel))`.
 ## Requirements engine
 
 `EvaluateRequirement(requirement, resolved)` over the resolved structure. Leaves: HasComponent, HasEffectKind,
-DeliveryIs, TargetRelationIs, ElementIs, PropertyAtLeast/AtMost/Above/Below, DealsDamage, Heals, IsChannel.
+DeliveryIs, TargetRelationIs, ElementIs, PropertyAtLeast/AtMost/Above/Below/Equals, DealsDamage, Heals,
+IsChannel, CapabilityAllows (the design allows the axis, e.g. Quantity on a summon). Property leaves on
+effect-scope properties are satisfied by any effect, optionally filtered by effect kind
+(`RequireEffectProperty(EffectKind::Imbue, PropertyEquals, Effect.Attachment, MainHand)`); before the
+architecture appendix they wrongly read the ability-level bag.
 Groups: ALL, ANY, NONE, nestable. The result lists human-readable reasons for every failed leaf, for UI and
 inspector. No spell ids or ability names are ever compared.
 

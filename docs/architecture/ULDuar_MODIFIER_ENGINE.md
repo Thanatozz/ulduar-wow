@@ -33,8 +33,8 @@ warning and never partially applied.
 | 4 | Flat: sum of ADD and SUBTRACT |
 | 5 | Multipliers: `x (1 + sum(PERCENT_ADD)/100)`, then `x product(MULTIPLY)` |
 | 6 | Conditional modifiers (same sub-order) per combat event via `ValueWithContext` |
-| 7 | Explicit clamps from mechanics (CLAMP_MIN = max of mins, CLAMP_MAX = min of maxes), then configured balance limits |
-| 8 | Technical validation: values violating a technical minimum of an INVALID property reject the ability (not repaired by a balance clamp); other technical bounds clamp; cross-property rules (Range.Min <= Range.Max, InnerRadius < Radius, Delivery.Kind has its component, active periodic/channel/persistent/charges/displacement need positive intervals/speeds) |
+| 7 | Explicit clamps from mechanics (CLAMP_MIN = max of mins, CLAMP_MAX = min of maxes), then configured balance limits (a balance minimum never lifts a meaningful zero such as `Effect.Interval = 0`); then **capabilities**: a change on an axis the Core does not allow keeps the base value (`CapabilityRestricted`), also for conditional modifiers and `ADD_COMPONENT Area` |
+| 8 | Technical validation (plus effect composition: `Effect.Parent` must name another existing effect without cycles, Imbues need an attachment -> `InvalidComposition`): values violating a technical minimum of an INVALID property reject the ability (not repaired by a balance clamp); other technical bounds clamp; cross-property rules (Range.Min <= Range.Max, InnerRadius < Radius, Delivery.Kind has its component, active periodic/channel/persistent/charges/displacement need positive intervals/speeds) |
 | 9 | Rounding (ms, counts, ids) and semantic resolution (Instant, NoCooldown, Free, ...), reported as diagnostics |
 
 Example: Damage 100, `ADD 50`, `MULTIPLY 1.20` -> `(100 + 50) x 1.20 = 180`.

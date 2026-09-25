@@ -55,6 +55,16 @@ guard was removed.
 | Displacement.Speed | only while Distance > 0 | C while active |
 | Projectile.Lifetime, Projectile.MaxDistance, Area.MaxTargets, Area.DamageDiminishCap, Effect.Charges | no limit | D |
 
+## Zero and balance minimums
+
+A balance minimum never lifts a value of exactly zero whose zero has a meaning (anything but `Ordinary`): the
+zero is a qualitative choice, not a small number. First needed by `Effect.Interval = 0` (an Emitter without
+periodic activation, class B); an active interval (> 0) is still raised to `MinPeriodicTickInterval`. An active
+`Periodic.TickInterval = 0` remains technically invalid (class C). Other appendix zeros: `Summon.Count = 0`
+(inactive), `Summon.AttackScalingPct = 0` (no payload), `Summon.EntityHealthPct = 0` and
+`Summon.AttackSpeedPct = 0` (invalid), `Summon.EntityMovementPct = 0` (cannot move),
+`Periodic.ConversionEfficiencyPct = 0` (no payload).
+
 ## Negative results
 
 Arithmetic may go below zero (`Cooldown 8 s ADD -10 s = -2 s`). A property whose technical minimum is

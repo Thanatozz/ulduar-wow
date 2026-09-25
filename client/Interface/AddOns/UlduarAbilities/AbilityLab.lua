@@ -7,7 +7,7 @@ local Operations = { "set", "add", "subtract", "multiply", "percent_add", "enabl
     "clamp_min", "clamp_max" }
 local Components = { "projectile", "beam", "area", "periodic", "echo", "displacement" }
 local Presets = { "instant", "nocooldown", "movingcast", "chain", "split", "shatter", "nova", "dot",
-    "spreaddot", "echo" }
+    "spreaddot", "echo", "execute" }
 
 local function Settings()
     UlduarAbilitiesDB.lab = type(UlduarAbilitiesDB.lab) == "table" and UlduarAbilitiesDB.lab or {}

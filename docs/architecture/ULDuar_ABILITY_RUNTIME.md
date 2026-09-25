@@ -26,7 +26,7 @@ Related: [components](ULDuar_ABILITY_COMPONENTS.md), [properties](ULDuar_ABILITY
 | Requirement | Before | Now |
 | --- | --- | --- |
 | Base + modifier layers = resolved, base immutable | Legacy nodes computed directly into runtime context | `AbilityCore` + `AbilityModifier` layers -> `ResolvedAbility` (pure) |
-| Typed universal property registry with metadata | None (fixed struct fields) | 162 properties, X-macro single source, typed (number/bool/enum) |
+| Typed universal property registry with metadata | None (fixed struct fields) | 179 properties (162 + 17 from the [architecture appendix](ULDuar_ABILITY_ARCHITECTURE_APPENDIX.md)), X-macro single source, typed (number/bool/enum) |
 | Deterministic modifier engine, documented order | Per-node ad-hoc formulas | 9-stage order, precedence by source, order-independent |
 | Zero semantics vs technical vs balance | 50% floors hardcoded in code/config/core | Centralized; zero is valid; balance limits configurable and visible |
 | Components add/remove, effect lists | Fixed classification | Component set + effect list, structural modifiers |
@@ -73,7 +73,7 @@ AbilityDefinition │ AbilityCore ──┐                                     
 | Resource type, gain, refund on failure | Client power bar and cost type are native | RESOLVED ONLY |
 | Cast while moving | `Spell::SetCanCastWhileMoving` (core, section 6) skips the movement rejection in `prepare` and the cancel in `update`. Channels (aura interrupt flags) and falling casts are not covered; the stock client may still stop its own cast bar | RUNTIME (server, non-channeled) |
 | Projectile speed / visual scale / hit radius | Native missile speed; custom speed needs delayed hit + visual packets | RESOLVED ONLY |
-| Periodic conversion, spread | `AbilityPeriodicExecutor`: `Periodic.Conversion`% of the direct damage becomes server ticks on the caster's `m_Events`, dealt through `CalculateSpellDamageTaken` / `DealSpellDamage` (mitigation and absorbs apply). Interval is hasted at application and never below `MinPeriodicTickInterval`. Stacking uses `ApplyPeriodic`, spreading on tick uses `SpreadPeriodic`. Healing periodics and changes to native periodic timing are not executed | RUNTIME (damage, added Periodic only) |
+| Periodic conversion, spread | `AbilityPeriodicExecutor`: `Periodic.Conversion`% of the direct damage is removed from the hit and becomes server ticks totalling share x `Periodic.ConversionEfficiencyPct` on the caster's `m_Events`, dealt through `CalculateSpellDamageTaken` / `DealSpellDamage` (mitigation and absorbs apply; damage/school immunity is checked per tick since the appendix milestone). Interval is hasted at application and never below `MinPeriodicTickInterval`. Stacking uses `ApplyPeriodic`, spreading on tick uses `SpreadPeriodic`. Healing periodics and changes to native periodic timing are not executed | RUNTIME (damage, added Periodic only) |
 | Echo | `AbilityEchoScheduler`: `PlanEchoes` at root impact, each echo a delayed `SecondarySpellExecutor` cast on the same target (revalidated, scaled, crit/proc flags). Echoes never plan echoes | RUNTIME (TargetRule SameTarget) |
 | Procs | Chain guard implemented; trigger bus pending | GUARD ONLY |
 | Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference (health, movement, stun, casting, distance, creature type, auras, element statuses, nearby units) and `ValueWithContext` scales each hit | RUNTIME for Primary.Damage / Primary.Healing |
@@ -150,7 +150,9 @@ minimum, configuration clamping, explicit clamps, component add/remove, effects 
 conditions rejected, conditional execute bonus and element-status targets, multi-echo decay and bounds, proc
 loop/depth/proc-from-proc, periodic stack behaviors and disease-style spread, requirements ALL/NONE with
 reasons, Lab/Essence equivalence, two-player isolation, cache reuse/invalidation, inspector content.
-Result: 41/41 passed (g++ 13, gtest 1.14). Module sources and patched `Spell.cpp` syntax-checked against the
+Result: 41/41 passed (g++ 13, gtest 1.14). The architecture appendix added `tests/AbilityArchitectureTest.cpp`
+(15 tests: summons, capabilities, coverage, crowd control, emitters, imbues, triggers, conversion efficiency,
+presentation identity, the `execute` preset); 56/56 pass standalone. Module sources and patched `Spell.cpp` syntax-checked against the
 core headers; no worldserver build or in-game test.
 
 ## 10. Remaining gaps / next steps
@@ -158,7 +160,9 @@ core headers; no worldserver build or in-game test.
 Done in order: conditions per hit, echo scheduler, periodic conversion, resource/range/moving-cast overrides,
 and the Lab addon UI. Still open:
 
-1. In-game validation of every RUNTIME row (build + live-stack e2e); nothing here was run on a server.
+1. In-game validation of every RUNTIME row: [ULDuar_LOCAL_VALIDATION_CHECKLIST.md](ULDuar_LOCAL_VALIDATION_CHECKLIST.md);
+   nothing here was run on a server. Summons, buffs/debuffs, emitters, triggers and imbues are modelled but not
+   executed: see the [architecture appendix](ULDuar_ABILITY_ARCHITECTURE_APPENDIX.md) and its roadmap.
 2. Healing periodics, native periodic retiming and Echo target rules other than SameTarget.
 3. Projectile speed/visual scale/hit radius, displacement, threat/crit/avoidance, procs trigger bus.
 4. Resource type/gain/refund, casting while falling, moving channels.
