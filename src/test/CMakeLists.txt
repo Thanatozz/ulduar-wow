@@ -23,11 +23,13 @@ add_executable(
         ${PRIVATE_SOURCES}
 )
 
+# gmock_main provides gtest, gmock and main() on every platform. Linking gtest_main as well
+# duplicates gtest on MSVC, where googletest builds gtest-all.cc into gmock_main itself, and adds a
+# second main().
 target_link_libraries(
         unit_tests
         acore-core-interface
         game
-        gtest_main
         gmock_main
         game-interface
 )

@@ -146,16 +146,26 @@ endif()
 CU_RUN_HOOK("AFTER_SRC_LOAD")
 
 if (BUILD_TESTING AND BUILD_APPLICATION_WORLDSERVER)
-    # we use these flags to get code coverage
-    set(UNIT_TEST_CXX_FLAGS "-fprofile-arcs -ftest-coverage -fno-inline")
+    # we use these flags to get code coverage (gcov/lcov). They are GCC/Clang options:
+    # MSVC and clang-cl do not understand them (D9002), so they are only added for those compilers.
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" AND NOT MSVC)
+        set(UNIT_TEST_CXX_FLAGS "-fprofile-arcs -ftest-coverage -fno-inline")
 
-    # enable additional flags for GCC.
-    if ( CMAKE_CXX_COMPILER_ID MATCHES GNU )
-        set(UNIT_TEST_CXX_FLAGS "${UNIT_TEST_CXX_FLAGS} -fno-inline-small-functions -fno-default-inline")
+        # enable additional flags for GCC.
+        if ( CMAKE_CXX_COMPILER_ID MATCHES GNU )
+            set(UNIT_TEST_CXX_FLAGS "${UNIT_TEST_CXX_FLAGS} -fno-inline-small-functions -fno-default-inline")
+        endif()
+
+        message("Unit tests code coverage: enabling ${UNIT_TEST_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${UNIT_TEST_CXX_FLAGS}")
+    else()
+        message("Unit tests code coverage: not available for ${CMAKE_CXX_COMPILER_ID}")
     endif()
 
-    message("Unit tests code coverage: enabling ${UNIT_TEST_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${UNIT_TEST_CXX_FLAGS}")
+    # googletest's CMake rewrites /MD to /MT for its own targets on MSVC unless this option is ON,
+    # which makes gtest/gmock use the static CRT while the core uses the dynamic one (/MD): the
+    # unit_tests link then fails with RuntimeLibrary mismatches and duplicated STL symbols.
+    set(gtest_force_shared_crt ON CACHE BOOL "Use the shared MSVC runtime (/MD) for gtest/gmock, like the core" FORCE)
 
     include(src/cmake/googletest.cmake)
     fetch_googletest(
