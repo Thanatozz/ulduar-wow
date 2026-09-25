@@ -40,7 +40,7 @@ runtime executes) and `RESOLVED ONLY (not executed yet):` lines.
 | --- | --- |
 | instant | Casting.CastTime SET 0 |
 | nocooldown | Casting.Cooldown SET 0 |
-| movingcast | Casting.CanCastWhileMoving ENABLE (resolved only) |
+| movingcast | Casting.CanCastWhileMoving ENABLE (non-channeled casts) |
 | chain | Projectile.Targets +4, AcquisitionRange +18, Scaling x0.60, Origin PreviousTarget |
 | split | Projectile.Targets +2, Origin Caster, SpreadAngle 30 |
 | shatter | Projectile.Targets +2, Origin PrimaryTarget, Scaling x0.50 |
@@ -58,13 +58,29 @@ same data.
 .ua lab set frostbolt Casting.CastTime subtract 2.5s     -> CastTime 0 sec, Semantic INSTANT, RUNTIME: Casting.CastTime
 .ua lab set frostbolt Casting.Cooldown set 0             -> NO COOLDOWN
 .ua lab preset frostbolt chain                           -> RUNTIME: Secondary targets via Chain
-.ua lab set frostbolt Range.Max add 60                   -> Balance maximum 80 yd; RESOLVED ONLY: Range.Min/Max
+.ua lab set frostbolt Range.Max add 60                   -> Balance maximum 80 yd; RUNTIME: Range.Min/Max (server check)
 .ua lab save frostbolt_chain_test frostbolt
 .ua lab clear frostbolt
 ```
 
+## Addon UI
+
+`/ua lab` (or `/ualab`) opens the Ability Lab window of the `UlduarAbilities` addon
+(`client/Interface/AddOns/UlduarAbilities/AbilityLab.lua`, `LabProtocol.lua`). It is a form over the chat
+commands above: ability, property/operation/value, presets (load, list, save), components (add/remove),
+list/remove-by-index/clear, and an output pane that shows the server's inspector with `RUNTIME:` lines in green,
+`RESOLVED ONLY` in orange and rejections in red.
+
+Transport: the core's addon command channel (`AddonChannelCommandHandler`, prefix `AzerothCore`). The addon
+sends `h<counter>ua lab <args>` as a WHISPER to itself; the server runs exactly that `.ua lab` command with the
+normal RBAC checks and returns `a` (ack), `m<counter><line>` per output line, then `o` (ok) or `f` (failed).
+No module protocol code was added and the UI has no extra authority: without GM access or with
+`UlduarAbilities.DebugEditor = 0` the server answers with the same refusal the chat command gives. Arguments
+are restricted client-side to single tokens (letters, digits, `. _ % + -`), so a request cannot carry a second
+command or chat escape codes. One request is in flight at a time, with an 8 second timeout.
+
 ## Not done yet
 
-- Addon UI (the chat commands are the interim interface; the protocol should mirror them 1:1).
 - Persistent developer presets.
 - Inspecting another player's resolution.
+- Multi-word ability names (the chat command takes one token).

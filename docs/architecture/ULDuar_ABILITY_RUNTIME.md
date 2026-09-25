@@ -68,14 +68,15 @@ AbilityDefinition │ AbilityCore ──┐                                     
 | Cooldown (incl. 0 and adding one to a spell without) | `AfterCast`: `RemoveSpellCooldown` / `ModifySpellCooldown` / `AddSpellCooldown` + `SMSG_SPELL_COOLDOWN` | RUNTIME |
 | School conversion | `Spell::SetSpellSchoolMask` (per Spell) | RUNTIME for definitions with `SupportsElementConversion` |
 | Secondary targets (projectile targets/range/scaling, area around target) | Mapped onto existing propagation executor (Split / Shatter / Chain / Nova) | RUNTIME for compatible definitions |
-| Min/max range | Client checks range from its DBC; server would need `CheckCast` + custom packet | RESOLVED ONLY |
-| Resource type/cost | Needs `Spell::TakePower` hook / core power-cost override | RESOLVED ONLY |
-| Cast while moving | Movement interrupt happens in `Spell::prepare`/`Spell::update`; needs a core hook | RESOLVED ONLY |
+| Min/max range | `Spell::SetRangeDelta` (core, section 6) shifts `CheckRange` after spell mods. The stock client still refuses targeted casts beyond its own DBC range, so a longer range only works up to that | RUNTIME (server check) |
+| Resource cost | `Spell::SetPowerCostOverride` (core, section 6): native cost x resolved/core, or a flat cost for spells with a zero native cost. Percentage spells expose their percentage as the Core cost | RUNTIME |
+| Resource type, gain, refund on failure | Client power bar and cost type are native | RESOLVED ONLY |
+| Cast while moving | `Spell::SetCanCastWhileMoving` (core, section 6) skips the movement rejection in `prepare` and the cancel in `update`. Channels (aura interrupt flags) and falling casts are not covered; the stock client may still stop its own cast bar | RUNTIME (server, non-channeled) |
 | Projectile speed / visual scale / hit radius | Native missile speed; custom speed needs delayed hit + visual packets | RESOLVED ONLY |
-| Periodic conversion, spread | Needs custom periodic executor (aura script or scheduled events) | PLANNER ONLY (pure functions tested) |
-| Echo | Planner implemented; scheduling via `m_Events` + `SecondarySpellExecutor` pending | PLANNER ONLY |
+| Periodic conversion, spread | `AbilityPeriodicExecutor`: `Periodic.Conversion`% of the direct damage becomes server ticks on the caster's `m_Events`, dealt through `CalculateSpellDamageTaken` / `DealSpellDamage` (mitigation and absorbs apply). Interval is hasted at application and never below `MinPeriodicTickInterval`. Stacking uses `ApplyPeriodic`, spreading on tick uses `SpreadPeriodic`. Healing periodics and changes to native periodic timing are not executed | RUNTIME (damage, added Periodic only) |
+| Echo | `AbilityEchoScheduler`: `PlanEchoes` at root impact, each echo a delayed `SecondarySpellExecutor` cast on the same target (revalidated, scaled, crit/proc flags). Echoes never plan echoes | RUNTIME (TargetRule SameTarget) |
 | Procs | Chain guard implemented; trigger bus pending | GUARD ONLY |
-| Conditions | `ValueWithContext`; needs a CombatContext adapter in OnHit | RESOLUTION ONLY |
+| Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference (health, movement, stun, casting, distance, creature type, auras, element statuses, nearby units) and `ValueWithContext` scales each hit | RUNTIME for Primary.Damage / Primary.Healing |
 | Threat, crit modifiers, avoidance flags | Unit hooks (`ModifyMeleeDamage`, threat hooks) | RESOLVED ONLY |
 
 Everything marked RESOLVED ONLY is still computed, validated and shown in the inspector with a
@@ -91,12 +92,13 @@ Everything marked RESOLVED ONLY is still computed, validated and shown in the in
 | Balance/technical limits + config | DONE | DONE | via resolution | inspector | unit |
 | Components add/remove | DONE | DONE | Area-around-target -> Nova | chat | unit |
 | Effects (proc/aura) add/remove/modify | DONE | DONE | NO | chat (`addproc`, `effect`) | unit |
-| Conditions | DONE | DONE (per-event API) | NO | inspector count | unit |
-| Echo | DONE | DONE | planner only | chat | unit |
-| Periodic stacking/spread | DONE | DONE | pure transitions only | chat | unit |
+| Conditions | DONE | DONE (per-event API) | Primary.Damage/Healing per hit | inspector count | unit |
+| Echo | DONE | DONE | same-target echoes | chat + Lab UI | unit (planner) |
+| Periodic stacking/spread | DONE | DONE | added damage periodic (convert, stack, spread) | chat + Lab UI | unit (transitions) |
+| Resource cost / range / moving cast | DONE | DONE | core overrides (section 6) | chat + Lab UI | syntax only |
 | Requirements / Essence contract | DONE | DONE | n/a | NO | unit |
-| Developer Lab backend + presets + inspector | DONE | DONE | via bridge | chat commands | unit (store); in-game untested |
-| Developer Lab addon UI | NO | - | - | NO | - |
+| Developer Lab backend + presets + inspector | DONE | DONE | via bridge | chat commands + Lab UI | unit (store); in-game untested |
+| Developer Lab addon UI | - | - | - | `/ua lab` window over the core addon command channel | Lua 5.1 parse only |
 | Per-player isolation + cache | DONE | DONE | DONE | - | unit |
 
 None of the runtime rows were tested in game: no server was built or run for this change.
@@ -109,6 +111,17 @@ It now accepts `[0, 10]`; `0` yields `m_casttime = 0` (instant, which also lifts
 exactly like any instant spell) and `> 1` lengthens. Legacy callers pass `[0.5, 1]` with their minimum and
 get the identical result. There is no module-level alternative: the cast time is computed inside
 `Spell::prepare` before any script hook can change it.
+
+Second change, same files: per-cast overrides for the ability runtime, set from `SpellScript::Load` on root
+player casts only, under the same guard (not triggered, before target selection):
+
+- `SetPowerCostOverride(multiplier, flat)`: applied right after both `CalcPowerCost` call sites (non-item casts).
+- `SetRangeDelta(min, max)`: added to the min/max range in `CheckRange`, after `SPELLMOD_RANGE`.
+- `SetCanCastWhileMoving(bool)`: non-channeled only; skips the `SPELL_FAILED_MOVING` rejection in `prepare` and
+  the movement cancel in `update`.
+
+The default values leave behavior unchanged. There are no script hooks for these: the power cost is computed
+inside `prepare` after `Load`, `CheckRange` has no hook, and the movement checks sit inline in `prepare`/`update`.
 
 ## 7. Performance decisions
 
@@ -142,10 +155,11 @@ core headers; no worldserver build or in-game test.
 
 ## 10. Remaining gaps / next steps
 
-1. Wire the per-event `CombatContext` adapter in `OnHit` (conditions).
-2. Echo scheduler through `m_Events` + `SecondarySpellExecutor` using `PlanEchoes`.
-3. Periodic executor: direct-to-periodic conversion via a controlled aura or scheduled ticks.
-4. Resource/range/moving-cast hooks (core or script hooks, each needs review).
-5. Addon UI for the Lab (protocol messages mirroring the chat commands).
-6. Persist Lab presets (character DB) if needed; Essences get their own persistence.
-7. Rename the legacy `UlduarAbilities::AbilityModifier` node-capability enum to avoid confusion.
+Done in order: conditions per hit, echo scheduler, periodic conversion, resource/range/moving-cast overrides,
+and the Lab addon UI. Still open:
+
+1. In-game validation of every RUNTIME row (build + live-stack e2e); nothing here was run on a server.
+2. Healing periodics, native periodic retiming and Echo target rules other than SameTarget.
+3. Projectile speed/visual scale/hit radius, displacement, threat/crit/avoidance, procs trigger bus.
+4. Resource type/gain/refund, casting while falling, moving channels.
+5. Persist Lab presets (character DB) if needed; Essences get their own persistence.

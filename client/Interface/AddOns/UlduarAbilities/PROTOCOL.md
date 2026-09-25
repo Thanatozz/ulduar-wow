@@ -94,3 +94,12 @@ Refresh reconciles GM changes. Snapshot completion remains server-authoritative.
 
 Modifier mask: Damage=1, Cooldown=2, CastTime=4, Coverage=8, Potency=16, Rebound=32.
 BALANCE and MODIFIERS are mandatory for addon 1.4. See the module MODIFIERS_BALANCE.md for current rules.
+
+## Developer Ability Lab (addon 1.6)
+
+The Lab window (`/ua lab`, `/ualab`) does not use `ULDAB1`. It reuses the core's addon command channel
+(prefix `AzerothCore`, `AddonChannelCommandHandler`): request `h<4-digit counter>ua lab <args>` as a WHISPER to
+the player itself; replies `a<counter>` (ack), `m<counter><text>` (one output line), `o<counter>` (ok) or
+`f<counter>` (failed). The server runs the exact `.ua lab` chat command, so GM access and
+`UlduarAbilities.DebugEditor` are enforced there. Arguments are single tokens limited to letters, digits and
+`. _ % + -`. See `docs/architecture/ULDuar_ABILITY_LAB.md`.

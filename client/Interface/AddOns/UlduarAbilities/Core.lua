@@ -71,8 +71,13 @@ events:SetScript("OnEvent", function(self, event, ...)
         UA.InstallAbilityTooltips()
         SLASH_ULDUARABILITIES1 = "/ua"
         SlashCmdList.ULDUARABILITIES = function(message)
-            if message == "resetposition" then UA.ResetWindowPosition() else UA.Toggle() end
+            if message == "resetposition" then UA.ResetWindowPosition()
+            elseif message == "lab" then UA.Lab.Toggle()
+            else UA.Toggle() end
         end
+        -- Developer Ability Lab (server-gated: GM + UlduarAbilities.DebugEditor).
+        SLASH_ULDUARABILITYLAB1 = "/ualab"
+        SlashCmdList.ULDUARABILITYLAB = function() UA.Lab.Toggle() end
         UA.Refresh()
     elseif event == "PLAYER_ENTERING_WORLD" then
         -- Loading screens invalidate outstanding transactions. Never replay a mutation.
@@ -84,6 +89,7 @@ events:SetScript("OnEvent", function(self, event, ...)
         UA.Refresh()
     elseif event == "CHAT_MSG_ADDON" then
         UA.Receive(...)
+        UA.Lab.Receive(...)
     elseif event == "PLAYER_REGEN_ENABLED" then
         UA.RefreshSpellBook()
         UA.LayoutMicroButton()
@@ -95,6 +101,7 @@ events:SetScript("OnEvent", function(self, event, ...)
 end)
 events:SetScript("OnUpdate", function(self, elapsed)
     UA.cancelModalClose = nil
+    UA.Lab.Update()
     if UA.refreshAt and GetTime() >= UA.refreshAt and UA.ready and not UA.pending then
         UA.refreshAt = nil
         UA.Request("GET")
