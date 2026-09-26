@@ -49,7 +49,7 @@ It needed extensions in five places, and one latent bug was fixed:
 | No enforced design restrictions | Requirements only gate Essence socketing. Lab layers or several stacked Essences could still produce a 40-target, stacking, permanent Polymorph | **Capabilities**: a per-Core policy per modification axis (`Allowed` / `NoIncrease` / `Locked`), enforced by the resolver for every modifier source, and exposed to Requirements (`CapabilityAllows`) |
 | No composition | An Emitter could not own its payload; a Summon could not own an aura | **`Effect.Parent`**: effects form a validated tree (no dangling parent, no cycles) |
 | Effect kinds too coarse | `Aura` meant "applied status"; no Emitter, Imbue or inline payload | `EffectKind` extended (append-only): Buff, Debuff, Emitter, Imbue, Damage, Healing |
-| Trigger events too few | No weapon/spell hit split, no avoidance, resource or aura events, no emitter interval | `TriggerEvent` extended (append-only) + `ExecutionOrigin` + `Effect.OriginMask` + PPM |
+| Trigger events too few | No weapon/spell hit split, no avoidance, resource or aura events, no emitter interval | `TriggerEvent` extended (append-only) + hit role / echo lineage checked against `Effect.ActivationMask` + PPM |
 | Conversion and efficiency conflated | "50% converted at 200% efficiency" could not be expressed (and conversion is balance-capped at 100%) | `Periodic.ConversionEfficiencyPct` |
 | **Bug:** effect-scope Requirements read the ability bag | "requires an Imbue on the main hand" always evaluated a default value | Effect-scope property requirements now scan the effects, optionally filtered by effect kind |
 
@@ -310,17 +310,19 @@ No second trigger engine is needed. Auras, imbues and buff-granted procs all use
 | chance, internal cooldown, charges, target count | properties exist |
 | PPM | NEW `Effect.ProcsPerMinute` + `EffectProcChance(effect, attackSpeedMs)` (PPM x speed / 60 s, WotLK rule) |
 | proc from proc / self-retrigger / max depth | existing `CanTriggerProc` (NotFromProc, Loop, DepthExceeded) |
-| per-origin eligibility | NEW `ExecutionOrigin` (OriginalCast, TriggeredCast, Echo, PeriodicTick, Proc, Emitter) in the proc ancestry, checked against `Effect.OriginMask` (`OriginNotAllowed`) |
+| activation eligibility | `ExecutionContext` {`HitRole` Primary/Secondary/Periodic/Proc, `FromEcho`} in the proc ancestry, checked against the effect's `Effect.ActivationMask` (`SourceNotAllowed`); see [EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md). `Effect.OriginMask` is only a deprecated alias of `Effect.ActivationMask` |
 
-UNIT TESTED: `OriginMaskAndRecursionGuard`.
+UNIT TESTED: `ActivationMaskAndRecursionGuard`, `UlduarEffectActivation.*`.
 
-The previous `ProcAncestry::IsEcho` flag was never read by `CanTriggerProc`. It is replaced by `Origin`.
+The previous `ProcAncestry::IsEcho` flag was never read by `CanTriggerProc`. It is replaced by the `ExecutionContext` (role + `FromEcho`). Richer ancestry (original vs triggered
+cast, emitter, imbue, proc chain) may exist only as internal execution context, never as a second editable
+authority.
 
 **Runtime status: CALCULATED ONLY (guard functions only).**
 
 - Engine-defined procs have no trigger bus yet.
-- Echoes currently control procs through the native `TRIGGERED_DISALLOW_PROC_EVENTS` flag (section 11), not
-  through `OriginMask`.
+- Echoes control native proc events through `Echo.CanProc` (`TRIGGERED_DISALLOW_PROC_EVENTS`, section 11), a
+  low-level safety guard; engine effects on echo hits are gated by the `Echo` bit of `Effect.ActivationMask`.
 - Mapping the events to AzerothCore proc flags and hit masks (melee/ranged/spell classes, `PROC_EX_BLOCK`,
   dodge, parry) is the first task of the trigger runtime milestone.
 
@@ -415,8 +417,8 @@ snapshot. This matches the intended semantics ("the spell happens again", withou
 | spell charges | Not applicable: `Casting.Charges` is not executed by the runtime at all (calculated only) |
 | target invalidation / death | The target is revalidated when the echo fires (alive, legal, in range = spell max range + 5). Failure skips the echo silently; no retarget (only `SameTarget` runs) |
 | caster gone | Echo events live on the caster's event list and die with the caster |
-| recursion | None: the complete plan is made once at the root impact (`PlanEchoes`), echo impacts return before propagation or echo planning. Preserved |
-| propagation | Echoes do not propagate (no Split/Shatter/Chain/Nova from an echo) |
+| recursion | None: the complete plan is made once at the player's cast impact (`PlanEchoes`); only the player's cast schedules echoes (`SchedulesEchoes`), so an echo never plans echoes |
+| propagation | An echo replays the complete payload: its own hit is an execution root (`IsExecutionRoot`) with its own payload event and history, so it runs Split/Shatter/Chain/Nova, periodic conversion and the native payload aura again, scaled echo x secondary ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) |
 
 ## 12. Stacked periodic presentation
 
@@ -582,7 +584,7 @@ New properties (17), each justified by a family that could not be expressed othe
 | `Effect.MaxTargets` | effect | Buff/Debuff/Aura/summon attacks | MISSING PROPERTY |
 | `Effect.Interval` | effect | Emitter | MISSING PROPERTY |
 | `Effect.ProcsPerMinute` | effect | Imbue/Trigger | MISSING PROPERTY |
-| `Effect.OriginMask` | effect | Trigger | MISSING PROPERTY (origin eligibility) |
+| `Effect.ActivationMask` (alias `Effect.OriginMask`) | effect | every effect | EXISTING: single activation authority (role + echo lineage) |
 | `Effect.Attachment` | effect | Imbue | MISSING PROPERTY |
 | `Effect.Control` | effect | CC | MISSING PROPERTY (classification that drives capabilities) |
 | `Summon.Archetype` | effect | Summon | MISSING PROPERTY |
@@ -658,7 +660,8 @@ Remaining gaps, which are not blocking:
 3. **Typed stat enum** for `Effect.Stat` (unblocks buff/debuff runtime and tooltips).
 4. **Buff/Debuff runtime:** application, coverage (party/raid/area), persistence, dispel.
 5. **Trigger bus + Emitter runtime:** map TriggerEvents to proc flags/hit masks and power/aura hooks; interval
-   emitters; charges; `OriginMask` wired into echo/periodic/proc executions.
+   emitters; charges; `Effect.ActivationMask` evaluated on echo/periodic/proc executions (the rule and hit
+   classification already exist).
 6. **Summon runtime:** count mapping, individual multiplier, entity/attack scaling, archetypes, totem slots,
    stat inheritance hook.
 7. **Imbue runtime:** decide temporary enchantment vs server listener.

@@ -7,7 +7,7 @@ Code:
 - `src/SecondarySpellExecutor.cpp`
 - `src/AbilityTargetResolver.cpp`
 - `src/engine/RuntimeMechanics.cpp` (`PlanEchoes`)
-- `src/engine/ExecutionModel.cpp` (`HitOutputScale`)
+- `src/engine/ExecutionModel.*` (`HitOutputScale`, `IsExecutionRoot`, `SchedulesEchoes`)
 
 Tests: `UlduarEchoComposition.*`, `UlduarEngineEcho.*`.
 
@@ -50,7 +50,11 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
 
 ## Recursion and MultiEcho
 
-- **No recursion.** Only the player's own cast (`IsRootCast`) schedules echoes, so echo hits never plan echoes.
+- **Execution roots.** `IsExecutionRoot`: the player's cast and each echo's own hit start propagation.
+  There is no "terminal echo" rule: an older rule where echo impacts returned before propagation and only
+  the root shattered is obsolete.
+- **No recursion.** Only the player's own cast schedules echoes (`SchedulesEchoes`), so echo hits never plan
+  echoes.
   `Echo.CanEchoTriggerEcho` defaults to false and is not executed.
 - **MultiEcho.** It means several echo executions planned once, from the original event: Original, Echo 1,
   Echo 2, Echo 3 (`PlanEchoes`, bounded by `MaxEchoCount` / `MaxEchoChainDepth` and the absolute limits).

@@ -74,7 +74,7 @@ be conditional.
 | Mechanic | Function | Guarantees |
 | --- | --- | --- |
 | Echo sequence | `PlanEchoes` | One plan per cast, no recursive scheduling; bounded by MaxEchoCount / MaxChainDepth and the absolute limits; failed roll ends the sequence; chance decay flat or multiplicative |
-| Proc gating | `CanTriggerProc` | Chance 0 never; execution origin must be in `Effect.OriginMask`; proc-from-proc opt-in; loop detection over ancestry; depth bounded by effect and global limit |
+| Proc gating | `CanTriggerProc` | Chance 0 never; the hit's role (Primary/Secondary/Periodic/Proc) and echo lineage must be allowed by `Effect.ActivationMask` (alias `Effect.OriginMask`); proc-from-proc opt-in; loop detection over ancestry; depth bounded by effect and global limit |
 | Proc chance | `EffectProcChance` | `Effect.ProcsPerMinute` (PPM x attack speed / 60 s) takes precedence over `Effect.TriggerChance` |
 | Summon quantity | `ResolveSummonPower` | Individual efficiency falls as count exceeds the Core count (`Summon.QuantityPenaltyPct`); exposed as `ResolvedEffect::Summon` |
 | Periodic stacking | `ApplyPeriodic` | RefreshDuration, AddDuration, IndependentDuration, ReplaceWeaker, AddStackAndRefresh; optional pandemic carry-over |

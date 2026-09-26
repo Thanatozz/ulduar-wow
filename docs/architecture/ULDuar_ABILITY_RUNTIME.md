@@ -30,7 +30,7 @@ Related: [components](ULDuar_ABILITY_COMPONENTS.md), [properties](ULDuar_ABILITY
 | Deterministic modifier engine, documented order | Per-node ad-hoc formulas | 9-stage order, precedence by source, order-independent |
 | Zero semantics vs technical vs balance | 50% floors hardcoded in code/config/core | Centralized; zero is valid; balance limits configurable and visible |
 | Components add/remove, effect lists | Fixed classification | Component set + effect list, structural modifiers |
-| Proc / echo / periodic stacking with recursion bounds | Propagation bounds only | Pure planners with bounded depth/count (runtime scheduler not yet wired) |
+| Proc / echo / periodic stacking with recursion bounds | Propagation bounds only | Pure planners with bounded depth/count; echo scheduler and periodic executor wired in the runtime ([ECHO_RUNTIME.md](ECHO_RUNTIME.md), [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
 | Conditions | None | 16 condition kinds, per-event evaluation of cached resolution |
 | Requirements engine (ALL/ANY/NONE) | `IsPropagationCompatible` only | Generic requirement tree over resolved structure |
 | Essence model (size vs quality vs unique) | None | `EssenceDefinition`; contract = modifier list |
@@ -99,20 +99,22 @@ chain and the DoT ticks.
 | `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
 | `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
-| Periodic visible debuff / stack icon | UNSUPPORTED (needs a carrier aura) |
+| Periodic visible debuff / stack icon | CLIENT-REQUIRES-CARRIER (carrier design in [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
+| Converted ticks as periodic damage (procs, periodic log, no block, dynamic taken mods) | UNSUPPORTED today; fixed by the carrier ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md)) |
 | `Periodic.FinalTick`, `ScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY |
 | Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
 | `Echo.TargetRule` other than SameTarget, `Echo.Range`, `Echo.CanEchoTriggerEcho` | RESOLVED ONLY |
 | Conditions on `Primary.Scaling` | RUNTIME; other conditional properties RESOLVED ONLY |
 | `Delivery.Kind` change | UNSUPPORTED |
 | Channel projectile emitter (Arcane Missiles) | RUNTIME |
-| Channel beam, channel area | UNSUPPORTED ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| Channel area (Blizzard) | UNSUPPORTED: caster-aura payload path identified; blocked by payload rank matching, SQL binding and in-game test ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| Channel beam | UNSUPPORTED: the beam is the channel spell's own client visual ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
 | `Casting.ChannelTime`, `Casting.ChannelTickInterval` | RESOLVED ONLY (policy: preserve total output) |
 | Effect activation (`Effect.ActivationMask`) | IMPLEMENTED as a rule; Essence effects are not applied at runtime yet (RESOLVED ONLY) |
 | `Effect.Scaling` | RESOLVED ONLY, gameplay application on hold ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)) |
 | Summon, Buff/Debuff, Emitter, Imbue, Displacement, Beam, remaining Targeting/Projectile/Area/Casting/Resource properties | RESOLVED ONLY |
 | `Projectile.CanApplyEffects`, `Area.CanApplyEffects`, `Projectile.CanProc` | retired (not editable, no consumer) |
-| Player tooltip (`OUT` record: normal + Shift levels) | RUNTIME CODED; channel controllers PARTIAL (percentages only) |
+| Player tooltip (`OUT` record: normal + Shift levels) | RUNTIME CODED; absolute values PARTIAL (native base points, no spell power or done mods; [PRIMARY_OUTPUT.md](PRIMARY_OUTPUT.md)); channel controllers PARTIAL (percentages only) |
 
 ## 5. Status matrix (spec section 35)
 

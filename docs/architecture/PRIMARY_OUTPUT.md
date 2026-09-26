@@ -75,5 +75,41 @@ Formulas, property names, conversion percentages and tick counts never appear in
   percentages only. The normal damage line is omitted for them (PARTIAL).
 - **Inside the Ulduar window,** tooltips show the committed server output, not the unconfirmed draft.
 - **Status:** RUNTIME CODED, Lua 5.1 parsed. Tooltip rendering and the Shift refresh (`MODIFIER_STATE_CHANGED`
-  re-runs the hovered frame's `OnEnter`) REQUIRE IN-GAME TEST. Absolute values with spell power would require
-  server-side bonus computation or client support.
+  re-runs the hovered frame's `OnEnter`) REQUIRE IN-GAME TEST.
+
+## Tooltip accuracy: PARTIAL
+
+The absolute values in `OUT` are **PARTIAL**. They are native base points (+ die average), without level
+scaling, spell power or caster done modifiers, × `Primary.Scaling`, then split by the conversion plan.
+Percentages (secondary, echo) and timing (duration, interval, ticks) are exact resolved values. The Normal
+and Shift levels stay as they are; only the numbers they print are partial.
+
+**Target.** Caster-resolved output: caster stats + coefficient + caster done modifiers + `Primary.Scaling`,
+then echo / secondary / periodic composition. Target mitigation and target taken modifiers are excluded,
+and so are per-hit conditional modifiers, which depend on the target.
+
+### Core APIs audited (none mutate `SpellInfo`)
+
+| API | Target-free? | Use for the tooltip |
+| --- | --- | --- |
+| `Unit::SpellDamageBonusDone` / `SpellPctDamageModsDone` | **No.** They return the input unchanged when `victim` is null, and read the victim for creature-type flat/pct bonuses and victim-state talents. Passing the caster as victim would pick up the wrong conditional bonuses | not directly |
+| `Unit::SpellHealingBonusDone` / `SpellPctHealingModsDone` | **No**, and unsafe with null: no null guard, and the victim is dereferenced (victim health / aura talents) | never with a null victim |
+| `Unit::SpellBaseDamageBonusDone(schoolMask)` / `SpellBaseHealingBonusDone(schoolMask)` | **Yes**: the caster's spell power for the school | spell power term |
+| `sSpellMgr->GetSpellBonusData(id)` (`direct_damage`, `dot_damage`, `ap_bonus`) and `Unit::CalculateDefaultCoefficient` | **Yes** | coefficient |
+| `Unit::CalculateLevelPenalty(spellInfo)` | **Yes** | low-rank penalty |
+| `SpellEffectInfo::CalcValue(caster)` | caster-only, but rolls the die | base with level scaling (use `BasePoints` + level fields + die average instead) |
+| `Player::ApplySpellMod(id, SPELLMOD_DAMAGE / SPELLMOD_BONUS_MULTIPLIER, value)` | **Yes**: talents that modify this spell | caster spell mods |
+| `GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, school)` | **Yes** | generic % done |
+
+**Plan (not implemented).** An `OUT` v2 computes, server-side and per player:
+
+```
+base = BasePoints + die average (+ level scaling)
+base = base + SpellBaseDamageBonusDone(school) x coefficient x level penalty
+base = ApplySpellMod(SPELLMOD_DAMAGE) x generic % done
+base = base x Primary.Scaling
+```
+
+It then feeds the existing conversion plan. It must be refreshed when stats change (throttled on
+`UNIT_STAT` / aura changes), and marked as an estimate: it does not include victim-dependent bonuses. Until
+then the addon keeps the PARTIAL numbers.

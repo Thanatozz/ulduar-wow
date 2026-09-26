@@ -1,12 +1,13 @@
 # Effect activation
 
 Code:
-- `src/engine/EngineTypes.h` (`ExecutionSource`, `ExecutionContext`, `ActivationAllows`)
+- `src/engine/EngineTypes.h` (`HitRole`, `ActivationFlag`, `ExecutionContext`, `ActivationAllows`)
 - `src/engine/RuntimeMechanics.cpp` (`EffectActivates`, `CanTriggerProc`)
 - `src/engine/ExecutionModel.cpp` (`ClassifyHit`)
 - `src/AbilityRuntime.h` (`AbilityPropagationContext::Execution()`)
 
-Tests: `UlduarEffectActivation.*`, `UlduarArchitectureTrigger.ActivationMaskAndRecursionGuard`.
+Tests: `UlduarEffectActivation.*` (roles, `FromEcho`, stable bits, `OriginMask` alias),
+`UlduarArchitectureTrigger.ActivationMaskAndRecursionGuard`.
 
 ## One authority
 
@@ -25,7 +26,23 @@ The hit description is deliberately small:
 
 `FromEcho` is a lineage flag on top of the role.
 
-Rule: `allowed = mask has the Role bit AND (not FromEcho OR mask has the Echo bit)`.
+Mask bits (stable values, stored in builds and presets):
+
+| Bit | Value | Kind |
+| --- | --- | --- |
+| PRIMARY | 1 | role |
+| SECONDARY | 2 | role |
+| ECHO | 4 | lineage |
+| PERIODIC | 8 | role |
+| PROC | 16 | role |
+
+Rule: `allowed = mask has the Role bit AND (not FromEcho OR mask has the Echo bit)`. The Echo bit alone
+activates nothing.
+
+`Effect.OriginMask` is only a deprecated alias: it resolves to `Effect.ActivationMask` (same property, same
+bits). The older origin enum (OriginalCast, TriggeredCast, Echo, PeriodicTick, Proc, Emitter) is retired.
+Richer ancestry (original vs triggered cast, emitter, imbue, proc chain) may exist only as internal execution
+context, never as a second editable authority.
 
 | Essence | Mask | Frostbolt + Split 3 |
 | --- | --- | --- |

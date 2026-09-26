@@ -116,8 +116,11 @@ Use `.ua lab preset frostbolt echo`, then `.ua lab set frostbolt Echo.Chance set
 - [ ] **Procs:** with `Echo.CanProc` off (default), echo hits trigger no procs; with
   `.ua lab set frostbolt Echo.CanProc enable 1`, hit procs occur. Note whether cast-type procs occur on echoes
   (open question in the appendix, section 11).
-- [ ] **Recursion:** echoes never produce echoes and never propagate (combine with `shatter`: only the root
-  hit shatters).
+- [ ] **Recursion:** echoes never produce echoes: with MultiEcho 3 you see exactly Original + Echo 1-3, and
+  no echo of an echo.
+- [ ] **Full payload replay:** combine with `shatter` (or `split` / `chain` / `nova`). The echo's own hit
+  shatters again from the echo's target with echo x secondary scaling (Frostbolt 1000, 60%/60%: echo 600,
+  echo shatter hits 360). Each echo propagates independently of the original (its own hop history).
 - [ ] **Crit:** with `.ua lab set frostbolt Echo.CanCrit disable 0`, echoes never crit.
 
 ## 9. Direct-to-periodic conversion
@@ -236,7 +239,12 @@ These families have **no gameplay runtime**; only check that nothing regressed.
   Shatter/Chain), never hit the echo's primary target twice, and do not reuse the original cast's visited
   targets.
 - [ ] **Echo + DoT:** with `Echo.CanEchoPeriodic` off, the echo deals only the immediate part and the running
-  DoT is untouched. With it on (`enable 1`), the echo applies its own smaller pool.
+  DoT is untouched. With it on (`enable 1`), the echo's smaller pool lands on the same DoT per
+  `Periodic.StackBehavior`. With the default RefreshDuration the duration resets and the ticks take the echo's
+  smaller amount; with AddStackAndRefresh it adds a stack.
+- [ ] **Periodic pipeline (audit §3):** a DoT tick on a target that gains Curse of the Elements after the hit
+  does NOT grow (taken mods are snapshotted); absorb shields absorb ticks; Ice Block / Divine Shield make ticks
+  immune; ticks trigger no procs.
 - [ ] **Echo resources:** the echo hits (including their splits) cost no mana, trigger no GCD or cooldown, and no
   echo produces another echo. With MultiEcho, all echoes originate from the original cast.
 - [ ] **Echo proc/crit rules:** `Echo.CanProc` off gives no procs from any echo hit; `Echo.CanCrit` off gives no
