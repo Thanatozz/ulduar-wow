@@ -475,7 +475,7 @@ Semantic sufficiency audit (does the resolved model carry what the templates nee
 
 | Template | Data available | Gap |
 | --- | --- | --- |
-| Direct damage "Hurls {projectile}... {damage} {element}" | `Primary.Damage` (relative %), `Primary.Element`, `Delivery.Kind`, projectile component | Absolute numbers need the runtime (spell power); the tooltip shows `%` of native or asks the server |
+| Direct damage "Hurls {projectile}... {damage} {element}" | `Primary.Scaling` (relative %), `Primary.Element`, `Delivery.Kind`, projectile component | Absolute numbers need the runtime (spell power); the tooltip shows `%` of native or asks the server |
 | Slow "{amount}% for {duration}" | `Effect.Stat/Value/Duration` | Typed stat enum (section 4) |
 | Shatter "{targetCount} additional enemies within {range} yd" | `Projectile.Targets`, `AcquisitionRange`, `Origin` | none |
 | Summon "{count} {summonName} for {duration}" | `Summon.Count`, `Effect.Duration`, `ResolvedEffect::Summon.IndividualMultiplier` | summon name = client spell/creature name (addon) |

@@ -56,8 +56,10 @@ Test setup used below: a mage with Frostbolt, and target dummies or neutral NPCs
 
 ## 2. Damage and healing modifiers
 
-- [ ] `.ua lab set frostbolt Primary.Damage multiply 2`: hits deal about 2x; crits scale too.
-- [ ] `.ua lab set flashheal Primary.Healing multiply 1.5`: heals about 1.5x.
+- [ ] `.ua lab set frostbolt Primary.Scaling multiply 2`: hits deal about 2x; crits scale too.
+- [ ] `.ua lab set frostbolt Primary.Damage multiply 2` still works and prints a one-line deprecation notice.
+- [ ] Paladin: `.ua lab set holylight Primary.Scaling multiply 1.5`: heals about 1.5x (Flash Heal is not
+  runtime-enabled).
 - [ ] `.ua lab clear frostbolt`: values return to stock.
 
 ## 3. Cast time
@@ -97,7 +99,7 @@ Test setup used below: a mage with Frostbolt, and target dummies or neutral NPCs
 
 - [ ] `.ua lab preset frostbolt execute`: against a target above 35% health, damage is normal.
 - [ ] Below 35% health (`.damage` the target down, or use a low-health mob): damage is about 1.5x.
-- [ ] The inspector lists 1 conditional modifier and `Primary.Damage` unchanged (not baked).
+- [ ] The inspector lists 1 conditional modifier and `Primary.Scaling` unchanged (not baked).
 
 ## 8. Echo
 
@@ -215,7 +217,46 @@ These families have **no gameplay runtime**; only check that nothing regressed.
   catalog. Until then, verify that Frostbolt (snare) shows **no** `CapabilityRestricted` warnings with any
   preset.
 
-## 16. Stability
+## 16. Output semantics milestone (Primary.Scaling, periodic plan, echo replay, tooltip)
+
+- [ ] **Periodic exact pool:** `.ua lab preset frostbolt dot`, then
+  `.ua lab set frostbolt Periodic.Conversion set 30` and
+  `.ua lab set frostbolt Periodic.ConversionEfficiencyPct set 200` (no haste buffs).
+  - The direct hit is about 70% of stock.
+  - The ticks sum to about 60% of the stock hit.
+- [ ] **Tick interval:** `.ua lab set frostbolt Periodic.TickInterval set 1.5s`. More, smaller ticks with the same
+  sum; the total never grows with the tick rate.
+- [ ] **Initial tick:** `.ua lab set frostbolt Periodic.InitialTick enable 1`. One tick on hit and the rest on the
+  interval; the sum stays the same (it was about 6/7 before).
+- [ ] **Uneven duration:** set a duration that is not a multiple of the interval. No extra short tick at the end.
+- [ ] **Echo replays Split:** `.ua lab preset frostbolt split` + `echo` + `Echo.Chance set 100`, 4+ mobs.
+  - Each echo hits the primary target and then splits again.
+  - With 60% echo and 60% split scaling, echo split hits are about 36% of a stock hit.
+- [ ] **Echo with Shatter/Chain/Nova:** the echo's secondaries start from the echo's own impact (proxies for
+  Shatter/Chain), never hit the echo's primary target twice, and do not reuse the original cast's visited
+  targets.
+- [ ] **Echo + DoT:** with `Echo.CanEchoPeriodic` off, the echo deals only the immediate part and the running
+  DoT is untouched. With it on (`enable 1`), the echo applies its own smaller pool.
+- [ ] **Echo resources:** the echo hits (including their splits) cost no mana, trigger no GCD or cooldown, and no
+  echo produces another echo. With MultiEcho, all echoes originate from the original cast.
+- [ ] **Echo proc/crit rules:** `Echo.CanProc` off gives no procs from any echo hit; `Echo.CanCrit` off gives no
+  crits on the echo or its splits.
+- [ ] **Native aura on echoes:** Frostbolt's own slow is applied by echo hits too (the payload is replayed).
+- [ ] **Arcane Missiles with echo:** each missile may echo. The channel never restarts. Missiles propagate
+  independently. Interrupting the channel stops new missiles while in-flight copies and echoes finish.
+- [ ] **Arcane Missiles ranks:** repeat on a low rank and on the max rank; two mages channelling at once keep
+  separate snapshots.
+- [ ] **Inspector states:** `.ua lab set frostbolt Delivery.Kind set beam` shows `UNSUPPORTED: Delivery.Kind`.
+  A range increase shows `PARTIAL:`. On Arcane Missiles, `Casting.ChannelTickInterval` shows RESOLVED ONLY.
+- [ ] **Tooltip, normal:** hover Frostbolt with the `dot` preset. One line like
+  `Deals X Frost damage and an additional Y Frost damage over 12 sec.`, with no percentages or property names.
+  - Refresh first with `/reload` or reopen the Ulduar window.
+- [ ] **Tooltip, Shift:** holding Shift while hovering switches to Direct/Periodic/Duration/Tick Interval lines
+  and the collapsed "Secondary Damage" line. Releasing Shift switches back.
+- [ ] **Tooltip, healing:** Holy Light says "Heals the target for X."
+- [ ] **Old addon:** it ignores the new `OUT` record without errors.
+
+## 17. Stability
 
 - [ ] 30 minutes of mixed Lab presets in a group of mobs:
   - no crash or assert;

@@ -16,7 +16,7 @@ override it. Players without engine layers use exactly the previous code path.
 | Additional targets / Coverage | Coverage rank -> SecondaryTargetCount / SearchRange | Projectile.Targets / AcquisitionRange | Low | none | - |
 | Potency | Secondary effect multiplier 10% + 5%/rank | Projectile.Scaling / Area.Scaling (percent) | Low | none | secondary damage % |
 | Element conversion | Node sets element; `Spell::SetSpellSchoolMask` per Spell when supported | Primary.Element SET | Low | none | school in combat log |
-| Damage node | +5%/rank primary damage | Primary.Damage PERCENT_ADD | Low | none | - |
+| Damage node | +5%/rank primary damage | Primary.Scaling PERCENT_ADD | Low | none | - |
 | Cooldown node | -0.5 s/rank, max 50%, floor 1 ms | Casting.Cooldown ADD (engine: no floor, 0 = no cooldown) | Legacy floors stay for legacy nodes; engine path uses `CooldownOverrideMs` | done | cooldown 0 and added cooldown in game |
 | Cast time node | -0.1 s/rank, max 50%, min 0.5 s | Casting.CastTime ADD/MULTIPLY (engine: 0 = instant) | Core guard widened; legacy callers unchanged | done | instant cast, moving after instant |
 | Mobile casting | Node exists, always refused (no safe hook) | Casting.CanCastWhileMoving | High: needs movement hook review | core/movement hook | cast while moving, interruption |

@@ -77,6 +77,8 @@ function Lab.Output(text)
     local r, g, b = 0.95, 0.92, 0.82
     if string.find(text, "^RUNTIME:") then r, g, b = 0.35, 1, 0.35
     elseif string.find(text, "^RESOLVED ONLY") then r, g, b = 1, 0.6, 0.15
+    elseif string.find(text, "^PARTIAL:") then r, g, b = 1, 0.9, 0.3
+    elseif string.find(text, "^UNSUPPORTED:") then r, g, b = 1, 0.3, 0.3
     elseif string.find(text, "Rejected") or string.find(text, "INVALID") or string.find(text, "Unknown") or
         string.find(text, "Disabled") or string.find(text, "Usage") then r, g, b = 1, 0.3, 0.3
     elseif string.find(text, "^%[AbilityLab%]") or string.find(text, "^===") then r, g, b = 1, 0.82, 0 end

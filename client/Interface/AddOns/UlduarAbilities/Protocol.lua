@@ -123,6 +123,15 @@ function UA.Receive(prefix, message, channel, sender)
     elseif kind == "REV" and #f == 6 then
         local a = snapshot.abilities[tonumber(f[5])]
         if a and string.match(f[6], "^%d+$") and f[6] ~= "0" then a.revision = f[6] end
+    elseif kind == "OUT" and #f == 15 then
+        -- Resolved output for the player tooltip (server PRIMARY_OUTPUT.md). -1 = component inactive.
+        for i = 5, 15 do if not tonumber(f[i]) then return end end
+        local a = snapshot.abilities[tonumber(f[5])]
+        if not a then return end
+        a.output = { healing = f[6] == "1", direct = tonumber(f[7]), periodic = tonumber(f[8]),
+            duration = tonumber(f[9]) / 1000, interval = tonumber(f[10]) / 1000, ticks = tonumber(f[11]),
+            projectile = tonumber(f[12]), area = tonumber(f[13]), echo = tonumber(f[14]),
+            element = tonumber(f[15]) }
     elseif kind == "STATE" and #f == 17 then
         for i = 5, 17 do if not tonumber(f[i]) then return end end
         local a = snapshot.abilities[tonumber(f[5])]

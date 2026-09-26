@@ -93,6 +93,73 @@ function UA.PropagationTooltipText(a, mode)
     return ""
 end
 
+-- Mirror of the server's SecondaryOutputLines: one common line, signed lines only where a component
+-- differs. Projectile/Area/Echo scaling stay separate on the server; this is presentation only.
+function UA.SecondaryOutputLines(o)
+    local noun = o.healing and "Healing" or "Damage"
+    local parts = { { "Projectile", o.projectile }, { "Area", o.area }, { "Echo", o.echo } }
+    local common
+    for _, part in ipairs(parts) do
+        if part[2] and part[2] >= 0 and not common then common = part[2] end
+    end
+    if not common then return {} end
+    local lines = { string.format("Secondary %s: %.0f%%", noun, common) }
+    for _, part in ipairs(parts) do
+        local value = part[2]
+        if value and value >= 0 and math.floor(value + 0.5) ~= math.floor(common + 0.5) then
+            lines[#lines + 1] = string.format("%s %s: %+.0f%%", part[1], noun, value - common)
+        end
+    end
+    return lines
+end
+
+-- Three levels (server PRIMARY_OUTPUT.md): the normal line says what the ability does in WoW language;
+-- Shift adds resolved numbers; engine properties and formulas belong to the Forge/Lab only.
+function UA.AppendOutputLines(tooltip, a)
+    local o = a.output
+    if not o then return end
+    local element = (o.element and o.element > 0) and UA.ElementName(o.element) or UA.ElementName(a.baseElement)
+    if o.direct and o.direct > 0 then
+        local text
+        if o.healing then
+            text = string.format("Heals the target for %d", o.direct)
+            if o.periodic > 0 then
+                text = text .. string.format(" and an additional %d over %s sec", o.periodic, o.duration)
+            end
+        else
+            text = string.format("Deals %d %s damage", o.direct, element)
+            if o.periodic > 0 then
+                text = text .. string.format(" and an additional %d %s damage over %s sec", o.periodic, element,
+                    o.duration)
+            end
+        end
+        tooltip:AddLine(text .. ".", 1, 0.82, 0, true)
+    end
+    local secondary = UA.SecondaryOutputLines(o)
+    if IsShiftKeyDown() then
+        local noun = o.healing and "Healing" or "Damage"
+        if o.direct > 0 then tooltip:AddLine(string.format("Direct %s: %d", noun, o.direct), 1, 1, 1) end
+        if o.periodic > 0 then
+            tooltip:AddLine(string.format("Periodic %s: %d", noun, o.periodic), 1, 1, 1)
+            tooltip:AddLine(string.format("Periodic Duration: %s sec", o.duration), 1, 1, 1)
+            tooltip:AddLine(string.format("Tick Interval: %s sec", o.interval), 1, 1, 1)
+        end
+        for _, line in ipairs(secondary) do tooltip:AddLine(line, 1, 1, 1) end
+    elseif o.periodic > 0 or #secondary > 0 then
+        tooltip:AddLine("Hold Shift for details.", 0.5, 0.5, 0.5)
+    end
+end
+
+-- Re-show the hovered tooltip when Shift changes, so the advanced lines appear/disappear.
+local modifierWatcher = CreateFrame("Frame")
+modifierWatcher:RegisterEvent("MODIFIER_STATE_CHANGED")
+modifierWatcher:SetScript("OnEvent", function()
+    if not GameTooltip:IsShown() or not GameTooltip.ulduarAbilityAdded then return end
+    local owner = GameTooltip:GetOwner()
+    local onEnter = owner and owner:GetScript("OnEnter")
+    if onEnter then onEnter(owner) end
+end)
+
 function UA.AppendAbilityTooltip(tooltip, a)
     if not UA.ready or not a or tooltip.ulduarAbilityAdded then return end
     local owner = tooltip:GetOwner()
@@ -102,6 +169,7 @@ function UA.AppendAbilityTooltip(tooltip, a)
     end
     tooltip.ulduarAbilityAdded = true
     tooltip:AddLine(" ")
+    UA.AppendOutputLines(tooltip, a)
     tooltip:AddLine("Ulduar Abilities - Rank " .. a.rank, 1, 0.82, 0)
     tooltip:AddLine(a.isDraft and "Draft preview - not applied" or "Committed build", 1, 0.82, 0)
     tooltip:AddLine("Element: " .. UA.ElementName(UA.EffectiveElement(a)), 1, 1, 1)

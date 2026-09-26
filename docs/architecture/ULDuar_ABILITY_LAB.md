@@ -48,7 +48,7 @@ runtime executes) and `RESOLVED ONLY (not executed yet):` lines.
 | dot | ADD Periodic, Conversion 60, Duration 12 s, Tick 3 s, CanHaste, CanCrit |
 | spreaddot | dot + CanSpreadOnTick, SpreadQuantity 2, SpreadRadius 8, SpreadStackCount 1 |
 | echo | ADD Echo, Chance 50, MultiEcho, MaxEchoCount 3, multiplicative decay x0.5 |
-| execute | Primary.Damage PERCENT_ADD 50 **when** target health < 35% (conditional, evaluated per hit; the only built-in way to test conditions in game) |
+| execute | Primary.Scaling PERCENT_ADD 50 **when** target health < 35% (conditional, evaluated per hit; the only built-in way to test conditions in game) |
 
 Preset names describe engine primitives, not spells: `chain` on Frostbolt and `chain` on Shadow Bolt are the
 same data.

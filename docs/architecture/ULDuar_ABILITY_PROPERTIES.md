@@ -23,17 +23,28 @@ or to every effect when the key is 0. Name lookup (`FindProperty`) is for comman
 
 ## Properties
 
-179 properties (162 in the first pass; the architecture appendix added `Periodic.ConversionEfficiencyPct`,
-nine effect-scope `Effect.*` properties and seven effect-scope `Summon.*` properties). `Summon.*` rows are
-effect-scope: they are listed under Effect and only mean something on a `Summon` effect. See
-[ULDuar_ABILITY_ARCHITECTURE_APPENDIX.md](ULDuar_ABILITY_ARCHITECTURE_APPENDIX.md).
+179 registered properties. Canonical names are listed below; deprecated aliases still resolve in the Lab,
+presets and the addon (`FindProperty`), and modifiers store the enum id, so no stored data changes:
+
+| Deprecated name | Canonical property | Notes |
+| --- | --- | --- |
+| `Primary.Damage` | `Primary.Scaling` | primary output of damage AND healing abilities ([PRIMARY_OUTPUT.md](PRIMARY_OUTPUT.md)) |
+| `Primary.Healing` | `Primary.Scaling` | same property; `Primary.Output` (structural) says what the output is |
+| `Effect.Chance` | `Effect.TriggerChance` | |
+| `Effect.OriginMask` | `Effect.ActivationMask` | single effect activation authority ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)) |
+
+Not editable in the Lab (kept registered, never a gameplay authority): `Primary.Output` (structural, from the
+native spell), `Projectile.CanApplyEffects`, `Area.CanApplyEffects` and `Projectile.CanProc` (retired: effect
+activation belongs to `Effect.ActivationMask`). Runtime support per property: see the support matrix in
+[ULDuar_ABILITY_RUNTIME.md](ULDuar_ABILITY_RUNTIME.md#support-matrix). `Summon.*` rows are effect-scope and are
+listed under Effect.
 
 ### Primary
 
 | Property | Type | Unit | Zero | Technical | Balance | Default | Class |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `Primary.Damage` | number | - | - | [0, inf] | - | 0 | TECHNICAL-MIN  |
-| `Primary.Healing` | number | - | - | [0, inf] | - | 0 | TECHNICAL-MIN  |
+| `Primary.Scaling` | number | % | NO PAYLOAD | [0, inf] | - | 0 | ZERO-SEMANTIC TECHNICAL-MIN  |
+| `Primary.Output` | enum | - | - | - | - | Damage | - |
 | `Primary.Element` | enum | - | - | - | - | Physical | - |
 | `Primary.ElementalDamageScaling` | number | % | NO PAYLOAD | [0, 10000] | - | 100 | ZERO-SEMANTIC TECHNICAL-MIN TECHNICAL-MAX  |
 | `Primary.ElementalHealingScaling` | number | % | NO PAYLOAD | [0, 10000] | - | 100 | ZERO-SEMANTIC TECHNICAL-MIN TECHNICAL-MAX  |
@@ -251,7 +262,7 @@ effect-scope: they are listed under Effect and only mean something on a `Summon`
 | `Effect.MaxTargets` | number | - | INVALID | [1, 256] | max MaxTargets | 1 | TECHNICAL-MIN TECHNICAL-MAX BALANCE-MAX |
 | `Effect.Interval` | number | ms | INACTIVE | [0, 3.6e+06] | min MinPeriodicTickInterval, max MaxPeriodicTickInterval | 0 | ZERO-SEMANTIC TECHNICAL-MIN TECHNICAL-MAX BOTH |
 | `Effect.ProcsPerMinute` | number | - | - | [0, 60] | - | 0 | TECHNICAL-MIN TECHNICAL-MAX  |
-| `Effect.OriginMask` | number | - | - | [0, 63] | - | 63 | TECHNICAL-MIN TECHNICAL-MAX  |
+| `Effect.ActivationMask` | number | - | - | [0, 31] | - | 1 | TECHNICAL-MIN TECHNICAL-MAX  |
 | `Effect.Attachment` | enum | - | - | - | - | None | - |
 | `Effect.Control` | enum | - | - | - | - | None | - |
 | `Summon.Archetype` | enum | - | - | - | - | Guardian | - |

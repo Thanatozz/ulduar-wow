@@ -63,7 +63,7 @@ AbilityDefinition │ AbilityCore ──┐                                     
 
 | Value | Mechanism | Status |
 | --- | --- | --- |
-| Damage / healing scaling | `SpellScript::OnHit` `SetHitDamage` (existing) with `PrimaryDamageMultiplier` | RUNTIME |
+| Primary output (`Primary.Scaling`, aliases `Primary.Damage`/`Primary.Healing`) | `SpellScript::OnHit`: once per fresh native amount, damage or healing ([PRIMARY_OUTPUT.md](PRIMARY_OUTPUT.md)) | RUNTIME |
 | Cast time (incl. 0 = instant, > native = slower) | `Spell::SetCastTimeMultiplier` in `SpellScript::Load` | RUNTIME (core guard widened, see 6) |
 | Cooldown (incl. 0 and adding one to a spell without) | `AfterCast`: `RemoveSpellCooldown` / `ModifySpellCooldown` / `AddSpellCooldown` + `SMSG_SPELL_COOLDOWN` | RUNTIME |
 | School conversion | `Spell::SetSpellSchoolMask` (per Spell) | RUNTIME for definitions with `SupportsElementConversion` |
@@ -73,14 +73,46 @@ AbilityDefinition │ AbilityCore ──┐                                     
 | Resource type, gain, refund on failure | Client power bar and cost type are native | RESOLVED ONLY |
 | Cast while moving | `Spell::SetCanCastWhileMoving` (core, section 6) skips the movement rejection in `prepare` and the cancel in `update`. Channels (aura interrupt flags) and falling casts are not covered; the stock client may still stop its own cast bar | RUNTIME (server, non-channeled) |
 | Projectile speed / visual scale / hit radius | Native missile speed; custom speed needs delayed hit + visual packets | RESOLVED ONLY |
-| Periodic conversion, spread | `AbilityPeriodicExecutor`: `Periodic.Conversion`% of the direct damage is removed from the hit and becomes server ticks totalling share x `Periodic.ConversionEfficiencyPct` on the caster's `m_Events`, dealt through `CalculateSpellDamageTaken` / `DealSpellDamage` (mitigation and absorbs apply; damage/school immunity is checked per tick since the appendix milestone). Interval is hasted at application and never below `MinPeriodicTickInterval`. Stacking uses `ApplyPeriodic`, spreading on tick uses `SpreadPeriodic`. Healing periodics and changes to native periodic timing are not executed | RUNTIME (damage, added Periodic only) |
-| Echo | `AbilityEchoScheduler`: `PlanEchoes` at root impact, each echo a delayed `SecondarySpellExecutor` cast on the same target (revalidated, scaled, crit/proc flags). Echoes never plan echoes | RUNTIME (TargetRule SameTarget) |
+| Periodic conversion, spread | `AbilityPeriodicExecutor` with `PlanConvertedPeriodic`: Immediate = base - converted, Pool = converted x efficiency (once), Tick = Pool / exact tick count; native per-tick crit/mitigation/absorb/immunity ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) | RUNTIME (damage, added Periodic only); no visible debuff |
+| Echo | Own payload event per echo, replays the payload and its components (Split/Shatter/Chain/Nova, periodic, native aura) from the echo root: 60% x 60% = 36% for an echo's split copy; never recursive ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | RUNTIME (TargetRule SameTarget) |
 | Procs | Chain guard implemented; trigger bus pending | GUARD ONLY |
-| Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference (health, movement, stun, casting, distance, creature type, auras, element statuses, nearby units) and `ValueWithContext` scales each hit | RUNTIME for Primary.Damage / Primary.Healing |
+| Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference and `ValueWithContext` scales each hit | RUNTIME for Primary.Scaling |
 | Threat, crit modifiers, avoidance flags | Unit hooks (`ModifyMeleeDamage`, threat hooks) | RESOLVED ONLY |
 
 Everything marked RESOLVED ONLY is still computed, validated and shown in the inspector with a
 `RESOLVED ONLY (not executed yet)` line, so nobody mistakes data for gameplay.
+
+## Support matrix
+
+Inspector vocabulary (`.ua lab inspect`): **RUNTIME** executes, **PARTIAL** executes with a documented limit,
+**RESOLVED ONLY** is calculated but not executed, **UNSUPPORTED** has no adapter for the combination. A value
+the resolver can produce is not gameplay support. Nothing below was run on a server from the cloud environment.
+The previous milestone was checked in game by the owner: instant, damage x2, cooldown 5 s, element, procs,
+chain and the DoT ticks.
+
+| Property / feature | State |
+| --- | --- |
+| `Primary.Scaling` (damage and healing) | RUNTIME |
+| `Primary.Element` | RUNTIME where the definition supports conversion, otherwise UNSUPPORTED |
+| `Casting.CastTime`, `Casting.Cooldown`, `Resource.Cost`, `Range.Min`, `Range.Max` decrease | RUNTIME |
+| `Range.Max` increase, `Casting.CanCastWhileMoving` (non-channel) | PARTIAL (client limits) |
+| `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
+| `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
+| Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
+| Periodic visible debuff / stack icon | UNSUPPORTED (needs a carrier aura) |
+| `Periodic.FinalTick`, `ScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY |
+| Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
+| `Echo.TargetRule` other than SameTarget, `Echo.Range`, `Echo.CanEchoTriggerEcho` | RESOLVED ONLY |
+| Conditions on `Primary.Scaling` | RUNTIME; other conditional properties RESOLVED ONLY |
+| `Delivery.Kind` change | UNSUPPORTED |
+| Channel projectile emitter (Arcane Missiles) | RUNTIME |
+| Channel beam, channel area | UNSUPPORTED ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| `Casting.ChannelTime`, `Casting.ChannelTickInterval` | RESOLVED ONLY (policy: preserve total output) |
+| Effect activation (`Effect.ActivationMask`) | IMPLEMENTED as a rule; Essence effects are not applied at runtime yet (RESOLVED ONLY) |
+| `Effect.Scaling` | RESOLVED ONLY, gameplay application on hold ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)) |
+| Summon, Buff/Debuff, Emitter, Imbue, Displacement, Beam, remaining Targeting/Projectile/Area/Casting/Resource properties | RESOLVED ONLY |
+| `Projectile.CanApplyEffects`, `Area.CanApplyEffects`, `Projectile.CanProc` | retired (not editable, no consumer) |
+| Player tooltip (`OUT` record: normal + Shift levels) | RUNTIME CODED; channel controllers PARTIAL (percentages only) |
 
 ## 5. Status matrix (spec section 35)
 
@@ -92,8 +124,8 @@ Everything marked RESOLVED ONLY is still computed, validated and shown in the in
 | Balance/technical limits + config | DONE | DONE | via resolution | inspector | unit |
 | Components add/remove | DONE | DONE | Area-around-target -> Nova | chat | unit |
 | Effects (proc/aura) add/remove/modify | DONE | DONE | NO | chat (`addproc`, `effect`) | unit |
-| Conditions | DONE | DONE (per-event API) | Primary.Damage/Healing per hit | inspector count | unit |
-| Echo | DONE | DONE | same-target echoes | chat + Lab UI | unit (planner) |
+| Conditions | DONE | DONE (per-event API) | Primary.Scaling per hit | inspector count | unit |
+| Echo | DONE | DONE | payload replay per echo execution | chat + Lab UI | unit (planner, composition) |
 | Periodic stacking/spread | DONE | DONE | added damage periodic (convert, stack, spread) | chat + Lab UI | unit (transitions) |
 | Resource cost / range / moving cast | DONE | DONE | core overrides (section 6) | chat + Lab UI | syntax only |
 | Requirements / Essence contract | DONE | DONE | n/a | NO | unit |
