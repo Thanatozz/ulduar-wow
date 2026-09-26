@@ -1,12 +1,19 @@
 # Periodic runtime (direct-to-periodic conversion)
 
 Code:
-- `src/engine/ExecutionModel.*` (`PlanConvertedPeriodic`, `PeriodicTickCount`, `AdvancePeriodic`)
-- `src/AbilityPeriodicExecutor.*`
+- `src/engine/ExecutionModel.*` (`PlanConvertedPeriodic`, `PeriodicTickCount`, `AdvancePeriodic`,
+  `RefreshTickAmount`)
+- `src/engine/PeriodicCarrier.*` (carrier ids, school selection, backing decision, pool per backing, aura sync)
+- `src/AbilityPeriodicExecutor.*` (instances, stacking, spread, executor ticks)
+- `src/AbilityPeriodicCarrier.*` (`aura_ulduar_periodic_carrier`, native carrier adapter)
 - `src/AbilitySpellScript.cpp` (split at hit)
 - `src/engine/RuntimeMechanics.cpp` (stacking and spread)
+- core: `TargetInfo::damageDoneBeforeTaken` (`Spell.h`, `Spell.cpp`, `SpellEffects.cpp`)
 
-Tests: `tests/AbilityRuntimeSemanticsTest.cpp` (UlduarPeriodicConversion.*).
+Tests: `UlduarPeriodicConversion.*` (`tests/AbilityRuntimeSemanticsTest.cpp`), `UlduarPeriodicCarrier.*`
+(`tests/AbilityCarrierTest.cpp`).
+
+Pending SQL: `ulduar_abilities_005_world_periodic_carriers.sql` (see [Application order](#sql-application-order)).
 
 ## Model
 
@@ -31,121 +38,234 @@ TickCount       = floor(Duration / Interval) + (InitialTick ? 1 : 0),  Interval 
 
 Neither multiplies damage. A per-tick scaling mechanic would be a separate, explicit property; none exists.
 
-## Runtime behavior (RUNTIME CODED, REQUIRES IN-GAME TEST)
+## Ownership
 
-- **Plan.** `AbilityPeriodicExecutor::Plan` builds the plan per hit. The interval is hasted at application if
-  `Periodic.CanHaste` (snapshot) and never falls below `MinPeriodicTickInterval`. The spell script keeps
-  `Immediate` on the hit and hands `Pool` to `Apply`.
-- **Tick chain.** An optional application tick at +1 ms does not consume time. Regular ticks follow at every
-  full interval. `AdvancePeriodic` stops before a partial trailing interval, so exactly `TickCount` ticks deal
-  exactly the pool. Two defects are fixed:
-  - With `InitialTick`, the old chain dealt only 6/7 of the pool.
-  - A duration that was not a multiple of the interval dealt an extra partial tick.
-- **Ticks keep native combat behavior.** Each tick goes through:
-  - crit (only if `Periodic.CanCrit`, rolled per tick);
-  - `CalculateSpellDamageTaken` (armor, block, resilience, crit bonus);
-  - `DealDamageMods`, absorb/resist (`CalcAbsorbResist`), `DealSpellDamage`;
-  - a school/damage immunity check per tick.
+The **engine** (`AbilityPeriodicExecutor` + pure rules) owns:
+- Conversion and ConversionEfficiency;
+- the pool, the tick count and the hasted/clamped interval;
+- stacking (`Periodic.StackBehavior`) and spread (`Periodic.Spread*`);
+- echo composition;
+- the immutable ability snapshot.
 
-  The pool is nominal output, not guaranteed health loss. The exact snapshot/dynamic split of every modifier
-  is in [PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md). No modifier is applied
-  twice.
-- **Stacking.** Stacking and refresh follow `Periodic.StackBehavior` (`ApplyPeriodic`).
-  - A refresh gets no application tick, so its pool is divided by the regular ticks only.
-  - The interval re-snapshots haste.
-  - Efficiency is never re-applied: every application brings its own pool share, and stacks multiply ticks
-    by `Periodic.TickScalingPerStackPct`.
-- **Spread** on tick: `SpreadPeriodic` (unchanged).
-- **Echo executions.** They convert their own echo-scaled root (echo root 600 → 420 immediate + 360 pool). Only
-  with `Echo.CanEchoPeriodic` do they apply the pool; otherwise the echo deals only the immediate part and
-  cannot weaken or refresh a running periodic.
-  - An echo pool lands on the same caster+target+ability instance as the original, per
-    `Periodic.StackBehavior`. With the default RefreshDuration, the echo's smaller tick amount replaces the
-    running one. That weakening is why `Echo.CanEchoPeriodic` is off by default.
-  - The instance keeps the lineage (`FromEcho`) of the application that created it.
+The **tick source** only executes ticks. Each instance has exactly one (`Engine::PeriodicBacking`):
 
-## Blizzlike carrier (design; implementation deferred)
-
-Today the executor owns the whole periodic: amount, stacks, timing and damage. Nothing is visible on the
-target. The Blizzlike target is **one visible aura per caster + target + ability instance**, showing icon,
-duration, remaining time and stacks. The executor keeps the amount and stack state; the aura is the carrier.
-
-### Core APIs (audited)
-
-| Need | API | Note |
+| Backing | Who deals the ticks | When |
 | --- | --- | --- |
-| Put a periodic aura on the target | `Unit::AddAura` / `CastSpell` of a carrier spell with `SPELL_AURA_PERIODIC_DAMAGE` | caster = the player, so `GetCasterGUID` isolates casters natively |
-| Exact per-tick amount | `DoEffectCalcAmount` script hook | runs **after** `SpellDamageBonusDone` in `AuraEffect::CalculateAmount`, so setting the amount there replaces the done bonus (no double coefficient); `amount *= stacks` follows |
-| Interval | `DoEffectCalcPeriodic` hook (`AuraEffectCalcPeriodicFn`: `isPeriodic`, `amplitude`), `AuraEffect::SetPeriodicTimer`, `ResetPeriodic` | the executor's hasted, clamped interval |
-| Duration and remaining time | `Aura::SetMaxDuration`, `Aura::SetDuration` | sent to the client in the aura update |
-| Stacks | `Aura::SetStackAmount` | shown natively as the stack count |
-| Tick damage | native `HandlePeriodicDamageAurasTick` | immunity, `SpellDamageBonusTaken(DOT)` per tick, armor, crit, spell resilience, `CalcAbsorbResist(DOT)`, **no block**, no pushback |
-| Periodic log and procs | same handler: `SendPeriodicAuraLog`, `ProcSkillsAndAuras(PROC_FLAG_DONE_PERIODIC / TAKEN_PERIODIC)` | converted ticks become periodic damage for procs |
+| Carrier | a native `SPELL_AURA_PERIODIC_DAMAGE` carrier aura | default, whenever a carrier can hold the instance |
+| Executor | the module's scheduled ticks (core spell damage path) | only for the reasons below |
 
-### Avoiding double application with a native tick
+`Engine::DecidePeriodicBacking` picks the executor only when:
 
-A native tick applies `SpellDamageBonusTaken` per tick. The carrier must therefore receive a **pre-taken**
-pool; otherwise taken mods would be applied twice (once in Base at launch, once per tick).
-
-- Base for a carrier = the hit's amount **before** target taken mods:
-  - `TargetInfo::damageBeforeTakenMods`, scaled by the same `Primary.Scaling` × echo × secondary factor;
-  - or `SpellDamageBonusDone` alone, recomputed caster-side.
-- The done bonus is not reapplied: the amount is set in `DoEffectCalcAmount`, after `SpellDamageBonusDone`.
-- Crit: the native tick rolls `AuraEffect::GetCritChance()`. The core snapshots it with
-  `CalcPeriodicCritChance`. `Periodic.CanCrit` maps to `AuraEffect::SetCritChance` (0 when off, the caster's
-  spell crit when on) right after application.
-
-Result: taken mods become dynamic per tick, exactly like a native DoT; block and pushback disappear
-(divergences 1, 2 and 5 of the audit).
-
-### Minimum reusable carrier
-
-No DBC entry per ability variant. The candidates:
-
-1. **One carrier per school** (7 spells: physical, holy, fire, nature, frost, shadow, arcane). Generic icon and
-   name, e.g. "Burning" / "Frostbite". This is the minimum for a visible aura with the right school and damage
-   color.
-2. **One carrier per ability family** for its own icon. This needs one client DBC row each.
-3. **Reuse the payload spell** (Frostbolt's aura). Rejected: it would also apply the native slow and the
-   native effect set.
-
-The carrier needs no per-variant data: amount, interval, duration and stacks are all set by script.
-
-### Support split
-
-| Part | State |
+| Reason | Why no carrier |
 | --- | --- |
-| Pool, tick count, stacking, spread, immunity, mitigation (executor) | SERVER-COMPLETE (runtime today) |
-| Native periodic mitigation, dynamic taken mods, periodic procs, periodic combat log | SERVER-COMPLETE once a carrier spell exists **server-side** (`spell_dbc`), REQUIRES IN-GAME TEST |
-| Visible icon, duration, remaining time and stack count on the target frame | CLIENT-REQUIRES-CARRIER: the client draws only spells present in its own `Spell.dbc`. A server-only `spell_dbc` carrier is unknown to the client, so it gets no icon, and the effect of an unknown id in `SMSG_AURA_UPDATE` is untested |
-| Ability-specific icon, name and tooltip per ability | CLIENT-PATCH-REQUIRED (one `Spell.dbc` row per family; option 2) |
+| `CARRIER_DISABLED` | `UlduarAbilities.Periodic.NativeCarrier = 0` |
+| `MULTI_SCHOOL` | multi-school payload (e.g. Frostfire): a carrier has one school, and narrowing it would change resist/immunity |
+| `CARRIER_NOT_LOADED` | carrier spell or script binding missing (pending SQL not applied), checked at startup per school |
+| `INDEPENDENT_DURATION` | needs several concurrent instances; the core keeps one aura per caster + spell on a target |
+| `NO_PRE_TAKEN_BASE` | the core did not record the pre-taken amount (payloads that are not `SPELL_EFFECT_SCHOOL_DAMAGE`, e.g. weapon damage) |
+| `CARRIER_SLOT_TAKEN` | another ability of the same caster already holds that school's carrier on this target |
 
-A reused **existing** client spell of the matching school, with a harmless periodic-damage effect, would be
-visible without a client patch, but it shows that spell's own name and icon. Choosing one is a content
-decision; the carrier id must be a config value, not a hardcoded spell branch.
+**No double damage.** An existing instance keeps its backing on refresh and stack.
+- A carrier-backed instance schedules no executor tick, and `Tick()` refuses one
+  (`Engine::ExecutorDealsTicks`).
+- An executor-backed instance never creates an aura.
+- If a carrier's script binding turns out to be missing at creation, the aura is removed before the executor
+  takes the instance.
+
+The executor path is the documented fallback above, gated per instance. It is not a second active damage
+path.
+
+## Native carrier (RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST)
+
+### Carrier set
+
+One generic carrier per school. There is no carrier per ability or variant. The IDs are reserved in the
+canonical ledger (`docs/data/ulduar_id_allocations.json`, transaction `PC1-PERIODIC-CARRIER-RESERVATION-002`,
+evidence `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_EVIDENCE.json`).
+
+| Spell | School | Row |
+| --- | --- | --- |
+| 141344 | Physical | pending SQL 005 (DmgClass melee, like Rend) |
+| 141345 | Holy | pending SQL 005 |
+| 141346 | Fire | pending SQL 005 |
+| 141347 | Nature | pending SQL 005 |
+| 141348 | Frost | pending SQL 005 |
+| 141349 | Shadow | pending SQL 005 |
+| 141350 | Arcane | pending SQL 005 |
+| 141351..141357 | Physical..Arcane healing, in the same school order | reserved identity only (future `PeriodicHealingCarrier`) |
+
+Each damage carrier row (`spell_dbc`, server-side) has:
+- exactly one effect: `APPLY_AURA` / `SPELL_AURA_PERIODIC_DAMAGE` on the target;
+- the carrier's school;
+- `SpellFamilyName` 0 and no class mask, no dispel type, no mechanic, no other effect;
+- a native school icon as a reference only (presentation belongs to the client patch).
+
+`PeriodicCarrier::ValidateAtStartup` refuses a school whose row has any other shape or lacks the binding.
+
+### Tick amount and interval
+
+| Hook (`aura_ulduar_periodic_carrier`) | Sets |
+| --- | --- |
+| `DoEffectCalcAmount` | amount per stack. It runs after `AuraEffect::CalculateAmount`'s `SpellDamageBonusDone` step, so the engine amount **replaces** the native coefficient-scaled amount. The core then multiplies it by the stack count |
+| `DoEffectCalcPeriodic` | the engine interval (hasted at application with `Periodic.CanHaste`, floored by `MinPeriodicTickInterval`, clamped to the duration). It runs before the core's periodic-haste step, which never applies to a carrier (no family, no `SPELL_ATTR5_SPELL_HASTE_AFFECTS_PERIODIC`) |
+| `OnEffectPeriodic` | tells the executor a tick happened (spread). The native handler deals the damage |
+| `AfterEffectRemove` | forgets the instance (expire, death, cleanse, cancel) |
+
+The per-stack amount is `llround(TickAmount x stackFactor / stacks)` (`Engine::SyncCarrierAura`). Native aura
+amounts are integers, so a tick can be off by at most `stacks` damage from the fractional engine value.
+
+### Pre-taken pool (no double application)
+
+A native tick applies `SpellDamageBonusTaken(DOT)` on every tick. So a carrier pool must start **before**
+target taken modifiers.
+
+- **Core field.** A new `TargetInfo::damageDoneBeforeTaken` records each target's `SCHOOL_DAMAGE` amount
+  after `SpellDamageBonusDone` and before `SpellDamageBonusTaken`.
+  - It gets the same caster-side AoE target cap and chain multiplier as the hit.
+  - It does not get the target-side AoE damage reduction.
+  - Before this change the core recorded such an amount only for heals (`damageBeforeTakenMods`).
+- **Rescaling.** The spell script rescales it by whatever changed the hit between launch and `OnHit`, then by
+  the same factor as the hit: `Primary.Scaling`, conditions, echo and secondary scaling.
+- **Split.** `Engine::PlanPeriodicForBacking` splits the hit:
+  - Immediate from the post-taken hit: the direct part keeps its own taken modifiers, once.
+  - Carrier pool from the pre-taken amount × conversion × efficiency (once). The native tick applies the
+    target's **current** taken modifiers.
+  - Executor pool from the post-taken amount, as before; its ticks never apply taken modifiers.
+
+Each of these is applied exactly once:
+- caster done bonuses: at launch;
+- `Primary.Scaling`, echo, secondary: at hit;
+- Conversion and ConversionEfficiency: at plan;
+- target taken modifiers: per tick (carrier) or at hit (executor).
+
+See [the audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §5.
+
+### Crit
+
+`Periodic.CanCrit` on: `AuraEffect::SetCritChance` receives the payload spell's crit chance (the caster's
+talents and gear for that spell, the target's crit-taken modifiers), snapshotted at application and refresh
+like a native DoT. Off: 0. The native tick rolls it and applies the native periodic crit bonus.
+
+### Stack and duration synchronization
+
+One carrier aura per caster + target + ability instance (the core's aura key is spell + caster).
+`Engine::SyncCarrierAura` turns the engine `PeriodicInstance` into:
+
+| Aura field | Value |
+| --- | --- |
+| MaxDuration, Duration | `RemainingMs` |
+| Stack count | `Stacks` (shown natively) |
+| Amplitude | the interval, clamped to the remaining time |
+| Amount per stack | as above |
+
+The native tick cap is `MaxDuration / Amplitude`, counted since the last (re)application.
+- **Fresh application:** `CalculatePeriodic(create)`. The first tick comes one interval later; exactly
+  `floor(Remaining / Interval)` ticks.
+- **Refresh / stack / AddDuration:** `Sync`. Its `CalculatePeriodic` (not create) restarts the tick count but
+  keeps the running tick phase, like a native DoT refresh. Any phase still gives exactly
+  `floor(Remaining / Interval)` ticks. The executor reads the aura's remaining duration before
+  `ApplyPeriodic`, so pandemic carry-over and AddDuration use the live value.
+- **InitialTick:** one extra native `PeriodicTick` 1 ms after the hit (the application tick counts toward
+  `TickCount`).
+
+**IndependentDuration** needs several concurrent instances of one ability on one target. The core cannot hold
+two auras of the same spell from the same caster. Those instances stay executor-backed: no visible aura,
+executor mitigation.
+
+### Spread
+
+A carrier tick first reports to the executor, which applies `Periodic.Spread*` (chance, cooldown, radius,
+quantity).
+- The spread copy keeps the source's tick amount (efficiency never reapplied), `SpreadStackCount`,
+  `SpreadDurationRule` (KeepRemaining uses the aura's live remaining time) and caster ownership.
+- It keeps the source's backing (`Engine::SpreadBacking`). A carrier source spreads only to targets whose
+  carrier slot is free: a pre-taken amount must land on a carrier again, so the target's own taken modifiers
+  apply exactly once. Other targets are skipped.
+- An executor source stays executor-backed.
+
+### Native semantics gained
+
+A carrier tick is `AuraEffect::HandlePeriodicDamageAurasTick`, so it gets:
+- per-tick immunity;
+- `SpellDamageBonusTaken(DOT)` per tick (dynamic taken modifiers);
+- armor for the physical carrier;
+- crit;
+- spell resilience;
+- `CalcAbsorbResist(DOT)`;
+- the periodic combat log (`SendPeriodicAuraLog`);
+- periodic procs: `PROC_FLAG_DONE_PERIODIC` / `PROC_FLAG_TAKEN_PERIODIC`, via `ProcSkillsAndAuras`.
+
+It gets **no block** and **no pushback** (damage type `DOT`).
 
 ### Periodic proc semantics
 
-Today converted ticks trigger **no procs** (see the audit, divergence 4). Two ways to fix it:
+Carrier ticks raise the native periodic proc flags. The module calls no proc hook itself, so procs are never
+duplicated.
+- The carrier has no class family, so class talents filtered by `SpellFamilyFlags` (e.g. "your Corruption
+  ticks…") do not treat it as their spell. A converted Frostbolt is not a Corruption.
+- Generic periodic procs (trinkets, "periodic damage" effects, school-filtered procs) do trigger.
+- Executor-backed instances still raise no procs (unchanged).
 
-- **Through the carrier (preferred).** The native tick raises `PROC_FLAG_DONE_PERIODIC` /
-  `PROC_FLAG_TAKEN_PERIODIC` with the carrier spell. Generic periodic procs (trinkets, "periodic damage"
-  effects) work. Class talents filtered by `SpellFamilyFlags` do not match a generic carrier; that is
-  intended, a converted Frostbolt is not a Corruption.
-- **Without a carrier.** `DealTick` could call `Unit::ProcSkillsAndAuras(caster, target, PROC_FLAG_DONE_PERIODIC,
-  PROC_FLAG_TAKEN_PERIODIC, ...)` with the payload spell after `DealSpellDamage`. The payload spell's own
-  family flags would then match talents written for the direct spell, so a Frostbolt tick could trigger
-  "on Frostbolt hit" talents. That is a gameplay decision, so it is not done.
+### Echo + periodic
 
-Both keep the no-double-application rule: the proc call never deals damage itself.
+There is no echo-specific rule. An echo with `Echo.CanEchoPeriodic` applies its own (echo-scaled) pool to the
+same instance, governed only by `Periodic.StackBehavior`:
+- RefreshDuration: the echo's tick amount replaces the running one;
+- ReplaceWeaker: the stronger instance is kept;
+- AddStackAndRefresh: adds a stack.
+
+`Echo.CanEchoPeriodic` stays off by default. A production Essence that enables it should also select a
+compatible stacking policy (typically AddStackAndRefresh or ReplaceWeaker) for its design. The Developer Lab
+may create intentionally bad combinations.
+
+### Healing periodic (design only)
+
+Healing conversion stays **RESOLVED ONLY**. The carrier abstraction is kind-aware
+(`Engine::CarrierKind::PeriodicHealing`, reserved IDs 141351..141357). A future healing carrier reuses:
+- the ownership, timing, stacking, sync and presentation infrastructure;
+- a `SPELL_AURA_PERIODIC_HEAL` row;
+- a pre-taken heal base (the core already records `damageBeforeTakenMods` for heals).
+
+No healing carrier row is authored.
+
+### Client presentation boundary
+
+- Nothing server-side renames or re-icons an aura. A stock client may show a generic or technical carrier,
+  or nothing: the carrier is a server-only `spell_dbc` row the stock client does not know. The effect of an
+  unknown spell id in `SMSG_AURA_UPDATE` / `SMSG_PERIODICAURALOG` on a stock client REQUIRES IN-GAME TEST.
+- Dynamic icon/name per ability is **CLIENT PATCH REQUIRED** (`ulduar-client-patch`).
+- Metadata the patch will need, exposed later through an isolated channel that does not touch periodic
+  gameplay:
+  - AbilityId;
+  - BaseSpellId (the payload rank);
+  - VariantHash (resolved build);
+  - carrier identity (carrier spell, caster GUID, target GUID, generation);
+  - Element.
+- The server runtime does not wait for the patch.
+
+## SQL application order
+
+Nothing is applied by this repository's tooling. Apply manually, in this order:
+
+1. `mod-ulduar-abilities/data/sql/db-world/ulduar_abilities_001_world.sql` (clears and rebinds Frostbolt);
+2. `data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql`;
+3. `data/sql/updates/pending_db_world/ulduar_abilities_005_world_periodic_carriers.sql` (carrier rows +
+   `aura_ulduar_periodic_carrier` bindings);
+4. `data/sql/updates/pending_db_world/ulduar_abilities_006_world_blizzard.sql` (Blizzard bindings,
+   [CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)).
+
+The characters migrations (`001`, `002`, `004`) are independent. Without 005, every school logs
+`Periodic carrier … is not loaded` and converted periodics run on the executor.
 
 ## Known limits
 
 | Item | State |
 | --- | --- |
-| Visible debuff / stack count on the target | CLIENT-REQUIRES-CARRIER: no carrier aura yet (design above). Ticks appear as the spell's damage in the log |
-| Ticks count as periodic damage for procs/talents | NO: dealt as direct spell damage, and no proc is raised at all (design above) |
-| Block on melee/ranged-class physical ticks; taken mods snapshotted | Divergences from a native DoT, fixed by the carrier ([audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
-| Healing conversion (HoT) | RESOLVED ONLY |
+| Native carrier ticks | RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST |
+| Visible debuff, stacks, duration on the target | server sends them natively; a stock client does not know the carrier spell; dynamic icon/name: CLIENT PATCH REQUIRED |
+| Executor-backed instances (reasons above) | RUNTIME; executor semantics (snapshotted taken mods, block, pushback, no procs) as in the [audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4 |
+| IndependentDuration | executor-backed (one aura per caster + spell) |
+| Two abilities of one caster with the same school on one target | the second is executor-backed (`CARRIER_SLOT_TAKEN`); more carrier slots would need more ledger IDs |
+| Healing conversion (HoT) | RESOLVED ONLY (carrier IDs reserved) |
 | Retiming native periodic auras (Corruption duration/rate) | RESOLVED ONLY |
 | `Periodic.FinalTick`, `Periodic.ScalingPerStackPct`, `Periodic.SnapshotStats` | RESOLVED ONLY |

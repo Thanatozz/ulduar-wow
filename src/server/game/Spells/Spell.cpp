@@ -658,6 +658,7 @@ Spell::Spell(Unit* caster, SpellInfo const* info, TriggerCastFlags triggerFlags,
     m_damage = 0;
     m_healing = 0;
     m_damageBeforeTakenMods = 0;
+    m_damageDoneBeforeTaken = 0;
     m_procAttacker = 0;
     m_procVictim = 0;
     m_procEx = 0;
@@ -2398,6 +2399,7 @@ void Spell::AddUnitTarget(Unit* target, uint32 effectMask, bool checkIfValid /*=
     targetInfo.alive      = target->IsAlive();
     targetInfo.damage     = 0;
     targetInfo.damageBeforeTakenMods = 0;
+    targetInfo.damageDoneBeforeTaken = 0;
     targetInfo.crit       = false;
     targetInfo.scaleAura  = false;
     if (m_auraScaleMask && targetInfo.effectMask == m_auraScaleMask && m_caster != target)
@@ -8572,9 +8574,13 @@ void Spell::DoAllEffectOnLaunchTarget(TargetInfo& targetInfo, float* multiplier)
             m_damage = 0;
             m_healing = 0;
             m_damageBeforeTakenMods = 0;
+            m_damageDoneBeforeTaken = 0;
 
             HandleEffects(unit, nullptr, nullptr, i, SPELL_EFFECT_HANDLE_LAUNCH_TARGET);
 
+            // Caster-side scaling (AoE target cap, chain multipliers) also applies to the pre-taken amount;
+            // the target-side AoE damage reduction does not.
+            int32 damageDoneBeforeTaken = m_damageDoneBeforeTaken;
             if (m_damage > 0)
             {
                 // Xinef: Area Auras, AoE Targetting spells AND Chain Target spells (cleave etc.)
@@ -8586,7 +8592,10 @@ void Spell::DoAllEffectOnLaunchTarget(TargetInfo& targetInfo, float* multiplier)
                     {
                         uint32 targetAmount = m_UniqueTargetInfo.size();
                         if (targetAmount > 10)
+                        {
                             m_damage = m_damage * 10 / targetAmount;
+                            damageDoneBeforeTaken = damageDoneBeforeTaken * 10 / targetAmount;
+                        }
                     }
                 }
             }
@@ -8594,10 +8603,12 @@ void Spell::DoAllEffectOnLaunchTarget(TargetInfo& targetInfo, float* multiplier)
             if (m_applyMultiplierMask & (1 << i))
             {
                 m_damage = int32(m_damage * m_damageMultipliers[i]);
+                damageDoneBeforeTaken = int32(damageDoneBeforeTaken * m_damageMultipliers[i]);
                 m_damageMultipliers[i] *= multiplier[i];
             }
             targetInfo.damage += m_damage;
             targetInfo.damageBeforeTakenMods += m_damageBeforeTakenMods;
+            targetInfo.damageDoneBeforeTaken += damageDoneBeforeTaken;
         }
     }
 

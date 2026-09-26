@@ -1,13 +1,16 @@
 # Channel runtime
 
 Code:
-- `src/AbilitySpellScript.cpp` (controller and payload `Load`)
+- `src/AbilitySpellScript.cpp` (controller and payload `Load`, `ControllerScript`)
 - `aura_ulduar_ability_runtime` (controller snapshot)
+- `src/engine/PayloadMatching.*` (`MatchControllerPayload`, `InferControllerPayloads`,
+  `PayloadHitIsExecutionRoot`)
+- `src/AbilityManager.cpp` (inferred payload index, per-definition binding check)
 - `src/engine/ExecutionModel.*` (`ClassifyChannel`, `ChannelAdapterSupport`, `PlanChannelPayloads`,
   `DeliveryChangeSupport`)
 - `src/AbilityEngineBridge.cpp` (inspector report)
 
-Tests: `UlduarChannelRuntime.*` (pure rules only).
+Tests: `UlduarChannelRuntime.*`, `UlduarChannelPayload.*` (pure rules only).
 
 ## Taxonomy
 
@@ -20,8 +23,11 @@ A channel is **not** "cast the spell again every tick".
 
 ## Audit of the current runtime
 
-The only runtime-enabled channel is Arcane Missiles: controller 5143 (channel, periodic-trigger aura on the
-caster), payload 7268 (the native missile). Blizzard is metadata-only (`RuntimeEnabled = false`).
+Runtime-enabled channels:
+- **Arcane Missiles** (RUNTIME): controller 5143 (channel, periodic-trigger aura on the caster), payload 7268
+  (the native missile).
+- **Blizzard** (RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST): controller 10, area payload 42208.
+  Without its pending SQL, only this definition stays metadata (`DisableWhenUnbound`).
 
 **Channel controller**
 - The controller cast builds the immutable `AbilityCast` (runtime context and engine resolution) in `Load`.
@@ -30,9 +36,11 @@ caster), payload 7268 (the native missile). Blizzard is metadata-only (`RuntimeE
 - Channel state, duration, interruption and tick timing remain native.
 
 **Payload event**
-- Each triggered payload spell whose parent aura is this player's controller aura (same spell chain, same
-  caster) copies the snapshot, sets `RankedSpellId` to the payload rank, and creates a **new
-  `AbilityPayloadEvent`** with its own visited set, hop history and secondary counter.
+- Each triggered payload that matches this player's controller (see
+  [Controller -> payload matching](#controller---payload-matching)):
+  - copies the snapshot;
+  - sets `RankedSpellId` to the payload rank;
+  - creates a **new `AbilityPayloadEvent`** with its own visited set, hop history and secondary counter.
 - `EventId` is the tick number.
 - Unrelated triggered or proc spells never adopt it: the parent aura must carry the script snapshot.
 - Simultaneous casters each have their own aura.
@@ -58,13 +66,51 @@ caster), payload 7268 (the native missile). Blizzard is metadata-only (`RuntimeE
 
 | Pattern | Example | State | Boundary |
 | --- | --- | --- | --- |
-| Channel projectile emitter | Arcane Missiles | RUNTIME (existing controller/payload design, generic via `PayloadSpellId`, no spell-id branch) | ranks, interrupts and simultaneous casters REQUIRE IN-GAME TEST |
-| Channel beam | Drain Life / Mind Flay style | UNSUPPORTED | See [Beam audit](#beam-audit-drain-life-mind-flay). The beam is the channel spell's own client visual. A beam for an arbitrary ability needs a client carrier or patch. No catalog ability is a beam channel |
-| Channel area / persistent area | Blizzard | UNSUPPORTED (boundary documented, design below) | The pulse is a **caster** aura, not a DynamicObject aura (see [Area audit](#area-audit-blizzard)). Blocked by rank matching and the unbound SQL, not by ownership |
+| Channel projectile emitter | Arcane Missiles | RUNTIME (generic matcher, no spell-id branch; presentation path unchanged) | ranks, interrupts and simultaneous casters REQUIRE IN-GAME TEST |
+| Channel area emitter | Blizzard | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; inspector PARTIAL | per-hit parts only; no propagation or echo from an area pulse (see [Area emitter](#area-emitter-blizzard)) |
+| Channel emitter with beam visual | Mind Flay | ARCHITECTURE-SUPPORTED (matcher unit tested); not in the catalog, no bindings | [Beam audit](#beam-audit-drain-life-mind-flay); the beam visual stays native to the controller |
+| Channel aura tick | Drain Life | UNSUPPORTED, separate `ChannelAuraTick` adapter required | no payload spell; its ticks are the channel aura's `PERIODIC_LEECH` |
+| Arbitrary channel beam | "Frostbolt as a beam" | UNSUPPORTED | the beam is the channel spell's own client visual: client carrier or patch |
 
 Other channels (no payload spell and no matching adapter) are reported UNSUPPORTED by the inspector.
 
-## Area audit (Blizzard)
+## Controller -> payload matching
+
+`Engine::MatchControllerPayload` accepts a triggered spell as the controller's payload only when all of these
+hold:
+
+1. It was triggered by an aura (`Spell::GetTriggeredByAuraSpellInfo`). Casts and procs are rejected
+   (`NOT_AURA_TRIGGERED`).
+2. The parent aura spell belongs to the ability's native controller rank chain (`NOT_CONTROLLER` otherwise).
+3. One of the parent's `PERIODIC_TRIGGER_SPELL` (23) or `PERIODIC_TRIGGER_SPELL_WITH_VALUE` (227) effects
+   names exactly this payload id (`NOT_TRIGGERED_BY_PARENT` otherwise).
+4. The parent aura is on the caster and cast by the caster (`player->GetAura(parent, player)`). Another
+   caster's controller is `FOREIGN_AURA`.
+5. That aura carries the immutable controller snapshot (`NO_SNAPSHOT` otherwise).
+
+The payload needs **no SpellMgr rank chain**. The payload ids are inferred at startup from the controller
+ranks' trigger effects (`InferControllerPayloads`, `AbilityManager::ControllerPayloads`), so no gameplay
+branch lists them:
+- Arcane Missiles: 5143..42846 → the 7268 chain (rank 4 → 8419, rank 5 → 8418, as in the native data);
+- Blizzard: 10, 6141, 8427, 10185, 10186, 10187, 27085, 42939, 42940 → 42208-42213, 42198, 42937, 42938;
+- Mind Flay: every rank → 58381.
+
+Safety:
+- No global state: a one-time startup index plus per-spell `Aura` lookups.
+- No stored pointers: the snapshot is a `shared_ptr` on the caster's own aura script.
+- Simultaneous casters stay isolated: rule 4.
+
+**Arcane Missiles regression.** The matcher accepts exactly the missile ranks the old chain rule accepted
+(each rank's aura triggers its own missile rank). The payload event, propagation history, echo, snapshot,
+presentation and channel handling are unchanged.
+
+**Startup bindings.** `CheckDatabase` checks every controller and every inferred payload for its
+`spell_ulduar_ability_runtime` binding, and every aura spell for `aura_ulduar_ability_runtime`. A binding is
+accepted by rank chain (negative first rank) or by exact id.
+- A missing binding on a normal definition still disables the module (fail closed, unchanged).
+- On a `DisableWhenUnbound` definition (Blizzard) it disables only that definition.
+
+## Area emitter (Blizzard)
 
 Read from the client `Spell.dbc` (3.3.5a) and the core:
 
@@ -73,38 +119,29 @@ Read from the client `Spell.dbc` (3.3.5a) and the core:
 | 10 Blizzard (controller, rank 1) | `PERSISTENT_AREA_AURA` (27), aura `DUMMY`, target `DEST_DYNOBJ_ENEMY`, radius index 14 | `APPLY_AURA` `PERIODIC_TRIGGER_SPELL` (23) on the **caster** (`UNIT_CASTER`), 1000 ms, triggers 42208 |
 | 42208 Blizzard (payload, rank 1) | `SCHOOL_DAMAGE`, targets `DEST_CHANNEL_TARGET` + `UNIT_DEST_AREA_ENEMY`, radius index 14 | - |
 
-**Findings**
-- **Ownership.** The DynamicObject only carries the ground visual and a dummy aura. Timing is the controller's
-  caster aura, exactly as for Arcane Missiles (5143 → 7268). No DynamicObject lookup is needed.
-  - The existing snapshot path applies: the controller `OnHit` stores the immutable `AbilityCast` in its own
-    caster aura (`aura_ulduar_ability_runtime::Controller`, a `shared_ptr`).
-  - The triggered payload finds it through `GetTriggeredByAuraSpellInfo()` + `player->GetAura(parent, player)`.
-  - No global state, no raw pointer across delays.
-  - Casters are isolated: each has its own caster aura.
-  - Each pulse is a new `Spell`, so it gets a new `AbilityPayloadEvent`.
-- **Radius and selection.** They belong to the payload spell (`UNIT_DEST_AREA_ENEMY`, radius 14 around the
-  channel destination), i.e. the Area component. The controller owns timing and interrupts (native channel).
-- **Blocker 1: payload ranks are not a spell chain.**
-  - The controller ranks 10, 6141, 8427, 10185, 10186, 10187, 27085, 42939, 42940 trigger 42208-42213,
-    42198, 42937, 42938.
-  - AzerothCore `spell_ranks` has no chain for 42208, so the current rule (`GetFirstSpellInChain(payload) ==
-    PayloadSpellId`) matches rank 1 only.
-  - Needed: a rank-agnostic match. The payload is eligible when its parent aura's chain root is the ability
-    spell **and** the parent's `EffectTriggerSpell` is this payload id. The same rule would cover Arcane
-    Missiles; it is not switched there, to avoid touching a working path.
-- **Blocker 2: SQL binding.** It needs `spell_ulduar_ability_runtime` on -10 and on every payload id (no
-  chain, so explicit ids), plus `aura_ulduar_ability_runtime` on -10. That is a pending world SQL change that
-  cannot be applied or verified here.
-- **Area hits have no single impact target.** The payload has no unit target (`PrimaryTarget` empty), so
-  `AfterImpact` never propagates or echoes from a pulse. Per-hit parts still apply to every target:
-  `Primary.Scaling`, conditions, conversion, element and crit rules. That is the safe default. Echo or
-  propagation per pulse would need an explicit rule: which hit is the pulse's root.
-- **Area modifiers.** `Area.Radius` and tick changes stay RESOLVED ONLY. The radius is the payload's
-  `EffectRadiusIndex`, and native spell radius mods need a per-spell radius adapter.
+**Ownership.** The DynamicObject only carries the ground visual and a dummy aura. The controller's caster aura
+owns timing and interrupts; the payload owns radius and selection (`UNIT_DEST_AREA_ENEMY`, radius 14), i.e.
+the Area component. So no DynamicObject lookup is needed.
 
-**State: UNSUPPORTED (not enabled).** The mechanism is proven by the Arcane Missiles path. Enabling it needs
-the rank-agnostic match, the SQL bindings and an in-game test. "Provably safe" is not met while none of the
-three can be verified here.
+**Payload semantics (as coded).**
+- Each pulse is a new `Spell`, hence its own `AbilityPayloadEvent`.
+- Every enemy hit by the pulse gets the per-hit parts:
+  - `Primary.Scaling`;
+  - conditions;
+  - element conversion;
+  - periodic conversion (carrier or executor, per target);
+  - effect activation, when effects run.
+- **No root from an arbitrary victim.** The payload targets an area (`SpellEffectInfo::IsTargetingArea`), so
+  `Engine::PayloadHitIsExecutionRoot` is false. The pulse never starts Split/Shatter/Chain/Nova at launch or
+  impact, and never schedules an echo, until an explicit Area-root rule is designed.
+- `Area.Radius` and channel tick changes stay RESOLVED ONLY: the radius is the payload's
+  `EffectRadiusIndex`, and a radius adapter would be per spell.
+
+**SQL.** `ulduar_abilities_006_world_blizzard.sql` binds `spell_ulduar_ability_runtime` and
+`aura_ulduar_ability_runtime` to -10, and `spell_ulduar_ability_runtime` to each exact payload id (no chain).
+Created, not applied.
+
+**State:** RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST.
 
 ## Beam audit (Drain Life, Mind Flay)
 
@@ -115,20 +152,25 @@ three can be verified here.
 
 **Findings**
 - **The beam is the channel spell's own visual.** The client draws it from the channel fields. No server
-  packet can attach a beam to a different spell.
-- **Mind Flay has the emitter shape.** It is a caster aura that triggers a payload on the channel target, like
-  Arcane Missiles. Its payload 58381 is shared by all ranks and takes its amount from the trigger value.
-  - A Mind Flay adapter would reuse the emitter path with the rank-agnostic match above.
-  - `Primary.Scaling` would apply on the payload hit.
-  - The slow is a native aura on the target.
-- **Drain Life has no payload.** Its damage and heal are the leech aura's ticks. `aura_ulduar_ability_runtime`
-  does not scale `PERIODIC_LEECH` (see [PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4).
-  A Drain Life adapter would scale the aura amount; the payload-event model does not apply.
+  packet can attach a beam to a different spell. Beam presentation is outside this runtime.
+- **Mind Flay: architecture-supported.** It has the emitter shape: a caster aura (type 227, with value)
+  triggers 58381 on the channel target each second, shared by all ranks.
+  - The generalized matcher accepts it (unit tested with rank data), and the payload is a single-target
+    execution root.
+  - It is **not in the catalog** and has no bindings. Enabling it would need a definition (controller
+    15407, `PayloadSpellId` 58381), bindings for -15407 (spell + aura) and 58381, and an in-game test.
+  - The slow stays a native aura on the target.
+- **Drain Life: separate adapter.** It has no payload spell: its damage and heal are the channel aura's
+  `PERIODIC_LEECH` ticks on the target.
+  - The payload-emitter adapter does not apply and is not forced onto it.
+  - A future `ChannelAuraTick` adapter would scale the leech aura's amount through the controller snapshot
+    (the controller aura is on the target, cast by the caster) and needs its own leech rules.
+  - Not implemented.
 - **An arbitrary beam** (e.g. "Frostbolt as a beam") needs a native channel carrier whose client visual is
-  the wanted beam. That means a client `Spell.dbc` row (CLIENT-PATCH-REQUIRED), or reusing an existing
-  channel spell and showing its name and icon on the cast bar (CLIENT-REQUIRES-CARRIER). It is not faked.
+  the wanted beam: a client `Spell.dbc` row (CLIENT-PATCH-REQUIRED), or reusing an existing channel spell and
+  showing its name and icon on the cast bar (CLIENT-REQUIRES-CARRIER). It is not faked.
 
-**State: UNSUPPORTED.**
+**State:** Mind Flay ARCHITECTURE-SUPPORTED (not enabled); Drain Life and arbitrary beams UNSUPPORTED.
 
 ## Channel modifiers
 

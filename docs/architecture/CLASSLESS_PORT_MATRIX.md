@@ -352,7 +352,8 @@ Migrating to CoA would add that reproducibility burden rather than simply copyin
 Key current contracts to preserve: Protocol2's 255-byte message bound, 8 requests per two seconds,
 token/sequence/revision handling, draft/committed separation, highest-known native rank lookup,
 custom rank/EP state, selected healing/periodic/weapon adapters, five propagation modes and target revalidation.
-Flash Heal and Blizzard remain metadata-only; a base migration must not imply those adapters became enabled.
+Flash Heal remains metadata-only; Blizzard's area-emitter adapter is RUNTIME CODED but needs pending SQL 006 and
+an in-game test. A base migration must not imply those adapters became enabled.
 
 ## Relative port cost and stop conditions
 

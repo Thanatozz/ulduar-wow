@@ -654,9 +654,12 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
 
             damage = m_originalCaster->SpellDamageBonusDone(unitTarget, m_spellInfo, (uint32)damage,
                 SPELL_DIRECT_DAMAGE, effIndex, 0.0f, 1, GetSpellSchoolMaskOverride());
+            m_damageDoneBeforeTaken += damage;
             damage = unitTarget->SpellDamageBonusTaken(m_originalCaster, m_spellInfo, (uint32)damage,
                 SPELL_DIRECT_DAMAGE, 1, GetSpellSchoolMaskOverride());
         }
+        else
+            m_damageDoneBeforeTaken += damage;
 
         m_damage += damage;
     }

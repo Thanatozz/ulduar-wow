@@ -103,7 +103,10 @@ secondary**. It is taken before crit and mitigation.
 
 No code change is required for double application.
 
-## 4. Divergences from a native DoT (documented, not fixed here)
+## 4. Divergences from a native DoT (executor-backed instances)
+
+Since the carrier milestone these apply only to executor-backed instances (§5). Carrier-backed instances
+use the native tick and have none of them.
 
 1. **Block on physical melee/ranged-class ticks.** `CalculateSpellDamageTaken` rolls block for
    melee/ranged damage-class spells with physical school. Each tick subtracts the full shield block value.
@@ -113,10 +116,9 @@ No code change is required for double application.
    - Restoring the blocked part after the call would skip absorb for that part.
    - Fix: the carrier aura (`PERIODIC_RUNTIME.md` §Blizzlike carrier) gives native DoT mitigation.
 2. **Taken mods are snapshotted, not dynamic.** A Curse of Elements applied after the conversion does not
-   raise the ticks. Moving taken mods to the tick would need a pre-taken Base. It is available as
-   `damageBeforeTakenMods` in `TargetInfo`, but using it would re-run taken mods per tick with the direct
-   (`SPELL_DIRECT_DAMAGE`) coefficient semantics. Deferred to the carrier-aura design, where the native tick
-   applies `SpellDamageBonusTaken(..., DOT, ...)`.
+   raise the ticks. Correction: an earlier version of this audit said the pre-taken amount was available as
+   `TargetInfo::damageBeforeTakenMods`. That field is recorded **only for heals**. The carrier milestone adds
+   `TargetInfo::damageDoneBeforeTaken` for `SCHOOL_DAMAGE` (§5).
 3. **Direct coefficient, not DOT coefficient.** The pool comes from the direct coefficient of the hit. This
    is intended: conversion moves direct output into time.
 4. **Damage type `SPELL_DIRECT_DAMAGE`.** Ticks are logged as spell hits (`SMSG_SPELLNONMELEEDAMAGELOG`),
@@ -130,12 +132,54 @@ No code change is required for double application.
    `Primary.Scaling`, echo and secondary scaling are NOT APPLIED to a native leech aura. No catalog carrier has
    one.
 
-## 5. Tests
+## 5. Carrier-backed path (native periodic carrier)
 
-Pure rules: `UlduarPeriodicConversion.*` covers:
+Code: `AbilityPeriodicCarrier.cpp`, `AbilityPeriodicExecutor.cpp` (`ConvertHit`), `Engine::PlanPeriodicForBacking`.
+Design: [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md).
+
+**Core change (minimal, additive).**
+- `Spell::EffectSchoolDMG` adds the damage after `SpellDamageBonusDone` and before `SpellDamageBonusTaken`
+  to `m_damageDoneBeforeTaken`. Without the direct bonus it adds the raw damage.
+- `Spell::DoAllEffectOnLaunchTarget` applies the caster-side AoE target cap (>10 targets) and the chain
+  damage multiplier to it, but not the target-side `CalculateAOEDamageReduction`. It then stores the result
+  in `TargetInfo::damageDoneBeforeTaken`.
+- Nothing reads the field except the module; native damage is unchanged.
+
+**Spell script.**
+```
+nativeHit = GetHitDamage()                        (core's post-taken, pre-crit hit)
+preTaken  = damageDoneBeforeTaken x nativeHit / TargetInfo::damage   (other scripts' changes carried)
+scaled    = the hit after Primary.Scaling, conditions, echo, secondary
+Pool      = preTaken x (scaled / nativeHit) x Conversion x Efficiency
+Immediate = scaled x (1 - Conversion)
+```
+
+| Modifier | Carrier-backed classification |
+| --- | --- |
+| Native base, SP/AP coefficient, caster done mods | SNAPSHOT ON APPLICATION (`damageDoneBeforeTaken`); the carrier's own done bonus is overwritten in `DoEffectCalcAmount`, never added |
+| `Primary.Scaling`, conditions, echo, secondary | SNAPSHOT ON APPLICATION, once (same factor as the hit) |
+| Conversion, Efficiency | SNAPSHOT ON APPLICATION, once; refresh/stack/spread never reapply |
+| Target taken mods (`SpellDamageBonusTaken`) | DYNAMIC PER TICK (`DOT`); the direct hit's taken mod stays on Immediate only |
+| Crit | chance SNAPSHOT at application/refresh (`SetCritChance`, payload spell's chance, 0 without `Periodic.CanCrit`); roll DYNAMIC PER TICK |
+| Armor | DYNAMIC PER TICK (physical carrier) |
+| Block | NOT APPLIED (native DoT) |
+| Resilience, absorb/resist | DYNAMIC PER TICK (`CalcAbsorbResist(DOT)`) |
+| Immunity | DYNAMIC PER TICK (native tick); application refused by `AddAura` if immune |
+| Pushback | NOT APPLIED (`DOT`) |
+| Procs | native periodic procs per tick (`PROC_FLAG_DONE/TAKEN_PERIODIC`), none added by the module |
+| Periodic haste | the engine interval only; the core's haste step never applies (no family, no attribute) |
+
+POSSIBLE DOUBLE APPLICATION: none.
+- Taken modifiers are either on Immediate (the hit) or per tick (the pool), never both.
+- Done bonuses are in the pool once, because the carrier's `CalculateAmount` result is replaced, not scaled.
+
+## 6. Tests
+
+Pure rules: `UlduarPeriodicConversion.*` and `UlduarPeriodicCarrier.*` (pre-taken pool, efficiency once,
+exclusive tick source, aura tick-count sync) cover:
 - exact pool with InitialTick;
 - uneven durations;
 - no efficiency reapplication on refresh or stack.
 
 The core-side classification above is a code reading. Its in-game check is in
-`ULDuar_LOCAL_VALIDATION_CHECKLIST.md` §16.
+`ULDuar_LOCAL_VALIDATION_CHECKLIST.md` §16 (executor) and §18 (carrier).

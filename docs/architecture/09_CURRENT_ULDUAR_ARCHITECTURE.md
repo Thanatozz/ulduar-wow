@@ -128,7 +128,8 @@ y `Player::HasActiveSpell`. Requiere RuntimeEnabled, clase compatible (ClassId=0
 y spell aprendido. El máximo rank aprendido informa tiempos/cooldowns de preview.
 No hay ClassMask general todavía: existe **ClassId**. No traducir esta diferencia a una migración obligatoria.
 
-Frostbolt y Arcane Missiles están runtime-enabled; Flash Heal y Blizzard son metadata-only.
+Frostbolt y Arcane Missiles están runtime-enabled; Flash Heal es metadata-only. Blizzard tiene adaptador de
+emisor de área (RUNTIME CODED / REQUIERE SQL 006 / REQUIERE PRUEBA EN JUEGO); sin ese SQL sigue metadata-only.
 Existen más starters: afirmar que solo Frostbolt está activo sería una descripción obsoleta.
 El registro no certifica cobertura mecánica completa para todos los tipos.
 

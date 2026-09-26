@@ -73,7 +73,7 @@ AbilityDefinition │ AbilityCore ──┐                                     
 | Resource type, gain, refund on failure | Client power bar and cost type are native | RESOLVED ONLY |
 | Cast while moving | `Spell::SetCanCastWhileMoving` (core, section 6) skips the movement rejection in `prepare` and the cancel in `update`. Channels (aura interrupt flags) and falling casts are not covered; the stock client may still stop its own cast bar | RUNTIME (server, non-channeled) |
 | Projectile speed / visual scale / hit radius | Native missile speed; custom speed needs delayed hit + visual packets | RESOLVED ONLY |
-| Periodic conversion, spread | `AbilityPeriodicExecutor` with `PlanConvertedPeriodic`: Immediate = base - converted, Pool = converted x efficiency (once), Tick = Pool / exact tick count; native per-tick crit/mitigation/absorb/immunity ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) | RUNTIME (damage, added Periodic only); no visible debuff |
+| Periodic conversion, spread | `AbilityPeriodicExecutor` with `PlanConvertedPeriodic`: Immediate = base - converted, Pool = converted x efficiency (once), Tick = Pool / exact tick count. Ticks come from a native carrier aura (pre-taken pool, native periodic semantics) or, for documented reasons, the executor; never both ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) | carrier: RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST; executor fallback: RUNTIME |
 | Echo | Own payload event per echo, replays the payload and its components (Split/Shatter/Chain/Nova, periodic, native aura) from the echo root: 60% x 60% = 36% for an echo's split copy; never recursive ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | RUNTIME (TargetRule SameTarget) |
 | Procs | Chain guard implemented; trigger bus pending | GUARD ONLY |
 | Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference and `ValueWithContext` scales each hit | RUNTIME for Primary.Scaling |
@@ -99,16 +99,20 @@ chain and the DoT ticks.
 | `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
 | `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
-| Periodic visible debuff / stack icon | CLIENT-REQUIRES-CARRIER (carrier design in [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
-| Converted ticks as periodic damage (procs, periodic log, no block, dynamic taken mods) | UNSUPPORTED today; fixed by the carrier ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md)) |
+| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, Spell 141344-141350): periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
+| Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
+| Executor-backed periodic (multi-school, IndependentDuration, same-school slot taken, carrier disabled or not loaded, no pre-taken base) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
 | `Periodic.FinalTick`, `ScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY |
 | Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
 | `Echo.TargetRule` other than SameTarget, `Echo.Range`, `Echo.CanEchoTriggerEcho` | RESOLVED ONLY |
 | Conditions on `Primary.Scaling` | RUNTIME; other conditional properties RESOLVED ONLY |
 | `Delivery.Kind` change | UNSUPPORTED |
 | Channel projectile emitter (Arcane Missiles) | RUNTIME |
-| Channel area (Blizzard) | UNSUPPORTED: caster-aura payload path identified; blocked by payload rank matching, SQL binding and in-game test ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
-| Channel beam | UNSUPPORTED: the beam is the channel spell's own client visual ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| Controller -> payload matching (trigger-spell matcher, no payload rank chain) | RUNTIME CODED, unit tested |
+| Channel area emitter (Blizzard) | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; per-hit parts only, no propagation/echo from an area pulse ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| Mind Flay (emitter with native beam visual) | ARCHITECTURE-SUPPORTED by the matcher; not in the catalog |
+| Drain Life (channel aura leech ticks) | UNSUPPORTED: separate `ChannelAuraTick` adapter required |
+| Arbitrary channel beam | UNSUPPORTED: the beam is the channel spell's own client visual ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
 | `Casting.ChannelTime`, `Casting.ChannelTickInterval` | RESOLVED ONLY (policy: preserve total output) |
 | Effect activation (`Effect.ActivationMask`) | IMPLEMENTED as a rule; Essence effects are not applied at runtime yet (RESOLVED ONLY) |
 | `Effect.Scaling` | RESOLVED ONLY, gameplay application on hold ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)) |

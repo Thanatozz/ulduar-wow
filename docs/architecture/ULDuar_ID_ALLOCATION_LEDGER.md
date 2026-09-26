@@ -95,3 +95,22 @@ input, not permission to skip admission on that environment or any other environ
 Absence from this ledger does not prove that an arbitrary foreign environment is collision-free.
 Reservations do not imply Spell rows, RuntimeEligible status, player knowledge, working custom carriers,
 implemented source seams or permission to deploy. Isolated carrier artifact authoring is a separate phase.
+
+## Transaction PC1-PERIODIC-CARRIER-RESERVATION-002 (2026-09-26)
+
+Appended to the canonical ledger. The earlier objects and the R.1 certificate are unchanged.
+
+| Spell | Owner / system | Purpose | Status |
+| --- | --- | --- | --- |
+| 141344..141350 | mod-ulduar-abilities / PeriodicCarrier | native `SPELL_AURA_PERIODIC_DAMAGE` carriers, Physical..Arcane | RESERVED; server rows in pending SQL `ulduar_abilities_005_world_periodic_carriers.sql` (not applied, not INTRODUCED) |
+| 141351..141357 | mod-ulduar-abilities / PeriodicCarrier | future periodic healing carriers, Physical..Arcane | RESERVED; identity only |
+
+- **Authority:** explicit maintainer instruction (periodic carrier milestone).
+- **Evidence:** `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_EVIDENCE.json` (its SHA-256 is stored in each record).
+  - Empty intersection with Spell.dbc rows and EffectTriggerSpell references (the pinned R.1 Spell table
+    hash), base `spell_dbc`, and the 90000..90023 reservation.
+  - Zero untyped literal occurrences in the five local repositories, outside the reservation's own files.
+- **Limitation:** the `ulduar-client-patch` project and external environments were not screened. They must
+  reconcile against this ledger before adding client rows.
+
+**DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**

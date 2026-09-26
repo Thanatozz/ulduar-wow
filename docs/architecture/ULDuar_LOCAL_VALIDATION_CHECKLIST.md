@@ -273,3 +273,47 @@ These families have **no gameplay runtime**; only check that nothing regressed.
 - [ ] `.reload config` with changed `UlduarAbilities.Limit.*` values: new limits apply to new resolutions
   (inspector).
 - [ ] Server shutdown with active DoTs and pending echoes: clean shutdown.
+
+## 18. Native periodic carrier and channel emitters
+
+Apply the SQL first, in the order of [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md#sql-application-order) (005
+carriers, 006 Blizzard). Rebuild after re-running CMake: the module has new source files
+(`AbilityPeriodicCarrier.cpp`, `engine/PeriodicCarrier.cpp`, `engine/PayloadMatching.cpp`) and the core has
+a new `TargetInfo` field.
+
+- [ ] **Startup:** no `Periodic carrier … is not loaded` warning. No `binding missing` error. Blizzard is not
+  reported as disabled.
+- [ ] **Carrier backing:** `UlduarAbilities.Debug = 1`, `.ua lab preset frostbolt dot`, cast on a dummy. The
+  log shows `Periodic: … Backing: CARRIER Reason: CARRIER`. The target has aura 141348. A stock client may
+  show nothing or an unknown aura; note which.
+- [ ] **Exact pool:** conversion 30%, efficiency 200%, 6 s / 1 s, no taken modifiers on the target. The six
+  periodic log ticks sum to about 60% of a stock hit; with `Periodic.InitialTick enable 1`, seven ticks with
+  the same sum.
+- [ ] **Periodic log, not spell hits:** ticks appear as periodic damage in the combat log
+  (`SMSG_PERIODICAURALOG`), not as Frostbolt hits.
+- [ ] **Dynamic taken modifiers:** apply Curse of the Elements (another warlock) after the hit. The remaining
+  ticks grow. Applied before the hit: the direct part and the ticks both grow once, never twice.
+- [ ] **Absorb/immunity:** Power Word: Shield absorbs ticks. During Ice Block the ticks show as immune.
+  Divine Shield removes harmful auras: the carrier ends and the instance is forgotten cleanly (the next hit
+  starts a fresh one).
+- [ ] **No block, no pushback:** a physical converted ability on a shield-bearing player is never blocked on
+  ticks; ticks do not push back that player's cast.
+- [ ] **Procs:** a "periodic damage" trinket or aura procs on carrier ticks; no class talent treats the
+  carrier as its own spell; procs are not doubled.
+- [ ] **Stacking:** `Periodic.StackBehavior set addstackandrefresh`, `CanStack enable 1`: the aura's stack
+  count follows the engine (server-side `.list auras` / debug). Refresh keeps the tick rhythm and resets the
+  duration.
+- [ ] **Echo + periodic:** `Echo.CanEchoPeriodic enable 1` with RefreshDuration: the echo's smaller tick
+  replaces the running one (intended; production Essences choose a compatible policy). With ReplaceWeaker,
+  the stronger stays.
+- [ ] **Spread:** spread lands a carrier on the new target with the source's tick amount; a target already
+  holding the same school's carrier from another ability of yours is skipped.
+- [ ] **Fallbacks:** `UlduarAbilities.Periodic.NativeCarrier = 0` gives `Backing: EXECUTOR Reason:
+  CARRIER_DISABLED` and the previous behavior. `Periodic.StackBehavior set independentduration` gives
+  `INDEPENDENT_DURATION`. Never both damage paths on one instance (tick count matches one source only).
+- [ ] **Arcane Missiles regression:** low and max rank; each missile still converts, propagates and may echo;
+  the channel never restarts; two mages channelling keep separate snapshots.
+- [ ] **Blizzard:** each pulse hits every enemy in the area with `Primary.Scaling` / conditions / element /
+  conversion applied. No Split/Shatter/Chain/Nova/Echo starts from a pulse. Interrupt stops new pulses.
+  Repeat on rank 1, rank 7 (27085 → 42198) and rank 9.
+- [ ] **Without SQL 006:** only Blizzard is disabled (warning); Frostbolt and Arcane Missiles still run.

@@ -281,6 +281,9 @@ struct TargetInfo
     bool   scaleAura:1;
     int32  damage;
     int32  damageBeforeTakenMods;
+    // Direct damage after caster done bonuses and before target taken modifiers (SCHOOL_DAMAGE only).
+    // Read by modules that move part of a hit into a native periodic, whose ticks re-apply taken mods.
+    int32  damageDoneBeforeTaken;
 };
 
 static const uint32 SPELL_INTERRUPT_NONPLAYER = 32747;
@@ -802,6 +805,7 @@ public:
     int32 m_damage;           // Damge   in effects count here
     int32 m_healing;          // Healing in effects count here
     int32 m_damageBeforeTakenMods;
+    int32 m_damageDoneBeforeTaken;
 
     // ******************************************
     // Spell trigger system

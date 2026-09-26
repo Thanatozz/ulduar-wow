@@ -1,0 +1,126 @@
+{
+  "manifest": "PC1-PERIODIC-CARRIER-EVIDENCE-001",
+  "date": "2026-09-26",
+  "authority": "Explicit maintainer instruction (periodic carrier milestone request): reserve carrier IDs through the Ulduar custom-ID namespace without colliding with existing custom spells.",
+  "namespace": "Spell",
+  "candidateIds": [
+    141344,
+    141345,
+    141346,
+    141347,
+    141348,
+    141349,
+    141350,
+    141351,
+    141352,
+    141353,
+    141354,
+    141355,
+    141356,
+    141357
+  ],
+  "inputs": {
+    "Spell.dbc (server copy; equals the R.1 selected client Spell table hash)": {
+      "path": "azeroth-data/dbc/Spell.dbc",
+      "sha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3",
+      "rows": 49839,
+      "maxId": 80864
+    },
+    "spell_dbc base SQL": {
+      "path": "ulduar-wow/data/sql/base/db_world/spell_dbc.sql",
+      "sha256": "4244b73996af464366d3ad857008b202f188e9c2247aea0931b25ba3109ef5f8",
+      "maxId": 100102
+    },
+    "canonical ledger before this transaction": {
+      "path": "ulduar-wow/docs/data/ulduar_id_allocations.json",
+      "sha256": "9d626913347efd63755a8f4b96ad58d4b4e1d4b7626ae10f6bd0f2805ef77bd0",
+      "revision": "R1-CARRIER-RESERVATION-001"
+    }
+  },
+  "screens": {
+    "Spell.dbc row identity intersection": [],
+    "Spell.dbc EffectTriggerSpell[0..2] reference intersection": [],
+    "spell_dbc base SQL row identity intersection": [],
+    "canonical ledger intersection (Spell 90000..90023)": [],
+    "untyped decimal literal screen (ulduar-wow incl. all SQL, mod-ulduar-abilities, mod-ulduar-editor, mod-ulduar-wave-survival, mod-density-test; 10728 files)": "zero occurrences outside the files that introduce this reservation",
+    "selection rule": "first 32-aligned block at or above 100128 with zero untyped decimal occurrences in the screened repositories; 14 IDs reserved from its start"
+  },
+  "limitations": [
+    "Client MPQ overlays were not re-read: the absence check uses the pinned Spell table hash from R.1, which this server copy matches.",
+    "The ulduar-client-patch project and other external environments were not screened; they must reconcile against this ledger.",
+    "Sparse index: the server SpellStore index grows from 100103 to 141358 entries; a client patch adding these rows grows the client index from 80865 to 141358.",
+    "DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION."
+  ],
+  "mapping": [
+    {
+      "id": 141344,
+      "kind": "PeriodicDamage",
+      "school": "Physical"
+    },
+    {
+      "id": 141345,
+      "kind": "PeriodicDamage",
+      "school": "Holy"
+    },
+    {
+      "id": 141346,
+      "kind": "PeriodicDamage",
+      "school": "Fire"
+    },
+    {
+      "id": 141347,
+      "kind": "PeriodicDamage",
+      "school": "Nature"
+    },
+    {
+      "id": 141348,
+      "kind": "PeriodicDamage",
+      "school": "Frost"
+    },
+    {
+      "id": 141349,
+      "kind": "PeriodicDamage",
+      "school": "Shadow"
+    },
+    {
+      "id": 141350,
+      "kind": "PeriodicDamage",
+      "school": "Arcane"
+    },
+    {
+      "id": 141351,
+      "kind": "PeriodicHealing",
+      "school": "Physical"
+    },
+    {
+      "id": 141352,
+      "kind": "PeriodicHealing",
+      "school": "Holy"
+    },
+    {
+      "id": 141353,
+      "kind": "PeriodicHealing",
+      "school": "Fire"
+    },
+    {
+      "id": 141354,
+      "kind": "PeriodicHealing",
+      "school": "Nature"
+    },
+    {
+      "id": 141355,
+      "kind": "PeriodicHealing",
+      "school": "Frost"
+    },
+    {
+      "id": 141356,
+      "kind": "PeriodicHealing",
+      "school": "Shadow"
+    },
+    {
+      "id": 141357,
+      "kind": "PeriodicHealing",
+      "school": "Arcane"
+    }
+  ]
+}

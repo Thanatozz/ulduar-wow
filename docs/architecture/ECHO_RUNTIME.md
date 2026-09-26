@@ -60,6 +60,8 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
   Echo 2, Echo 3 (`PlanEchoes`, bounded by `MaxEchoCount` / `MaxEchoChainDepth` and the absolute limits).
 - **Channels.** For Arcane Missiles each missile is a payload event, so each missile may echo. An echo replays
   that missile payload, not the channel.
+- **Area pulses.** A Blizzard pulse targets an area, so it has no single execution root
+  (`Engine::PayloadHitIsExecutionRoot`): it never schedules an echo.
 
 ## Safety
 
