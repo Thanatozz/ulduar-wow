@@ -6354,7 +6354,20 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
         // xinef: leave only target depending bonuses, rest is handled in calculate amount
         if (GetBase()->GetType() == DYNOBJ_AURA_TYPE && caster)
             damage = caster->SpellDamageBonusDone(target, GetSpellInfo(), damage, DOT, GetEffIndex(), 0.0f, GetBase()->GetStackAmount(), schoolMask);
-        damage = target->SpellDamageBonusTaken(caster, GetSpellInfo(), damage, DOT, GetBase()->GetStackAmount(), schoolMask);
+        // Ulduar multi-school policy (MULTI_SCHOOL_DAMAGE_POLICY.md), only for instances with a school override:
+        // a multi-school event takes the single most favorable school's taken modifiers once (general
+        // modifiers apply in every candidate alike), never the product of every school's modifiers.
+        if (GetBase()->GetSchoolMaskOverride() != SPELL_SCHOOL_MASK_NONE && (schoolMask & (schoolMask - 1)))
+        {
+            uint32 best = 0;
+            for (uint32 school = SPELL_SCHOOL_MASK_NORMAL; school <= SPELL_SCHOOL_MASK_ARCANE; school <<= 1)
+                if (schoolMask & school)
+                    best = std::max(best, target->SpellDamageBonusTaken(caster, GetSpellInfo(), damage, DOT,
+                        GetBase()->GetStackAmount(), SpellSchoolMask(school)));
+            damage = best;
+        }
+        else
+            damage = target->SpellDamageBonusTaken(caster, GetSpellInfo(), damage, DOT, GetBase()->GetStackAmount(), schoolMask);
 
         // Calculate armor mitigation
         if (Unit::IsDamageReducedByArmor(schoolMask, GetSpellInfo(), GetEffIndex()))
