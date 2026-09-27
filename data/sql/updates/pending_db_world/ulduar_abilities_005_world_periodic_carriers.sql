@@ -1,3 +1,7 @@
+-- SUPERSEDED (2026-09-27) by ulduar_abilities_007_world_generic_periodic_carriers.sql. Do not apply on a new
+-- environment. Spell 141344..141357 are RETIRED_TOMBSTONE (ledger revision PC1-PERIODIC-CARRIER-RETIREMENT-003);
+-- the runtime no longer reads these rows. Content kept unchanged as history; 007 deletes these rows/bindings
+-- (it sorts after 005, so an auto-updater run that applies both still ends without them).
 -- Ulduar Abilities: native periodic damage carriers (PERIODIC_RUNTIME.md, "Native carrier").
 -- Spell 141344..141350 = ledger transaction PC1-PERIODIC-CARRIER-RESERVATION-002 (docs/data/ulduar_id_allocations.json).
 -- Server-side rows only: one generic SPELL_AURA_PERIODIC_DAMAGE aura per school, no class family, no dispel type,

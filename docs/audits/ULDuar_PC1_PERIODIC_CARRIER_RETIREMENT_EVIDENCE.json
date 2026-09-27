@@ -1,0 +1,27 @@
+{
+  "manifest": "PC1-PERIODIC-CARRIER-RETIREMENT-EVIDENCE-001",
+  "date": "2026-09-27",
+  "ids": [
+    141344,
+    141345,
+    141346,
+    141347,
+    141348,
+    141349,
+    141350,
+    141351,
+    141352,
+    141353,
+    141354,
+    141355,
+    141356,
+    141357
+  ],
+  "authority": "Maintainer milestone instruction: the seven per-school carrier architecture is superseded; 141344..141357 must not become generic carriers; expected direction RETIRED_TOMBSTONE.",
+  "facts": [
+    "Runtime code no longer references 141344..141357 (generic pool, Engine::GenericDamageCarrier*).",
+    "Pending SQL ulduar_abilities_005_world_periodic_carriers.sql is marked SUPERSEDED and was never applied by this repository; 007 deletes its rows/bindings if an environment applied it.",
+    "No release ever INTRODUCED these identities."
+  ],
+  "policy": "Tombstoned identities are never reused or reinterpreted."
+}

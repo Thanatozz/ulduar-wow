@@ -47,7 +47,7 @@ The initial objects under `namespaces.Spell` are immutable allocation records; e
 Future new allocations append objects. Lifecycle changes append records to `lifecycleEvents`, referencing
 the existing typed ID and its prior event/revision rather than rewriting its initial status or provenance.
 The current lifecycle status is the initial status followed by the latest authorized event in order.
-The first ledger has no lifecycle events, so all 24 current statuses are RESERVED.
+The first ledger had no lifecycle events. Revision PC1-PERIODIC-CARRIER-RETIREMENT-003 appends the first 14 (tombstones, see below).
 
 A future event must identify its immutable event/revision, typed ID, previous event or original reservation,
 new status, release, timestamp, maintainer authority, reason and evidence hash. Corrections append explicit
@@ -115,13 +115,23 @@ Appended to the canonical ledger. The earlier objects and the R.1 certificate ar
 
 **DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**
 
-## Planned supersession of PC1 and generic pool candidate (2026-09-27, no transaction)
+## PC1 supersession and generic pool proposal (2026-09-27)
 
 - **Target change.** The periodic target moved from seven per-school carriers to a generic carrier pool
-  ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §3).
-- **No lifecycle event is appended yet.** Current code and pending SQL 005 still reference 141344..141350.
-  When the pool is introduced, append `RETIRED_TOMBSTONE` events for 141344..141357. They are never
-  reinterpreted as pool members.
-- **Pool candidate.** Spell 310272..312319 (2048 IDs) passed a typed collision review, recorded in the target
-  document §3.1. It is **NOT RESERVED**: it needs the client-patch MPQ/DBC screen and a maintainer decision
-  before an append-only transaction.
+  ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §3). Runtime code no longer references
+  141344..141357.
+- **Tombstones appended (revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`).** 14 `RETIRED_TOMBSTONE` events for
+  141344..141357, evidence `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_RETIREMENT_EVIDENCE.json`. None was ever
+  INTRODUCED. They are never reused or reinterpreted as pool members. Pending SQL 005 is marked SUPERSEDED;
+  pending SQL 007 deletes its rows/bindings in environments that applied it.
+- **Pool proposal, NOT appended.** Spell 310272..312319 (2048 IDs) passed the screen in
+  `docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json` (ledger, Spell.dbc rows, EffectTriggerSpell, all
+  247 server DBC 32-bit fields (hits only in string-offset / non-spell columns), spell_dbc base + updates +
+  pending SQL, typed SQL references, untyped literals in six local repositories including
+  `ulduar-client-patch`, which has no DBC/MPQ output yet). The proposed transaction
+  `PC2-GENERIC-PERIODIC-CARRIER-POOL-004` (2048 RESERVED records) is in
+  `docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`. The maintainer appends it to
+  `namespaces.Spell` against expected revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`; until then the pool is
+  **not reserved**, and pending SQL 007 must not be applied.
+
+**DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**

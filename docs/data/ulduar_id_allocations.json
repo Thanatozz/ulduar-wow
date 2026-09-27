@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "policy": "APPEND_ONLY",
-  "ledgerRevision": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+  "ledgerRevision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
   "statusEnum": [
     "RESERVED",
     "INTRODUCED",
@@ -658,5 +658,188 @@
       }
     ]
   },
-  "lifecycleEvents": []
+  "lifecycleEvents": [
+    {
+      "eventId": "PC1-RET-141344",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141344,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141345",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141345,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141346",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141346,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141347",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141347,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141348",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141348,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141349",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141349,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141350",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141350,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141351",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141351,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141352",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141352,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141353",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141353,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141354",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141354,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141355",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141355,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141356",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141356,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    },
+    {
+      "eventId": "PC1-RET-141357",
+      "revision": "PC1-PERIODIC-CARRIER-RETIREMENT-003",
+      "namespace": "Spell",
+      "id": 141357,
+      "previous": "PC1-PERIODIC-CARRIER-RESERVATION-002",
+      "newStatus": "RETIRED_TOMBSTONE",
+      "release": null,
+      "timestamp": "2026-09-27",
+      "authority": "maintainer milestone instruction (see evidence)",
+      "reason": "Superseded by the generic periodic carrier pool; never introduced; never to be reused.",
+      "evidenceManifestHash": "ae855cd19c866501c875d97a461822469c0d94190e319a03008893f123906d21"
+    }
+  ]
 }

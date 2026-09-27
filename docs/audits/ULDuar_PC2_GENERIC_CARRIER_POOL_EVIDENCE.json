@@ -1,0 +1,47 @@
+{
+  "manifest": "PC2-GENERIC-CARRIER-POOL-EVIDENCE-001",
+  "date": "2026-09-27",
+  "namespace": "Spell",
+  "candidate": {
+    "first": 310272,
+    "last": 312319,
+    "count": 2048
+  },
+  "authority": "Maintainer milestone instruction: generic PeriodicDamage carrier pool of about 2048 IDs, candidate 310272..312319 subject to a full collision audit; prepare a proposed ledger transaction.",
+  "inputs": {
+    "Spell.dbc and all 247 server DBC files": {
+      "path": "azeroth-data/dbc",
+      "spellDbcSha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3"
+    },
+    "spell_dbc base SQL": {
+      "path": "ulduar-wow/data/sql/base/db_world/spell_dbc.sql",
+      "sha256": "4244b73996af464366d3ad857008b202f188e9c2247aea0931b25ba3109ef5f8"
+    },
+    "canonical ledger": {
+      "path": "ulduar-wow/docs/data/ulduar_id_allocations.json",
+      "revisionAtAudit": "PC1-PERIODIC-CARRIER-RESERVATION-002"
+    }
+  },
+  "screens": {
+    "canonical ledger overlap": [],
+    "Spell.dbc row identity": [],
+    "Spell.dbc EffectTriggerSpell[0..2]": [],
+    "all DBC 32-bit fields (247 files)": "hits only in string-table offset columns: Spell.dbc 136/170/187 (name/description/tooltip), CharSections 4/5, CreatureDisplayInfoExtra 20, DeclinedWord 1, DeclinedWordCases 3, ItemDisplayInfo 1-5/15-22, SoundEntries 2-6/23; no spell-typed column",
+    "spell_dbc base + db_world updates + pending SQL rows": [],
+    "typed SQL references": "item_template.BuyPrice/SellPrice, waypoint_data.id, creature_addon.path_id only; no spell column",
+    "untyped literals, 6 repositories (ulduar-wow, mod-ulduar-abilities, mod-ulduar-editor, mod-ulduar-wave-survival, mod-density-test, ulduar-client-patch)": "firework_show_*.h millisecond timestamps, audit JSON file sizes; no spell identity",
+    "Forge reservation 90000..90023 overlap": [],
+    "superseded 141344..141357 overlap": []
+  },
+  "capacity": {
+    "serverSpellStoreIndexEntries": 312320,
+    "note": "sparse index grows from 141358 (current pending max) to 312320 entries; about 2.4 MiB of pointers on the server. A client patch adding rows grows the client index similarly.",
+    "actionButtonLimit": 16777216
+  },
+  "limitations": [
+    "Client MPQ overlays were not re-read; the absence check uses the pinned Spell table hash (d5cce1a8...), which this server copy matches.",
+    "External environments and the ulduar-client-patch MPQ/DBC outputs (none exist yet) must reconcile against the ledger before adding client rows.",
+    "DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION."
+  ],
+  "result": "CLEAN"
+}
