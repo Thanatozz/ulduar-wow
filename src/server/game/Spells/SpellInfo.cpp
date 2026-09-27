@@ -2520,7 +2520,7 @@ void SpellInfo::ApplyAllSpellImmunitiesTo(Unit* target, SpellEffectInfo const* e
                     return false;
                 if (auraSpellInfo->IsPassive())                                  // Don't remove passive auras
                     return false;
-                if (!(auraSpellInfo->GetSchoolMask() & schoolImmunity))          // Check for school mask
+                if (!(aurApp->GetBase()->GetEffectiveSchoolMask() & schoolImmunity)) // Check for school mask
                     return false;
                 if (!CanDispelAura(auraSpellInfo))
                     return false;
@@ -2553,8 +2553,7 @@ void SpellInfo::ApplyAllSpellImmunitiesTo(Unit* target, SpellEffectInfo const* e
         {
             target->RemoveAppliedAuras([dispelImmunity](AuraApplication const* aurApp) -> bool
             {
-                SpellInfo const* spellInfo = aurApp->GetBase()->GetSpellInfo();
-                if (spellInfo->Dispel == dispelImmunity)
+                if (uint32(aurApp->GetBase()->GetEffectiveDispelType()) == dispelImmunity)
                     return true;
 
                 return false;

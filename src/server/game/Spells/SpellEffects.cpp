@@ -880,7 +880,7 @@ void Spell::EffectTriggerSpell(SpellEffIndex effIndex)
                                 dmgClassNone = true;
                             }
 
-                        if ((spell->DmgClass == SPELL_DAMAGE_CLASS_MAGIC || (spell->GetDispelMask() & dispelMask) || dmgClassNone) &&
+                        if ((spell->DmgClass == SPELL_DAMAGE_CLASS_MAGIC || (iter->second->GetBase()->GetEffectiveDispelMask() & dispelMask) || dmgClassNone) &&
                                 // ignore positive and passive auras
                                 !iter->second->IsPositive() && !iter->second->GetBase()->IsPassive() &&
                                 // Xinef: Ignore NPC spells having INVULNERABILITY attribute
@@ -2606,7 +2606,24 @@ void Spell::EffectDispel(SpellEffIndex effIndex)
 
     DispelChargesList dispel_list;
     unitTarget->GetDispellableAuraList(m_caster, dispelMask, dispel_list, m_spellInfo);
-    if (dispel_list.empty())
+
+    // Grouped auras (Aura::GetDispelGroupId) leave the native random list. All eligible groups together form
+    // ONE extra candidate slot; when it is picked, ScriptMgr::OnGroupedDispel chooses the group and members
+    // and removes them (one logical reaction per group). Native auras keep the native rules.
+    std::vector<Aura*> groupedCandidates;
+    for (DispelChargesList::iterator itr = dispel_list.begin(); itr != dispel_list.end();)
+    {
+        if (itr->first->GetDispelGroupId())
+        {
+            groupedCandidates.push_back(itr->first);
+            itr = dispel_list.erase(itr);
+        }
+        else
+            ++itr;
+    }
+    bool groupedSlot = !groupedCandidates.empty();
+    std::vector<std::pair<uint32, uint8>> groupedSuccess;
+    if (dispel_list.empty() && !groupedSlot)
         return;
 
     // Ok if exist some buffs for dispel try dispel it
@@ -2614,11 +2631,41 @@ void Spell::EffectDispel(SpellEffIndex effIndex)
     DispelChargesList success_list;
     WorldPacket dataFail(SMSG_DISPEL_FAILED, 8 + 8 + 4 + 4 + damage * 4);
     // dispel N = damage buffs (or while exist buffs for dispel)
-    for (int32 count = 0; count < damage && !dispel_list.empty();)
+    for (int32 count = 0; count < damage && (!dispel_list.empty() || groupedSlot);)
     {
+        uint32 const pick = urand(0, uint32(dispel_list.size()) - (groupedSlot ? 0 : 1));
+        if (groupedSlot && pick == dispel_list.size())
+        {
+            std::erase_if(groupedCandidates, [](Aura* aura) { return aura->IsRemoved(); });
+            GroupedDispelResult result;
+            if (!groupedCandidates.empty())
+                sScriptMgr->OnGroupedDispel(this, unitTarget, groupedCandidates, result);
+            // Nothing eligible (or 100% dispel resistance): the slot is dropped without using a dispel.
+            if (!result.Handled)
+            {
+                groupedSlot = false;
+                continue;
+            }
+            if (result.Resisted)
+            {
+                if (!failCount)
+                {
+                    dataFail << m_caster->GetGUID();
+                    dataFail << unitTarget->GetGUID();
+                    dataFail << uint32(m_spellInfo->Id);
+                }
+                ++failCount;
+                dataFail << uint32(result.LogSpellId);
+            }
+            else
+                groupedSuccess.insert(groupedSuccess.end(), result.Removed.begin(), result.Removed.end());
+            ++count;
+            continue;
+        }
+
         // Random select buff for dispel
         DispelChargesList::iterator itr = dispel_list.begin();
-        std::advance(itr, urand(0, dispel_list.size() - 1));
+        std::advance(itr, pick);
 
         int32 chance = itr->first->CalcDispelChance(unitTarget, !unitTarget->IsFriendlyTo(m_caster));
         // 2.4.3 Patch Notes: "Dispel effects will no longer attempt to remove effects that have 100% dispel resistance."
@@ -2670,16 +2717,22 @@ void Spell::EffectDispel(SpellEffIndex effIndex)
     if (unitTarget->IsFriendlyTo(m_caster))
         unitTarget->GetThreatMgr().ForwardThreatForAssistingMe(m_caster, 0.0f, m_spellInfo);
 
-    if (success_list.empty())
+    if (success_list.empty() && groupedSuccess.empty())
         return;
 
-    WorldPacket dataSuccess(SMSG_SPELLDISPELLOG, 8 + 8 + 4 + 1 + 4 + success_list.size() * 5);
+    WorldPacket dataSuccess(SMSG_SPELLDISPELLOG, 8 + 8 + 4 + 1 + 4 + (success_list.size() + groupedSuccess.size()) * 5);
     // Send packet header
     dataSuccess << unitTarget->GetPackGUID();               // Victim GUID
     dataSuccess << m_caster->GetPackGUID();                 // Caster GUID
     dataSuccess << uint32(m_spellInfo->Id);                // dispel spell id
     dataSuccess << uint8(0);                               // not used
-    dataSuccess << uint32(success_list.size());            // count
+    dataSuccess << uint32(success_list.size() + groupedSuccess.size()); // count
+    // Grouped removals were already applied by the resolving script.
+    for (std::pair<uint32, uint8> const& removed : groupedSuccess)
+    {
+        dataSuccess << uint32(removed.first);
+        dataSuccess << uint8(0);
+    }
     for (DispelChargesList::iterator itr = success_list.begin(); itr != success_list.end(); ++itr)
     {
         // Send dispelled spell info
@@ -5635,7 +5688,7 @@ void Spell::EffectStealBeneficialBuff(SpellEffIndex effIndex)
         if (!aurApp)
             continue;
 
-        if ((aura->GetSpellInfo()->GetDispelMask()) & dispelMask)
+        if (aura->GetEffectiveDispelMask() & dispelMask)
         {
             // Need check for passive? this
             if (!aurApp->IsPositive() || aura->IsPassive() || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR4_CANNOT_BE_STOLEN))

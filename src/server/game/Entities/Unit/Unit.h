@@ -78,6 +78,17 @@ class AbstractFollower;
 typedef std::list<Unit*> UnitList;
 typedef std::list< std::pair<Aura*, uint8> > DispelChargesList;
 
+// Grouped dispel (Aura::SetDispelGroupId). One resolution of one logical aura group, filled by
+// ScriptMgr::OnGroupedDispel. The resolving script selects the group and members, rolls the dispel
+// chance, removes the stacks itself and runs at most one reaction for the group.
+struct GroupedDispelResult
+{
+    bool Handled = false;   // a script resolved an eligible group
+    bool Resisted = false;  // the attempt failed its dispel chance roll
+    uint32 LogSpellId = 0;  // spell id reported by SMSG_DISPEL_FAILED when resisted
+    std::vector<std::pair<uint32, uint8>> Removed; // (spell id, stacks) reported by SMSG_SPELLDISPELLOG
+};
+
 enum CharmType : uint8;
 
 enum VictimState
@@ -1652,6 +1663,8 @@ public:
     void ApplySpellImmune(uint32 spellId, uint32 op, uint32 type, bool apply, SpellImmuneBlockType blockType = SPELL_BLOCK_TYPE_ALL);
     virtual bool IsImmunedToSpell(SpellInfo const* spellInfo, Spell const* spell = nullptr);
     bool IsImmunedToSpell(SpellInfo const* spellInfo, Unit const* caster);
+    // Dispel-type immunity alone (per-aura dispel type overrides are not visible to IsImmunedToSpell).
+    [[nodiscard]] bool IsImmunedToDispelType(DispelType dispelType) const;
     bool IsImmunedToSpell(SpellInfo const* spellInfo, Unit const* caster, SpellSchoolMask spellSchoolMask);
     bool IsImmunedToSpell(SpellInfo const* spellInfo, uint32 effectMask, Unit const* caster = nullptr,
         SpellSchoolMask schoolMask = SPELL_SCHOOL_MASK_NONE);

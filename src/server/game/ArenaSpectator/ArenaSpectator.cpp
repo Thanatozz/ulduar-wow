@@ -275,7 +275,7 @@ void ArenaSpectator::HandleResetCommand(Player* player)
         {
             Aura* aura = aitr->second->GetBase();
             if (ShouldSendAura(aura, aitr->second->GetEffectMask(), plr->GetGUID(), false))
-                SendCommand_Aura(player, itr->first, "AUR", aura->GetCasterGUID(), aura->GetSpellInfo()->Id, aura->GetSpellInfo()->IsPositive(), aura->GetSpellInfo()->Dispel, aura->GetDuration(), aura->GetMaxDuration(), (aura->GetCharges() > 1 ? aura->GetCharges() : aura->GetStackAmount()), false);
+                SendCommand_Aura(player, itr->first, "AUR", aura->GetCasterGUID(), aura->GetSpellInfo()->Id, aura->GetSpellInfo()->IsPositive(), aura->GetEffectiveDispelType(), aura->GetDuration(), aura->GetMaxDuration(), (aura->GetCharges() > 1 ? aura->GetCharges() : aura->GetStackAmount()), false);
         }
     }
 }

@@ -42,6 +42,7 @@
 #include "AllScriptsObjects.h"
 
 class AuctionHouseObject;
+class Aura;
 class AuraScript;
 class Battlefield;
 class Battleground;
@@ -86,6 +87,7 @@ struct Condition;
 struct ConditionSourceInfo;
 struct DungeonProgressionRequirements;
 struct GroupQueueInfo;
+struct GroupedDispelResult;
 struct ItemTemplate;
 struct OutdoorPvPData;
 struct TargetInfo;
@@ -642,6 +644,7 @@ public: /* SpellSC */
     void OnSpellCastCancel(Spell* spell, Unit* caster, SpellInfo const* spellInfo, bool bySelf);
     void OnSpellCast(Spell* spell, Unit* caster, SpellInfo const* spellInfo, bool skipCheck);
     void OnSpellPrepare(Spell* spell, Unit* caster, SpellInfo const* spellInfo);
+    void OnGroupedDispel(Spell* spell, Unit* target, std::vector<Aura*> const& candidates, GroupedDispelResult& result);
 
 public: /* GameEventScript */
     void OnGameEventStart(uint16 EventID);

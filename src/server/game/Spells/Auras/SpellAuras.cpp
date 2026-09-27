@@ -234,7 +234,7 @@ void AuraApplication::ClientUpdate(bool remove)
         if (Player const* plr = GetTarget()->ToPlayer())
             if (Aura* aura = GetBase())
                 if (plr->NeedSendSpectatorData() && ArenaSpectator::ShouldSendAura(aura, GetEffectMask(), GetTarget()->GetGUID(), remove))
-                    ArenaSpectator::SendCommand_Aura(plr->FindMap(), plr->GetGUID(), "AUR", aura->GetCasterGUID(), aura->GetSpellInfo()->Id, aura->GetSpellInfo()->IsPositive(), aura->GetSpellInfo()->Dispel, aura->GetDuration(), aura->GetMaxDuration(), (aura->GetCharges() > 1 ? aura->GetCharges() : aura->GetStackAmount()), remove);
+                    ArenaSpectator::SendCommand_Aura(plr->FindMap(), plr->GetGUID(), "AUR", aura->GetCasterGUID(), aura->GetSpellInfo()->Id, aura->GetSpellInfo()->IsPositive(), aura->GetEffectiveDispelType(), aura->GetDuration(), aura->GetMaxDuration(), (aura->GetCharges() > 1 ? aura->GetCharges() : aura->GetStackAmount()), remove);
 
     _target->SendMessageToSet(&data, true);
 }
@@ -415,6 +415,17 @@ uint32 Aura::GetId() const
 SpellSchoolMask Aura::GetEffectiveSchoolMask() const
 {
     return m_schoolMaskOverride != SPELL_SCHOOL_MASK_NONE ? m_schoolMaskOverride : m_spellInfo->GetSchoolMask();
+}
+
+DispelType Aura::GetEffectiveDispelType() const
+{
+    return m_dispelTypeOverride >= 0 ? DispelType(m_dispelTypeOverride) : DispelType(m_spellInfo->Dispel);
+}
+
+uint32 Aura::GetEffectiveDispelMask() const
+{
+    return m_dispelTypeOverride >= 0 ? SpellInfo::GetDispelMask(DispelType(m_dispelTypeOverride)) :
+        m_spellInfo->GetDispelMask();
 }
 
 Unit* Aura::GetCaster() const
@@ -607,7 +618,10 @@ void Aura::UpdateTargetMap(Unit* caster, bool apply)
             if ((itr->second & (1 << effIndex)) && itr->first->IsImmunedToSpellEffect(GetSpellInfo(), effIndex, GetCaster()))
                 itr->second &= ~(1 << effIndex);
         }
-        if (!itr->second || itr->first->IsImmunedToSpell(GetSpellInfo(), GetCaster()) || !CanBeAppliedOn(itr->first))
+        // Effective school and dispel type: per-aura overrides (generic periodic carriers) win over SpellInfo.
+        if (!itr->second || itr->first->IsImmunedToSpell(GetSpellInfo(), GetCaster(), GetEffectiveSchoolMask()) ||
+            (HasDispelTypeOverride() && itr->first->IsImmunedToDispelType(GetEffectiveDispelType())) ||
+            !CanBeAppliedOn(itr->first))
             addUnit = false;
 
         if (addUnit && !itr->first->IsHighestExclusiveAura(this, true))

@@ -37,10 +37,12 @@ enum AllSpellHook
     ALLSPELLHOOK_ON_CAST_CANCEL,
     ALLSPELLHOOK_ON_CAST,
     ALLSPELLHOOK_ON_PREPARE,
+    ALLSPELLHOOK_ON_GROUPED_DISPEL,
     ALLSPELLHOOK_END
 };
 
 enum SpellCastResult : uint8;
+struct GroupedDispelResult;
 enum SpellEffIndex : uint8;
 
 class AllSpellScript : public ScriptObject
@@ -103,6 +105,14 @@ public:
     virtual void OnSpellCast(Spell* /*spell*/, Unit* /*caster*/, SpellInfo const* /*spellInfo*/, bool /*skipCheck*/) { }
 
     virtual void OnSpellPrepare(Spell* /*spell*/, Unit* /*caster*/, SpellInfo const* /*spellInfo*/) { }
+
+    /**
+     * @brief Resolves one dispel attempt against the grouped auras (Aura::GetDispelGroupId() != 0) of a target.
+     *
+     * Called by Spell::EffectDispel when the attempt selects the grouped slot. A script that owns the groups
+     * sets result.Handled and performs the removal; scripts must return early when result.Handled is set.
+     */
+    virtual void OnGroupedDispel(Spell* /*spell*/, Unit* /*target*/, std::vector<Aura*> const& /*candidates*/, GroupedDispelResult& /*result*/) { }
 };
 
 // Compatibility for old scripts

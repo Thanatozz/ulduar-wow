@@ -89,6 +89,11 @@ void ScriptMgr::OnSpellPrepare(Spell* spell, Unit* caster, SpellInfo const* spel
     CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_PREPARE, script->OnSpellPrepare(spell, caster, spellInfo));
 }
 
+void ScriptMgr::OnGroupedDispel(Spell* spell, Unit* target, std::vector<Aura*> const& candidates, GroupedDispelResult& result)
+{
+    CALL_ENABLED_HOOKS(AllSpellScript, ALLSPELLHOOK_ON_GROUPED_DISPEL, script->OnGroupedDispel(spell, target, candidates, result));
+}
+
 AllSpellScript::AllSpellScript(char const* name, std::vector<uint16> enabledHooks)
     : ScriptObject(name, ALLSPELLHOOK_END)
 {

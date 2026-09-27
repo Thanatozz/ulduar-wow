@@ -5947,9 +5947,10 @@ void Unit::GetDispellableAuraList(Unit* caster, uint32 dispelMask, DispelCharges
         if (aura->IsPassive())
             continue;
 
-        if (aura->GetSpellInfo()->GetDispelMask() & dispelMask)
+        // Effective dispel type: a per-aura override (generic periodic carriers) wins over SpellInfo.
+        if (aura->GetEffectiveDispelMask() & dispelMask)
         {
-            if (aura->GetSpellInfo()->Dispel == DISPEL_MAGIC)
+            if (aura->GetEffectiveDispelType() == DISPEL_MAGIC)
             {
                 // do not remove positive auras if friendly target
                 //               negative auras if non-friendly target
@@ -10058,6 +10059,12 @@ bool Unit::IsImmunedToAuraPeriodicTick(Unit const* caster, SpellInfo const* spel
         return true;
 
     return false;
+}
+
+bool Unit::IsImmunedToDispelType(DispelType dispelType) const
+{
+    SpellImmuneContainer const& dispelList = m_spellImmune[IMMUNITY_DISPEL];
+    return dispelType != DISPEL_NONE && dispelList.count(uint32(dispelType)) > 0;
 }
 
 bool Unit::IsImmunedToSpell(SpellInfo const* spellInfo, Unit const* caster)

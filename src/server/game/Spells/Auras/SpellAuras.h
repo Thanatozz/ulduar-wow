@@ -106,6 +106,18 @@ public:
     SpellSchoolMask GetSchoolMaskOverride() const { return m_schoolMaskOverride; }
     SpellSchoolMask GetEffectiveSchoolMask() const;
 
+    // Per-aura dispel type override, same pattern: without an override the SpellInfo dispel type applies.
+    void SetDispelTypeOverride(DispelType dispelType) { m_dispelTypeOverride = int8(dispelType); }
+    void ClearDispelTypeOverride() { m_dispelTypeOverride = -1; }
+    bool HasDispelTypeOverride() const { return m_dispelTypeOverride >= 0; }
+    DispelType GetEffectiveDispelType() const;
+    uint32 GetEffectiveDispelMask() const;
+
+    // Grouped dispel (Spell::EffectDispel): auras with a non-zero group id are not picked by the native
+    // random selection; one logical group is resolved by ScriptMgr::OnGroupedDispel instead. 0 = native.
+    void SetDispelGroupId(uint64 groupId) { m_dispelGroupId = groupId; }
+    uint64 GetDispelGroupId() const { return m_dispelGroupId; }
+
     ObjectGuid GetCastItemGUID() const { return m_castItemGuid; }
     uint32 GetCastItemEntry() const { return m_castItemEntry; }
     ObjectGuid GetCasterGUID() const { return m_casterGuid; }
@@ -276,6 +288,8 @@ protected:
     uint8 m_procCharges;                                // Aura charges (0 for infinite)
     uint8 m_stackAmount;                                // Aura stack amount
     SpellSchoolMask m_schoolMaskOverride = SPELL_SCHOOL_MASK_NONE; // see SetSchoolMaskOverride
+    int8 m_dispelTypeOverride = -1;                     // see SetDispelTypeOverride; -1 = SpellInfo dispel type
+    uint64 m_dispelGroupId = 0;                         // see SetDispelGroupId
 
     AuraEffect* m_effects[3];
     ApplicationMap m_applications;
