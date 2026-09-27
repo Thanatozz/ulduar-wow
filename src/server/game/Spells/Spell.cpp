@@ -3116,6 +3116,11 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
     if (!originalCaster)
         originalCaster = m_caster;
 
+    // Payload copies never touch an aura another execution of the same caster already owns on this unit.
+    if (aura_effmask && m_triggeredKeepExistingAuras &&
+        unit->GetAuraOfRankedSpell(m_spellInfo->Id, originalCaster->GetGUID()))
+        aura_effmask = 0;
+
     // Get Data Needed for Diminishing Returns, some effects may have multiple auras, so this must be done on spell hit, not aura add
     // Xinef: Do not increase diminishing level for self cast
     m_diminishGroup = GetDiminishingReturnsGroupForSpell(m_spellInfo, m_triggeredByAuraSpell.spellInfo);

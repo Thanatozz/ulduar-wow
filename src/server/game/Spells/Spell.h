@@ -642,6 +642,16 @@ public:
             m_triggeredTargetValidator = std::move(validator);
     }
 
+    // Opt-in for server-authored payload copies (module echoes and secondaries). An aura of this spell's
+    // rank chain that the original caster already has on the target belongs to another execution of the
+    // same ability: the copy must not refresh, restack, replace it, nor remove it through PreventHitAura
+    // (on a refresh m_spellAura IS that existing aura). The copy then applies no aura on that target.
+    void SetTriggeredKeepExistingAuras()
+    {
+        if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY))
+            m_triggeredKeepExistingAuras = true;
+    }
+
     void SetTriggeredInstantDelivery()
     {
         if (m_spellState == SPELL_STATE_NULL && HasTriggeredCastFlag(TRIGGERED_CAST_DIRECTLY) &&
@@ -731,6 +741,7 @@ public:
     SpellSchoolMask m_spellSchoolMask;                  // Spell school (can be overwrite for some spells (wand shoot for example)
     bool m_hasCustomSchoolMask = false;
     bool m_triggeredInstantDelivery = false;
+    bool m_triggeredKeepExistingAuras = false;
     bool m_triggeredIgnoreAmmo = false;
     float m_customCastTimeMultiplier = 1.0f;
     uint32 m_customMinimumCastTime = 0;
