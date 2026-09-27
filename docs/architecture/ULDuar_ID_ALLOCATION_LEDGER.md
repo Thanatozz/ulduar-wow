@@ -102,8 +102,8 @@ Appended to the canonical ledger. The earlier objects and the R.1 certificate ar
 
 | Spell | Owner / system | Purpose | Status |
 | --- | --- | --- | --- |
-| 141344..141350 | mod-ulduar-abilities / PeriodicCarrier | native `SPELL_AURA_PERIODIC_DAMAGE` carriers, Physical..Arcane | RESERVED; server rows in pending SQL `ulduar_abilities_005_world_periodic_carriers.sql` (not applied, not INTRODUCED) |
-| 141351..141357 | mod-ulduar-abilities / PeriodicCarrier | future periodic healing carriers, Physical..Arcane | RESERVED; identity only |
+| 141344..141350 | mod-ulduar-abilities / PeriodicCarrier | native `SPELL_AURA_PERIODIC_DAMAGE` carriers, Physical..Arcane | RESERVED at this revision (rows in the now SUPERSEDED pending SQL 005, never applied or INTRODUCED); RETIRED_TOMBSTONE since revision 003 |
+| 141351..141357 | mod-ulduar-abilities / PeriodicCarrier | future periodic healing carriers, Physical..Arcane | RESERVED at this revision, identity only; RETIRED_TOMBSTONE since revision 003 |
 
 - **Authority:** explicit maintainer instruction (periodic carrier milestone).
 - **Evidence:** `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_EVIDENCE.json` (its SHA-256 is stored in each record).

@@ -63,13 +63,14 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
 - **Area pulses.** A Blizzard pulse targets an area, so it has no single execution root
   (`Engine::PayloadHitIsExecutionRoot`): it never schedules an echo.
 
-## Echo periodics: current vs target
+## Echo periodics
 
-- **Current (interim):** an echo with `Echo.CanEchoPeriodic` applies its pool to the same (caster, target,
-  ability) instance as the Root, per `Periodic.StackBehavior`.
-- **Target:** Root and each Echo generation are separate periodic instances, each with its own carrier,
-  amount, duration, stacks, refresh and procs, so an echo never weakens the Root
-  ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §6).
+- **Current (RUNTIME CODED, 2026-09-27):** Root and each Echo generation are separate periodic instances
+  (`PeriodicInstanceKey` lineage + echo generation), each with its own pool carrier, amount, duration, stacks,
+  refresh and procs, so an echo never refreshes, replaces or weakens the Root. `Periodic.StackBehavior`
+  applies within one lineage ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §6).
+- **HISTORICAL / SUPERSEDED:** "an echo applies its pool to the Root instance". A test or checklist step that
+  expects an echo to overwrite or stack onto the Root is stale.
 
 ## Safety
 

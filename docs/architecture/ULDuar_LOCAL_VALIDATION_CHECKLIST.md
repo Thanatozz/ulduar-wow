@@ -1,323 +1,186 @@
-# Local validation checklist (Ability Engine runtime)
+# Local validation checklist (Windows, stages A–O)
 
-For you to run on your local build after pulling. **None of these tests has been executed.** The cloud
-environment had no worldserver, database or client. It only compiled and ran the pure engine unit tests and
-syntax-checked the module and core sources. Record results next to each item (PASS / FAIL + notes).
+Authoritative checklist for your local Windows build, rewritten 2026-09-27 for the generic periodic carrier
+pool. **None of these checks has been executed.** The cloud environment had no worldserver, database or
+client; it only ran the pure engine unit tests (98 passing), syntax checks and codestyle. Record PASS / FAIL +
+notes next to each item. Stop at the first failing stage and report it.
 
-Branches: `claude/practical-pascal-u2fl8o` in `ulduar-wow` and in `mod-ulduar-abilities`.
+Branches: `claude/practical-pascal-u2fl8o` in `ulduar-wow`, `mod-ulduar-abilities` and `ulduar-client-patch`.
 
-## 0. Build preparation
-
-- [ ] Pull both branches and place `mod-ulduar-abilities` in `modules/` as you normally do.
-- [ ] **Re-run the CMake configure/generate step.** The module collects sources with a glob and no
-  `CONFIGURE_DEPENDS`, and new files were added since the original module. A plain rebuild does not see them.
-  The engine files are:
-  - `src/engine/*.cpp`, including `Capabilities.cpp`, `SummonModel.cpp` and `Presentation.cpp`
-  - `src/AbilityEngineBridge.cpp`
-  - `src/AbilityLabCommands.cpp`
-  - `src/AbilityEchoScheduler.cpp`
-  - `src/AbilityPeriodicExecutor.cpp`
-  - `tests/AbilityArchitectureTest.cpp`
-- [ ] The core changes in `ulduar-wow` are in `Spell.h` / `Spell.cpp`:
-  - cast-time multiplier range
-  - `SetPowerCostOverride`, `SetRangeDelta`, `SetCanCastWhileMoving`
-- [ ] Merge the new keys from `conf/mod_ulduar_abilities.conf.dist` into your `mod_ulduar_abilities.conf`:
-  - `UlduarAbilities.DebugEditor`
-  - every `UlduarAbilities.Limit.*`, including the new `UlduarAbilities.Limit.MaxSummonCount`
-- [ ] Full build: worldserver, then fix any compile or link error before continuing. Note the compiler
-  (MSVC version).
-- [ ] Unit tests: configure with `BUILD_TESTING=ON`, build `unit_tests` and run
-  `unit_tests --gtest_filter=Ulduar*`.
-  - Expected: all Ulduar tests pass (56 engine/architecture tests plus the existing Forge Phase A tests).
-- [ ] Update the client addon (`client/Interface/AddOns/UlduarAbilities`, version 1.6.0).
-- [ ] Start the worldserver and check the log:
-  - no `[UlduarAbilities]` limit warnings unless you changed limits;
-  - a warning when `DebugEditor = 1`.
+Rules for this checklist:
+- Never modify `C:/WoWProjecto/Client/Wow.exe`, `C:/WoWProjecto/Client/Data` or the primary client's MPQs.
+- Never apply `ulduar_abilities_005_world_periodic_carriers.sql` (SUPERSEDED).
+- Echo periodics are separate lineages: a check that expects an echo to refresh, replace or stack onto the
+  Root DoT is stale and must be marked FAIL-STALE, not fixed by changing expectations.
 
 Command syntax: `.ua lab set <ability> <Property> <op> <value>`; the op is always required (booleans:
-`enable 1` / `disable 0`; enums by name, e.g. `set fire`).
+`enable 1` / `disable 0`; enums by name). Useful GM commands: `.cooldown`, `.modify mana`, `.aura <id>`,
+`.unaura <id>`, `.die`, `.respawn`, `.ua lab inspect <ability>`, `.ua lab carriers`. Set
+`UlduarAbilities.Debug = 1` for per-cast `Periodic: … Backing: … Reason: …` lines in the `spells` log.
 
-Test setup used below: a mage with Frostbolt, and target dummies or neutral NPCs.
+## Stage A — Sync and build preparation
 
-- Useful GM commands: `.cooldown`, `.modify mana`, `.aura <id>`, `.unaura <id>`, `.die`, `.respawn`.
-- Turn on `UlduarAbilities.Debug = 1` to get per-cast lines in the `spells` log.
-- `.ua lab inspect frostbolt` shows:
-  - `RUNTIME:` lines (executed);
-  - `RESOLVED ONLY` lines (calculated only);
-  - `WARN:` / `ERROR:` diagnostics.
+- [ ] Pull all three branches; place `mod-ulduar-abilities` in `modules/`.
+- [ ] **Re-run CMake configure/generate** (the module globs sources without `CONFIGURE_DEPENDS`). New files
+  since the last checklist: `src/engine/PeriodicIdentity.cpp`, `src/engine/AuraGrouping.cpp`,
+  `tests/AbilityPeriodicTargetTest.cpp`.
+- [ ] Core changes to expect in the build: `SpellAuras.h/.cpp` (`SetSchoolMaskOverride`,
+  `GetEffectiveSchoolMask`), `SpellAuraEffects.cpp`, `Unit.cpp` (`SendPeriodicAuraLog`), plus the earlier
+  `TargetInfo::damageDoneBeforeTaken` in `Spell.h/.cpp`, `SpellEffects.cpp`.
+- [ ] Merge new keys from `conf/mod_ulduar_abilities.conf.dist` into your config.
 
-## 1. Legacy / unmodified behavior
+## Stage B — Build and unit tests
 
-- [ ] With no Lab layer and no build, Frostbolt matches stock 3.3.5a: cast time, mana cost, damage range,
-  slow, range, no cooldown.
-- [ ] Flash Heal, Arcane Missiles and Blizzard behave as stock.
-- [ ] Legacy node builds (`.ua` / addon Abilities tab) still work and `.ua lab clear all` does not affect them.
-- [ ] A non-catalog spell (for example Fire Blast) is unaffected.
+- [ ] Full worldserver build (note the MSVC version); fix compile/link errors before continuing.
+- [ ] `BUILD_TESTING=ON`, build `unit_tests`, run `unit_tests --gtest_filter=Ulduar*`: all pass, including
+  `UlduarPeriodicIdentity.*`, `UlduarCarrierPool.*`, `UlduarAuraGroups.*`, `UlduarDispel.*`,
+  `UlduarPeriodicCarrier.*` and the Forge Phase A tests.
+- [ ] Client patch portable tests (see `ulduar-client-patch/docs/WINDOWS_HANDOFF.md`, stage 1).
 
-## 2. Damage and healing modifiers
+## Stage C — Ledger and SQL (world DB backup first)
 
-- [ ] `.ua lab set frostbolt Primary.Scaling multiply 2`: hits deal about 2x; crits scale too.
-- [ ] `.ua lab set frostbolt Primary.Damage multiply 2` still works and prints a one-line deprecation notice.
-- [ ] Paladin: `.ua lab set holylight Primary.Scaling multiply 1.5`: heals about 1.5x (Flash Heal is not
-  runtime-enabled).
-- [ ] `.ua lab clear frostbolt`: values return to stock.
+- [ ] **Precondition:** the maintainer has appended transaction `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`
+  (`docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`) to `docs/data/ulduar_id_allocations.json`.
+  Without it, stop here: SQL 007 must not be applied.
+- [ ] Apply in this order ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md#sql-application-order)):
+  1. `modules/mod-ulduar-abilities/data/sql/db-world/ulduar_abilities_001_world.sql`
+  2. `data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql`
+  3. `data/sql/updates/pending_db_world/ulduar_abilities_007_world_generic_periodic_carriers.sql`
+  4. `data/sql/updates/pending_db_world/ulduar_abilities_006_world_blizzard.sql`
+  5. `data/sql/updates/pending_db_world/ulduar_abilities_008_world_mind_flay.sql`
+- [ ] Characters migrations as before (`001`, `002`, `004`).
+- [ ] Verify: `SELECT COUNT(*) FROM spell_dbc WHERE ID BETWEEN 310272 AND 312319` = 2048;
+  `SELECT COUNT(*) FROM spell_dbc WHERE ID BETWEEN 141344 AND 141357` = 0; bindings for
+  `aura_ulduar_periodic_carrier` = 2048.
 
-## 3. Cast time
+## Stage D — Startup
 
-- [ ] `.ua lab set frostbolt Casting.CastTime subtract 1s`: shorter cast bar, and the server accepts the cast
-  at the new time.
-- [ ] `.ua lab preset frostbolt instant` (0 ms): no cast bar and immediate launch. The inspector shows `INSTANT`.
-- [ ] `.ua lab set frostbolt Casting.CastTime multiply 2`: longer cast, no early completion.
-- [ ] Haste (`.aura 12472` Icy Veins) still shortens a modified cast time.
-- [ ] Legacy cast-time reduction nodes give the same result as before this branch.
+- [ ] No `[UlduarAbilities]` error. The carrier pool validates (no "pool not loaded" warning).
+- [ ] Blizzard and Mind Flay are **not** reported as disabled.
+- [ ] `.ua lab carriers` → `Carrier pool: ready. In use: 0 …`.
+- [ ] Negative check (optional, on a copy DB): without SQL 007, the log reports the pool as not loaded and
+  converted periodics run on the executor; without 008 only Mind Flay is disabled.
 
-## 4. Cooldown
+## Stage E — Legacy behavior
 
-- [ ] Frostbolt has no native cooldown. `.ua lab set frostbolt Casting.Cooldown set 5s`: a 5 s cooldown
-  starts, the action bar shows it, and recasting early is rejected.
-- [ ] `.ua lab set frostbolt Casting.Cooldown set 0` (after clear): no cooldown.
-- [ ] On a spell with a native cooldown, reduce it and set it to 0; check the cooldown is removed server- and
-  client-side.
-- [ ] The GCD is unchanged in every case.
+- [ ] With no Lab layer, Frostbolt, Flash Heal, Arcane Missiles, Blizzard and Mind Flay match stock 3.3.5a.
+- [ ] Legacy node builds (`.ua` / addon Abilities tab) still work; `.ua lab clear all` does not affect them.
+- [ ] A non-catalog spell (Fire Blast) is unaffected.
 
-## 5. Element conversion
+## Stage F — Direct modifiers
 
-- [ ] `.ua lab set frostbolt Primary.Element set fire`: the damage school is fire in the combat log; fire
-  resistance and fire immunity apply.
-- [ ] A definition without element support shows `RESOLVED ONLY: Primary.Element`.
+- [ ] `Primary.Scaling multiply 2` ≈ 2× hits (crits too); `Primary.Damage` alias prints a deprecation notice.
+- [ ] Holy Light `Primary.Scaling multiply 1.5` ≈ 1.5× heals.
+- [ ] Cast time: subtract, `preset instant`, multiply 2; haste still applies.
+- [ ] Cooldown: `set 5s` starts a cooldown; `set 0` removes it; GCD unchanged.
+- [ ] Element: `Primary.Element set fire` → fire school in the log, fire resistance/immunity apply.
+- [ ] Resource cost halves / zero / above current mana fails.
+- [ ] Range shorter rejects; longer: record client behavior; `Range.Min` rejects close casts.
+- [ ] Cast while moving (`preset movingcast`): record client behavior; channels still interrupt.
 
-## 6. Propagation
+## Stage G — Propagation and conditions
 
-- [ ] `.ua lab preset frostbolt split`: extra projectiles from the caster, staggered launch.
-- [ ] `shatter`: secondaries from the impacted target at reduced scaling.
-- [ ] `chain`: sequential jumps from each previous target; no target is hit twice.
-- [ ] `nova`: area around the primary target.
-- [ ] For each: the secondary targets are only hostile, alive and in line of sight. There is no cost, GCD or
-  cooldown per secondary, and no infinite chaining.
+- [ ] `split`, `shatter`, `chain`, `nova`: hostile, alive, LOS targets only; no cost/GCD/cooldown per secondary;
+  no infinite chaining.
+- [ ] `preset execute`: normal above 35% HP, ≈ 1.5× below; inspector shows 1 conditional modifier (not baked).
 
-## 7. Conditions
+## Stage H — Echo
 
-- [ ] `.ua lab preset frostbolt execute`: against a target above 35% health, damage is normal.
-- [ ] Below 35% health (`.damage` the target down, or use a low-health mob): damage is about 1.5x.
-- [ ] The inspector lists 1 conditional modifier and `Primary.Scaling` unchanged (not baked).
+`.ua lab preset frostbolt echo`, `.ua lab set frostbolt Echo.Chance set 100`.
 
-## 8. Echo
+- [ ] Echoes arrive after the delay with decreasing scaling; max count respected; echoes never echo.
+- [ ] Target death / invalidation / caster logout before the echo: skipped, no crash, no retarget.
+- [ ] Mana once per cast; no GCD/cooldown from echoes.
+- [ ] `Echo.CanProc` off: no procs; `Echo.CanCrit` off: no crits on the echo or its secondaries.
+- [ ] Full payload replay with `split`/`shatter`: echo secondaries from the echo's impact at echo × secondary
+  scaling (60% × 60% = 36%).
+- [ ] Frostbolt's native slow is applied by echo hits.
 
-Use `.ua lab preset frostbolt echo`, then `.ua lab set frostbolt Echo.Chance set 100` to make it deterministic.
+## Stage I — Periodic conversion on the generic pool
 
-- [ ] Echoes arrive after the delay with decreasing scaling; the maximum count is respected.
-- [ ] **Target death:** kill the target before the echo fires. No echo, no error, no crash, no retarget.
-- [ ] **Target invalidation:** the target becomes friendly, evades, or you move out of range (spell range + 5)
-  or out of line of sight. The echo is skipped.
-- [ ] **Caster logout / death** before the echo fires: nothing happens, no crash.
-- [ ] **Resource:** mana is charged once per cast, not per echo.
-- [ ] **Cooldown:** with `Casting.Cooldown set 5s`, an echo does not restart or extend the cooldown.
-- [ ] **GCD:** echoes do not trigger a GCD.
-- [ ] **Procs:** with `Echo.CanProc` off (default), echo hits trigger no procs; with
-  `.ua lab set frostbolt Echo.CanProc enable 1`, hit procs occur. Note whether cast-type procs occur on echoes
-  (open question in the appendix, section 11).
-- [ ] **Recursion:** echoes never produce echoes: with MultiEcho 3 you see exactly Original + Echo 1-3, and
-  no echo of an echo.
-- [ ] **Full payload replay:** combine with `shatter` (or `split` / `chain` / `nova`). The echo's own hit
-  shatters again from the echo's target with echo x secondary scaling (Frostbolt 1000, 60%/60%: echo 600,
-  echo shatter hits 360). Each echo propagates independently of the original (its own hop history).
-- [ ] **Crit:** with `.ua lab set frostbolt Echo.CanCrit disable 0`, echoes never crit.
+`.ua lab preset frostbolt dot`, `Debug = 1`, cast on a dummy.
 
-## 9. Direct-to-periodic conversion
+- [ ] Log: `Backing: CARRIER Reason: CARRIER`. The target has an aura with an id in 310272..312319 (the
+  lowest free one, normally 310272). Record what a stock client shows (nothing / unknown aura).
+- [ ] **Instance school:** `SMSG_PERIODICAURALOG` / combat log shows **Frost** ticks, not a 127 mask. With
+  `Primary.Element set fire`, the next application ticks as Fire.
+- [ ] Exact pool: conversion 30%, efficiency 200%, 6 s / 1 s → ticks sum ≈ 60% of a stock hit; with
+  `Periodic.InitialTick enable 1`, one more tick, same sum. Tick interval 1.5 s: more, smaller ticks, same sum.
+- [ ] Dynamic taken modifiers: Curse of the Elements after the hit → remaining ticks grow; before the hit →
+  direct and ticks grow once, never twice.
+- [ ] Absorb: Power Word: Shield absorbs ticks.
+- [ ] Immunity: a frost-immune target (or Ice Block) shows immune ticks; Divine Shield purges the carrier
+  (school overlap) and `.ua lab carriers` shows the ID released.
+- [ ] Fire school conversion on a fire-immune mob: no carrier is created (full-mask immunity), the direct part
+  still lands.
+- [ ] No block, no pushback on ticks; generic periodic procs fire once; no class talent treats the carrier as
+  its spell.
+- [ ] Haste snapshot at application; `Periodic.TickInterval set 100` clamps to 500 ms.
 
-Use `.ua lab preset frostbolt dot` (60% converted, 12 s, 3 s ticks, can haste, can crit).
+## Stage J — Pool, identity and lineages
 
-- [ ] The direct hit deals about 40% and ticks follow every 3 s.
-  - Total periodic is about 60% of the hit at the default 100% efficiency.
-- [ ] **Efficiency:** `.ua lab set frostbolt Periodic.ConversionEfficiencyPct set 200`.
-  - Direct stays at about 40%; the periodic total becomes about 120% of the hit.
-- [ ] **Haste:** with a haste buff active *when the DoT is applied*, the interval is shorter. Removing the
-  buff mid-DoT does not change it (snapshot).
-- [ ] **Minimum interval:** `.ua lab set frostbolt Periodic.TickInterval set 100`.
-  - The inspector shows the balance clamp to 500 ms, and ticks are never faster than 500 ms.
-- [ ] **Resist:** give the target frost resistance. Ticks are partially resisted.
-- [ ] **Absorb:** `.aura 17` (Power Word: Shield) on the target. Ticks are absorbed.
-- [ ] **Immunity (new fix):** `.aura 642` (Divine Shield) on the target mid-DoT, or a frost-immune mob.
-  - Ticks deal no damage and show "Immune".
-  - After the immunity ends, the remaining ticks deal damage again.
-- [ ] **Stacking:** `.ua lab set frostbolt Periodic.CanStack enable 1`,
-  `.ua lab set frostbolt Periodic.MaxStacks set 5`,
-  `.ua lab set frostbolt Periodic.StackBehavior set addstackandrefresh`. Repeated casts increase the tick size up to 5 stacks.
-- [ ] **Refresh:** default `refreshduration`. A recast refreshes the duration without stacking.
-- [ ] **Spreading:** `.ua lab preset frostbolt spreaddot` with several mobs within 8 yd. The DoT spreads to up to
-  2 unaffected mobs per spread and never to friendly or out-of-sight units.
-- [ ] **Logout cleanup:** log out mid-DoT. Ticks stop, and there is no crash on logout or relog.
-- [ ] **Target death:** ticks stop; no error.
-- [ ] **Known limitation:** no debuff icon appears on the target (appendix section 10). Confirm and note it.
+- [ ] **Two abilities, same school, one caster, one target:** Frostbolt (`preset dot`) + Fireball (`preset dot`,
+  `Primary.Element set frost`): two carriers with different pool IDs, both `CARRIER`, both ticking Frost.
+- [ ] **Reuse across targets and casters:** two dummies each get 310272; a second mage on the same dummy also
+  gets 310272 (the core keys by spell + caster).
+- [ ] **IndependentDuration:** `Periodic.StackBehavior set independentduration`, three casts: three carrier
+  auras with independent timers.
+- [ ] **Stacking within a lineage:** `addstackandrefresh`, `CanStack enable 1`, `MaxStacks set 5`: the aura's
+  stack count follows the engine; refresh keeps the tick rhythm.
+- [ ] **Echo lineage:** `Echo.CanEchoPeriodic enable 1` + echo preset: the echo creates its **own** carrier
+  (separate pool ID); the Root DoT's amount, duration and stacks are unchanged. Without `CanEchoPeriodic`,
+  the echo deals only its immediate part and allocates no carrier.
+- [ ] **Spread** (`preset spreaddot`): the spread copy lands on its own carrier with the source's tick amount
+  and school; never on friendly/out-of-LOS units.
+- [ ] **Release:** after expiry, death, `.unaura`, dispel-like removal and caster logout, `.ua lab carriers`
+  returns to 0 in use. Relog mid-DoT: no crash; the orphan aura is not stolen by a new cast (new cast gets
+  the next ID).
+- [ ] **Executor fallbacks:** `UlduarAbilities.Periodic.NativeCarrier = 0` → `EXECUTOR / CARRIER_DISABLED`;
+  a conversion on a payload that is not `SCHOOL_DAMAGE` (if one is available) → `NO_PRE_TAKEN_BASE`. Never
+  both damage paths (tick count matches one source).
+- [ ] **Aura slots:** (optional) fill a target's visible auras; the next conversion falls back with
+  `AURA_SLOTS_FULL` and the counter increments.
 
-## 10. Resource cost
+## Stage K — Multi-school
 
-- [ ] `.ua lab set frostbolt Resource.Cost multiply 0.5`: the mana cost halves. Check the tooltip vs actual
-  deduction; the tooltip still shows the native cost.
-- [ ] `.ua lab set frostbolt Resource.Cost set 0`: the cast is free, and castable at 0 mana.
-- [ ] A cost increase above your current mana fails with "Not enough mana".
+- [ ] A combined-school conversion (Frostfire via the Lab, if available): one tick event with the combined
+  mask; resistance = lowest of the two; immunity requires both schools. Record the crit chance source (first
+  school) for the open decision in [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md).
 
-## 11. Range
+## Stage L — Dispel (native)
 
-- [ ] Shorter: `.ua lab set frostbolt Range.Max subtract 10`. Casting at 25 yd fails with "Out of range".
-- [ ] Normal: stock range still works after `.ua lab clear frostbolt`.
-- [ ] Longer: `.ua lab set frostbolt Range.Max add 10`.
-  - At 35 yd the client itself may refuse to cast (client limitation; record the exact behavior).
-  - If the cast is sent, the server accepts it.
-- [ ] Minimum range: a positive `Range.Min` rejects casts that are too close.
+- [ ] A second player carrying your converted DoT casts Cleanse / Dispel Magic on themselves: the carrier is
+  **not** removed (carriers have no dispel type). Record it; this is the documented open decision in
+  [DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md) §2, not a bug to patch here.
+- [ ] Native DoTs (Corruption, Unstable Affliction) dispel as stock, including UA's backlash.
 
-## 12. Cast while moving
+## Stage M — Channels
 
-Use `.ua lab preset frostbolt movingcast`.
+- [ ] **Arcane Missiles:** low and max rank; each missile converts, propagates and may echo; the channel never
+  restarts; interrupt stops new missiles; two mages keep separate snapshots.
+- [ ] **Blizzard:** each pulse hits every enemy with scaling/conditions/element/conversion; no
+  Split/Shatter/Chain/Nova/Echo from a pulse; interrupt stops pulses; ranks 1, 7 (27085 → 42198), 9.
+- [ ] **Mind Flay:** ranks 1 and 9; each tick (58381) is scaled by `Primary.Scaling`; the slow and beam stay
+  native; `split` makes each tick split; echo replays a tick, never the channel; interrupt stops ticks.
+- [ ] Inspector: Arcane Missiles `Casting.ChannelTickInterval` → RESOLVED ONLY; Drain Life is not in the
+  catalog.
 
-- [ ] Starting the cast while standing, then moving: the cast should complete. Record whether the client
-  stops its own cast bar.
-- [ ] Starting the cast while already moving: record whether the client refuses or the server accepts.
-- [ ] Jumping or falling during the cast: record the behavior (falling casts are not supported).
-- [ ] After `.ua lab clear frostbolt`, movement interrupts the cast again.
-- [ ] Arcane Missiles (channel): movement still interrupts it (moving channels are not supported).
+## Stage N — Client, addon and tooltip
 
-## 13. Multiple players and isolation
+- [ ] Addon: `/ua lab` window actions (Inspect, List, Clear, Apply, Find, Presets, Save as, Components,
+  Remove #); `DebugEditor = 0` and non-GM get the server's refusal without Lua errors.
+- [ ] Tooltip normal line (`Deals X Frost damage and an additional Y Frost damage over 12 sec.`), Shift level,
+  healing wording; an old addon ignores the `OUT` record.
+- [ ] Stock client with a carrier on the target: record aura frame behavior (unknown spell id) — input for the
+  client patch.
+- [ ] Client patch: follow `ulduar-client-patch/docs/WINDOWS_HANDOFF.md`. The development loader runs only on
+  a **copy** of the client; capabilities stay 0 until each is proven end to end.
 
-- [ ] Player A applies Lab modifiers to Frostbolt; player B (unmodified) casts Frostbolt. B gets stock
-  behavior for every section above.
-- [ ] Both cast simultaneously on the same target:
-  - A's DoT and B's DoT are separate;
-  - A's echoes do not use B's values;
-  - there is no state leakage after A logs out.
-- [ ] A changes a modifier while a projectile is in flight. That projectile keeps the old values (snapshot);
-  the next cast uses the new ones.
+## Stage O — Isolation and stability
 
-## 14. Ability Lab access and UI
-
-- [ ] GM account, `DebugEditor = 1`: all `.ua lab` commands work.
-- [ ] GM account, `DebugEditor = 0`: every `.ua lab` command answers "Disabled"; nothing changes.
-- [ ] Non-GM account: `.ua lab` is not available (command not found or no permission).
-- [ ] Chat interface: `set`, `effect`, `addproc`, `component`, `list`, `remove`, `clear`, `preset`, `save`,
-  `presets`, `properties <filter>` and `inspect` each print the expected output.
-- [ ] Addon: `/ua lab` and `/ualab` open the window. For each action:
-  - Inspect, List, Clear, Clear all
-  - Apply (property/op/value)
-  - Find
-  - Presets list and Load
-  - Save as (the saved name appears in the dropdown)
-  - Component Add/Remove
-  - Remove #
-- [ ] Addon output colors: `RUNTIME` green, `RESOLVED ONLY` orange, rejections red.
-- [ ] The addon with `DebugEditor = 0` or as non-GM shows the server's refusal. There is no Lua error.
-- [ ] The addon Abilities tab (player builds) still works while the Lab window is open.
-- [ ] `/reload` with the Lab window open: no Lua errors.
-
-## 15. New architecture foundations (engine data only)
-
-These families have **no gameplay runtime**; only check that nothing regressed.
-
-- [ ] `.ua lab properties summon` lists the `Summon.*` properties.
-- [ ] `.ua lab properties effect.` lists the new `Effect.*` properties.
-- [ ] `.ua lab set frostbolt Periodic.ConversionEfficiencyPct set 150` (after `preset dot`) appears as
-  RUNTIME with "150% efficiency" in the report line.
-- [ ] Capability derivation for crowd-control spells can only be observed once a CC spell is in the ability
-  catalog. Until then, verify that Frostbolt (snare) shows **no** `CapabilityRestricted` warnings with any
-  preset.
-
-## 16. Output semantics milestone (Primary.Scaling, periodic plan, echo replay, tooltip)
-
-- [ ] **Periodic exact pool:** `.ua lab preset frostbolt dot`, then
-  `.ua lab set frostbolt Periodic.Conversion set 30` and
-  `.ua lab set frostbolt Periodic.ConversionEfficiencyPct set 200` (no haste buffs).
-  - The direct hit is about 70% of stock.
-  - The ticks sum to about 60% of the stock hit.
-- [ ] **Tick interval:** `.ua lab set frostbolt Periodic.TickInterval set 1.5s`. More, smaller ticks with the same
-  sum; the total never grows with the tick rate.
-- [ ] **Initial tick:** `.ua lab set frostbolt Periodic.InitialTick enable 1`. One tick on hit and the rest on the
-  interval; the sum stays the same (it was about 6/7 before).
-- [ ] **Uneven duration:** set a duration that is not a multiple of the interval. No extra short tick at the end.
-- [ ] **Echo replays Split:** `.ua lab preset frostbolt split` + `echo` + `Echo.Chance set 100`, 4+ mobs.
-  - Each echo hits the primary target and then splits again.
-  - With 60% echo and 60% split scaling, echo split hits are about 36% of a stock hit.
-- [ ] **Echo with Shatter/Chain/Nova:** the echo's secondaries start from the echo's own impact (proxies for
-  Shatter/Chain), never hit the echo's primary target twice, and do not reuse the original cast's visited
-  targets.
-- [ ] **Echo + DoT:** with `Echo.CanEchoPeriodic` off, the echo deals only the immediate part and the running
-  DoT is untouched. With it on (`enable 1`), the echo's smaller pool lands on the same DoT per
-  `Periodic.StackBehavior`. With the default RefreshDuration the duration resets and the ticks take the echo's
-  smaller amount; with AddStackAndRefresh it adds a stack.
-- [ ] **Periodic pipeline (audit §3):** a DoT tick on a target that gains Curse of the Elements after the hit
-  does NOT grow (taken mods are snapshotted); absorb shields absorb ticks; Ice Block / Divine Shield make ticks
-  immune; ticks trigger no procs.
-- [ ] **Echo resources:** the echo hits (including their splits) cost no mana, trigger no GCD or cooldown, and no
-  echo produces another echo. With MultiEcho, all echoes originate from the original cast.
-- [ ] **Echo proc/crit rules:** `Echo.CanProc` off gives no procs from any echo hit; `Echo.CanCrit` off gives no
-  crits on the echo or its splits.
-- [ ] **Native aura on echoes:** Frostbolt's own slow is applied by echo hits too (the payload is replayed).
-- [ ] **Arcane Missiles with echo:** each missile may echo. The channel never restarts. Missiles propagate
-  independently. Interrupting the channel stops new missiles while in-flight copies and echoes finish.
-- [ ] **Arcane Missiles ranks:** repeat on a low rank and on the max rank; two mages channelling at once keep
-  separate snapshots.
-- [ ] **Inspector states:** `.ua lab set frostbolt Delivery.Kind set beam` shows `UNSUPPORTED: Delivery.Kind`.
-  A range increase shows `PARTIAL:`. On Arcane Missiles, `Casting.ChannelTickInterval` shows RESOLVED ONLY.
-- [ ] **Tooltip, normal:** hover Frostbolt with the `dot` preset. One line like
-  `Deals X Frost damage and an additional Y Frost damage over 12 sec.`, with no percentages or property names.
-  - Refresh first with `/reload` or reopen the Ulduar window.
-- [ ] **Tooltip, Shift:** holding Shift while hovering switches to Direct/Periodic/Duration/Tick Interval lines
-  and the collapsed "Secondary Damage" line. Releasing Shift switches back.
-- [ ] **Tooltip, healing:** Holy Light says "Heals the target for X."
-- [ ] **Old addon:** it ignores the new `OUT` record without errors.
-
-## 17. Stability
-
-- [ ] 30 minutes of mixed Lab presets in a group of mobs:
-  - no crash or assert;
-  - no growing memory from echo, periodic or propagation state;
-  - server log free of new errors.
-- [ ] `.reload config` with changed `UlduarAbilities.Limit.*` values: new limits apply to new resolutions
-  (inspector).
-- [ ] Server shutdown with active DoTs and pending echoes: clean shutdown.
-
-## 18. Native periodic carrier and channel emitters
-
-These checks cover the **interim** seven-carrier implementation. The target generic pool, echo lineages
-and presentation groups ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md)) need their
-own checklist once implemented.
-
-Apply the SQL first, in the order of [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md#sql-application-order) (005
-carriers, 006 Blizzard). Rebuild after re-running CMake: the module has new source files
-(`AbilityPeriodicCarrier.cpp`, `engine/PeriodicCarrier.cpp`, `engine/PayloadMatching.cpp`) and the core has
-a new `TargetInfo` field.
-
-- [ ] **Startup:** no `Periodic carrier … is not loaded` warning. No `binding missing` error. Blizzard is not
-  reported as disabled.
-- [ ] **Carrier backing:** `UlduarAbilities.Debug = 1`, `.ua lab preset frostbolt dot`, cast on a dummy. The
-  log shows `Periodic: … Backing: CARRIER Reason: CARRIER`. The target has aura 141348. A stock client may
-  show nothing or an unknown aura; note which.
-- [ ] **Exact pool:** conversion 30%, efficiency 200%, 6 s / 1 s, no taken modifiers on the target. The six
-  periodic log ticks sum to about 60% of a stock hit; with `Periodic.InitialTick enable 1`, seven ticks with
-  the same sum.
-- [ ] **Periodic log, not spell hits:** ticks appear as periodic damage in the combat log
-  (`SMSG_PERIODICAURALOG`), not as Frostbolt hits.
-- [ ] **Dynamic taken modifiers:** apply Curse of the Elements (another warlock) after the hit. The remaining
-  ticks grow. Applied before the hit: the direct part and the ticks both grow once, never twice.
-- [ ] **Absorb/immunity:** Power Word: Shield absorbs ticks. During Ice Block the ticks show as immune.
-  Divine Shield removes harmful auras: the carrier ends and the instance is forgotten cleanly (the next hit
-  starts a fresh one).
-- [ ] **No block, no pushback:** a physical converted ability on a shield-bearing player is never blocked on
-  ticks; ticks do not push back that player's cast.
-- [ ] **Procs:** a "periodic damage" trinket or aura procs on carrier ticks; no class talent treats the
-  carrier as its own spell; procs are not doubled.
-- [ ] **Stacking:** `Periodic.StackBehavior set addstackandrefresh`, `CanStack enable 1`: the aura's stack
-  count follows the engine (server-side `.list auras` / debug). Refresh keeps the tick rhythm and resets the
-  duration.
-- [ ] **Echo + periodic:** `Echo.CanEchoPeriodic enable 1` with RefreshDuration: the echo's smaller tick
-  replaces the running one (intended; production Essences choose a compatible policy). With ReplaceWeaker,
-  the stronger stays.
-- [ ] **Spread:** spread lands a carrier on the new target with the source's tick amount; a target already
-  holding the same school's carrier from another ability of yours is skipped.
-- [ ] **Fallbacks:** `UlduarAbilities.Periodic.NativeCarrier = 0` gives `Backing: EXECUTOR Reason:
-  CARRIER_DISABLED` and the previous behavior. `Periodic.StackBehavior set independentduration` gives
-  `INDEPENDENT_DURATION`. Never both damage paths on one instance (tick count matches one source only).
-- [ ] **Arcane Missiles regression:** low and max rank; each missile still converts, propagates and may echo;
-  the channel never restarts; two mages channelling keep separate snapshots.
-- [ ] **Blizzard:** each pulse hits every enemy in the area with `Primary.Scaling` / conditions / element /
-  conversion applied. No Split/Shatter/Chain/Nova/Echo starts from a pulse. Interrupt stops new pulses.
-  Repeat on rank 1, rank 7 (27085 → 42198) and rank 9.
-- [ ] **Without SQL 006:** only Blizzard is disabled (warning); Frostbolt and Arcane Missiles still run.
+- [ ] Player A with Lab modifiers, player B stock: B is stock everywhere; simultaneous DoTs on one target stay
+  separate; no leakage after A logs out; in-flight projectiles keep their snapshot.
+- [ ] 30 minutes of mixed presets in a mob group: no crash/assert; `.ua lab carriers` in-use returns to 0 when
+  combat ends; memory stable; no new log errors.
+- [ ] `.reload config` with changed limits applies to new resolutions.
+- [ ] Shutdown with active DoTs and pending echoes: clean.

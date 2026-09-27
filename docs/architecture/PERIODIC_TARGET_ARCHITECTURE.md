@@ -1,8 +1,23 @@
-# Periodic target architecture (contract; implementation pending)
+# Periodic target architecture (contract)
 
-Date: 2026-09-27. Status: **TARGET DESIGN**. It supersedes the seven-carrier *target* described in
-[PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md). The code in `mod-ulduar-abilities` at `7275fb4` still
-implements that interim seven-carrier runtime. Nothing below is claimed as implemented unless marked so.
+Date: 2026-09-27. Status: **TARGET DESIGN, largely implemented** (see §0). The seven per-school carriers are
+HISTORICAL / SUPERSEDED. Current runtime: [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md).
+
+## 0. Implementation status
+
+| Section | State |
+| --- | --- |
+| §2 instance key | RUNTIME CODED (`PeriodicInstanceKey`; `PeriodicEffectKey` is always 0 until an ability owns two periodic effects) |
+| §3 generic pool | RUNTIME CODED; IDs PROPOSED (transaction not appended); pending SQL 007 |
+| §4 per-instance school | RUNTIME CODED (core override, [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
+| §5 dual element | stock semantics; Ulduar policy is an open decision |
+| §6 echo lineages | RUNTIME CODED |
+| §7 IndependentDuration | RUNTIME CODED (one carrier per application) |
+| §8 presentation groups | ENGINE MODEL + TESTS; no producer to the client yet |
+| §9 dispel | ENGINE MODEL + TESTS; native dispel unchanged; carriers undispellable ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| §10 aura slots | capacity check + diagnostics RUNTIME CODED; ExtendedAuraSlots documentation only |
+
+All RUNTIME CODED items: REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST.
 
 Shared with the client patch: `ulduar-client-patch/docs/AURA_PRESENTATION.md` and
 `AURA_PROTOCOL_V2_DESIGN.md` carry the presentation half of this contract.
@@ -55,14 +70,9 @@ creates a new ApplicationId.
 
 | Range | Status | Notes |
 | --- | --- | --- |
-| 141344..141350 | RESERVED (ledger `PC1-PERIODIC-CARRIER-RESERVATION-002`), rows in pending SQL 005 (not applied) | interim per-school carriers used by current code. **Historical for the target design.** Not reinterpreted |
-| 141351..141357 | RESERVED, identity only | interim healing reservation; not part of the generic pool |
-| 310272..312319 (2048) | **CANDIDATE, NOT RESERVED** | see §3.1 |
-
-The 141344..141357 records stay RESERVED; no lifecycle event is appended. Pending code and SQL still
-reference 141344..141350, so a tombstone now would contradict live repository content. When the generic
-pool is introduced, append `RETIRED_TOMBSTONE` events for them per
-[the ledger policy](ULDuar_ID_ALLOCATION_LEDGER.md). They are never reused for pool members.
+| 141344..141350 | **RETIRED_TOMBSTONE** (ledger revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`) | HISTORICAL per-school carriers; SQL 005 SUPERSEDED; never reused |
+| 141351..141357 | **RETIRED_TOMBSTONE** | HISTORICAL healing reservation; never reused |
+| 310272..312319 (2048) | **PROPOSED** (`PC2-GENERIC-PERIODIC-CARRIER-POOL-004`, not appended) | see §3.1 and [the ledger doc](ULDuar_ID_ALLOCATION_LEDGER.md) |
 
 ### 3.1 Candidate collision screen (2026-09-27)
 
@@ -104,10 +114,10 @@ The instance owns the effective `SpellSchoolMask`. Shared `SpellInfo` is never m
 | Crit chance | `AuraEffect::CalcPeriodicCritChance`: `GetSpellInfo()->GetSchoolMask()` (the module overrides the chance with `SetCritChance`) | SpellInfo |
 | Aura scripts | any `GetSpellInfo()->GetSchoolMask()` in scripts bound to the carrier (none today) | SpellInfo |
 
-**Required core change (not made):** a per-aura school override. For example, store it on the
-Aura/AuraEffect at application, and use `effectiveSchool = override ? override : spellInfo->GetSchoolMask()`
-in the call sites above and in `SendPeriodicAuraLog`. It needs its own review; until then carrier school
-comes from SpellInfo (interim per-school carriers).
+**Core change (made, 2026-09-27):** `Aura::SetSchoolMaskOverride` / `GetEffectiveSchoolMask`
+(`effectiveSchool = override ? override : spellInfo->GetSchoolMask()`), read by the call sites above,
+`SendPeriodicAuraLog` and school-immunity purges. The "SpellInfo" column is the pre-change state; per-site
+status is in [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md).
 
 ## 5. Dual element (combined school)
 
@@ -147,17 +157,15 @@ Periodic carriers need §4 first.
 - Lineages are bounded by `MaxEchoCount`. There is no permanent lineage per historical cast.
 - Echoes still never create echoes.
 
-**Current code (interim):** the executor keys by (caster, target, ability), so an echo pool refreshes or
-stacks the Root instance ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md) "Echo + periodic"). That text
-describes current behavior only.
+**Implemented (RUNTIME CODED):** the executor keys by `PeriodicInstanceKey`, including lineage and echo
+generation. The former interim rule (echo pool refreshes or stacks the Root instance) is HISTORICAL.
 
 ## 7. IndependentDuration
 
 - Each independent application gets a unique ApplicationId, its own carrier from the pool, and its own
   expiration, amount and snapshot.
-- It is compatible with native carriers once the pool exists.
-- The interim executor-only rule (`INDEPENDENT_DURATION`) exists only because seven carriers cannot
-  represent it.
+- Implemented (RUNTIME CODED) on native pool carriers. The former executor-only rule
+  (`INDEPENDENT_DURATION`) is removed.
 - On pool or aura-slot exhaustion it falls back to the executor. It never silently merges.
 
 ## 8. Presentation groups (presentation only)
@@ -235,12 +243,12 @@ Cast time and cooldown per strength are ability balance data, not part of the al
 
 ## 11. Implementation order (server)
 
-1. Per-aura school override in the core (§4), with its own review and tests.
-2. Carrier pool: ledger reservation (after §3.1 closes), pending SQL for the pool rows, allocator and
-   release, startup validation.
-3. Instance key extension (PeriodicEffectKey, Lineage/EchoGeneration, ApplicationId); separate echo
-   lineages; native IndependentDuration.
+1. ~~Per-aura school override in the core (§4).~~ Done (RUNTIME CODED).
+2. ~~Carrier pool: allocator, release, startup validation, pending SQL.~~ Done; ledger append pending the
+   maintainer.
+3. ~~Instance key extension, echo lineages, native IndependentDuration.~~ Done (RUNTIME CODED).
 4. Presentation metadata producer (client protocol revision, after client native aura evidence).
-5. Dispel strengths and LIFO group selection.
+5. Dispel: decide carrier dispellability (DISPEL_PRIORITY_AUDIT §2), then wire strengths and LIFO group
+   selection.
 
 No SQL is applied. The server is not built or started by these steps without explicit authorization.

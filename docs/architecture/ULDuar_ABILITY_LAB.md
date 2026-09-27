@@ -30,6 +30,7 @@ Adapted to the existing `.ua` command tree (`.ua lab ...`); the specification's 
 | - | `.ua lab presets` | Built-in and saved presets |
 | - | `.ua lab properties [filter]` | Registry listing with types and zero semantics |
 | `.ua inspect` / `.ua resolved` | `.ua lab inspect <ability>` | Inspector + runtime capability report |
+| - | `.ua lab carriers` | Periodic carrier pool diagnostics (in use, peak, pool exhausted, aura slots full, instances) |
 
 Every mutating command prints the inspector afterwards, including `RUNTIME:` lines (values the current
 runtime executes) and `RESOLVED ONLY (not executed yet):` lines.

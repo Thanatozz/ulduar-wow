@@ -99,11 +99,12 @@ chain and the DoT ticks.
 | `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
 | `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
-| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, Spell 141344-141350): periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
+| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, PROPOSED IDs): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
 | Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
-| Generic carrier pool, per-instance SchoolMask, separate echo lineages, native IndependentDuration, presentation groups, dispel strengths | TARGET DESIGN ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md)); the current code is the interim seven-carrier runtime |
-| Executor-backed periodic (multi-school, IndependentDuration, same-school slot taken, carrier disabled or not loaded, no pre-taken base) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
-| `Periodic.FinalTick`, `ScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY |
+| Separate echo lineages, native IndependentDuration, pool allocator + diagnostics | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
+| Presentation groups, dispel strengths / priority | ENGINE MODEL + TESTS; not wired ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)); carriers are undispellable natively |
+| Executor-backed periodic (carrier disabled or not loaded, invalid school, no pre-taken base, pool exhausted, aura slots full) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
+| `Periodic.FinalTick`, `ScalingPerStackPct`, `TickScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
 | Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
 | `Echo.TargetRule` other than SameTarget, `Echo.Range`, `Echo.CanEchoTriggerEcho` | RESOLVED ONLY |
 | Conditions on `Primary.Scaling` | RUNTIME; other conditional properties RESOLVED ONLY |
@@ -111,8 +112,8 @@ chain and the DoT ticks.
 | Channel projectile emitter (Arcane Missiles) | RUNTIME |
 | Controller -> payload matching (trigger-spell matcher, no payload rank chain) | RUNTIME CODED, unit tested |
 | Channel area emitter (Blizzard) | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; per-hit parts only, no propagation/echo from an area pulse ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
-| Mind Flay (emitter with native beam visual) | ARCHITECTURE-SUPPORTED by the matcher; not in the catalog |
-| Drain Life (channel aura leech ticks) | UNSUPPORTED: separate `ChannelAuraTick` adapter required |
+| Mind Flay (emitter with native beam visual) | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_008_world_mind_flay.sql`) / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST (catalog id 42) |
+| Drain Life (channel aura leech ticks) | MODEL ONLY: `ChannelAuraTick` adapter designed, not implemented |
 | Arbitrary channel beam | UNSUPPORTED: the beam is the channel spell's own client visual ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
 | `Casting.ChannelTime`, `Casting.ChannelTickInterval` | RESOLVED ONLY (policy: preserve total output) |
 | Effect activation (`Effect.ActivationMask`) | IMPLEMENTED as a rule; Essence effects are not applied at runtime yet (RESOLVED ONLY) |

@@ -1,26 +1,30 @@
 # Periodic runtime (direct-to-periodic conversion)
 
-> **Scope (2026-09-27).** This document describes the **current interim implementation**: seven per-school
-> carriers 141344..141350, with echo pools merging into the Root instance. The **target** architecture (a
-> generic carrier pool, per-instance school mask, separate echo lineages, native IndependentDuration,
-> presentation groups, dispel strengths) is in
-> [PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md). It supersedes the seven-carrier
-> target; the reservations stay historical ledger records.
+> **Scope (2026-09-27, generic pool).** This document describes the current implementation: a **generic
+> carrier pool** (Spell 310272..312319, proposed ledger transaction, pending SQL 007), a per-aura school mask
+> set by the core override, separate Root/Echo lineages and carrier-backed IndependentDuration. The seven
+> per-school carriers 141344..141357 are **HISTORICAL / SUPERSEDED** (RETIRED_TOMBSTONE in the ledger; SQL 005
+> superseded). Target-architecture items not yet implemented are tracked in
+> [PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §10.
 
 Code:
 - `src/engine/ExecutionModel.*` (`PlanConvertedPeriodic`, `PeriodicTickCount`, `AdvancePeriodic`,
   `RefreshTickAmount`)
-- `src/engine/PeriodicCarrier.*` (carrier ids, school selection, backing decision, pool per backing, aura sync)
+- `src/engine/PeriodicCarrier.*` (pool range, school validation, backing decision, pool per backing, aura sync)
+- `src/engine/PeriodicIdentity.*` (`PeriodicInstanceKey`, `CarrierPool` allocator, aura-slot capacity)
+- `src/engine/AuraGrouping.*` (presentation groups and dispel planning; engine model, not wired to native dispel)
 - `src/AbilityPeriodicExecutor.*` (instances, stacking, spread, executor ticks)
 - `src/AbilityPeriodicCarrier.*` (`aura_ulduar_periodic_carrier`, native carrier adapter)
 - `src/AbilitySpellScript.cpp` (split at hit)
 - `src/engine/RuntimeMechanics.cpp` (stacking and spread)
 - core: `TargetInfo::damageDoneBeforeTaken` (`Spell.h`, `Spell.cpp`, `SpellEffects.cpp`)
+- core: `Aura::SetSchoolMaskOverride` / `GetEffectiveSchoolMask` ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md))
 
 Tests: `UlduarPeriodicConversion.*` (`tests/AbilityRuntimeSemanticsTest.cpp`), `UlduarPeriodicCarrier.*`
-(`tests/AbilityCarrierTest.cpp`).
+(`tests/AbilityCarrierTest.cpp`), `UlduarPeriodicIdentity.*`, `UlduarCarrierPool.*`, `UlduarAuraGroups.*`,
+`UlduarDispel.*` (`tests/AbilityPeriodicTargetTest.cpp`).
 
-Pending SQL: `ulduar_abilities_005_world_periodic_carriers.sql` (see [Application order](#sql-application-order)).
+Pending SQL: `ulduar_abilities_007_world_generic_periodic_carriers.sql` (see [Application order](#sql-application-order)).
 
 ## Model
 
@@ -66,11 +70,15 @@ The **tick source** only executes ticks. Each instance has exactly one (`Engine:
 | Reason | Why no carrier |
 | --- | --- |
 | `CARRIER_DISABLED` | `UlduarAbilities.Periodic.NativeCarrier = 0` |
-| `MULTI_SCHOOL` | multi-school payload (e.g. Frostfire): a carrier has one school, and narrowing it would change resist/immunity |
-| `CARRIER_NOT_LOADED` | carrier spell or script binding missing (pending SQL not applied), checked at startup per school |
-| `INDEPENDENT_DURATION` | needs several concurrent instances; the core keeps one aura per caster + spell on a target |
+| `CARRIER_NOT_LOADED` | a pool row or its script binding is missing (pending SQL 007 not applied); checked at startup for all 2048 rows |
+| `INVALID_SCHOOL` | empty or out-of-range school mask |
 | `NO_PRE_TAKEN_BASE` | the core did not record the pre-taken amount (payloads that are not `SPELL_EFFECT_SCHOOL_DAMAGE`, e.g. weapon damage) |
-| `CARRIER_SLOT_TAKEN` | another ability of the same caster already holds that school's carrier on this target |
+| `AURA_SLOTS_FULL` | the target has no free visible aura slot (`MAX_AURAS` = 255, unchanged) |
+| `POOL_EXHAUSTED` | all 2048 carriers of this (target, caster) scope are in use |
+
+Removed reasons: `MULTI_SCHOOL` (a carrier now takes the instance's full mask), `INDEPENDENT_DURATION` (each
+independent application gets its own carrier) and `CARRIER_SLOT_TAKEN` (the pool gives each instance its own
+carrier).
 
 **No double damage.** An existing instance keeps its backing on refresh and stack.
 - A carrier-backed instance schedules no executor tick, and `Tick()` refuses one
@@ -84,30 +92,34 @@ path.
 
 ## Native carrier (RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST)
 
-### Carrier set
+### Carrier pool
 
-One generic carrier per school. There is no carrier per ability or variant. The IDs are reserved in the
-canonical ledger (`docs/data/ulduar_id_allocations.json`, transaction `PC1-PERIODIC-CARRIER-RESERVATION-002`,
-evidence `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_EVIDENCE.json`).
-
-| Spell | School | Row |
-| --- | --- | --- |
-| 141344 | Physical | pending SQL 005 (DmgClass melee, like Rend) |
-| 141345 | Holy | pending SQL 005 |
-| 141346 | Fire | pending SQL 005 |
-| 141347 | Nature | pending SQL 005 |
-| 141348 | Frost | pending SQL 005 |
-| 141349 | Shadow | pending SQL 005 |
-| 141350 | Arcane | pending SQL 005 |
-| 141351..141357 | Physical..Arcane healing, in the same school order | reserved identity only (future `PeriodicHealingCarrier`) |
-
-Each damage carrier row (`spell_dbc`, server-side) has:
-- exactly one effect: `APPLY_AURA` / `SPELL_AURA_PERIODIC_DAMAGE` on the target;
-- the carrier's school;
-- `SpellFamilyName` 0 and no class mask, no dispel type, no mechanic, no other effect;
-- a native school icon as a reference only (presentation belongs to the client patch).
-
-`PeriodicCarrier::ValidateAtStartup` refuses a school whose row has any other shape or lacks the binding.
+- **IDs.** Spell 310272..312319 (2048). **PROPOSED** ledger transaction `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`
+  (`docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`, evidence
+  `ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json`). Not reserved until the maintainer appends it.
+- **No meaning in an ID.** Every row is identical: one `APPLY_AURA` / `SPELL_AURA_PERIODIC_DAMAGE` effect on
+  the target, SchoolMask 127, DmgClass magic, `SpellFamilyName` 0, no class mask, no dispel type, no mechanic,
+  no other effect, a native icon reference. An ID encodes no school, element, ability, variant, echo
+  generation, icon or name.
+- **Instance school.** `PeriodicCarrier::Start` sets `Aura::SetSchoolMaskOverride(instance school)` before the
+  first amount calculation. A combined-school instance (e.g. Frostfire) keeps its full multi-bit mask; it is one
+  event, never split. Stock multi-school semantics apply ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)).
+  A target immune to the full mask gets no periodic part, like a native DoT; the carrier ID is released and
+  the hit keeps its immediate part (no executor fallback).
+- **Allocation** (`Engine::CarrierPool`, per (target, caster) scope):
+  - the lowest free ID of that scope; the same ID is reused across targets and across casters, since the
+    core's aura key is spell + caster on one target;
+  - an ID whose native aura still exists (orphan after a lost instance) is marked held and skipped; an active
+    carrier is never stolen;
+  - released when the aura ends (expire, dispel, death, cancel, target destruction, caster logout: the core
+    removes the aura, `AfterEffectRemove` → `OnCarrierRemoved`);
+  - exhaustion or a full aura bar falls back to the executor, counted in diagnostics.
+- **Diagnostics.** `AbilityPeriodicExecutor::GetDiagnostics()`: carriers in use, peak, pool-exhausted count,
+  aura-slots-full count, executor and carrier instances.
+- **Startup validation.** `PeriodicCarrier::ValidateAtStartup` requires all 2048 rows with the generic shape and
+  the binding; otherwise the pool is not used at all (`CARRIER_NOT_LOADED`).
+- **ExtendedAuraSlots** (more than 255 visible auras) is documentation only: it needs a wire and client change
+  and is not implemented. `MAX_AURAS` is unchanged.
 
 ### Tick amount and interval
 
@@ -155,7 +167,7 @@ like a native DoT. Off: 0. The native tick rolls it and applies the native perio
 
 ### Stack and duration synchronization
 
-One carrier aura per caster + target + ability instance (the core's aura key is spell + caster).
+One carrier aura per periodic instance; each instance holds its own pool ID (the core's aura key is spell + caster).
 `Engine::SyncCarrierAura` turns the engine `PeriodicInstance` into:
 
 | Aura field | Value |
@@ -175,9 +187,9 @@ The native tick cap is `MaxDuration / Amplitude`, counted since the last (re)app
 - **InitialTick:** one extra native `PeriodicTick` 1 ms after the hit (the application tick counts toward
   `TickCount`).
 
-**IndependentDuration** needs several concurrent instances of one ability on one target. The core cannot hold
-two auras of the same spell from the same caster. Those instances stay executor-backed: no visible aura,
-executor mitigation.
+**IndependentDuration** gets one carrier per application (`PeriodicInstanceKey::ApplicationId`), so several
+concurrent instances of one ability on one target are native auras with independent durations. Other stack
+behaviors share one instance per lineage.
 
 ### Spread
 
@@ -185,9 +197,9 @@ A carrier tick first reports to the executor, which applies `Periodic.Spread*` (
 quantity).
 - The spread copy keeps the source's tick amount (efficiency never reapplied), `SpreadStackCount`,
   `SpreadDurationRule` (KeepRemaining uses the aura's live remaining time) and caster ownership.
-- It keeps the source's backing (`Engine::SpreadBacking`). A carrier source spreads only to targets whose
-  carrier slot is free: a pre-taken amount must land on a carrier again, so the target's own taken modifiers
-  apply exactly once. Other targets are skipped.
+- It keeps the source's lineage, school and backing (`Engine::SpreadBacking`). A carrier source spreads only
+  to targets where a pool carrier and an aura slot are available: a pre-taken amount must land on a carrier
+  again, so the target's own taken modifiers apply exactly once. Other targets are skipped.
 - An executor source stays executor-backed.
 
 ### Native semantics gained
@@ -215,25 +227,24 @@ duplicated.
 
 ### Echo + periodic
 
-There is no echo-specific rule. An echo with `Echo.CanEchoPeriodic` applies its own (echo-scaled) pool to the
-same instance, governed only by `Periodic.StackBehavior`:
-- RefreshDuration: the echo's tick amount replaces the running one;
-- ReplaceWeaker: the stronger instance is kept;
-- AddStackAndRefresh: adds a stack.
+Root and Echo are **separate instances** (`PeriodicLineage`, `EchoGeneration` in the key). An echo never
+refreshes, replaces or stacks onto the Root instance.
+- An echo with `Echo.CanEchoPeriodic` applies its own (echo-scaled) pool to its own lineage instance (echo
+  generation ≥ 1), with its own carrier.
+- `Periodic.StackBehavior` applies **within one lineage** (a second echo of the same generation refreshes,
+  replaces the weaker or stacks on that echo instance).
+- Without `Echo.CanEchoPeriodic` an echo keeps only its immediate part; no carrier is allocated.
 
-`Echo.CanEchoPeriodic` stays off by default. A production Essence that enables it should also select a
-compatible stacking policy (typically AddStackAndRefresh or ReplaceWeaker) for its design. The Developer Lab
-may create intentionally bad combinations.
+`Echo.CanEchoPeriodic` stays off by default. Root and echo instances of one ability share a presentation
+group ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §6), which is an engine model; a
+stock client shows each carrier aura separately.
 
 ### Healing periodic (design only)
 
-Healing conversion stays **RESOLVED ONLY**. The carrier abstraction is kind-aware
-(`Engine::CarrierKind::PeriodicHealing`, reserved IDs 141351..141357). A future healing carrier reuses:
-- the ownership, timing, stacking, sync and presentation infrastructure;
-- a `SPELL_AURA_PERIODIC_HEAL` row;
-- a pre-taken heal base (the core already records `damageBeforeTakenMods` for heals).
-
-No healing carrier row is authored.
+Healing conversion stays **RESOLVED ONLY**. A future `PeriodicHealingCarrier` family is a **separate** pool
+(its own proposed range and `SPELL_AURA_PERIODIC_HEAL` rows); it is not the damage pool and does not reuse
+141351..141357 (tombstoned). It reuses the allocator, identity, sync and presentation infrastructure and the
+core's pre-taken heal base (`damageBeforeTakenMods`). No range is proposed and no row is authored.
 
 ### Client presentation boundary
 
@@ -246,7 +257,8 @@ No healing carrier row is authored.
   - AbilityId;
   - BaseSpellId (the payload rank);
   - VariantHash (resolved build);
-  - carrier identity (carrier spell, caster GUID, target GUID, generation);
+  - carrier identity (carrier spell, caster GUID, target GUID, lineage, echo generation, application);
+  - effective school mask (the carrier spell's 127 is not the instance school);
   - Element.
 - The server runtime does not wait for the patch.
 
@@ -256,23 +268,28 @@ Nothing is applied by this repository's tooling. Apply manually, in this order:
 
 1. `mod-ulduar-abilities/data/sql/db-world/ulduar_abilities_001_world.sql` (clears and rebinds Frostbolt);
 2. `data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql`;
-3. `data/sql/updates/pending_db_world/ulduar_abilities_005_world_periodic_carriers.sql` (carrier rows +
-   `aura_ulduar_periodic_carrier` bindings);
+3. `data/sql/updates/pending_db_world/ulduar_abilities_007_world_generic_periodic_carriers.sql` (pool rows +
+   `aura_ulduar_periodic_carrier` bindings; removes 005's rows) — **only after** the maintainer appends the
+   pool transaction to the ledger;
 4. `data/sql/updates/pending_db_world/ulduar_abilities_006_world_blizzard.sql` (Blizzard bindings,
-   [CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)).
+   [CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md));
+5. `data/sql/updates/pending_db_world/ulduar_abilities_008_world_mind_flay.sql` (Mind Flay bindings).
 
-The characters migrations (`001`, `002`, `004`) are independent. Without 005, every school logs
-`Periodic carrier … is not loaded` and converted periodics run on the executor.
+**Do not apply** `ulduar_abilities_005_world_periodic_carriers.sql` (SUPERSEDED). 006 and 008 do not depend on
+007, so an auto-updater's alphabetical order (…005, 006, 007, 008) is also safe: 007 deletes 005's rows. The
+characters migrations (`001`, `002`, `004`) are independent. Without 007 the startup log reports the pool as
+not loaded and converted periodics run on the executor.
 
 ## Known limits
 
 | Item | State |
 | --- | --- |
-| Native carrier ticks | RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST |
+| Native carrier ticks (generic pool, per-instance school) | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
+| Pool IDs 310272..312319 | PROPOSED; not reserved until the ledger transaction is appended |
 | Visible debuff, stacks, duration on the target | server sends them natively; a stock client does not know the carrier spell; dynamic icon/name: CLIENT PATCH REQUIRED |
 | Executor-backed instances (reasons above) | RUNTIME; executor semantics (snapshotted taken mods, block, pushback, no procs) as in the [audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4 |
-| IndependentDuration | executor-backed (one aura per caster + spell) |
-| Two abilities of one caster with the same school on one target | the second is executor-backed (`CARRIER_SLOT_TAKEN`); more carrier slots would need more ledger IDs |
-| Healing conversion (HoT) | RESOLVED ONLY (carrier IDs reserved) |
-| Retiming native periodic auras (Corruption duration/rate) | RESOLVED ONLY |
-| `Periodic.FinalTick`, `Periodic.ScalingPerStackPct`, `Periodic.SnapshotStats` | RESOLVED ONLY |
+| Multi-school crit chance / done-taken stacking | stock AzerothCore semantics; Ulduar policy is an open decision ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
+| Presentation groups, dispel strengths / priority | ENGINE MODEL + TESTS; native dispel still picks one aura at random ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| Healing conversion (HoT) | RESOLVED ONLY (separate future family) |
+| Retiming native periodic auras (Corruption duration/rate) | RESOLVED ONLY ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
+| `Periodic.FinalTick`, `Periodic.ScalingPerStackPct`, `Periodic.TickScalingPerStackPct`, `Periodic.SnapshotStats` | RESOLVED ONLY; decisions in [PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md) |

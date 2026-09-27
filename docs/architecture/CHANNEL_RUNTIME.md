@@ -28,6 +28,8 @@ Runtime-enabled channels:
   (the native missile).
 - **Blizzard** (RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST): controller 10, area payload 42208.
   Without its pending SQL, only this definition stays metadata (`DisableWhenUnbound`).
+- **Mind Flay** (RUNTIME CODED / REQUIRES SQL 008 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST): ability 42,
+  controller 15407, payload 58381 on the channel target. `DisableWhenUnbound`, like Blizzard.
 
 **Channel controller**
 - The controller cast builds the immutable `AbilityCast` (runtime context and engine resolution) in `Load`.
@@ -68,8 +70,8 @@ Runtime-enabled channels:
 | --- | --- | --- | --- |
 | Channel projectile emitter | Arcane Missiles | RUNTIME (generic matcher, no spell-id branch; presentation path unchanged) | ranks, interrupts and simultaneous casters REQUIRE IN-GAME TEST |
 | Channel area emitter | Blizzard | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; inspector PARTIAL | per-hit parts only; no propagation or echo from an area pulse (see [Area emitter](#area-emitter-blizzard)) |
-| Channel emitter with beam visual | Mind Flay | ARCHITECTURE-SUPPORTED (matcher unit tested); not in the catalog, no bindings | [Beam audit](#beam-audit-drain-life-mind-flay); the beam visual stays native to the controller |
-| Channel aura tick | Drain Life | UNSUPPORTED, separate `ChannelAuraTick` adapter required | no payload spell; its ticks are the channel aura's `PERIODIC_LEECH` |
+| Channel emitter with beam visual | Mind Flay | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_008_world_mind_flay.sql`) / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST (catalog id 42; matcher unit tested) | [Beam audit](#beam-audit-drain-life-mind-flay); the beam visual stays native to the controller |
+| Channel aura tick | Drain Life | MODEL ONLY ([ChannelAuraTick model](#channelauratick-model-drain-life)); no adapter | no payload spell; its ticks are the channel aura's `PERIODIC_LEECH` |
 | Arbitrary channel beam | "Frostbolt as a beam" | UNSUPPORTED | the beam is the channel spell's own client visual: client carrier or patch |
 
 Other channels (no payload spell and no matching adapter) are reported UNSUPPORTED by the inspector.
@@ -108,7 +110,7 @@ presentation and channel handling are unchanged.
 `spell_ulduar_ability_runtime` binding, and every aura spell for `aura_ulduar_ability_runtime`. A binding is
 accepted by rank chain (negative first rank) or by exact id.
 - A missing binding on a normal definition still disables the module (fail closed, unchanged).
-- On a `DisableWhenUnbound` definition (Blizzard) it disables only that definition.
+- On a `DisableWhenUnbound` definition (Blizzard, Mind Flay) it disables only that definition.
 
 ## Area emitter (Blizzard)
 
@@ -143,6 +145,23 @@ Created, not applied.
 
 **State:** RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST.
 
+### AreaExecutionRoot (design, not implemented)
+
+Today an area pulse has no execution root, so Blizzard never propagates or echoes. A future explicit rule:
+
+| Field | Proposal |
+| --- | --- |
+| Root identity | one root per **pulse** (`AbilityPayloadEvent`), never per victim |
+| Anchor | the pulse destination (channel destination), not a victim position |
+| Victim set | the targets the native pulse hit, frozen at launch; the root never re-selects |
+| Propagation | an explicit area rule chooses at most N victims (`Area.MaxTargets`-style cap, nearest to the anchor, deterministic tie-break by GUID) as propagation sources; default N = 0 (today's behavior) |
+| Echo | an echo replays the **pulse** at the same anchor (one echo per pulse, not per victim), with `Echo.*` limits unchanged |
+| Periodic | per-victim conversion stays per hit (already RUNTIME); spread from area-born instances follows `Periodic.Spread*` as today |
+| Budget | per-pulse caps on propagation sources and echoes, so a large pack cannot multiply work |
+
+Requires: a property (e.g. `Area.RootRule` = None / PerPulse) with default None, engine tests, and an in-game
+test. No code exists; `PayloadHitIsExecutionRoot` stays false for area payloads.
+
 ## Beam audit (Drain Life, Mind Flay)
 
 | Spell | Structure | Beam visual |
@@ -153,42 +172,67 @@ Created, not applied.
 **Findings**
 - **The beam is the channel spell's own visual.** The client draws it from the channel fields. No server
   packet can attach a beam to a different spell. Beam presentation is outside this runtime.
-- **Mind Flay: architecture-supported.** It has the emitter shape: a caster aura (type 227, with value)
-  triggers 58381 on the channel target each second, shared by all ranks.
+- **Mind Flay: in the catalog, enabled by SQL.** It has the emitter shape: a caster aura (type 227, with
+  value) triggers 58381 on the channel target each second, shared by all ranks (checked against Spell.dbc
+  for 15407, 17311..17314, 18807, 25387, 48155, 48156).
   - The generalized matcher accepts it (unit tested with rank data), and the payload is a single-target
-    execution root.
-  - It is **not in the catalog** and has no bindings. Enabling it would need a definition (controller
-    15407, `PayloadSpellId` 58381), bindings for -15407 (spell + aura) and 58381, and an in-game test.
+    execution root: each tick is a payload event that can propagate and echo like an Arcane Missiles tick.
+  - Definition: ability 42, `SpellId` 15407, `PayloadSpellId` 58381, `DeliveryType` Direct (the tick is a
+    direct hit; the beam is the controller's native visual), `DisableWhenUnbound`.
+  - Pending SQL 008 binds -15407 (spell + aura) and 58381 (spell, exact id). No native script binds these
+    ids.
   - The slow stays a native aura on the target.
 - **Drain Life: separate adapter.** It has no payload spell: its damage and heal are the channel aura's
   `PERIODIC_LEECH` ticks on the target.
   - The payload-emitter adapter does not apply and is not forced onto it.
-  - A future `ChannelAuraTick` adapter would scale the leech aura's amount through the controller snapshot
-    (the controller aura is on the target, cast by the caster) and needs its own leech rules.
-  - Not implemented.
+  - See the [ChannelAuraTick model](#channelauratick-model-drain-life). Not implemented.
 - **An arbitrary beam** (e.g. "Frostbolt as a beam") needs a native channel carrier whose client visual is
   the wanted beam: a client `Spell.dbc` row (CLIENT-PATCH-REQUIRED), or reusing an existing channel spell and
   showing its name and icon on the cast bar (CLIENT-REQUIRES-CARRIER). It is not faked.
 
-**State:** Mind Flay ARCHITECTURE-SUPPORTED (not enabled); Drain Life and arbitrary beams UNSUPPORTED.
+**State:** Mind Flay RUNTIME CODED / REQUIRES SQL / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST; Drain Life
+MODEL ONLY; arbitrary beams CLIENT PATCH REQUIRED.
 
-## Channel modifiers
+## ChannelAuraTick model (Drain Life)
 
-`Casting.ChannelTime` and `Casting.ChannelTickInterval` stay **RESOLVED ONLY**. The default Ulduar policy is
-**total-output preservation**:
+Implementing it now is not safe: the leech tick (`HandlePeriodicHealthLeechAuraTick`) computes damage, the
+caster heal (`GainMultiplier`) and procs in one core function, and no module hook can split them without a
+core change. The model:
+
+| Aspect | Rule |
+| --- | --- |
+| Tick source | the native `PERIODIC_LEECH` aura on the channel target, cast by the caster; the controller snapshot rides on that aura's script (not on a caster aura) |
+| Amount | `DoEffectCalcAmount` scales the per-tick amount by `Primary.Scaling` and conditions once at application; the native tick applies taken modifiers |
+| Event | each tick is one payload event (`EventId` = tick number) for propagation/echo only if an explicit rule allows it; default: no propagation, no echo (a leech is not a hit) |
+| Heal | the caster heal stays native (`GainMultiplier` × damage dealt); no separate healing scaling |
+| Periodic conversion | not applicable: the ability is already periodic |
+| Interrupt | native: removing the channel removes the aura |
+
+Needs: a `ChannelAuraTick` adapter, a controller definition with no payload spell, bindings for the Drain Life
+chain, engine tests and an in-game test.
+
+## Channel modifiers (ChannelTime / TickInterval audit)
+
+There is **no** `Channel.*` property in the registry; `Casting.ChannelTime` and `Casting.ChannelTickInterval`
+exist only as design names. Channel timing is native. The default Ulduar policy is **total-output
+preservation**:
 
 - **Rule.** `PlanChannelPayloads` keeps the native payload total and spreads it over the resolved payload count.
 - **Examples.** A 0.5 s interval on a 5 x 1 s channel gives 10 payloads at 50%. A longer channel at the same
   rate gives more payloads, each smaller.
 - **Opt-in.** A modifier or Essence that increases payload count or output must say so explicitly.
 
-It is not applied because native payload timing belongs to the channel aura's amplitude. Changing it safely
-needs a per-adapter rule: the aura periodic timer, plus payload scaling through the snapshot. Doing it
-generically could duplicate or delete native payloads.
+| Ability | Timing owner | ChannelTime change | TickInterval change | State |
+| --- | --- | --- | --- | --- |
+| Arcane Missiles | controller caster aura (23), amplitude 1000 ms, native duration | aura MaxDuration + channel duration must move together | aura amplitude; payload scaling through the snapshot | RESOLVED ONLY |
+| Blizzard | controller caster aura (23) + DynamicObject duration | caster aura, DynamicObject and channel must move together | aura amplitude | RESOLVED ONLY |
+| Mind Flay | controller caster aura (227) | caster aura + target slow aura + channel | aura amplitude | RESOLVED ONLY |
+| Drain Life | the leech aura on the target | leech aura + channel | leech aura amplitude | RESOLVED ONLY (no adapter) |
 
-Native abilities that cannot follow the generic rule without an adapter:
-- Arcane Missiles, Blizzard, Mind Flay: the caster aura's amplitude drives the payload count;
-- any channel whose ticks are not payload spells, e.g. Drain Life leech ticks.
+It is not applied because native payload timing belongs to the channel aura's amplitude, and the channel
+duration is also sent to the client (cast bar). Changing it safely needs a per-adapter rule: the aura periodic
+timer, the channel duration packet, plus payload scaling through the snapshot. Doing it generically could
+duplicate or delete native payloads.
 
 ## Delivery.Kind
 
