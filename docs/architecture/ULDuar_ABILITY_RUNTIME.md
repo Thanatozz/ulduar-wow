@@ -73,7 +73,7 @@ AbilityDefinition │ AbilityCore ──┐                                     
 | Resource type, gain, refund on failure | Client power bar and cost type are native | RESOLVED ONLY |
 | Cast while moving | `Spell::SetCanCastWhileMoving` (core, section 6) skips the movement rejection in `prepare` and the cancel in `update`. Channels (aura interrupt flags) and falling casts are not covered; the stock client may still stop its own cast bar | RUNTIME (server, non-channeled) |
 | Projectile speed / visual scale / hit radius | Native missile speed; custom speed needs delayed hit + visual packets | RESOLVED ONLY |
-| Periodic conversion, spread | `AbilityPeriodicExecutor` with `PlanConvertedPeriodic`: Immediate = base - converted, Pool = converted x efficiency (once), Tick = Pool / exact tick count. Ticks come from a native carrier aura (pre-taken pool, native periodic semantics) or, for documented reasons, the executor; never both ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) | carrier: RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST; executor fallback: RUNTIME |
+| Periodic conversion, spread | `AbilityPeriodicExecutor` with `PlanConvertedPeriodic`: Immediate = base - converted, Pool = converted x efficiency (once), Tick = Pool / exact tick count. Ticks come from a native carrier aura (pre-taken pool, native periodic semantics) or, for documented reasons, the executor; never both ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) | carrier: LOCAL BUILD PASS, SQL 007 applied, IN-GAME working per maintainer (2026-09-27); Root/Echo isolation: see Stage J0; executor fallback: RUNTIME |
 | Echo | Own payload event per echo, replays the payload and its components (Split/Shatter/Chain/Nova, periodic, native aura) from the echo root: 60% x 60% = 36% for an echo's split copy; never recursive ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | RUNTIME (TargetRule SameTarget) |
 | Procs | Chain guard implemented; trigger bus pending | GUARD ONLY |
 | Conditions | `EngineBridge::BuildCombatContext` gathers only the facts the conditions reference and `ValueWithContext` scales each hit | RUNTIME for Primary.Scaling |
@@ -129,8 +129,11 @@ chain and the DoT ticks.
 | `Delivery.Kind` change | UNSUPPORTED |
 | Channel projectile emitter (Arcane Missiles) | RUNTIME |
 | Controller -> payload matching (trigger-spell matcher, no payload rank chain) | RUNTIME CODED, unit tested |
-| Channel area emitter (Blizzard) | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; per-hit parts only, no propagation/echo from an area pulse ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
-| Mind Flay (emitter with native beam visual) | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_008_world_mind_flay.sql`) / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST (catalog id 42) |
+| Channel area emitter (Blizzard) | LOCAL BUILD PASS; NOT TESTED in game (needs `ulduar_abilities_006_world_blizzard.sql`); per-hit parts only, no propagation/echo from an area pulse ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
+| Mind Flay (emitter with native beam visual) | LOCAL BUILD PASS; NOT TESTED in game (needs `ulduar_abilities_008_world_mind_flay.sql`; catalog id 42) |
+| Drain Life (ChannelAuraTick, catalog id 43) | SYNTAX CHECKED + PURE TESTS; held behind `UlduarAbilities.PostJ0Runtime = 0`; needs `ulduar_abilities_010_world_drain_life.sql`; NOT TESTED |
+| Effect runtime: Chill (snare carrier), Freeze (frost root carrier) | SYNTAX CHECKED + PURE TESTS; held behind `PostJ0Runtime = 0`; carrier range PROPOSED (PC3, not appended), SQL 009 DO NOT APPLY; NOT TESTED |
+| Echo.TargetRule / Echo.Range; per-event conditions on Periodic.Conversion, ConversionEfficiencyPct, Echo.Chance | SYNTAX CHECKED + PURE TESTS; held behind `PostJ0Runtime = 0`; NOT TESTED |
 | Drain Life (channel aura leech ticks) | MODEL ONLY: `ChannelAuraTick` adapter designed, not implemented |
 | Arbitrary channel beam | UNSUPPORTED: the beam is the channel spell's own client visual ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)) |
 | `Casting.ChannelTime`, `Casting.ChannelTickInterval` | RESOLVED ONLY (policy: preserve total output) |
@@ -159,7 +162,8 @@ chain and the DoT ticks.
 | Developer Lab addon UI | - | - | - | `/ua lab` window over the core addon command channel | Lua 5.1 parse only |
 | Per-player isolation + cache | DONE | DONE | DONE | - | unit |
 
-None of the runtime rows were tested in game: no server was built or run for this change.
+HISTORICAL (written before the first local build): at the time none of these rows had been tested in game.
+Current states are in "Validation states" above and in the runtime table.
 
 ## 6. Core modification
 
@@ -218,10 +222,12 @@ core headers; no worldserver build or in-game test.
 Done in order: conditions per hit, echo scheduler, periodic conversion, resource/range/moving-cast overrides,
 and the Lab addon UI. Still open:
 
-1. In-game validation of every RUNTIME row: [ULDuar_LOCAL_VALIDATION_CHECKLIST.md](ULDuar_LOCAL_VALIDATION_CHECKLIST.md);
-   nothing here was run on a server. Summons, buffs/debuffs, emitters, triggers and imbues are modelled but not
-   executed: see the [architecture appendix](ULDuar_ABILITY_ARCHITECTURE_APPENDIX.md) and its roadmap.
-2. Healing periodics, native periodic retiming and Echo target rules other than SameTarget.
+1. In-game validation of the rows still NOT TESTED, starting with the mandatory Stage J0
+   ([ULDuar_LOCAL_VALIDATION_CHECKLIST.md](ULDuar_LOCAL_VALIDATION_CHECKLIST.md)). Summons, generic
+   buffs/debuffs, emitters and imbues are modelled but not executed; Chill/Freeze effects, Drain Life, Echo target
+   rules and per-event conversion/echo conditions are coded but held behind `UlduarAbilities.PostJ0Runtime = 0`
+   until J0 passes ([ULDuar_RUNTIME_REMAINING_WORK.md](ULDuar_RUNTIME_REMAINING_WORK.md)).
+2. Healing periodics (ENGINE MODEL) and native periodic retiming (ENGINE MODEL).
 3. Projectile speed/visual scale/hit radius, displacement, threat/crit/avoidance, procs trigger bus.
 4. Resource type/gain/refund, casting while falling, moving channels.
 5. Persist Lab presets (character DB) if needed; Essences get their own persistence.

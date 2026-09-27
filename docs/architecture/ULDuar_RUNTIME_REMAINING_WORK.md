@@ -1,80 +1,97 @@
 # Runtime remaining work (2026-09-27)
 
 What is still missing between the resolved ability model and gameplay, in the milestone's priority order.
-State words: RUNTIME, RUNTIME CODED (needs build/SQL/in-game test), ENGINE MODEL (pure rules + tests, not
-wired), RESOLVED ONLY, DESIGN, CLIENT PATCH REQUIRED.
+State words ([ULDuar_ABILITY_RUNTIME.md](ULDuar_ABILITY_RUNTIME.md), "Validation states"): PURE TESTS, SYNTAX
+CHECKED, LOCAL BUILD PASS, IN-GAME PASS, IN-GAME FAIL, NOT TESTED, RESOLVED ONLY, CLIENT PATCH REQUIRED; plus
+ENGINE MODEL (pure rules + tests, no runtime) and HELD (coded, disabled by `UlduarAbilities.PostJ0Runtime = 0`).
 
-## 1. Effect runtime
+## 0. Gate: periodic isolation (Stage J0)
+
+Runtime expansion waits for an in-game PASS of checklist **Stage J0 — Periodic isolation regression**
+([ULDuar_LOCAL_VALIDATION_CHECKLIST.md](ULDuar_LOCAL_VALIDATION_CHECKLIST.md)). Current result: **NOT
+RECORDED** (fix in source: ulduar-wow `8dbc1d3`, module `0eef40b`).
+
+Everything coded after the fix that changes combat behavior is HELD behind `UlduarAbilities.PostJ0Runtime`
+(default 0, module `698e57b`), so the J0 retest build behaves like the fix on those paths:
+
+| Feature | State | Also needs |
+| --- | --- | --- |
+| Effect executor: Chill (snare carrier), Freeze (frost root carrier) | HELD; SYNTAX CHECKED + PURE TESTS | ledger append of PROPOSED `PC3-GENERIC-EFFECT-CARRIER-POOL-005`, then SQL 009 |
+| Drain Life ChannelAuraTick (catalog id 43) | HELD; SYNTAX CHECKED + PURE TESTS | SQL 010 |
+| Echo.TargetRule other than SameTarget, Echo.Range | HELD; SYNTAX CHECKED + PURE TESTS | - |
+| Per-event conditions on Periodic.Conversion, ConversionEfficiencyPct, Echo.Chance | HELD; SYNTAX CHECKED + PURE TESTS | - |
+
+After J0 PASS: set `PostJ0Runtime = 1` and run checklist stages P1-P4.
+
+## 1. Effect runtime ([EFFECT_RUNTIME.md](EFFECT_RUNTIME.md))
 
 | Effect kind | State | Next step |
 | --- | --- | --- |
-| Buff / Debuff | RESOLVED ONLY | an effect executor applying a native aura carrier per effect instance (same pool/identity pattern as periodics: generic aura rows + per-instance override of value/duration), activated by `Effect.ActivationMask` |
-| Emitter | RESOLVED ONLY | a persistent container (aura on the owner) that activates child effects every `Effect.Interval` or on a trigger |
-| Imbue | RESOLVED ONLY | an aura on the character/weapon listening on the trigger bus |
-| Summon | RESOLVED ONLY | per archetype (ControlledPet, Guardian, Stationary, Totem); native summon spells as carriers |
-| Displacement | RESOLVED ONLY (inspector: not executed) | Knockback/Pull via native `Unit::KnockbackFrom` / `GetMotionMaster()->MoveJump`; Leap/Dash need movement validation |
-| Chill / Freeze | RESOLVED ONLY | Chill = snare debuff (native `MOD_DECREASE_SPEED` carrier), Freeze = root + frozen state (`AURA_STATE_FROZEN`) so Shatter-style conditions work; both need the Buff/Debuff executor |
+| Chill / Freeze | HELD (see §0) | ledger append + SQL 009 + in-game P1 |
+| Generic Buff / Debuff (other stats) | RESOLVED ONLY | carrier-family audit per native AuraType ([EFFECT_RUNTIME.md](EFFECT_RUNTIME.md) §5); no new range before that audit and maintainer approval |
+| Emitter | RESOLVED ONLY | after the trigger bus has a runtime publisher |
+| Imbue | RESOLVED ONLY | subscription on the trigger bus |
+| Summon | RESOLVED ONLY | per archetype (ControlledPet, Guardian, Stationary, Totem) |
+| Displacement | RESOLVED ONLY (inspector: not executed) | Knockback/Pull via native `Unit::KnockbackFrom` / `GetMotionMaster()->MoveJump` |
 
-### Activation contract
+`Effect.ActivationMask` is the only activation authority ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)).
 
-`Effect.ActivationMask` is the only activation authority ([EFFECT_ACTIVATION.md](EFFECT_ACTIVATION.md)). The
-effect executor must read it and nothing else (no per-kind activation flags).
+### Trigger bus ([TRIGGER_BUS.md](TRIGGER_BUS.md))
 
-### Trigger bus (design)
-
-One per-player event bus fed by the existing hooks: Cast, Hit, Crit, Tick (carrier `OnEffectPeriodic` and
-executor), Heal, Kill, Dispel, PeriodicApplied/Expired, DamageTaken. Subscribers are Imbues/Emitters with
-`Effect.TriggerEvent`, `TriggerChance`, `InternalCooldown`, `ProcsPerMinute`, source/target filters and
-`MaxProcChainDepth`. Events carry the payload event id so a triggered effect cannot re-trigger itself beyond the
-chain depth. Not implemented.
+ENGINE MODEL + PURE TESTS (module `357ddf3`): routing, filters, chance/PPM, ICD, charges + consumption rule,
+loop/depth guard, echo isolation, per-event budget. No runtime publisher or subscriber yet (after J0).
 
 ## 2. Echo
 
-| Property | State | Rule to implement |
-| --- | --- | --- |
-| `Echo.TargetRule` | only SameTarget executed (inspector reports others as not executed) | NearestOther / Random within `Echo.Range` from the root target, excluding the root; deterministic selection per event |
-| `Echo.Range` | RESOLVED ONLY | radius for the TargetRule search; clamp to the payload's max range |
-| Echo periodics | IN-GAME FAIL on 2026-09-27 (native payload aura shared with the Root) → FIXED IN SOURCE; converted periodics per lineage with an ownership registry ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | in-game retest (checklist Stage J0); independent Echo **native** payload DoTs need those periodics converted to carriers |
+| Property | State |
+| --- | --- |
+| `Echo.TargetRule`, `Echo.Range` | HELD (SameTarget behavior until J0) |
+| Echo periodics (converted) | IN-GAME FAIL 2026-09-27 → FIXED IN SOURCE; J0 retest NOT RECORDED |
+| Echo of a native payload DoT | known limitation: no second native DoT ([NATIVE_PERIODIC_VIRTUALIZATION.md](NATIVE_PERIODIC_VIRTUALIZATION.md)) |
 
-## 3. Delivery.Kind
+## 3. Channels ([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md))
+
+| Item | State |
+| --- | --- |
+| Drain Life ChannelAuraTick | HELD (see §0) |
+| Blizzard AreaExecutionRoot | ENGINE MODEL (`SelectAreaRootSources`); not wired |
+| ChannelTime / TickInterval retiming | ENGINE MODEL (`PlanChannelRetime`, total output preserved); no per-family adapter |
+
+## 4. Delivery.Kind
 
 Direct ↔ Projectile ↔ Beam changes need a delivery adapter; none exists (`DeliveryChangeSupport` =
-UNSUPPORTED). Projectile needs a native missile carrier per element; Beam is CLIENT PATCH REQUIRED
-([CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md)).
+UNSUPPORTED). Beam is CLIENT PATCH REQUIRED.
 
-## 4. Conditions beyond primary output
+## 5. Conditions
 
-Conditional modifiers are evaluated per combat event only for `Primary.Scaling` (and the properties that read
-it at hit). Periodic, echo and effect properties are resolved unconditionally. Next: evaluate conditionals for
-`Periodic.Conversion`/`ConversionEfficiencyPct` at plan time and for `Echo.Chance` at scheduling time, with the
-same `CombatContext`.
+Primary.Scaling per hit: RUNTIME. Periodic.Conversion / ConversionEfficiencyPct per converted hit and
+Echo.Chance per root impact: HELD (see §0). Other conditional properties: RESOLVED ONLY (the inspector lists
+them).
 
-## 5. Tooltip OUT v2 (design)
+## 6. Periodic healing
 
-Extends the plan in [PRIMARY_OUTPUT.md](PRIMARY_OUTPUT.md) ("OUT v2"):
-- values from `BasePoints` + die average + level scaling + the player's spell power coefficient, target-free;
-- periodic lines per presentation group: total over duration, tick count, interval;
-- the instance school mask as a label (combined schools named, e.g. "Frostfire");
-- echo lines as chance × scaling, never as a guaranteed amount;
-- versioned record (`OUT2`), `OUT` kept for older addons.
+ENGINE MODEL (`PeriodicHealing.*`: output selection, separate key space from damage). Runtime: an
+executor-backed HoT needs no IDs; a carrier-backed HoT needs a separate `PeriodicHealingCarrier` range (collision
+audit, proposal, maintainer approval, ledger append, SQL). None proposed yet.
 
-## 6. Native aura capacity
+## 7. Tooltip OUT v2 ([PRIMARY_OUTPUT.md](PRIMARY_OUTPUT.md))
 
-`MAX_AURAS` stays 255 (uint8 wire slot). Carriers fall back to the executor when the target's visible slots
-are full, counted in diagnostics. **ExtendedAuraSlots** (more visible auras) is documentation only: it needs a
-new wire format and a client change (CLIENT PATCH REQUIRED), and is not planned for this milestone.
+ENGINE MODEL (`OutputEstimate.*`: target-free estimate mirroring the core's done-side terms, school labels). No
+`OUT2` record or addon change yet; `OUT` unchanged.
 
-## 7. Forge
+## 8. Native aura capacity
 
-Remaining Forge work ([ULDuar_ABILITY_FORGE_ARCHITECTURE.md](ULDuar_ABILITY_FORGE_ARCHITECTURE.md)):
-- persistence of committed variants against reserved Forge IDs 90000..90023 (ledger RESERVED, not INTRODUCED);
+`MAX_AURAS` stays 255. Carriers fall back to the executor when visible slots are full. ExtendedAuraSlots is
+documentation only (CLIENT PATCH REQUIRED).
+
+## 9. Forge
+
+- persistence of committed variants against reserved Forge IDs 90000..90023 (RESERVED, not INTRODUCED);
 - the client content manifest (variant name/icon per VariantHash) — CLIENT PATCH REQUIRED;
-- validation that rejects unsupported combinations listed above instead of resolving them silently;
-- the Lab's "intentionally bad combinations" stay Lab-only.
+- validation that rejects unsupported combinations instead of resolving them silently.
 
-## 8. Client (ulduar-client-patch)
+## 10. Client (ulduar-client-patch)
 
-- Capabilities stay 0 until proven end to end; transport, Range, movement and aura work happen only on Windows
-  against the exact 3.3.5.12340 build (see the client's Windows handoff procedure).
-- The development loader stays DEVELOPMENT ONLY. A production loader is a separate future milestone (signed,
-  documented install, no evasion behavior).
+Unchanged: capabilities stay 0 until proven end to end. Order: transport → HELLO/WELCOME → VariantCache →
+DynamicVariantMetadata → Range → Movement → native aura audit → DynamicAuraPresentation. The development loader
+stays DEVELOPMENT ONLY.

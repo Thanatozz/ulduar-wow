@@ -101,7 +101,16 @@ and so are per-hit conditional modifiers, which depend on the target.
 | `Player::ApplySpellMod(id, SPELLMOD_DAMAGE / SPELLMOD_BONUS_MULTIPLIER, value)` | **Yes**: talents that modify this spell | caster spell mods |
 | `GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_DONE, school)` | **Yes** | generic % done |
 
-**Plan (not implemented).** An `OUT` v2 computes, server-side and per player:
+**Engine model (module `9a50156`, `OutputEstimate.*`, tests `UlduarOutputEstimate.*`)**; no `OUT2` record or
+addon change yet (held until checklist Stage J0 passes). The estimate mirrors the target-free terms of
+`SpellDamageBonusDone` / `SpellHealingBonusDone`: level scaling (caster level clamped to [BaseLevel, MaxLevel],
+minus max(BaseLevel, SpellLevel)), die average, spell power × coefficient (effect `BonusMultiplier`, overridden by
+`spell_bonus_data` direct) × level penalty, generic done multiplier, caster spell mods, then `Primary.Scaling`;
+AP bonuses and victim-dependent terms are excluded. `SchoolMaskLabel` names combined schools (Frostfire,
+Shadowflame, Spellfire…). The planned `OUT2` record keeps `OUT` unchanged and adds echo chance and scaling as
+separate fields (never a guaranteed amount) and the instance school mask.
+
+Original plan: an `OUT` v2 computes, server-side and per player:
 
 ```
 base = BasePoints + die average (+ level scaling)

@@ -77,5 +77,5 @@ interrupt, healing reduction) never scale from a generic percentage. Effects exp
 | Part | State |
 | --- | --- |
 | Activation rule and hit classification | IMPLEMENTED, UNIT TESTED; the runtime exposes `AbilityPropagationContext::Execution()` |
-| Applying Essence effects (Chill/Freeze auras, emitters, imbues) on hits | RESOLVED ONLY: no effect runtime yet; the inspector lists effects as not executed |
+| Applying Essence effects (Chill/Freeze auras, emitters, imbues) on hits | Chill/Freeze: HELD (coded, `UlduarAbilities.PostJ0Runtime = 0`, carrier range PROPOSED; [EFFECT_RUNTIME.md](EFFECT_RUNTIME.md)); emitters, imbues and other buffs/debuffs: RESOLVED ONLY; the inspector lists each effect's state |
 | Native payload auras (Frostbolt's own slow) | Part of the native payload: applied on primary, secondary and echo hits (an echo replays the payload), subject to the carrier capability |

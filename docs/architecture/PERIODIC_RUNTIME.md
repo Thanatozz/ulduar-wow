@@ -12,7 +12,8 @@ Code:
   `RefreshTickAmount`)
 - `src/engine/PeriodicCarrier.*` (pool range, school validation, backing decision, pool per backing, aura sync)
 - `src/engine/PeriodicIdentity.*` (`PeriodicInstanceKey`, `CarrierPool` allocator, aura-slot capacity)
-- `src/engine/AuraGrouping.*` (presentation groups and dispel planning; engine model, not wired to native dispel)
+- `src/engine/AuraGrouping.*` (presentation groups and dispel planning; the dispel plan is wired through the core
+  `OnGroupedDispel` hook by `AbilityPeriodicExecutor::ResolveGroupedDispel`)
 - `src/AbilityPeriodicExecutor.*` (instances, stacking, spread, executor ticks)
 - `src/AbilityPeriodicCarrier.*` (`aura_ulduar_periodic_carrier`, native carrier adapter)
 - `src/AbilitySpellScript.cpp` (split at hit)
@@ -165,7 +166,9 @@ Root carrier disappearing, the `[UlduarPeriodic]` trace names the path (see the 
   generation, icon or name.
 - **Instance school.** `PeriodicCarrier::Start` sets `Aura::SetSchoolMaskOverride(instance school)` before the
   first amount calculation. A combined-school instance (e.g. Frostfire) keeps its full multi-bit mask; it is one
-  event, never split. Stock multi-school semantics apply ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)).
+  event, never split. The Ulduar multi-school policy applies ([MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md):
+  highest crit chance, lowest resistance, best school taken modifier once); the stock-semantics note in
+  [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md) is HISTORICAL.
   A target immune to the full mask gets no periodic part, like a native DoT; the carrier ID is released and
   the hit keeps its immediate part (no executor fallback).
 - **Allocation** (`Engine::CarrierPool`, per (target, caster) scope):
@@ -303,10 +306,14 @@ stock client shows each carrier aura separately.
 
 ### Healing periodic (design only)
 
-Healing conversion stays **RESOLVED ONLY**. A future `PeriodicHealingCarrier` family is a **separate** pool
-(its own proposed range and `SPELL_AURA_PERIODIC_HEAL` rows); it is not the damage pool and does not reuse
-141351..141357 (tombstoned). It reuses the allocator, identity, sync and presentation infrastructure and the
-core's pre-taken heal base (`damageBeforeTakenMods`). No range is proposed and no row is authored.
+Healing conversion stays **RESOLVED ONLY** at runtime. ENGINE MODEL (module `7600641`, `PeriodicHealing.*`,
+tests `UlduarPeriodicHealing.*`): the converted output follows what the hit did under `PrimaryOutput`; healing
+instances use their own `PeriodicEffectKey` (damage keys unchanged), so a HoT can never refresh or remove a DoT;
+`PlanConvertedPeriodic` is reused as is. A carrier-backed HoT needs a **separate** `PeriodicHealingCarrier` family
+(its own proposed range and `SPELL_AURA_PERIODIC_HEAL` rows): never the damage pool, never 141351..141357
+(tombstoned); collision audit, proposal, maintainer approval, ledger append and SQL first. An executor-backed
+HoT needs no IDs. Healing bonus timing (done-side at application vs per tick) needs its own audit. No range is
+proposed and no row is authored.
 
 ### Client presentation boundary
 

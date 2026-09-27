@@ -71,7 +71,7 @@ Runtime-enabled channels:
 | Channel projectile emitter | Arcane Missiles | RUNTIME (generic matcher, no spell-id branch; presentation path unchanged) | ranks, interrupts and simultaneous casters REQUIRE IN-GAME TEST |
 | Channel area emitter | Blizzard | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_006_world_blizzard.sql`) / REQUIRES IN-GAME TEST; inspector PARTIAL | per-hit parts only; no propagation or echo from an area pulse (see [Area emitter](#area-emitter-blizzard)) |
 | Channel emitter with beam visual | Mind Flay | RUNTIME CODED / REQUIRES SQL (`ulduar_abilities_008_world_mind_flay.sql`) / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST (catalog id 42; matcher unit tested) | [Beam audit](#beam-audit-drain-life-mind-flay); the beam visual stays native to the controller |
-| Channel aura tick | Drain Life | MODEL ONLY ([ChannelAuraTick model](#channelauratick-model-drain-life)); no adapter | no payload spell; its ticks are the channel aura's `PERIODIC_LEECH` |
+| Channel aura tick | Drain Life (catalog id 43) | HELD: SYNTAX CHECKED + PURE TESTS, disabled by `UlduarAbilities.PostJ0Runtime = 0`; needs SQL 010 ([ChannelAuraTick](#channelauratick-model-drain-life)) | no payload spell; its ticks are the channel aura's `PERIODIC_LEECH`; no propagation/echo |
 | Arbitrary channel beam | "Frostbolt as a beam" | UNSUPPORTED | the beam is the channel spell's own client visual: client carrier or patch |
 
 Other channels (no payload spell and no matching adapter) are reported UNSUPPORTED by the inspector.
@@ -159,8 +159,17 @@ Today an area pulse has no execution root, so Blizzard never propagates or echoe
 | Periodic | per-victim conversion stays per hit (already RUNTIME); spread from area-born instances follows `Periodic.Spread*` as today |
 | Budget | per-pulse caps on propagation sources and echoes, so a large pack cannot multiply work |
 
-Requires: a property (e.g. `Area.RootRule` = None / PerPulse) with default None, engine tests, and an in-game
-test. No code exists; `PayloadHitIsExecutionRoot` stays false for area payloads.
+Engine model (module `ffd0083`): `Engine::SelectAreaRootSources(victims, maxSources)` picks the propagation
+sources of one pulse (nearest to the anchor, GUID tie-break, cap 0 = today). Tests `UlduarAreaExecutionRoot.*`.
+Not wired: it still needs the `Area.RootRule` property (default None), the per-pulse echo rule, and the explicit
+Split/Shatter/Chain/Nova interaction table below before any area pulse propagates.
+
+| Mode from an area root | Proposed rule |
+| --- | --- |
+| Split / Chain | start from each selected source, sharing one per-pulse visited set |
+| Shatter | only from a selected source that the pulse itself hit (never re-selects) |
+| Nova | one nova at the pulse anchor, not per source |
+| Echo | one echo replays the pulse at the anchor; victims never schedule echoes |
 
 ## Beam audit (Drain Life, Mind Flay)
 
@@ -195,9 +204,11 @@ MODEL ONLY; arbitrary beams CLIENT PATCH REQUIRED.
 
 ## ChannelAuraTick model (Drain Life)
 
-Implementing it now is not safe: the leech tick (`HandlePeriodicHealthLeechAuraTick`) computes damage, the
-caster heal (`GainMultiplier`) and procs in one core function, and no module hook can split them without a
-core change. The model:
+HISTORICAL: "implementing it now is not safe" referred to splitting damage and heal inside
+`HandlePeriodicHealthLeechAuraTick`. The adapter does not split them: it scales the leech amount once at
+application (`DoEffectCalcAmount`), so the native tick deals the scaled damage and heals `GainMultiplier` x
+that damage, exactly once per native tick. Implemented as below (module `9f341d2`), HELD by
+`PostJ0Runtime = 0`:
 
 | Aspect | Rule |
 | --- | --- |
@@ -208,8 +219,10 @@ core change. The model:
 | Periodic conversion | not applicable: the ability is already periodic |
 | Interrupt | native: removing the channel removes the aura |
 
-Needs: a `ChannelAuraTick` adapter, a controller definition with no payload spell, bindings for the Drain Life
-chain, engine tests and an in-game test.
+Code: `Engine::IsChannelAuraTickShape` (startup check of every rank), `ChannelAdapterKind::AuraTick`,
+definition flag `ChannelAuraTicks`, `aura_ulduar_ability_runtime` (leech scaling, conditions at application,
+`OnLeechTick` → Periodic-role effects). Bindings: pending `ulduar_abilities_010_world_drain_life.sql`. Tests:
+`UlduarChannelAuraTick.*`. In-game: checklist stage P2.
 
 ## Channel modifiers (ChannelTime / TickInterval audit)
 
@@ -228,6 +241,10 @@ preservation**:
 | Blizzard | controller caster aura (23) + DynamicObject duration | caster aura, DynamicObject and channel must move together | aura amplitude | RESOLVED ONLY |
 | Mind Flay | controller caster aura (227) | caster aura + target slow aura + channel | aura amplitude | RESOLVED ONLY |
 | Drain Life | the leech aura on the target | leech aura + channel | leech aura amplitude | RESOLVED ONLY (no adapter) |
+
+Engine model (module `ffd0083`): `Engine::PlanChannelRetime` returns the interval, a whole-tick duration and the
+per-tick scale that keeps the native total (tests `UlduarChannelRetime.*`: 5 s x 1 s → 0.5 s gives 10 ticks
+at 50%). No per-family adapter applies it.
 
 It is not applied because native payload timing belongs to the channel aura's amplitude, and the channel
 duration is also sent to the client (cast bar). Changing it safely needs a per-adapter rule: the aura periodic

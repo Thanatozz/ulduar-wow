@@ -10,11 +10,11 @@ HISTORICAL / SUPERSEDED. Current runtime: [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME
 | §2 instance key | RUNTIME CODED (`PeriodicInstanceKey`; `PeriodicEffectKey` is always 0 until an ability owns two periodic effects) |
 | §3 generic pool | RUNTIME CODED; IDs RESERVED (ledger revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`); pending SQL 007 |
 | §4 per-instance school | RUNTIME CODED (core override, [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
-| §5 dual element | stock semantics; Ulduar policy is an open decision |
+| §5 dual element | DECIDED: one event, one multi-bit mask ([MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)); crit = highest school chance (module), taken % = best school once (core `6a98c36`); LOCAL BUILD PASS, NOT TESTED in game |
 | §6 echo lineages | IN-GAME FAIL (2026-09-27: native payload aura shared with the Root) → FIXED IN SOURCE, retest pending; converted carriers per lineage by the ownership registry |
 | §7 IndependentDuration | RUNTIME CODED (one carrier per application) |
 | §8 presentation groups | ENGINE MODEL + TESTS; no producer to the client yet |
-| §9 dispel | ENGINE MODEL + TESTS; native dispel unchanged; carriers undispellable ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| §9 dispel | RUNTIME CODED: carriers take the payload's dispel type per aura (core `Aura::SetDispelTypeOverride`, `0efcbff`) and grouped LIFO dispel runs through the core `OnGroupedDispel` hook + module resolver ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md), [DISPEL_TYPE_OVERRIDE_AUDIT.md](DISPEL_TYPE_OVERRIDE_AUDIT.md)); LOCAL BUILD PASS, NOT TESTED in game. SUPERSEDED: "carriers undispellable" |
 | §10 aura slots | capacity check + diagnostics RUNTIME CODED; ExtendedAuraSlots documentation only |
 
 LOCAL BUILD PASS for the whole milestone (maintainer, 2026-09-27). Items without an explicit in-game result are NOT TESTED in game; status vocabulary: [ULDuar_ABILITY_RUNTIME.md](ULDuar_ABILITY_RUNTIME.md) "Validation states".
@@ -244,11 +244,11 @@ Cast time and cooldown per strength are ability balance data, not part of the al
 ## 11. Implementation order (server)
 
 1. ~~Per-aura school override in the core (§4).~~ Done (RUNTIME CODED).
-2. ~~Carrier pool: allocator, release, startup validation, pending SQL.~~ Done; ledger append pending the
-   maintainer.
+2. ~~Carrier pool: allocator, release, startup validation, pending SQL.~~ Done; ledger appended
+   (`PC2-GENERIC-PERIODIC-CARRIER-POOL-004`, ulduar-wow `1446137`).
 3. ~~Instance key extension, echo lineages, native IndependentDuration.~~ Done (RUNTIME CODED).
 4. Presentation metadata producer (client protocol revision, after client native aura evidence).
-5. Dispel: decide carrier dispellability (DISPEL_PRIORITY_AUDIT §2), then wire strengths and LIFO group
-   selection.
+5. ~~Dispel: decide carrier dispellability, then wire strengths and LIFO group selection.~~ Done (RUNTIME
+   CODED, see §9 status).
 
 No SQL is applied. The server is not built or started by these steps without explicit authorization.

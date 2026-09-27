@@ -22,7 +22,8 @@ triggered execution of the same ranked spell (`TRIGGERED_FULL_MASK`), not a play
 - reagents or ammunition (`SetTriggeredIgnoreAmmo`).
 
 Each echo is its **own execution**: a new `AbilityPayloadEvent` with its own visited and propagation history,
-the same target (`Echo.TargetRule` SameTarget), and the echo scaling of its generation. At impact it runs the
+the target chosen by `Echo.TargetRule` (SameTarget by default; see [Echo targeting](#echo-targeting)), and the
+echo scaling of its generation. At impact it runs the
 components again from its own root:
 - Split starts at launch; Shatter, Nova and Chain start at impact;
 - periodic conversion;
@@ -74,11 +75,33 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
   native periodic aura removed the Root's DoT (via `PreventHitAura`, CanEchoPeriodic off) or replaced it
   (CanEchoPeriodic on). Native payload auras stay one per caster and target; only converted periodics have
   an Echo instance of their own ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md), "Native payload auras").
+- **Known limitation (intended):** Root Immolate (native DoT) + an Echo of Immolate: the Echo does not remove,
+  refresh or weaken the Root DoT, and it does **not** get a second native Immolate DoT of its own. Only
+  converted (carrier) periodics have independent Root/Echo instances. Lifting this is design work:
+  [NATIVE_PERIODIC_VIRTUALIZATION.md](NATIVE_PERIODIC_VIRTUALIZATION.md).
 - **Snapshot:** a delayed echo uses the original cast's immutable snapshot (`AbilityPayloadEvent::Cast`), even
   if the Root was recast or the build changed before the echo fires; its own key never matches the recast
   Root.
 - **HISTORICAL / SUPERSEDED:** "an echo applies its pool to the Root instance". A test or checklist step that
   expects an echo to overwrite or stack onto the Root is stale.
+
+## Echo targeting
+
+`Echo.TargetRule` / `Echo.Range` (pure `SelectEchoTarget`, tests `UlduarEchoTargeting.*`; runtime in
+`AbilityEchoScheduler`). Candidates are gathered once per root impact within `Echo.Range` of the root target's
+impact position, with the propagation legality rules (relation, alive, map, phase, LOS, visibility); each echo
+generation then picks:
+
+| Rule | Target |
+| --- | --- |
+| SameTarget (default) | the root target |
+| RandomValidTarget | uniform over the legal candidates, root included; deterministic per root cast id + generation |
+| NearestValidTarget | nearest legal candidate other than the root (GUID tie-break); the root when none |
+| NewTargetOnly | nearest legal candidate other than the root; no echo when none |
+
+The chosen target is revalidated when the echo fires (spell range + 5 from the caster). State: SYNTAX CHECKED +
+PURE TESTS; held behind `UlduarAbilities.PostJ0Runtime = 0` (every rule behaves as SameTarget) until checklist
+Stage J0 passes. `Echo.Chance` conditions per root impact are held behind the same switch.
 
 ## Safety
 

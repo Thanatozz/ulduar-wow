@@ -7,6 +7,9 @@ see Stage J0). Record PASS / FAIL + notes next to each item; report failures wit
 `docs/testing/IN_GAME_BUG_REPORT_TEMPLATE.md`. Stop at the first failing stage. Stage J0 is mandatory before
 the periodic milestone may be called stable.
 
+**Stage J0 result: NOT RECORDED.** Write `J0: PASS (date, core commit, module commit)` or `J0: FAIL (...)` here.
+Keep `UlduarAbilities.PostJ0Runtime = 0` for A–O; stages P1–P4 run only after J0 PASS, with it set to 1.
+
 Branches: `claude/practical-pascal-u2fl8o` in `ulduar-wow`, `mod-ulduar-abilities` and `ulduar-client-patch`.
 
 Rules for this checklist:
@@ -194,8 +197,9 @@ Any `INVARIANT` line, a missing sibling, or a Root removed by an echo is a FAIL:
 ## Stage K — Multi-school
 
 - [ ] A combined-school conversion (Frostfire via the Lab, if available): one tick event with the combined
-  mask; resistance = lowest of the two; immunity requires both schools. Record the crit chance source (first
-  school) for the open decision in [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md).
+  mask; resistance = lowest of the two; immunity requires both schools; crit chance = the higher of the two
+  schools' chances (decided policy, [MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)); a Fire +%
+  taken debuff and a Frost +% taken debuff apply only the larger one, once.
 
 ## Stage L — Dispel
 
@@ -252,3 +256,43 @@ Any `INVARIANT` line, a missing sibling, or a Root removed by an echo is a FAIL:
   combat ends; memory stable; no new log errors.
 - [ ] `.reload config` with changed limits applies to new resolutions.
 - [ ] Shutdown with active DoTs and pending echoes: clean.
+
+## Post-J0 stages (only after J0 PASS; `UlduarAbilities.PostJ0Runtime = 1`)
+
+Rebuild with module `698e57b` or later. `UlduarAbilities.Debug = 1`.
+
+### Stage P1 — Chill / Freeze (also needs the PC3 ledger append, then SQL 009)
+
+Tooling gap: `.ua lab addproc` creates Proc-kind effects only; there is no Lab command yet to add a Debuff
+effect. P1 is not runnable until that command exists (planned together with enabling P1; not part of the J0
+build).
+
+- [ ] Startup log: `Effect carrier family SNARE 312320..312383 loaded.` and `FREEZE 312384..312447 loaded.`
+  Without SQL 009 each says `not loaded`, and `.ua lab effects` shows `Not loaded` incrementing on hits.
+- [ ] Frostbolt with a Lab Debuff effect (Stat = MovementSpeedPct (1), ValueKind Percent, Value -30, Duration
+  6000, ActivationMask Primary): the target is slowed 30% for 6 s; log `[UlduarEffect] EFFECT_CREATE ... lineage=ROOT ... family=SNARE`.
+- [ ] Same effect + Split: secondary hits deal damage but are **not** slowed (Primary-only mask).
+- [ ] Freeze effect (Control Root, Element Frost): the target is rooted; a Shatter-style condition
+  (frozen target) applies to the next hit; secondary hits of a Primary-only Freeze deal damage only.
+- [ ] Echo with the Echo bit set: the echo's Chill is a second carrier (`EFFECT_CREATE ... lineage=ECHO`); the Root's expiry
+  (`EFFECT_EXPIRE`) never removes the echo's and vice versa. Without the Echo bit the echo applies nothing.
+- [ ] Dispel Magic on a Chill with DispelType Magic removes that one carrier (`EFFECT_DISPEL`); `.ua lab
+  effects` ownership stays `consistent`.
+
+### Stage P2 — Drain Life (needs SQL 010)
+
+- [ ] Startup: no `stays metadata` line for Drain Life. Channel Drain Life with `Primary.Scaling` 200: each leech
+  tick deals about 2x native and heals the caster for the native share of that damage; exactly one damage and
+  one heal line per tick; interrupting stops ticks natively.
+- [ ] With Split/Echo in the Lab build: the inspector says not executed; nothing propagates or echoes.
+
+### Stage P3 — Echo targeting
+
+- [ ] `Echo.TargetRule` NearestValidTarget, `Echo.Range` 10, two dummies 5 yd apart: echoes hit the other dummy;
+  with nobody in range they hit the root target. NewTargetOnly with nobody in range: no echo (debug log `no legal
+  target`). RandomValidTarget: both targets over several casts.
+
+### Stage P4 — Conditional conversion / echo chance
+
+- [ ] A Lab conditional `+50 Periodic.Conversion` below 35% target health: the converted part grows only on a
+  low-health target. A conditional `Echo.Chance = 100` when the target is stunned: echoes only on a stunned target.
