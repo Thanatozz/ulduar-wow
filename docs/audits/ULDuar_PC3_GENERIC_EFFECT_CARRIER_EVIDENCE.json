@@ -1,0 +1,56 @@
+{
+ "manifest": "PC3-GENERIC-EFFECT-CARRIER-EVIDENCE-001",
+ "date": "2026-09-27",
+ "namespace": "Spell",
+ "candidate": {
+  "first": 312320,
+  "last": 312447,
+  "count": 128,
+  "families": {
+   "GenericSnareCarrier": [
+    312320,
+    312383
+   ],
+   "GenericFreezeCarrier": [
+    312384,
+    312447
+   ]
+  }
+ },
+ "authority": "Maintainer milestone instruction (Periodic/Echo Runtime Stabilization + Next Runtime Milestone): Chill and Freeze need native carriers; before allocating any new carrier range inspect the ledger, run a collision audit, write a proposal and obtain maintainer approval, then append.",
+ "selection": "Chosen by this audit, not generated: the block directly after the PC2 pool keeps the server's sparse spell index growth to 128 entries. It is not a runtime max(id)+1 rule; no code derives IDs from the ledger or the DBC.",
+ "inputs": {
+  "Spell.dbc and all server DBC files": {
+   "path": "azeroth-data/dbc",
+   "spellDbcSha256": "d5cce1a83550dcfa9eb2f0251dbb11fd24c272534b2b1a9b230924a44d817ab3"
+  },
+  "spell_dbc base SQL": {
+   "path": "ulduar-wow/data/sql/base/db_world/spell_dbc.sql",
+   "sha256": "4244b73996af464366d3ad857008b202f188e9c2247aea0931b25ba3109ef5f8"
+  },
+  "canonical ledger": {
+   "path": "ulduar-wow/docs/data/ulduar_id_allocations.json",
+   "revisionAtAudit": "PC2-GENERIC-PERIODIC-CARRIER-POOL-004"
+  }
+ },
+ "screens": {
+  "canonical ledger overlap": [],
+  "tombstones 141344..141357": "outside the candidate",
+  "PeriodicDamage pool 310272..312319": "outside the candidate (no reuse)",
+  "Spell.dbc row identity": [],
+  "Spell.dbc EffectTriggerSpell[0..2]": [],
+  "all DBC 32-bit fields": "hits only in string-table offset or non-spell columns: Spell.dbc 136 (name offset), CharSections 4/5, CreatureDisplayInfoExtra 20, DeclinedWord 1, DeclinedWordCases 3, ItemDisplayInfo 18-21, SoundEntries 2-4; no spell-typed column",
+  "untyped literals in ulduar-wow, mod-ulduar-abilities, mod-ulduar-editor, mod-ulduar-wave-survival, mod-density-test, ulduar-client-patch": "firework_show timestamps (Undercity 312435, ThunderBluff 312402), item_template prices (312353, 312441), the PC2 evidence capacity note (312320), and this proposal's own engine constants/tests; no spell reference",
+  "pending SQL rows": []
+ },
+ "capacity": {
+  "serverSpellStoreIndexEntries": 312448,
+  "note": "sparse index grows by 128 entries over the PC2 pool."
+ },
+ "limitations": [
+  "Client MPQ overlays were not re-read; the absence check uses the pinned Spell table hash, which this server copy matches.",
+  "ulduar-client-patch outputs must reconcile against the ledger before adding client rows.",
+  "DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION."
+ ],
+ "result": "CLEAN"
+}
