@@ -1082,7 +1082,7 @@ float AuraEffect::CalcPeriodicCritChance(Unit const* caster, Unit const* target)
             {
                 if ((*itr)->IsAffectedOnSpell(GetSpellInfo()))
                 {
-                    critChance = modOwner->SpellDoneCritChance(nullptr, GetSpellInfo(), GetSpellInfo()->GetSchoolMask(), (GetSpellInfo()->DmgClass == SPELL_DAMAGE_CLASS_RANGED ? RANGED_ATTACK : BASE_ATTACK), true);
+                    critChance = modOwner->SpellDoneCritChance(nullptr, GetSpellInfo(), GetBase()->GetEffectiveSchoolMask(), (GetSpellInfo()->DmgClass == SPELL_DAMAGE_CLASS_RANGED ? RANGED_ATTACK : BASE_ATTACK), true);
                     break;
                 }
             }
@@ -1098,7 +1098,7 @@ float AuraEffect::CalcPeriodicCritChance(Unit const* caster, Unit const* target)
         }
     }
     if (target && critChance > 0.0f)
-        critChance = target->SpellTakenCritChance(caster, GetSpellInfo(), GetSpellInfo()->GetSchoolMask(), critChance, BASE_ATTACK, true);
+        critChance = target->SpellTakenCritChance(caster, GetSpellInfo(), GetBase()->GetEffectiveSchoolMask(), critChance, BASE_ATTACK, true);
 
     return std::max(0.0f, critChance);
 }
@@ -4037,7 +4037,8 @@ void AuraEffect::HandleAuraModSchoolImmunity(AuraApplication const* aurApp, uint
         for (Unit::AuraApplicationMap::iterator iter = Auras.begin(); iter != Auras.end();)
         {
             SpellInfo const* spell = iter->second->GetBase()->GetSpellInfo();
-            if ((spell->GetSchoolMask() & school_mask)//Check for school mask
+            // Effective school: a per-aura override (generic periodic carriers) wins over SpellInfo.
+            if ((iter->second->GetBase()->GetEffectiveSchoolMask() & school_mask)//Check for school mask
                     && GetSpellInfo()->CanDispelAura(spell)
                     && !iter->second->IsPositive()          //Don't remove positive spells
                     && spell->Id != GetId())               //Don't remove self
@@ -6284,7 +6285,10 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     if (!target->IsAlive())
         return;
 
-    if (target->IsImmunedToDamage(caster, GetSpellInfo()) || target->IsTotem())
+    // Effective school of this aura instance (SpellInfo school unless a per-aura override is set).
+    SpellSchoolMask const schoolMask = GetBase()->GetEffectiveSchoolMask();
+
+    if (target->IsImmunedToDamage(caster, GetSpellInfo(), schoolMask) || target->IsTotem())
     {
         SendTickImmune(target, caster);
         return;
@@ -6349,11 +6353,11 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     {
         // xinef: leave only target depending bonuses, rest is handled in calculate amount
         if (GetBase()->GetType() == DYNOBJ_AURA_TYPE && caster)
-            damage = caster->SpellDamageBonusDone(target, GetSpellInfo(), damage, DOT, GetEffIndex(), 0.0f, GetBase()->GetStackAmount());
-        damage = target->SpellDamageBonusTaken(caster, GetSpellInfo(), damage, DOT, GetBase()->GetStackAmount());
+            damage = caster->SpellDamageBonusDone(target, GetSpellInfo(), damage, DOT, GetEffIndex(), 0.0f, GetBase()->GetStackAmount(), schoolMask);
+        damage = target->SpellDamageBonusTaken(caster, GetSpellInfo(), damage, DOT, GetBase()->GetStackAmount(), schoolMask);
 
         // Calculate armor mitigation
-        if (Unit::IsDamageReducedByArmor(GetSpellInfo()->GetSchoolMask(), GetSpellInfo(), GetEffIndex()))
+        if (Unit::IsDamageReducedByArmor(schoolMask, GetSpellInfo(), GetEffIndex()))
         {
             uint32 damageReductedArmor = Unit::CalcArmorReducedDamage(caster, target, damage, GetSpellInfo(), GetCasterLevel());
             cleanDamage.mitigated_damage += damage - damageReductedArmor;
@@ -6365,7 +6369,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     // calculate crit chance
     bool crit = false;
     if ((crit = roll_chance_f(GetCritChance())))
-        damage = Unit::SpellCriticalDamageBonus(caster, m_spellInfo, damage, target);
+        damage = Unit::SpellCriticalDamageBonus(caster, m_spellInfo, damage, target, schoolMask);
 
     // Auras reducing damage from AOE spells
     if (!GetSpellInfo()->HasAttribute(SPELL_ATTR4_IGNORE_DAMAGE_TAKEN_MODIFIERS))
@@ -6377,7 +6381,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
             GetSpellInfo()->HasAttribute(SPELL_ATTR7_TREAT_AS_NPC_AOE))
         {
             bool npcCaster = (caster && !caster->IsControlledByPlayer()) || GetSpellInfo()->HasAttribute(SPELL_ATTR7_TREAT_AS_NPC_AOE);
-            damage = target->CalculateAOEDamageReduction(damage, GetSpellInfo()->SchoolMask, npcCaster);
+            damage = target->CalculateAOEDamageReduction(damage, schoolMask, npcCaster);
         }
     }
 
@@ -6396,7 +6400,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     damage = std::max(0, dmg);
     cleanDamage.mitigated_damage = std::max(0, mitigatedDamage);
 
-    DamageInfo dmgInfo(caster, target, damage, GetSpellInfo(), GetSpellInfo()->GetSchoolMask(), DOT, cleanDamage.mitigated_damage);
+    DamageInfo dmgInfo(caster, target, damage, GetSpellInfo(), schoolMask, DOT, cleanDamage.mitigated_damage);
     Unit::CalcAbsorbResist(dmgInfo);
 
     uint32 absorb = dmgInfo.GetAbsorb();
@@ -6426,7 +6430,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     SpellPeriodicAuraLogInfo pInfo(this, damage, overkill, absorb, resist, 0.0f, crit);
     target->SendPeriodicAuraLog(&pInfo);
 
-    Unit::DealDamage(caster, target, damage, &cleanDamage, DOT, GetSpellInfo()->GetSchoolMask(), GetSpellInfo(), true);
+    Unit::DealDamage(caster, target, damage, &cleanDamage, DOT, schoolMask, GetSpellInfo(), true);
 
     Unit::ProcSkillsAndAuras(caster, target, caster ? procAttacker : 0, procVictim, procEx, damage, BASE_ATTACK, GetSpellInfo(), nullptr, GetEffIndex(), nullptr, &dmgInfo);
 }

@@ -412,6 +412,11 @@ uint32 Aura::GetId() const
     return GetSpellInfo()->Id;
 }
 
+SpellSchoolMask Aura::GetEffectiveSchoolMask() const
+{
+    return m_schoolMaskOverride != SPELL_SCHOOL_MASK_NONE ? m_schoolMaskOverride : m_spellInfo->GetSchoolMask();
+}
+
 Unit* Aura::GetCaster() const
 {
     if (GetOwner()->GetGUID() == GetCasterGUID())

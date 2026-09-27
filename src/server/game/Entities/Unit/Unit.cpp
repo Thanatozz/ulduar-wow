@@ -6876,7 +6876,7 @@ void Unit::SendPeriodicAuraLog(SpellPeriodicAuraLogInfo* pInfo)
 
                 data << uint32(damage);                         // damage
                 data << uint32(pInfo->overDamage);              // overkill?
-                data << uint32(aura->GetSpellInfo()->GetSchoolMask());
+                data << uint32(aura->GetBase()->GetEffectiveSchoolMask());
                 data << uint32(absorb);                         // absorb
                 data << uint32(pInfo->resist);                  // resist
                 data << uint8(pInfo->critical);                 // new 3.1.2 critical tick

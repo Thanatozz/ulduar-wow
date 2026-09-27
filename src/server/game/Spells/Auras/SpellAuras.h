@@ -100,6 +100,12 @@ public:
     SpellInfo const* GetSpellInfo() const { return m_spellInfo; }
     uint32 GetId() const;
 
+    // Per-aura school override. Shared SpellInfo is never mutated per player: a module (generic periodic
+    // carriers) sets the effective school of this aura instance. NONE = use the SpellInfo school.
+    void SetSchoolMaskOverride(SpellSchoolMask schoolMask) { m_schoolMaskOverride = schoolMask; }
+    SpellSchoolMask GetSchoolMaskOverride() const { return m_schoolMaskOverride; }
+    SpellSchoolMask GetEffectiveSchoolMask() const;
+
     ObjectGuid GetCastItemGUID() const { return m_castItemGuid; }
     uint32 GetCastItemEntry() const { return m_castItemEntry; }
     ObjectGuid GetCasterGUID() const { return m_casterGuid; }
@@ -269,6 +275,7 @@ protected:
     uint8 const m_casterLevel;                          // Aura level (store caster level for correct show level dep amount)
     uint8 m_procCharges;                                // Aura charges (0 for infinite)
     uint8 m_stackAmount;                                // Aura stack amount
+    SpellSchoolMask m_schoolMaskOverride = SPELL_SCHOOL_MASK_NONE; // see SetSchoolMaskOverride
 
     AuraEffect* m_effects[3];
     ApplicationMap m_applications;
