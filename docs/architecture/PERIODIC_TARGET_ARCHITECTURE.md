@@ -8,7 +8,7 @@ HISTORICAL / SUPERSEDED. Current runtime: [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME
 | Section | State |
 | --- | --- |
 | §2 instance key | RUNTIME CODED (`PeriodicInstanceKey`; `PeriodicEffectKey` is always 0 until an ability owns two periodic effects) |
-| §3 generic pool | RUNTIME CODED; IDs PROPOSED (transaction not appended); pending SQL 007 |
+| §3 generic pool | RUNTIME CODED; IDs RESERVED (ledger revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`); pending SQL 007 |
 | §4 per-instance school | RUNTIME CODED (core override, [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
 | §5 dual element | stock semantics; Ulduar policy is an open decision |
 | §6 echo lineages | RUNTIME CODED |
@@ -72,7 +72,7 @@ creates a new ApplicationId.
 | --- | --- | --- |
 | 141344..141350 | **RETIRED_TOMBSTONE** (ledger revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`) | HISTORICAL per-school carriers; SQL 005 SUPERSEDED; never reused |
 | 141351..141357 | **RETIRED_TOMBSTONE** | HISTORICAL healing reservation; never reused |
-| 310272..312319 (2048) | **PROPOSED** (`PC2-GENERIC-PERIODIC-CARRIER-POOL-004`, not appended) | see §3.1 and [the ledger doc](ULDuar_ID_ALLOCATION_LEDGER.md) |
+| 310272..312319 (2048) | **RESERVED** (ledger revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`, 2026-09-27; not INTRODUCED) | see §3.1 and [the ledger doc](ULDuar_ID_ALLOCATION_LEDGER.md) |
 
 ### 3.1 Candidate collision screen (2026-09-27)
 

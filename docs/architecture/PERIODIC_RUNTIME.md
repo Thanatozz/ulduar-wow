@@ -1,7 +1,7 @@
 # Periodic runtime (direct-to-periodic conversion)
 
 > **Scope (2026-09-27, generic pool).** This document describes the current implementation: a **generic
-> carrier pool** (Spell 310272..312319, proposed ledger transaction, pending SQL 007), a per-aura school mask
+> carrier pool** (Spell 310272..312319, RESERVED in the ledger, pending SQL 007), a per-aura school mask
 > set by the core override, separate Root/Echo lineages and carrier-backed IndependentDuration. The seven
 > per-school carriers 141344..141357 are **HISTORICAL / SUPERSEDED** (RETIRED_TOMBSTONE in the ledger; SQL 005
 > superseded). Target-architecture items not yet implemented are tracked in
@@ -94,9 +94,10 @@ path.
 
 ### Carrier pool
 
-- **IDs.** Spell 310272..312319 (2048). **PROPOSED** ledger transaction `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`
+- **IDs.** Spell 310272..312319 (2048). **RESERVED** by ledger revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`
   (`docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`, evidence
-  `ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json`). Not reserved until the maintainer appends it.
+  `ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json`), reservation date 2026-09-27. Not INTRODUCED until a release ships
+  the rows.
 - **No meaning in an ID.** Every row is identical: one `APPLY_AURA` / `SPELL_AURA_PERIODIC_DAMAGE` effect on
   the target, SchoolMask 127, DmgClass magic, `SpellFamilyName` 0, no class mask, no dispel type, no mechanic,
   no other effect, a native icon reference. An ID encodes no school, element, ability, variant, echo
@@ -269,8 +270,7 @@ Nothing is applied by this repository's tooling. Apply manually, in this order:
 1. `mod-ulduar-abilities/data/sql/db-world/ulduar_abilities_001_world.sql` (clears and rebinds Frostbolt);
 2. `data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql`;
 3. `data/sql/updates/pending_db_world/ulduar_abilities_007_world_generic_periodic_carriers.sql` (pool rows +
-   `aura_ulduar_periodic_carrier` bindings; removes 005's rows) — **only after** the maintainer appends the
-   pool transaction to the ledger;
+   `aura_ulduar_periodic_carrier` bindings; removes 005's rows);
 4. `data/sql/updates/pending_db_world/ulduar_abilities_006_world_blizzard.sql` (Blizzard bindings,
    [CHANNEL_RUNTIME.md](CHANNEL_RUNTIME.md));
 5. `data/sql/updates/pending_db_world/ulduar_abilities_008_world_mind_flay.sql` (Mind Flay bindings).
@@ -285,7 +285,7 @@ not loaded and converted periodics run on the executor.
 | Item | State |
 | --- | --- |
 | Native carrier ticks (generic pool, per-instance school) | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
-| Pool IDs 310272..312319 | PROPOSED; not reserved until the ledger transaction is appended |
+| Pool IDs 310272..312319 | RESERVED (ledger `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`); not INTRODUCED |
 | Visible debuff, stacks, duration on the target | server sends them natively; a stock client does not know the carrier spell; dynamic icon/name: CLIENT PATCH REQUIRED |
 | Executor-backed instances (reasons above) | RUNTIME; executor semantics (snapshotted taken mods, block, pushback, no procs) as in the [audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4 |
 | Multi-school crit chance / done-taken stacking | stock AzerothCore semantics; Ulduar policy is an open decision ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |

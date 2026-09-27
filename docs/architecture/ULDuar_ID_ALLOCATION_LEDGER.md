@@ -124,14 +124,15 @@ Appended to the canonical ledger. The earlier objects and the R.1 certificate ar
   141344..141357, evidence `docs/audits/ULDuar_PC1_PERIODIC_CARRIER_RETIREMENT_EVIDENCE.json`. None was ever
   INTRODUCED. They are never reused or reinterpreted as pool members. Pending SQL 005 is marked SUPERSEDED;
   pending SQL 007 deletes its rows/bindings in environments that applied it.
-- **Pool proposal, NOT appended.** Spell 310272..312319 (2048 IDs) passed the screen in
-  `docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json` (ledger, Spell.dbc rows, EffectTriggerSpell, all
+- **Pool reservation appended (revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`, 2026-09-27).** Spell
+  310272..312319 (2048 RESERVED records, `system` PeriodicCarrier, `family` GenericPeriodicDamageCarrier,
+  copyIndex 0..2047). Authority: maintainer approval of the proposal. Preconditions verified at append time:
+  expected revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`, no concurrent ledger change, evidence hash
+  (`ULDuar_PC2_GENERIC_CARRIER_POOL_EVIDENCE.json`) unchanged, records identical to
+  `ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json` except `reservationDate` (set) and `notes`. The proposal file
+  is kept unchanged as the pre-append record. Screen coverage: ledger, Spell.dbc rows, EffectTriggerSpell, all
   247 server DBC 32-bit fields (hits only in string-offset / non-spell columns), spell_dbc base + updates +
-  pending SQL, typed SQL references, untyped literals in six local repositories including
-  `ulduar-client-patch`, which has no DBC/MPQ output yet). The proposed transaction
-  `PC2-GENERIC-PERIODIC-CARRIER-POOL-004` (2048 RESERVED records) is in
-  `docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`. The maintainer appends it to
-  `namespaces.Spell` against expected revision `PC1-PERIODIC-CARRIER-RETIREMENT-003`; until then the pool is
-  **not reserved**, and pending SQL 007 must not be applied.
+  pending SQL, typed SQL references, untyped literals in six local repositories. Pending SQL 007 is not
+  applied; the IDs are not INTRODUCED.
 
 **DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**

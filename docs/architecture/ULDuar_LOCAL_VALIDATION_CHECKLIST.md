@@ -39,9 +39,8 @@ Command syntax: `.ua lab set <ability> <Property> <op> <value>`; the op is alway
 
 ## Stage C — Ledger and SQL (world DB backup first)
 
-- [ ] **Precondition:** the maintainer has appended transaction `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`
-  (`docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json`) to `docs/data/ulduar_id_allocations.json`.
-  Without it, stop here: SQL 007 must not be applied.
+- [ ] **Precondition:** `docs/data/ulduar_id_allocations.json` is at revision
+  `PC2-GENERIC-PERIODIC-CARRIER-POOL-004` or later (pool 310272..312319 RESERVED; appended 2026-09-27).
 - [ ] Apply in this order ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md#sql-application-order)):
   1. `modules/mod-ulduar-abilities/data/sql/db-world/ulduar_abilities_001_world.sql`
   2. `data/sql/updates/pending_db_world/ulduar_abilities_003_world_starters.sql`

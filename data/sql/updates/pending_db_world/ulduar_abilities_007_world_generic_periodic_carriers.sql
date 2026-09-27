@@ -1,7 +1,6 @@
 -- Ulduar Abilities: generic native periodic damage carrier pool (PERIODIC_RUNTIME.md, "Native carrier").
--- Spell 310272..312319 (2048) = PROPOSED ledger transaction PC2-GENERIC-PERIODIC-CARRIER-POOL-004
--- (docs/audits/ULDuar_PC2_GENERIC_CARRIER_POOL_PROPOSAL.json). DO NOT APPLY until the maintainer appends that
--- transaction to docs/data/ulduar_id_allocations.json.
+-- Spell 310272..312319 (2048) = ledger revision PC2-GENERIC-PERIODIC-CARRIER-POOL-004 (RESERVED 2026-09-27,
+-- docs/data/ulduar_id_allocations.json).
 -- Pool IDs carry no meaning: identical rows (SchoolMask 127, DefenseType magic, no class family, no dispel type,
 -- one SPELL_AURA_PERIODIC_DAMAGE effect). The instance school is set per aura (Aura::SetSchoolMaskOverride);
 -- amount, interval, duration and stacks are set at runtime by aura_ulduar_periodic_carrier.

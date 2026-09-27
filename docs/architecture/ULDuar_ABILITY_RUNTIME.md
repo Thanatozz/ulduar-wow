@@ -99,7 +99,7 @@ chain and the DoT ticks.
 | `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
 | `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
-| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, PROPOSED IDs): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
+| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, RESERVED in the ledger): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
 | Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
 | Separate echo lineages, native IndependentDuration, pool allocator + diagnostics | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
 | Presentation groups, dispel strengths / priority | ENGINE MODEL + TESTS; not wired ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)); carriers are undispellable natively |
