@@ -82,6 +82,21 @@ AbilityDefinition │ AbilityCore ──┐                                     
 Everything marked RESOLVED ONLY is still computed, validated and shown in the inspector with a
 `RESOLVED ONLY (not executed yet)` line, so nobody mistakes data for gameplay.
 
+## Validation states
+
+| State | Meaning |
+| --- | --- |
+| PURE TESTS | engine unit tests pass (Linux or Windows) |
+| SYNTAX CHECKED | compiled with `-fsyntax-only` against AzerothCore headers, not linked |
+| LOCAL BUILD PASS | full Windows worldserver build succeeded (maintainer, first on 2026-09-27) |
+| IN-GAME PASS / IN-GAME FAIL | tested by the maintainer on a running server with the development client |
+| NOT TESTED | no in-game result recorded |
+
+2026-09-27: first full local build, SQL applied, server started, in-game session. Density and Abilities
+largely working; Root/Echo periodic isolation failed (fixed in source, retest pending). Feature-level results
+that were not reported individually stay NOT TESTED until recorded with
+[../testing/IN_GAME_BUG_REPORT_TEMPLATE.md](../testing/IN_GAME_BUG_REPORT_TEMPLATE.md) or the checklist.
+
 ## Support matrix
 
 Inspector vocabulary (`.ua lab inspect`): **RUNTIME** executes, **PARTIAL** executes with a documented limit,
@@ -99,10 +114,10 @@ chain and the DoT ticks.
 | `Casting.CanCastWhileMoving` on channels | UNSUPPORTED |
 | `Projectile.Targets` / `AcquisitionRange` / `Scaling` / `Origin` (Split, Shatter, Chain), `Area.Radius` / `Scaling` / `Origin` (Nova) | RUNTIME |
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
-| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, RESERVED in the ledger): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
+| Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, RESERVED in the ledger): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | LOCAL BUILD PASS; IN-GAME: working per maintainer (2026-09-27) ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
 | Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
-| Separate echo lineages, native IndependentDuration, pool allocator + diagnostics | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
-| Carrier dispel (per-aura dispel type, grouped LIFO dispel, one reaction per group) | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| Separate echo lineages, native IndependentDuration, pool allocator + diagnostics | IN-GAME FAIL (Root DoT removed/replaced by an echo) → FIXED IN SOURCE: native payload aura root cause + ownership registry; PURE TESTS PASS; IN-GAME RETEST PENDING |
+| Carrier dispel (per-aura dispel type, grouped LIFO dispel, one reaction per group) | LOCAL BUILD PASS; IN-GAME NOT TESTED ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
 | Presentation groups to the client | ENGINE MODEL + TESTS |
 | Executor-backed periodic (carrier disabled or not loaded, invalid school, no pre-taken base, pool exhausted, aura slots full) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
 | `Periodic.FinalTick`, `ScalingPerStackPct` | RUNTIME CODED; `TickScalingPerStackPct` DEPRECATED alias; `SnapshotStats = false` rejected ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |

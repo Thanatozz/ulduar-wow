@@ -34,7 +34,7 @@ chain depth. Not implemented.
 | --- | --- | --- |
 | `Echo.TargetRule` | only SameTarget executed (inspector reports others as not executed) | NearestOther / Random within `Echo.Range` from the root target, excluding the root; deterministic selection per event |
 | `Echo.Range` | RESOLVED ONLY | radius for the TargetRule search; clamp to the payload's max range |
-| Echo periodics | RUNTIME CODED: separate lineage per echo generation ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | in-game test |
+| Echo periodics | IN-GAME FAIL on 2026-09-27 (native payload aura shared with the Root) → FIXED IN SOURCE; converted periodics per lineage with an ownership registry ([ECHO_RUNTIME.md](ECHO_RUNTIME.md)) | in-game retest (checklist Stage J0); independent Echo **native** payload DoTs need those periodics converted to carriers |
 
 ## 3. Delivery.Kind
 

@@ -11,13 +11,13 @@ HISTORICAL / SUPERSEDED. Current runtime: [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME
 | §3 generic pool | RUNTIME CODED; IDs RESERVED (ledger revision `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`); pending SQL 007 |
 | §4 per-instance school | RUNTIME CODED (core override, [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
 | §5 dual element | stock semantics; Ulduar policy is an open decision |
-| §6 echo lineages | RUNTIME CODED |
+| §6 echo lineages | IN-GAME FAIL (2026-09-27: native payload aura shared with the Root) → FIXED IN SOURCE, retest pending; converted carriers per lineage by the ownership registry |
 | §7 IndependentDuration | RUNTIME CODED (one carrier per application) |
 | §8 presentation groups | ENGINE MODEL + TESTS; no producer to the client yet |
 | §9 dispel | ENGINE MODEL + TESTS; native dispel unchanged; carriers undispellable ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
 | §10 aura slots | capacity check + diagnostics RUNTIME CODED; ExtendedAuraSlots documentation only |
 
-All RUNTIME CODED items: REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST.
+LOCAL BUILD PASS for the whole milestone (maintainer, 2026-09-27). Items without an explicit in-game result are NOT TESTED in game; status vocabulary: [ULDuar_ABILITY_RUNTIME.md](ULDuar_ABILITY_RUNTIME.md) "Validation states".
 
 Shared with the client patch: `ulduar-client-patch/docs/AURA_PRESENTATION.md` and
 `AURA_PROTOCOL_V2_DESIGN.md` carry the presentation half of this contract.

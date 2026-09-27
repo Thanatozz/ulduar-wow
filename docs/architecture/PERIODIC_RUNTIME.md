@@ -91,7 +91,67 @@ carrier).
 The executor path is the documented fallback above, gated per instance. It is not a second active damage
 path.
 
-## Native carrier (RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST)
+## Instance ownership (2026-09-27, after the first in-game test)
+
+Every periodic instance owns its own identity and lifecycle. Root, Echo 1, Echo 2, ... are separate:
+
+| Instance | Key (caster, target, ability, effect, lineage, echoGen, app) | Carrier (same target + caster) |
+| --- | --- | --- |
+| Root | (C, T, A, 0, ROOT, 0, 0) | 310272 |
+| Echo 1 | (C, T, A, 0, ECHO, 1, 0) | 310273 |
+| Echo 2 | (C, T, A, 0, ECHO, 2, 0) | 310274 |
+| IndependentDuration application | same lineage fields, `app` = fresh id | next free id |
+
+- **Ownership index** (`Engine::PeriodicRegistry`): key ↔ generation ↔ (target, caster, carrier). A carrier id
+  has at most one owner in a (target, caster) scope; the same id is legal on another target or for another
+  caster (native aura identity is spell + caster + target).
+- **Lookups** use the full key. Nothing looks up or removes an instance by ability, spell or presentation
+  group. Presentation groups never own lifetime.
+- **Removal**: the carrier aura's `AfterEffectRemove` passes its own carrier id and generation; the executor
+  removes exactly the owner of that carrier with that generation and releases that carrier only. A removal
+  naming a carrier owned by another generation is refused and counted (`INVARIANT` log).
+- **Fail closed**: an ambiguous registration (key already live, carrier already owned) is refused and the new
+  aura is removed; it is never allowed to tick unowned.
+- **Diagnostics**: `UlduarAbilities.Debug = 1` logs one `[UlduarPeriodic]` line per lifecycle action (CREATE,
+  ECHO_CREATE, FIND, REFRESH, STACK, SYNC, AURA_CREATE, AURA_REMOVE with remove mode, RELEASE_CARRIER, EXPIRE,
+  INSTANCE_REMOVE with reason, SPREAD, DISPEL, INVARIANT). No per-tick lines. `.ua lab carriers` shows
+  ownership consistency and the invariant-violation count (both must stay "consistent" / 0).
+
+### Native payload auras (root cause of the in-game Root/Echo bug)
+
+**Reported in game:** with a Root DoT active, an Echo of the ability made the Root DoT disappear or behave
+wrongly.
+
+**Root cause (source-proven).** An echo replays the payload spell. If the payload has a native aura
+(Immolate's, Serpent Sting's, Frostbolt's slow...), AzerothCore keys that aura by **spell + caster + target**:
+the echo's hit met the Root cast's aura, and `Aura::TryRefreshStackOrCreate` returned that **existing**
+aura as the hit aura. Then:
+- with `Echo.CanEchoPeriodic` off (default), `OnHit` called `PreventHitAura()` for echoes of periodic
+  payloads; `SpellScript::PreventHitAura` removes `m_spellAura`, which was the **Root's** aura → the Root DoT
+  was deleted;
+- with `Echo.CanEchoPeriodic` on, the echo refreshed the Root's aura (duration reset) and `OnHit`
+  overwrote that aura's `Multiplier` with the echo's scaling → the Root DoT was replaced by an echo-strength
+  DoT.
+
+**Fix.** Core `Spell::SetTriggeredKeepExistingAuras()` (opt-in, triggered copies only): when the original
+caster already has an aura of the spell's rank chain on the unit, the copy applies no aura there
+(`aura_effmask = 0`). The module sets it for every echo copy and for secondary copies that may not apply auras
+(`Engine::PayloadCopyKeepsExistingAuras`). The echo's **converted** periodic part is unaffected: it has its
+own key and carrier.
+
+**Why the tests missed it.** Pure engine tests covered keys, pools and stacking; native aura identity and
+`PreventHitAura` semantics live in the AzerothCore spell pipeline, which has no pure test. The regression
+suite now models that native behavior (`UlduarPeriodicIsolation.NativeAuraRootCauseReproduced`).
+
+**Limit.** A native payload aura has one instance per caster and target: an echo cannot own a second
+native DoT of the same spell next to the Root's. Independent Echo native DoTs would need those periodics
+converted to carriers (future). Converted (carrier) periodics are fully per lineage.
+
+**Converted carriers.** The source audit found no path by which an Echo carrier removes the Root carrier
+(different keys, different carrier ids, exact removal). If the in-game retest still shows a converted
+Root carrier disappearing, the `[UlduarPeriodic]` trace names the path (see the checklist stage).
+
+## Native carrier (RUNTIME CODED / LOCAL BUILD PASS; isolation retest pending)
 
 ### Carrier pool
 
@@ -285,11 +345,11 @@ not loaded and converted periodics run on the executor.
 
 | Item | State |
 | --- | --- |
-| Native carrier ticks (generic pool, per-instance school) | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
+| Native carrier ticks (generic pool, per-instance school) | LOCAL BUILD PASS, IN-GAME: works (maintainer, 2026-09-27) except Root/Echo isolation (IN-GAME FAIL, fixed in source, retest pending) |
+| Root/Echo isolation | FIXED IN SOURCE (native payload aura root cause + ownership registry); PURE TESTS PASS; IN-GAME RETEST PENDING |
 | Pool IDs 310272..312319 | RESERVED (ledger `PC2-GENERIC-PERIODIC-CARRIER-POOL-004`); not INTRODUCED |
 | Visible debuff, stacks, duration on the target | server sends them natively; a stock client does not know the carrier spell; dynamic icon/name: CLIENT PATCH REQUIRED |
 | Executor-backed instances (reasons above) | RUNTIME; executor semantics (snapshotted taken mods, block, pushback, no procs) as in the [audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4 |
-| Multi-school crit chance / done-taken stacking | stock AzerothCore semantics; Ulduar policy is an open decision ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
 | Dispel of carriers | RUNTIME CODED: per-aura dispel type (payload's), grouped dispel with LIFO groups, earliest-expiring member, Weak strength, one reaction per group ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
 | Presentation groups to the client | ENGINE MODEL + TESTS; no producer yet |
 | Multi-school instances | Ulduar policy on the taken side and crit chance ([MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)) |

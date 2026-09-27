@@ -1,9 +1,11 @@
 # Local validation checklist (Windows, stages A–O)
 
 Authoritative checklist for your local Windows build, rewritten 2026-09-27 for the generic periodic carrier
-pool. **None of these checks has been executed.** The cloud environment had no worldserver, database or
-client; it only ran the pure engine unit tests (98 passing), syntax checks and codestyle. Record PASS / FAIL +
-notes next to each item. Stop at the first failing stage and report it.
+pool. **First real run (maintainer, 2026-09-27):** local build, SQL, server start and an in-game session
+passed; Density and Abilities largely worked; **Root/Echo periodic isolation FAILED** (fixed in source since,
+see Stage J0). Record PASS / FAIL + notes next to each item; report failures with
+`docs/testing/IN_GAME_BUG_REPORT_TEMPLATE.md`. Stop at the first failing stage. Stage J0 is mandatory before
+the periodic milestone may be called stable.
 
 Branches: `claude/practical-pascal-u2fl8o` in `ulduar-wow`, `mod-ulduar-abilities` and `ulduar-client-patch`.
 
@@ -115,6 +117,55 @@ Command syntax: `.ua lab set <ability> <Property> <op> <value>`; the op is alway
 - [ ] No block, no pushback on ticks; generic periodic procs fire once; no class talent treats the carrier as
   its spell.
 - [ ] Haste snapshot at application; `Periodic.TickInterval set 100` clamps to 500 ms.
+
+## Stage J0 — Periodic isolation regression (MANDATORY)
+
+Rebuild with commits `8dbc1d3` (core) and `0eef40b` (module) or later. Set `UlduarAbilities.Debug = 1`
+(worldserver `spells` log, INFO) and use a training dummy. Use `.list auras` on the target to see carrier
+ids and remaining time, and `.ua lab carriers` for ownership (must read `consistent`, violations `0`).
+
+Setup:
+```
+.ua lab clear frostbolt
+.ua lab preset frostbolt dot
+.ua lab preset frostbolt echo
+.ua lab set frostbolt Echo.Chance set 100
+.ua lab set frostbolt Echo.CanEchoPeriodic enable 1
+.ua lab set frostbolt Periodic.Duration set 15s
+```
+
+1. [ ] Cast Frostbolt once. Log: `[UlduarPeriodic] CREATE ... lineage=ROOT echoGen=0 app=0 ... carrier=310272`.
+2. [ ] Wait for the echo. Log: `ECHO_CREATE ... lineage=ECHO echoGen=1 app=0 ... carrier=310273`, and **no**
+   `AURA_REMOVE ... carrier=310272` at that moment.
+3. [ ] `.list auras` on the dummy: both 310272 and 310273 present; both tick in the combat log.
+4. [ ] Let the Root expire first (or the echo, depending on timing): exactly one `EXPIRE` + `RELEASE_CARRIER`
+   line for that carrier; the sibling keeps ticking until its own expiry.
+5. [ ] `.ua lab carriers`: in-use returns to 0 after both end; ownership `consistent`, violations `0`.
+
+Repeat and record each:
+- [ ] `Echo.MultiEcho set 3`: Root 310272, Echo1 310273, Echo2 310274, Echo3 310275; expiring one leaves the others.
+- [ ] `Periodic.StackBehavior set refreshduration`: recast refreshes only its own lineage (`REFRESH` line
+  names `lineage=ROOT` for the recast, never the echo's carrier).
+- [ ] `replaceweaker`, `addstackandrefresh`, `addduration`: `REFRESH`/`STACK` lines stay within one lineage.
+- [ ] `independentduration`: every application logs a new `app=` and a new carrier.
+- [ ] Spread (`preset spreaddot`, second dummy nearby): `SPREAD` lines keep `lineage`/`echoGen`; no source
+  instance removed.
+- [ ] Weak dispel (second player self-dispels): one `DISPEL` line, the earliest-expiring member only.
+- [ ] `Periodic.FinalTick enable 1` with 6 s / 2.5 s: each carrier gets its own final tick; one expiring never
+  ends the other.
+- [ ] Recast Frostbolt 200 ms after the first cast (before the echo lands): the echo still creates its own
+  `ECHO_CREATE`; the recast only `REFRESH`es the Root.
+
+**Native payload aura (the in-game root cause).** Use an ability whose payload has a native DoT, e.g.
+Immolate (warlock) with `preset echo`, `Echo.Chance set 100`:
+- [ ] `Echo.CanEchoPeriodic disable 0` (default): the Root's native Immolate DoT stays on the target when the
+  echo hits (before the fix it vanished).
+- [ ] `Echo.CanEchoPeriodic enable 1`: the Root's native Immolate DoT keeps its duration and tick size when the
+  echo hits (before the fix the echo refreshed and weakened it). The echo gets no second native Immolate
+  (documented limit: one native aura per caster and target).
+
+Any `INVARIANT` line, a missing sibling, or a Root removed by an echo is a FAIL: attach the full
+`[UlduarPeriodic]` sequence to the bug report.
 
 ## Stage J — Pool, identity and lineages
 

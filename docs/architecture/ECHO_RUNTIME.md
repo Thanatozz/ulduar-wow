@@ -69,6 +69,14 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
   (`PeriodicInstanceKey` lineage + echo generation), each with its own pool carrier, amount, duration, stacks,
   refresh and procs, so an echo never refreshes, replaces or weakens the Root. `Periodic.StackBehavior`
   applies within one lineage ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §6).
+- **Native payload auras (fixed 2026-09-27):** an echo copy never touches a native aura the caster already
+  has on the target (`Spell::SetTriggeredKeepExistingAuras`). Before the fix an echo of a payload with a
+  native periodic aura removed the Root's DoT (via `PreventHitAura`, CanEchoPeriodic off) or replaced it
+  (CanEchoPeriodic on). Native payload auras stay one per caster and target; only converted periodics have
+  an Echo instance of their own ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md), "Native payload auras").
+- **Snapshot:** a delayed echo uses the original cast's immutable snapshot (`AbilityPayloadEvent::Cast`), even
+  if the Root was recast or the build changed before the echo fires; its own key never matches the recast
+  Root.
 - **HISTORICAL / SUPERSEDED:** "an echo applies its pool to the Root instance". A test or checklist step that
   expects an echo to overwrite or stack onto the Root is stale.
 
@@ -84,5 +92,6 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
 
 ## Status
 
-RUNTIME CODED, SYNTAX CHECKED, REQUIRES IN-GAME TEST. The previous version was tested in game (it crashed the
-client; fixed). The payload replay and echo-lineage propagation are new and untested.
+LOCAL BUILD PASS and IN-GAME tested by the maintainer (2026-09-27): echoes fire and replay the payload.
+IN-GAME FAIL: Root/Echo periodic isolation (Root DoT removed or replaced by an echo) — FIXED IN SOURCE,
+IN-GAME RETEST PENDING (checklist stage "Periodic isolation regression").
