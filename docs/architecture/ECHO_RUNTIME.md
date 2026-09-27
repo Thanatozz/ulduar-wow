@@ -63,6 +63,14 @@ With periodic conversion 30% / 200%, the echo root 600 becomes 420 immediate and
 - **Area pulses.** A Blizzard pulse targets an area, so it has no single execution root
   (`Engine::PayloadHitIsExecutionRoot`): it never schedules an echo.
 
+## Echo periodics: current vs target
+
+- **Current (interim):** an echo with `Echo.CanEchoPeriodic` applies its pool to the same (caster, target,
+  ability) instance as the Root, per `Periodic.StackBehavior`.
+- **Target:** Root and each Echo generation are separate periodic instances, each with its own carrier,
+  amount, duration, stacks, refresh and procs, so an echo never weakens the Root
+  ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §6).
+
 ## Safety
 
 - **No stale pointers.** Events hold GUIDs and the shared immutable snapshot only. Targets are re-resolved and

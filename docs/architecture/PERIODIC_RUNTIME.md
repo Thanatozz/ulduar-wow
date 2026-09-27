@@ -1,5 +1,12 @@
 # Periodic runtime (direct-to-periodic conversion)
 
+> **Scope (2026-09-27).** This document describes the **current interim implementation**: seven per-school
+> carriers 141344..141350, with echo pools merging into the Root instance. The **target** architecture (a
+> generic carrier pool, per-instance school mask, separate echo lineages, native IndependentDuration,
+> presentation groups, dispel strengths) is in
+> [PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md). It supersedes the seven-carrier
+> target; the reservations stay historical ledger records.
+
 Code:
 - `src/engine/ExecutionModel.*` (`PlanConvertedPeriodic`, `PeriodicTickCount`, `AdvancePeriodic`,
   `RefreshTickAmount`)

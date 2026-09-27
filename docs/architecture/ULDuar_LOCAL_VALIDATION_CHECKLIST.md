@@ -276,6 +276,10 @@ These families have **no gameplay runtime**; only check that nothing regressed.
 
 ## 18. Native periodic carrier and channel emitters
 
+These checks cover the **interim** seven-carrier implementation. The target generic pool, echo lineages
+and presentation groups ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md)) need their
+own checklist once implemented.
+
 Apply the SQL first, in the order of [PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md#sql-application-order) (005
 carriers, 006 Blizzard). Rebuild after re-running CMake: the module has new source files
 (`AbilityPeriodicCarrier.cpp`, `engine/PeriodicCarrier.cpp`, `engine/PayloadMatching.cpp`) and the core has

@@ -114,3 +114,14 @@ Appended to the canonical ledger. The earlier objects and the R.1 certificate ar
   reconcile against this ledger before adding client rows.
 
 **DEPLOYMENT ENVIRONMENT MUST STILL PASS MANIFEST ADMISSION.**
+
+## Planned supersession of PC1 and generic pool candidate (2026-09-27, no transaction)
+
+- **Target change.** The periodic target moved from seven per-school carriers to a generic carrier pool
+  ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md) §3).
+- **No lifecycle event is appended yet.** Current code and pending SQL 005 still reference 141344..141350.
+  When the pool is introduced, append `RETIRED_TOMBSTONE` events for 141344..141357. They are never
+  reinterpreted as pool members.
+- **Pool candidate.** Spell 310272..312319 (2048 IDs) passed a typed collision review, recorded in the target
+  document §3.1. It is **NOT RESERVED**: it needs the client-patch MPQ/DBC screen and a maintainer decision
+  before an append-only transaction.

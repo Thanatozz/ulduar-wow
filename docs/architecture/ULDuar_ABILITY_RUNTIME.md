@@ -101,6 +101,7 @@ chain and the DoT ticks.
 | Periodic conversion: `Conversion`, `ConversionEfficiencyPct`, `Duration`, `TickInterval`, `InitialTick`, `CanHaste`, `CanCrit`, stacking and spread properties | RUNTIME (added Periodic, damage) |
 | Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, Spell 141344-141350): periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)) |
 | Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
+| Generic carrier pool, per-instance SchoolMask, separate echo lineages, native IndependentDuration, presentation groups, dispel strengths | TARGET DESIGN ([PERIODIC_TARGET_ARCHITECTURE.md](PERIODIC_TARGET_ARCHITECTURE.md)); the current code is the interim seven-carrier runtime |
 | Executor-backed periodic (multi-school, IndependentDuration, same-school slot taken, carrier disabled or not loaded, no pre-taken base) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
 | `Periodic.FinalTick`, `ScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY |
 | Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
