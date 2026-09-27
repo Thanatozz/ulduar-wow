@@ -30,24 +30,15 @@ Both run **once per removal call on one aura**. Native has no concept of a group
 one per member" does not exist natively. A group dispel that removes several member auras would call these
 hooks once per member aura it touches.
 
-## 2. Consequence for the generic carriers (UNRESOLVED)
+## 2. Carrier dispellability (DECIDED 2026-09-27: per-aura override)
 
-Pool carriers have **no dispel type** (SpellInfo `Dispel` = 0). By the table above they are **never
-dispellable natively**: no Cleanse, Dispel Magic or Remove Curse removes a converted periodic. They still end
-by expiry, death, cancel, immunity purge (overlap with the effective school mask) and removal effects that do not
-read the dispel mask.
+Pool carriers have no SpellInfo dispel type, so natively they could never be dispelled. Chosen architecture:
+option A, a per-aura dispel type override (`Aura::SetDispelTypeOverride`, mirroring the school override). The
+carrier receives the payload spell's dispel type per instance (a converted Frostbolt is Magic, a converted
+Serpent Sting is Poison, a physical payload without a dispel type stays undispellable). No carrier pool is
+split by dispel type. Consumer audit: [DISPEL_TYPE_OVERRIDE_AUDIT.md](DISPEL_TYPE_OVERRIDE_AUDIT.md).
 
-Options (decision required; none implemented):
-
-| Option | Change | Cost |
-| --- | --- | --- |
-| A. Per-aura dispel override | `Aura::SetDispelTypeOverride` (like the school override), read by `GetDispellableAuraList`, spell steal, `RemoveAurasWithDispelType`, dispel immunity and `GetDispelMask` callers | core change across every dispel consumer; needs its own consumer audit |
-| B. Carrier sub-pools per dispel type | 5 dispel types × pool size | multiplies the ledger range (not recommended) |
-| C. Undispellable by policy | document converted periodics as undispellable | simplest; a gameplay decision |
-
-`Effect.DispelType` exists as a property and is resolved, but no runtime reads it for carriers.
-
-## 3. Desired Ulduar model (engine model + tests only)
+## 3. Ulduar model (engine model + tests; wired for carriers, §4)
 
 | Concept | Rule |
 | --- | --- |
@@ -62,14 +53,19 @@ Options (decision required; none implemented):
 instance, an added stack, a stronger replacement). A pure refresh with identical amount/duration does not
 count, so reapplying cannot push a group to the front of the dispel order.
 
-## 4. Gap
+## 4. Wiring (RUNTIME CODED, 2026-09-27)
 
-| Desired | Native | State |
+| Desired | Implementation | State |
 | --- | --- | --- |
-| LIFO by group | uniform random | NOT WIRED (needs a core selection hook in `EffectDispel`) |
-| Strength Weak/Half/Full | `damage` count | NOT WIRED |
-| Priority | none | NOT WIRED |
-| One reaction per group | one per aura | NOT WIRED |
-| Carriers dispellable | never (no dispel type) | UNRESOLVED (§2) |
+| Ulduar groups never use stock random selection | core: grouped auras (`Aura::SetDispelGroupId`) leave the native list; all groups together are one candidate slot; `ScriptMgr::OnGroupedDispel` resolves it | RUNTIME CODED |
+| Group order: priority, then newest meaningful application | module: `AbilityPeriodicExecutor::ResolveGroupedDispel` → `BuildAuraGroups` + `SelectDispelGroup` | RUNTIME CODED (`DispelPriority` is Normal for every group until a property exists) |
+| Earliest-expiring member first | `PlanDispel` (members by remaining duration) | RUNTIME CODED |
+| Strength | native dispel spells have no strength: **Weak** (1 logical stack) per successful attempt; Half/Full exist in the model for future Ulduar dispels | RUNTIME CODED (Weak) |
+| One reaction per group | grouped carriers never run `OnDispel`/`AfterDispel`; the resolver has one reaction point per group (no reaction property yet) | RUNTIME CODED |
+| Dispel resistance / failure | one `CalcDispelChance` roll per group (displayed member); failure logged in `SMSG_DISPEL_FAILED`; 100% resistance drops the slot without spending a dispel | RUNTIME CODED |
+| Native unrelated auras | unchanged (random, charges, UA/VT reactions) | NATIVE |
+| Meaningful application | a new instance, an added stack or a changed tick amount stamps the group; a pure refresh does not | RUNTIME CODED |
 
-No native behavior is changed in this milestone.
+Fairness between native auras and Ulduar groups: each attempt picks uniformly among native entries plus ONE
+grouped slot, so a target with many Ulduar carriers is not more likely to lose them than a single native
+debuff. All RUNTIME CODED items: REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST.

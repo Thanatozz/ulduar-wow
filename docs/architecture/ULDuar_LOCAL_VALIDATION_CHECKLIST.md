@@ -146,12 +146,30 @@ Command syntax: `.ua lab set <ability> <Property> <op> <value>`; the op is alway
   mask; resistance = lowest of the two; immunity requires both schools. Record the crit chance source (first
   school) for the open decision in [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md).
 
-## Stage L — Dispel (native)
+## Stage L — Dispel
 
-- [ ] A second player carrying your converted DoT casts Cleanse / Dispel Magic on themselves: the carrier is
-  **not** removed (carriers have no dispel type). Record it; this is the documented open decision in
-  [DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md) §2, not a bug to patch here.
-- [ ] Native DoTs (Corruption, Unstable Affliction) dispel as stock, including UA's backlash.
+- [ ] A second player carrying your converted Frostbolt DoT casts Cleanse / Dispel Magic on themselves: one
+  logical stack of the **newest** Ulduar group is removed (earliest-expiring carrier first), the combat log
+  names the carrier spell, and `.ua lab carriers` shows `GroupedDispels` +1.
+- [ ] Two converted abilities on one target (Frostbolt dot, then Fireball dot): the Fireball group (newer)
+  is dispelled first; a pure recast refresh of Frostbolt does not move it to the front, an added stack does.
+- [ ] Root + echo carriers of one ability form one group: one dispel removes one stack from the carrier that
+  expires first, not one per carrier.
+- [ ] A converted physical payload without a dispel type is not dispellable.
+- [ ] Native DoTs (Corruption, Unstable Affliction) dispel as stock, including UA's backlash once.
+- [ ] Dispel resistance: with a dispel-resist aura, failed attempts show "failed to dispel" and the group stays.
+
+## Stage L2 — Periodic policies
+
+- [ ] `Periodic.FinalTick enable 1`, duration 6 s, interval 2.5 s: ticks at 2.5, 5.0 and 6.0 s, the same total
+  as without FinalTick (3 smaller ticks). 6 s / 1 s: still 6 ticks. Dispelling or killing before 6.0 s: no
+  final tick.
+- [ ] `Periodic.ScalingPerStackPct set 50` with AddStackAndRefresh: 2 stacks tick for 1.5x one stack.
+- [ ] `.ua lab set frostbolt Periodic.TickScalingPerStackPct set 50` prints the deprecation notice and acts as
+  ScalingPerStackPct.
+- [ ] `.ua lab set frostbolt Periodic.SnapshotStats disable 0` is rejected by the inspector (ERROR line).
+- [ ] A melee SCHOOL_DAMAGE payload conversion (if available) logs `Reason: OUTCOME_CLASS` and crits x2.
+- [ ] `.ua lab set frostbolt Primary.SchoolMask set 20`: the inspector shows `Frost|Fire` as NOT EXECUTED.
 
 ## Stage M — Channels
 

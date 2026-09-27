@@ -1,27 +1,29 @@
 # Periodic property decisions
 
-Status of the periodic properties that are resolved but not executed, with the decision each one needs.
-None is implemented in this milestone. "Decision" = what the maintainer must choose; "Proposal" = the
-recommended default.
+Decisions for the periodic properties, settled 2026-09-27 (§1, §2, §5). §3 and §4 remain designs.
 
-## 1. Properties
+## 1. Properties (decided 2026-09-27)
 
-| Property | Today | Proposal | Blocker |
-| --- | --- | --- | --- |
-| `Periodic.FinalTick` | RESOLVED ONLY | one extra tick at expiration (native `SPELL_ATTR…` style "tick on remove"), counted in `TickCount` so total output is **preserved** (the pool is split over N+1 ticks) | executor: easy; carrier: needs `AfterEffectRemove` by expire only (not dispel/death) to deal one tick; both must use the same TickCount formula |
-| `Periodic.ScalingPerStackPct` | RESOLVED ONLY | a per-stack **amount** multiplier on top of linear stacking: tick = base × stacks × (1 + pct × (stacks − 1)). Default 0 = today's linear stacking | changes `SyncCarrierAura`'s per-stack amount (native multiplies by stacks); needs a clamp against integer overflow |
-| `Periodic.TickScalingPerStackPct` | RESOLVED ONLY | a per-stack **interval** change (faster ticks per stack) with total output preserved per stack. Decision: keep or drop; it overlaps with haste | amplitude change on a running carrier resets the phase (native `CalculatePeriodic`) |
-| `Periodic.SnapshotStats` | RESOLVED ONLY | see §2 | |
+| Property | Decision | Runtime |
+| --- | --- | --- |
+| `Periodic.FinalTick` | one tick AT expiration only when no regular tick lands there (6 s / 1 s: nothing added; 6 s / 2.5 s: ticks at 2.5, 5.0 and 6.0). The same pool is redistributed over the final TickCount; natural expiry only (not dispel, death, manual removal, immunity purge, logout) | RUNTIME CODED. One formula (`PeriodicTickCount`, `HasFinalTick`, `AdvancePeriodic(…, finalTick)`) for executor and carrier. Carrier: `SyncCarrierAura` rounds MaxDuration up to whole intervals so the native tick cap allows the extra tick, and the carrier script moves the next tick to the remaining duration when it would land after expiration; any removal before expiry cancels it |
+| `Periodic.ScalingPerStackPct` | `StackFactor = 1 + (Stacks − 1) × pct / 100`, default **100** (x2 = 2.0; 50%: x2 = 1.5; 150%: x2 = 2.5). Negative values clamp to 0; the factor is capped (`MaxPeriodicStackFactor`) and the per-stack amount to int32. Logical stacks stay independent of the native uint8 count | RUNTIME (executor ticks and carrier per-stack amount) |
+| `Periodic.TickScalingPerStackPct` | **DEPRECATED / NO NEW USE.** Reconciliation found it was the property the runtime actually read, with exactly the ScalingPerStackPct formula; it never changed tick speed. Its name is now a deprecated alias of `Periodic.ScalingPerStackPct` (commands and presets keep working with a notice); the retired registry entry is not Lab-editable and has no consumer | - |
+| Future `Periodic.TickRatePerStackPct` | "more stacks = faster ticks", if ever wanted, is a new, separately reviewed property; unrelated to haste Essences | not designed |
+| `Periodic.SnapshotStats` | `true` is the only supported value; `false` is rejected by validation (`AbilityResolver`) | see §2 |
 
-## 2. Snapshot policy
+## 2. Snapshot policy (SnapshotStats = true)
 
-| Part | Carrier (native tick) | Executor | Decision |
-| --- | --- | --- | --- |
-| Caster done bonuses (spell power, % done) | snapshot at application/refresh (in the pool) | snapshot | keep snapshot: matches native 3.3.5 DoTs |
-| Crit chance | snapshot at application/refresh (`SetCritChance`) | snapshot | keep |
-| Haste on interval | snapshot at application (`Periodic.CanHaste`) | snapshot | keep |
-| Target taken modifiers | **dynamic per tick** | snapshot at hit | the carrier behavior is the target; the executor is a fallback |
-| `SnapshotStats = false` (dynamic caster stats) | would need re-running done bonuses per tick | same | proposal: not supported; reject in validation until a use case exists |
+| Part | When | Notes |
+| --- | --- | --- |
+| Caster spell power / AP, caster % done | snapshot at application/refresh | in the pool (carrier: pre-taken amount of the payload hit) |
+| Crit chance | snapshot at application/refresh | carrier: `SetCritChance`, highest over the instance's schools |
+| Haste on interval | snapshot at application/refresh | `Periodic.CanHaste` |
+| Resolved Ulduar build | snapshot (immutable `ResolvedAbility`) | |
+| Target taken modifiers, immunity, resistance, absorb | **dynamic per tick** (carrier) | executor fallback: taken modifiers snapshotted at hit (documented executor semantics) |
+
+`SnapshotStats = false` is UNSUPPORTED and rejected. If a future Essence needs dynamic caster stats per tick,
+design a granular `SnapshotPolicy` (per stat group) instead of hidden behavior.
 
 ## 3. Native periodic retiming (Corruption duration/rate)
 
@@ -44,19 +46,16 @@ Not implemented: every retimed native spell needs its own binding and an in-game
 - The school override must also be read by the heal tick (`SpellHealingBonusDone/Taken` school) — a new
   consumer to add to [PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md) when implemented.
 
-## 5. Element property migration (Primary.Element / Effect.Element → SchoolMask)
+## 5. Element -> SchoolMask migration (adopted 2026-09-27)
 
-Today `Primary.Element` / `Effect.Element` are single-value enums (Original, Physical … Arcane). The runtime
-already carries a `SpellSchoolMask`, and carriers accept any non-empty combination.
-
-| Step | Change | Compatibility |
-| --- | --- | --- |
-| 1 | add `Primary.SchoolMask` / `Effect.SchoolMask` (bitmask, 0 = native) | new properties; old ones unchanged |
-| 2 | resolver maps `Element = X` to `SchoolMask = 1 << X` when `SchoolMask` is unset | old Essences resolve identically |
-| 3 | conversions that produce combined schools write the mask; single-element conversions keep writing Element | |
-| 4 | `Element` becomes an alias (like `Primary.Damage` → `Primary.Scaling`); inspector shows the mask | saved builds keep loading |
-| 5 | client descriptor sends the mask; `Element` labels derive from it ("Frostfire" for Frost\|Fire) | client update |
-
-Open question for combined schools: the multi-school decisions in
-[PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md) (crit source, done/taken stacking) must be settled
-before a combined-school conversion ships.
+| Rule | Implementation |
+| --- | --- |
+| `Primary.SchoolMask` / `Effect.SchoolMask` are the future authorities | new registry properties (Identifier, 0..127) |
+| `SchoolMask = 0` means native / original school | default |
+| Unset mask + legacy `Element` → the Element's one-bit mask | `Engine::MigratedSchoolMask` (`Element` order = school bit order), `MigratedEffectSchoolMask` (`EffectElement::Native` = 0) |
+| A legacy enum value is never read as a bitmask | tested (Frost = 4 → mask 16, never mask 4) |
+| Combined conversions write the mask directly | resolved; no direct-hit school adapter yet (inspector: NOT EXECUTED line) |
+| VariantHash includes the final mask | a non-zero mask is hashed; an unset mask is skipped so every existing variant keeps its hash |
+| Inspector label | `Engine::SchoolMaskName`: "Frost", "Frost\|Fire" |
+| Saved builds | unaffected (properties are not persisted; Lab layers hold enum ids in memory) |
+| Client protocol v1 | unchanged (`Element` field); SchoolMask belongs to a future negotiated descriptor revision |

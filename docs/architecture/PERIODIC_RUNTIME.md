@@ -72,6 +72,7 @@ The **tick source** only executes ticks. Each instance has exactly one (`Engine:
 | `CARRIER_DISABLED` | `UlduarAbilities.Periodic.NativeCarrier = 0` |
 | `CARRIER_NOT_LOADED` | a pool row or its script binding is missing (pending SQL 007 not applied); checked at startup for all 2048 rows |
 | `INVALID_SCHOOL` | empty or out-of-range school mask |
+| `OUTCOME_CLASS` | melee/ranged payload: the carriers' MAGIC class would give the wrong crit multiplier ([PERIODIC_DAMAGE_CLASS_AUDIT.md](PERIODIC_DAMAGE_CLASS_AUDIT.md)) |
 | `NO_PRE_TAKEN_BASE` | the core did not record the pre-taken amount (payloads that are not `SPELL_EFFECT_SCHOOL_DAMAGE`, e.g. weapon damage) |
 | `AURA_SLOTS_FULL` | the target has no free visible aura slot (`MAX_AURAS` = 255, unchanged) |
 | `POOL_EXHAUSTED` | all 2048 carriers of this (target, caster) scope are in use |
@@ -289,7 +290,11 @@ not loaded and converted periodics run on the executor.
 | Visible debuff, stacks, duration on the target | server sends them natively; a stock client does not know the carrier spell; dynamic icon/name: CLIENT PATCH REQUIRED |
 | Executor-backed instances (reasons above) | RUNTIME; executor semantics (snapshotted taken mods, block, pushback, no procs) as in the [audit](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4 |
 | Multi-school crit chance / done-taken stacking | stock AzerothCore semantics; Ulduar policy is an open decision ([PERIODIC_SCHOOL_MASK_AUDIT.md](PERIODIC_SCHOOL_MASK_AUDIT.md)) |
-| Presentation groups, dispel strengths / priority | ENGINE MODEL + TESTS; native dispel still picks one aura at random ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| Dispel of carriers | RUNTIME CODED: per-aura dispel type (payload's), grouped dispel with LIFO groups, earliest-expiring member, Weak strength, one reaction per group ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| Presentation groups to the client | ENGINE MODEL + TESTS; no producer yet |
+| Multi-school instances | Ulduar policy on the taken side and crit chance ([MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)) |
 | Healing conversion (HoT) | RESOLVED ONLY (separate future family) |
 | Retiming native periodic auras (Corruption duration/rate) | RESOLVED ONLY ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
-| `Periodic.FinalTick`, `Periodic.ScalingPerStackPct`, `Periodic.TickScalingPerStackPct`, `Periodic.SnapshotStats` | RESOLVED ONLY; decisions in [PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md) |
+| `Periodic.FinalTick`, `Periodic.ScalingPerStackPct` | RUNTIME CODED ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
+| `Periodic.TickScalingPerStackPct` | DEPRECATED alias of ScalingPerStackPct |
+| `Periodic.SnapshotStats = false` | rejected by validation |

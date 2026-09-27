@@ -25,7 +25,7 @@ Status legend:
 | Path | Code | Status |
 | --- | --- | --- |
 | Tick immunity | `HandlePeriodicDamageAurasTick`: `IsImmunedToDamage(caster, spellInfo, schoolMask)` | PATCHED |
-| Taken modifiers (% and flat) | `SpellDamageBonusTaken(…, DOT, stack, schoolMask)` | PATCHED |
+| Taken modifiers (% and flat) | `SpellDamageBonusTaken(…, DOT, stack, schoolMask)`; for a multi-bit override mask, computed per school bit and the best result is kept ([MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)) | PATCHED (Ulduar policy) |
 | Done modifiers | `SpellDamageBonusDone(…, schoolMask)`: only for DynamicObject auras. Carriers are unit auras; their amount is set by the module (done bonuses already in the pre-taken pool) | PATCHED (dynobj path) / SUPPORTED |
 | Armor | `IsDamageReducedByArmor(schoolMask, …)`: armor only if the Physical bit is set | PATCHED |
 | Crit bonus | `SpellCriticalDamageBonus(…, schoolMask)`: crit-damage mods by misc mask | PATCHED |
@@ -39,11 +39,19 @@ Status legend:
 | School-filtered procs | `SpellMgr` 900: `eventInfo.GetSchoolMask() & procEntry.SchoolMask` (overlap) | NATIVE ALREADY OK |
 | Apply-time immunity | `Unit::AddAura` → `IsImmunedToSpell(carrier SpellInfo)`: the generic carrier row uses SchoolMask 127, refused only by full immunity. The module pre-checks `IsImmunedToSpell(carrier, mask, caster, instanceSchool)` | SUPPORTED |
 | Immunity-driven aura removal | `HandleAuraModSchoolImmunity` with `SPELL_ATTR1_IMMUNITY_PURGES_EFFECT` removes harmful auras whose school **overlaps** the immunity. With SpellInfo school 127, any purging immunity would have stripped every carrier; the loop now uses `GetEffectiveSchoolMask()` (e.g. a fire-only purge removes a Fire or Frost\|Fire carrier, not a Frost one) | PATCHED |
+| Immunity purge in `SpellInfo::ApplyAllSpellImmunitiesTo` (school immunity with `IMMUNITY_PURGES_EFFECT`) | used `auraSpellInfo->GetSchoolMask()`: missed by the first audit, same overlap problem as above | PATCHED (2026-09-27) |
+| Aura target validation `Aura::UpdateTargetMap` | `IsImmunedToSpell(spellInfo, caster)` used the SpellInfo school (127) | PATCHED (2026-09-27): effective school, plus effective dispel-type immunity |
+| Cast-while-controlled check (`Spell::CheckCast`) | caster aura school vs granted school immunity | PATCHED (2026-09-27) |
 | Aura scripts on the carrier | `aura_ulduar_periodic_carrier` reads no school | NATIVE ALREADY OK |
-| Crit multiplier by DmgClass | `SpellCriticalDamageBonus` uses the carrier's DmgClass (MAGIC for the pool), so physical instances get the spell crit multiplier, not melee ×2 (Rend-like) | UNRESOLVED (policy) |
+| Crit multiplier by DmgClass | `SpellCriticalDamageBonus` uses the carrier's DmgClass (MAGIC). Resolved by keeping melee/ranged payloads off carriers (`OUTCOME_CLASS` executor fallback, [PERIODIC_DAMAGE_CLASS_AUDIT.md](PERIODIC_DAMAGE_CLASS_AUDIT.md)) | RESOLVED (narrow) |
 | Other periodic types (heal, leech, funnel) | still read SpellInfo; not used by damage carriers | NATIVE ALREADY OK (out of scope) |
 
-## 3. Multi-school behavior: current AzerothCore vs possible Ulduar policy
+## 3. Multi-school behavior: current AzerothCore vs Ulduar policy
+
+**Decided 2026-09-27:** the Ulduar policy is in [MULTI_SCHOOL_DAMAGE_POLICY.md](MULTI_SCHOOL_DAMAGE_POLICY.md)
+(highest crit chance, single best school-specific done/taken modifier, lowest resistance, immunity needs all
+schools). It applies to aura instances with a school override only. The table below is the audit of stock
+behavior that the decision was based on; its last column is historical.
 
 Dual element is **one** event: one amount, one crit, one mitigation, one pool, a multi-bit
 `SpellSchoolMask`. No element shares. The override lets the native tick see the full mask. The semantics

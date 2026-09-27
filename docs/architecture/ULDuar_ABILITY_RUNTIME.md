@@ -102,9 +102,12 @@ chain and the DoT ticks.
 | Periodic carrier (native `SPELL_AURA_PERIODIC_DAMAGE`, generic pool Spell 310272-312319, RESERVED in the ledger): per-instance school, periodic log and procs, dynamic taken mods, no block, no pushback, stacks/duration on the aura | RUNTIME CODED / REQUIRES SQL 007 / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([PERIODIC_RUNTIME.md](PERIODIC_RUNTIME.md)). The per-school carriers 141344-141357 are HISTORICAL (tombstoned) |
 | Dynamic aura icon/name per ability | CLIENT PATCH REQUIRED (`ulduar-client-patch`) |
 | Separate echo lineages, native IndependentDuration, pool allocator + diagnostics | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST |
-| Presentation groups, dispel strengths / priority | ENGINE MODEL + TESTS; not wired ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)); carriers are undispellable natively |
+| Carrier dispel (per-aura dispel type, grouped LIFO dispel, one reaction per group) | RUNTIME CODED / REQUIRES LOCAL BUILD / REQUIRES IN-GAME TEST ([DISPEL_PRIORITY_AUDIT.md](DISPEL_PRIORITY_AUDIT.md)) |
+| Presentation groups to the client | ENGINE MODEL + TESTS |
 | Executor-backed periodic (carrier disabled or not loaded, invalid school, no pre-taken base, pool exhausted, aura slots full) | RUNTIME with executor semantics ([PERIODIC_DAMAGE_PIPELINE_AUDIT.md](PERIODIC_DAMAGE_PIPELINE_AUDIT.md) §4) |
-| `Periodic.FinalTick`, `ScalingPerStackPct`, `TickScalingPerStackPct`, `SnapshotStats`; native periodic retiming; healing conversion | RESOLVED ONLY ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
+| `Periodic.FinalTick`, `ScalingPerStackPct` | RUNTIME CODED; `TickScalingPerStackPct` DEPRECATED alias; `SnapshotStats = false` rejected ([PERIODIC_PROPERTY_DECISIONS.md](PERIODIC_PROPERTY_DECISIONS.md)) |
+| `Primary.SchoolMask` / `Effect.SchoolMask` | RESOLVED ONLY (in VariantHash and inspector; no direct-hit school adapter) |
+| Native periodic retiming; healing conversion | RESOLVED ONLY |
 | Echo: `Chance`, `Scaling`, `Delay`, `DelayIncrease`, `MultiEcho`, `MaxEchoCount`, `MaxChainDepth`, decay, `CanCrit`, `CanProc`, `CanEchoPeriodic` | RUNTIME |
 | `Echo.TargetRule` other than SameTarget, `Echo.Range`, `Echo.CanEchoTriggerEcho` | RESOLVED ONLY |
 | Conditions on `Primary.Scaling` | RUNTIME; other conditional properties RESOLVED ONLY |
